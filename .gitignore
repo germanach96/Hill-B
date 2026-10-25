@@ -1,0 +1,5 @@
+# Local design-review output (screenshots, inspector runs, static snapshots)
+.impeccable/review/
+.impeccable/hook.cache.json
+.taste-skill/
+node_modules/
