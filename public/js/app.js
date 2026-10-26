@@ -1,7 +1,8 @@
 // The app reads its albums from /data/albums.json, written by tools/sync.mjs (run by Claude).
-// It never talks to Spotify: the only link to Spotify is the "Abrir en Spotify" button.
+// It never talks to Spotify: the only link to Spotify is lifting an album card, which opens it there.
 import { store } from './store.js';
 import { createWheel } from './wheel.js';
+import { createPager } from './pager.js';
 import { sessionSeconds, pickAlbums, formatDuration, describeDelta, formatPace } from './recommend.js';
 
 const $ = (id) => document.getElementById(id);
@@ -12,12 +13,12 @@ const PREFS_KEY = 'hillb.prefs';
 const COLORS_KEY = 'hillb.colors';
 const DATA_URL = '/data/albums.json';
 
-// Wheel ranges: time 0:05 to 5:59, distance 1,0 to 60,9 km, intensity 3:00 to 9:00 per km.
+// Wheel ranges: time 0:05 to 5:59, distance 1,0 to 60,9 km, pace 3:00 to 9:00 per km in 15 s steps.
 const LIMITS = {
   time: { min: 5, maxHours: 5 },
   distance: { min: 1, maxKm: 60 },
 };
-const PACE = { min: 180, max: 540, step: 5 };
+const PACE = { min: 180, max: 540, step: 15 };
 const RESULT_COUNT = 5;
 
 const prefs = { mode: 'time', minutes: 45, km: 10, pace: 330, ...store.get(PREFS_KEY) };
@@ -27,7 +28,7 @@ prefs.km = Math.min(LIMITS.distance.maxKm + 0.9, Math.max(LIMITS.distance.min, M
 prefs.pace = Math.min(PACE.max, Math.max(PACE.min, Math.round(prefs.pace / PACE.step) * PACE.step));
 
 // library.status: loading | ready | empty | error
-const library = { status: 'loading', name: 'The Magic Bus', albums: [], syncedAt: null };
+const library = { status: 'loading', name: 'The Magic Bus', albums: [] };
 const colors = store.get(COLORS_KEY) ?? {};
 
 /* ---------- Views ---------- */
@@ -71,7 +72,7 @@ const two = (n) => String(n).padStart(2, '0');
 
 const major = createWheel($('wheel-major'), { label: 'Horas', onChange: onWheel });
 const minor = createWheel($('wheel-minor'), { label: 'Minutos', onChange: onWheel });
-const paceWheel = createWheel($('pace-wheel'), { axis: 'x', label: 'Intensidad, minutos por kilómetro', onChange: onPace });
+const paceWheel = createWheel($('pace-wheel'), { axis: 'x', label: 'Ritmo, minutos por kilómetro', onChange: onPace });
 
 /** Fills both wheels for the current mode and centres them on the saved value. */
 function renderWheels() {
@@ -121,7 +122,7 @@ function renderSession() {
   seg.dataset.mode = prefs.mode;
   for (const b of seg.querySelectorAll('.segment')) b.setAttribute('aria-checked', String(b.dataset.mode === prefs.mode));
   $('picker-sep').textContent = isTime ? ':' : ',';
-  $('picker-unit').textContent = isTime ? 'horas y minutos' : 'kilómetros';
+  $('picker-unit').textContent = isTime ? 'horas y minutos' : 'KM';
   $('intensity').hidden = isTime;
   $('intensity-total').textContent = `${formatDuration(sessionSeconds(prefs))} de carrera`;
 }
@@ -156,7 +157,6 @@ document.querySelector('.segmented').addEventListener('keydown', (e) => {
   document.querySelector(`.segment[data-mode="${next}"]`).focus();
 });
 
-$('reroll').addEventListener('click', () => renderResults({ entering: true, how: 'more' }));
 
 $('find').addEventListener('click', () => {
   show('results', 1, () => renderResults({ entering: true }));
@@ -164,14 +164,11 @@ $('find').addEventListener('click', () => {
 
 /* ---------- Library: the albums shipped with the app ---------- */
 
-const dateFormat = new Intl.DateTimeFormat('es', { day: 'numeric', month: 'long' });
-
 function renderLibrary() {
   const el = $('library');
   switch (library.status) {
     case 'ready':
-      el.textContent = `${library.name}: ${library.albums.length.toLocaleString('es')} discos enteros`
-        + (library.syncedAt ? `, leídos el ${dateFormat.format(new Date(library.syncedAt))}` : '');
+      el.textContent = ''; // nothing to say when the albums are there: the line only speaks up when they are not
       break;
     case 'empty':
       el.textContent = 'Todavía no hay discos cargados.';
@@ -196,7 +193,6 @@ async function loadLibrary() {
     const data = await res.json();
     library.name = data.playlist?.name || library.name;
     library.albums = data.albums ?? [];
-    library.syncedAt = data.syncedAt ?? null;
     library.status = library.albums.length ? 'ready' : 'empty';
   } catch {
     library.status = 'error';
@@ -212,10 +208,9 @@ function libraryChanged() {
 /* ---------- Results ---------- */
 
 let renderedKey = '';
-let observer = null;
 
-// The draw for the current search: kept across re-renders. "Buscar discos" draws again avoiding the
-// set just shown; "Otros 5" draws again avoiding everything shown for this run, looking further out if needed.
+// The draw for the current search: kept across re-renders. Start draws again avoiding the set just
+// shown; "other five" draws again avoiding everything shown for this run, looking further out if needed.
 let draw = { target: null, albums: null, picks: [], reach: 0, seen: [] };
 
 let counted = { albums: null, records: 0 };
@@ -223,6 +218,8 @@ function recordCount(albums) {
   if (counted.albums !== albums) counted = { albums, records: new Set(albums.map((a) => a.group ?? a.id)).size };
   return counted.records;
 }
+// Five others exist only when the library holds more records than the ones on screen.
+const canMore = () => library.status === 'ready' && recordCount(library.albums) > draw.picks.length;
 
 function drawAlbums(target, how) {
   const sameRun = draw.target === target && draw.albums === library.albums;
@@ -234,18 +231,23 @@ function drawAlbums(target, how) {
   return draw;
 }
 
+const pager = createPager($('pager'), $('deck'), {
+  onIndex: (i) => setActive(i),
+  onBack: goBack,
+  onMore: () => renderResults({ entering: true, how: 'more' }),
+  canMore,
+  onOpen: (i) => openInSpotify(draw.picks[i]?.album),
+});
+
 function renderResults({ entering = false, how = entering ? 'search' : 'keep' } = {}) {
   const target = sessionSeconds(prefs);
   const isTime = prefs.mode === 'time';
   const ready = library.status === 'ready';
-  const { picks: ranked, reach } = ready ? drawAlbums(target, how) : { picks: [], reach: 0 };
+  const { picks: ranked } = ready ? drawAlbums(target, how) : { picks: [] };
 
-  $('results-title').textContent = isTime ? `Para ${formatMinutes(prefs.minutes)}` : `Para ${formatKm(prefs.km)} km`;
-  const count = ranked.length === 1 ? 'Un disco' : `${ranked.length} discos`;
-  const range = `de ${Math.max(0, Math.round((target - reach) / 60))} a ${Math.round((target + reach) / 60)}\u00a0min`;
-  // The run's own length is on every card ("Tu salida"): the subtitle says where the albums come from.
-  $('results-sub').textContent = ranked.length ? `${count} ${range}` : `De ${library.name}`;
-  $('reroll').hidden = !ranked.length || recordCount(library.albums) <= ranked.length;
+  // No visible title: the run is on every card ("Tu salida"). Screen readers still get one.
+  $('results-title').textContent = isTime ? `Discos para ${formatMinutes(prefs.minutes)}` : `Discos para ${formatKm(prefs.km)} km`;
+  $('reroll').hidden = !canMore();
 
   const state = $('results-state');
   const deck = $('deck');
@@ -254,16 +256,16 @@ function renderResults({ entering = false, how = entering ? 'search' : 'keep' } 
     if (renderedKey !== 'loading') {
       renderedKey = 'loading';
       deck.replaceChildren(...[0, 1, 2].map(skeletonCard));
-      $('ticks').replaceChildren(...[0, 1, 2, 3, 4].map(() => tick()));
     }
     state.hidden = true;
+    $('pager').hidden = false;
     return;
   }
 
   if (!ranked.length) {
     renderedKey = library.status;
     deck.replaceChildren();
-    $('ticks').replaceChildren();
+    $('pager').hidden = true;
     state.hidden = false;
     state.innerHTML = library.status === 'error'
       ? '<p>No se pudieron abrir los discos de la app.</p><button class="btn btn-ink" type="button" id="retry">Reintentar</button>'
@@ -274,25 +276,19 @@ function renderResults({ entering = false, how = entering ? 'search' : 'keep' } 
 
   const key = `${target}|${ranked.map((r) => r.album.id).join(',')}`;
   state.hidden = true;
+  $('pager').hidden = false;
   if (key === renderedKey && !entering) return;
   renderedKey = key;
 
   deck.replaceChildren(...ranked.map((r, i) => albumCard(r, i, target, ranked.length)));
-  $('ticks').replaceChildren(...ranked.map(() => tick()));
-  deck.scrollLeft = 0;
-  watchActive(deck);
-  setActive(0);
+  pager.reset();
 
-  deck.classList.remove('is-entering');
+  // A new search rises in; five others come in from the right, where the pull came from.
+  const enter = how === 'more' ? 'is-more' : 'is-entering';
+  deck.classList.remove('is-entering', 'is-more');
   void deck.offsetWidth;
-  deck.classList.add('is-entering');
-  setTimeout(() => deck.classList.remove('is-entering'), 460 + ranked.length * 60 + 80);
-}
-
-function tick() {
-  const t = document.createElement('span');
-  t.className = 'tick';
-  return t;
+  deck.classList.add(enter);
+  setTimeout(() => deck.classList.remove(enter), 460 + ranked.length * 60 + 80);
 }
 
 function skeletonCard(i) {
@@ -300,15 +296,16 @@ function skeletonCard(i) {
   li.className = 'card is-skeleton';
   li.style.setProperty('--i', i);
   li.setAttribute('aria-hidden', 'true');
-  li.innerHTML = `<div class="card-inner"><span class="sk sk-cover"></span><span class="sk sk-title"></span>
-    <span class="sk sk-meta"></span><span class="sk sk-time"></span><span class="sk sk-meter"></span></div>`;
+  li.innerHTML = `<div class="card-inner"><div class="cover-box"><span class="sk sk-cover"></span></div>
+    <div class="card-head"><span class="sk sk-title"></span><span class="sk sk-meta"></span></div>
+    <div class="card-run"><span class="sk sk-time"></span><span class="sk sk-meter"></span></div></div>`;
   return li;
 }
 
 function albumCard({ album, duration, delta }, i, target, count) {
   const scale = Math.max(duration, target);
   const li = document.createElement('li');
-  li.className = 'card';
+  li.className = duration >= 3600 ? 'card is-long' : 'card';
   li.style.setProperty('--i', i);
   li.style.setProperty('--album', (duration / scale).toFixed(4));
   li.style.setProperty('--run', (target / scale).toFixed(4));
@@ -322,27 +319,24 @@ function albumCard({ album, duration, delta }, i, target, count) {
 
   li.innerHTML = `
     <div class="card-inner">
-      <img class="cover" alt="Portada de ${escapeAttr(album.name)}" width="640" height="640"
-        ${album.image ? `src="${escapeAttr(album.image)}"` : ''} crossorigin="anonymous" decoding="async" ${i > 1 ? 'loading="lazy"' : ''}>
-      <h2 class="card-title">${escapeHtml(album.name)}</h2>
-      <p class="card-meta">${escapeHtml(artists)}${album.year ? ` <span>${album.year}</span>` : ''}</p>
+      <div class="cover-box">
+        <img class="cover" alt="Portada de ${escapeAttr(album.name)}" width="640" height="640" draggable="false"
+          ${album.image ? `src="${escapeAttr(album.image)}"` : ''} crossorigin="anonymous" decoding="async" ${i > 1 ? 'loading="lazy"' : ''}>
+      </div>
+      <div class="card-head">
+        <h2 class="card-title">${escapeHtml(album.name)}</h2>
+        <p class="card-meta">${escapeHtml(artists)}${album.year ? ` <span>${album.year}</span>` : ''}</p>
+      </div>
       <div class="card-run">
-        <div class="card-time-row">
-          <span class="card-time" data-seconds="${duration}">${formatDuration(duration)}</span>
-          <span class="card-delta">${describeDelta(delta)}</span>
-        </div>
+        <span class="card-time" data-seconds="${duration}">${formatDuration(duration)}</span>
+        <span class="card-delta">${describeDelta(delta)}</span>
         <div class="meter" role="img" aria-label="El disco dura ${formatDuration(duration)}; tu salida, ${formatDuration(target)}">
           <span class="meter-fill"></span><span class="meter-run"></span>
         </div>
         <div class="meter-legend"><span>Disco</span><span>Tu salida ${formatDuration(target)}</span></div>
       </div>
       <p class="card-songs">En ${escapeHtml(library.name)}: <strong>${songs.join(', ')}</strong>${more}</p>
-      <div class="card-open">
-        <a class="btn" href="${escapeAttr(album.url)}" target="_blank" rel="noopener">
-          <svg class="btn-icon" aria-hidden="true"><use href="#i-spotify"/></svg>
-          Abrir en Spotify
-        </a>
-      </div>
+      <a class="sr-only" href="${escapeAttr(album.url)}" target="_blank" rel="noopener">Abrir ${escapeHtml(album.name)} en Spotify</a>
     </div>`;
 
   const img = li.querySelector('img');
@@ -360,24 +354,46 @@ function albumCard({ album, duration, delta }, i, target, count) {
   return li;
 }
 
-function watchActive(deck) {
-  observer?.disconnect();
-  observer = new IntersectionObserver((entries) => {
-    for (const e of entries) {
-      if (e.isIntersecting) setActive([...deck.children].indexOf(e.target));
-    }
-  }, { root: deck, threshold: 0.6 });
-  for (const card of deck.children) observer.observe(card);
-}
-
 function setActive(index) {
   const cards = [...$('deck').children];
   const card = cards[index];
   if (!card) return;
   cards.forEach((c, i) => c.classList.toggle('is-active', i === index));
+  if (card.classList.contains('is-skeleton')) return;
   if (!card.classList.contains('is-seen')) countUp(card);
   card.classList.add('is-seen');
-  [...$('ticks').children].forEach((t, i) => t.classList.toggle('is-on', i === index));
+}
+
+/**
+ * Lifting a card opens the album in the Spotify app (spotify: link). If the app did not take over
+ * (the page is still in front and focused 1.5 s later), the web player opens in a new tab: the app
+ * itself never navigates away, so coming back finds the same cards. On a computer, a tab at once.
+ * A test, or anything else, can take the request over by cancelling the "hillb:open" event.
+ */
+function openInSpotify(album) {
+  if (!album) return;
+  const uri = `spotify:album:${album.id}`;
+  const go = new CustomEvent('hillb:open', { detail: { uri, url: album.url }, cancelable: true });
+  if (!window.dispatchEvent(go)) return;
+  if (!matchMedia('(pointer: coarse)').matches) {
+    window.open(album.url, '_blank', 'noopener');
+    return;
+  }
+  const fallback = setTimeout(() => {
+    stop();
+    if (document.visibilityState === 'visible' && document.hasFocus()) window.open(album.url, '_blank', 'noopener');
+  }, 1500);
+  const stop = () => {
+    clearTimeout(fallback);
+    removeEventListener('blur', stop);
+    removeEventListener('pagehide', stop);
+    document.removeEventListener('visibilitychange', stop);
+  };
+  // Any sign that Spotify (or its "open in Spotify?" prompt) took the front cancels the fallback.
+  addEventListener('blur', stop);
+  addEventListener('pagehide', stop);
+  document.addEventListener('visibilitychange', stop);
+  location.href = uri;
 }
 
 /** The running time counts up while the meter fills: same 600 ms, same strong ease-out. */
@@ -476,7 +492,11 @@ function escapeHtml(s = '') {
 const escapeAttr = escapeHtml;
 
 // The wheels lost their scroll position while hidden: centre them again on the way back.
-$('back').addEventListener('click', () => show('session', -1, () => { major.refresh(); minor.refresh(); paceWheel.refresh(); }));
+function goBack() {
+  show('session', -1, () => { major.refresh(); minor.refresh(); paceWheel.refresh(); });
+}
+$('back').addEventListener('click', goBack);
+$('reroll').addEventListener('click', () => renderResults({ entering: true, how: 'more' }));
 
 /* ---------- Boot ---------- */
 

@@ -91,7 +91,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 
 /* Display voice: Archivo at its narrowest and heaviest, the Nike goal-screen register. */
-.results-title,
 .btn-start,
 .card-title,
 .card-time {
@@ -198,7 +197,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 @media (hover: hover) and (pointer: fine) {
   .btn-start:hover { background: #262626; }
   .btn-ink:hover { background: #262626; }
-  .back:hover, .reroll:hover { background: var(--surface-press); }
 }
 
 /* ---------- Session ---------- */
@@ -236,8 +234,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
    through an invisible window; the values around it are never shown. The wheel reaches past the
    window (--reach) so the whole block takes the thumb, but only the window is painted. */
 .picker {
-  /* The figure fills the width: "60,9" is about 1.8 em wide with its margins, and the height keeps it in check. */
-  --fig: clamp(120px, min(24svh, calc((100vw - 2 * var(--pad)) / 1.8)), 240px);
+  /* The figure fills the width: "60,9" is about 2 em wide with its margins (measured), plus a little slack, and the height keeps it in check. */
+  --fig: clamp(120px, min(24svh, calc((100vw - 2 * var(--pad)) / 2.1)), 240px);
   --item: calc(var(--fig) * 0.84); /* the digits stand 0.72 em tall */
   --reach: clamp(24px, 5svh, 48px);
   position: relative;
@@ -285,6 +283,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .picker-sep {
   position: relative;
   font-size: var(--fig);
+  /* Its own room on both sides, so a slanted 0 never bites the ":" whatever the browser does with
+     the tracking after the last figure. */
+  padding-inline: 0.07em;
 }
 .picker-unit {
   margin: 10px 0 0;
@@ -356,6 +357,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   text-wrap: balance;
   font-variant-numeric: tabular-nums;
 }
+.library:empty { display: none; } /* with the albums in, the screen is the wheels and START only */
 .library a,
 .link {
   color: var(--ink);
@@ -385,111 +387,111 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 /* ---------- Results ---------- */
 
-.results-head {
-  display: grid;
-  grid-template-columns: 44px 1fr auto;
-  align-items: center;
-  gap: 12px;
-  margin-top: 4px;
+/* The results are one phone screen, always: the wordmark and the cards, nothing to scroll. */
+html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden; }
+.view-results { min-height: 0; }
+
+.pager {
+  --gap: 10px;
+  /* A card is the screen less the side margins: the neighbours show 10px, enough to say "more". */
+  --card-w: calc(100cqw - var(--pad) * 2);
+  container: pager / inline-size;
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  margin: 0 calc(var(--pad) * -1);
+  padding: 8px 0 calc(var(--pad) + env(safe-area-inset-bottom, 0px));
+  touch-action: none; /* every drag here is ours: sideways between cards, up to Spotify */
+  /* A lifted card slides under the top edge instead of over the wordmark. */
+  overflow: clip;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  outline: none;
 }
-.back {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
+.pager:focus-visible .card.is-active { outline: 3px solid var(--ink); outline-offset: 3px; }
+.deck {
+  list-style: none;
+  display: flex;
+  gap: var(--gap);
+  height: 100%;
+  margin: 0 0 0 var(--pad);
+  padding: 0;
+  will-change: transform;
+}
+
+/* What letting go will do, revealed by the pull: back past the first card, five others past the
+   last, Spotify under a lifted card. Surface circles with an ink icon, inked (volt icon) once letting go acts. */
+.pull {
+  position: absolute;
+  z-index: 0;
   display: grid;
   place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
   background: var(--surface);
-  transition: transform 140ms var(--ease-out), background-color 140ms ease;
+  color: var(--ink);
+  opacity: 0;
+  transform: scale(0.8);
+  pointer-events: none;
 }
-.back svg { width: 20px; height: 20px; }
-.back:active { transform: scale(0.92); }
-.reroll {
-  height: 44px;
-  padding: 0 16px 0 14px;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--surface);
-  font-size: 16px;
-  font-weight: 700;
-  white-space: nowrap;
-  transition: transform 140ms var(--ease-out), background-color 140ms ease;
-}
-.reroll svg { width: 18px; height: 18px; flex: none; }
-.reroll:active { transform: scale(0.95); background: var(--surface-press); }
-/* Narrow phones: the title keeps one line and the button becomes a circle like "back"; the label stays for screen readers. */
-@media (max-width: 359px) {
-  .reroll { width: 44px; padding: 0; justify-content: center; }
-  .reroll-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-}
-.results-title { margin: 0; font-size: 2rem; line-height: 1; }
-.results-sub { margin: 2px 0 0; font-size: 15px; color: var(--muted); }
-
-.ticks {
-  display: flex;
-  gap: 4px;
-  margin: 16px 0 12px;
-}
-.tick {
-  flex: 1;
-  height: 4px;
-  border-radius: 2px;
-  background: var(--surface-press);
-  transition: background-color 200ms ease;
-}
-.tick.is-on { background: var(--ink); }
-
-.deck {
-  --card-w: min(78vw, 376px);
-  list-style: none;
-  margin: 0 calc(var(--pad) * -1);
-  padding: 4px max(var(--pad), calc((100% + var(--pad) * 2 - var(--card-w)) / 2)) 24px;
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: var(--card-w);
-  gap: 12px;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-}
-.deck::-webkit-scrollbar { display: none; }
-/* In the wider desktop column the deck ends at the column edge: fade the neighbours out there. */
-@media (min-width: 520px) {
-  /* taste-skill-ignore: an alpha mask on the deck edges, not a colour fill */
-  .deck { mask-image: linear-gradient(to right, transparent, #000 32px, #000 calc(100% - 32px), transparent); } /* taste-skill-ignore */
-}
+.pull svg { width: 22px; height: 22px; }
+.pull.is-armed { background: var(--ink); color: var(--volt); }
+.pull-back { left: 8px; top: calc(50% - 24px); }
+.pull-more { right: 8px; top: calc(50% - 24px); }
+.pull-open { left: calc(50% - 24px); bottom: calc(env(safe-area-inset-bottom, 0px) + 6px); }
+.deck { position: relative; z-index: 1; }
 
 .card {
-  scroll-snap-align: center;
-  scroll-snap-stop: always;
+  container: card / size;
+  flex: 0 0 var(--card-w);
   border-radius: var(--radius-card);
   background: var(--card-bg, var(--surface));
   color: var(--card-ink, var(--ink));
-  transition: background-color 300ms ease, color 300ms ease;
+  transform: scale(0.95);
+  /* Neighbours shrink towards the card in front, so their 10px edge keeps showing beside it. */
+  transform-origin: right center;
+  opacity: 0.8;
+  transition: background-color 300ms ease, color 300ms ease, opacity 300ms ease,
+    transform 420ms var(--ease-drawer);
 }
+.card.is-active { transform: none; opacity: 1; }
+.card.is-active ~ .card { transform-origin: left center; }
 
+/* Four groups (cover, name, run, songs) share the card's spare height evenly, so a tall phone
+   never shows one hollow band in the middle. */
 .card-inner {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   height: 100%;
   padding: 16px 16px 18px;
 }
 
+/* The cover is as wide as the card and stays square; on a short phone it gives up height (and
+   so width) instead of pushing the card past the screen. */
+.cover-box {
+  flex: 0 1 auto;
+  width: 100%;
+  aspect-ratio: 1;
+  min-height: 72px;
+  container-type: size;
+}
 .cover {
   display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1;
+  width: min(100cqw, 100cqh);
+  height: min(100cqw, 100cqh);
   border-radius: var(--radius-cover);
   background: rgb(0 0 0 / 0.08);
   object-fit: cover;
+  pointer-events: none;
 }
 
+.card-head { margin-top: 14px; }
 .card-title {
-  margin: 16px 0 0;
-  font-size: 2rem;
+  margin: 0;
+  font-size: clamp(2rem, 5.5cqh, 3rem); /* grows with a tall card, like the running time */
   line-height: 0.95;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -507,10 +509,17 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 .card-meta span { opacity: 0.78; font-weight: 500; }
 
-.card-run { margin-top: 18px; }
-.card-time-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-.card-time { font-size: 3.25rem; line-height: 0.9; }
-.card-delta { font-size: 15px; font-weight: 700; text-align: right; }
+/* The running time is as big as the card allows on both axes: "45:56" is about 2.7 em wide in this
+   face, "1:02:03" about 3.6 em; the height share keeps it from eating the cover on a short phone. */
+.card-run { margin-top: 14px; }
+.card-time {
+  display: block;
+  font-size: max(3.25rem, min(17cqh, calc((100cqi - 32px) / 2.75)));
+  line-height: 0.85;
+}
+.card.is-long .card-time { font-size: max(3rem, min(17cqh, calc((100cqi - 32px) / 3.65))); }
+/* The difference always has its own line under the time: the same place on every card. */
+.card-delta { display: block; margin-top: 6px; font-size: 15px; font-weight: 700; white-space: nowrap; }
 
 /* The signature: the album's running time drawn to scale against the run. */
 .meter {
@@ -553,7 +562,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 
 .card-songs {
-  margin: 16px 0 0;
+  margin: 14px 0 0;
   font-size: 16px;
   line-height: 1.4;
   display: -webkit-box;
@@ -563,29 +572,43 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 .card-songs strong { font-weight: 700; }
 
-.card-open {
-  margin-top: auto;
-  padding-top: 18px;
+/* Short screens (a small phone, landscape) give up words before the cover gets too small. */
+@container card (max-height: 560px) { .card-songs { display: none; } }
+@container card (max-height: 440px) { .meter-legend, .card-meta { display: none; } .card-title { -webkit-line-clamp: 1; } }
+
+/* The swipes as buttons, for keyboards: invisible until focused, then an ink pill over the deck. */
+.focus-show:focus-visible {
+  position: fixed;
+  z-index: 5;
+  top: calc(env(safe-area-inset-top, 0px) + 8px);
+  right: var(--pad);
+  width: auto;
+  height: 44px;
+  margin: 0;
+  padding: 0 18px;
+  clip: auto;
+  overflow: visible;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--volt);
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
 }
-.card-open .btn {
-  min-height: 52px;
-  font-size: 17px;
-  background: var(--card-ink, var(--ink));
-  color: var(--card-bg, var(--volt));
-}
-.card-open .btn-icon { width: 20px; height: 20px; }
 
 /* Skeleton: the final layout with flat blocks at their real size, no shimmer. */
 .card.is-skeleton { background: var(--surface); }
 .sk { display: block; border-radius: 6px; background: var(--surface-press); }
-.sk-cover { aspect-ratio: 1; border-radius: var(--radius-cover); }
+.sk-cover { width: min(100cqw, 100cqh); height: min(100cqw, 100cqh); border-radius: var(--radius-cover); }
 .sk-title { height: 30px; width: 80%; margin-top: 16px; }
 .sk-meta { height: 16px; width: 55%; margin-top: 10px; }
 .sk-time { height: 40px; width: 40%; margin-top: 18px; }
 .sk-meter { height: 12px; width: 100%; margin-top: 12px; }
 
 .state {
-  margin: 8px 0 0;
+  margin: 4px 0 0;
   padding: 20px;
   border-radius: 20px;
   background: var(--surface);
@@ -605,17 +628,13 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   from { opacity: 0; transform: translateY(28px) scale(0.97); }
 }
 
-/* Neighbours step back as they leave the centre: scroll-driven, no script. */
-@supports (animation-timeline: view()) {
-  .card {
-    animation: focus linear both;
-    animation-timeline: view(inline);
-  }
-  @keyframes focus {
-    0%   { transform: scale(0.95); opacity: 0.8; }
-    50%  { transform: scale(1);    opacity: 1; }
-    100% { transform: scale(0.95); opacity: 0.8; }
-  }
+/* Five others come in from the right, where the pull came from. */
+.deck.is-more .card-inner {
+  animation: in-right 420ms var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 50ms);
+}
+@keyframes in-right {
+  from { opacity: 0; transform: translateX(40px); }
 }
 
 /* View changes slide along the flow: forward from the right, back from the left. */
@@ -626,8 +645,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 @media (prefers-reduced-motion: reduce) {
   html, body, .dock, .card { transition-duration: 0ms; }
-  .deck.is-entering .card-inner { animation-name: fade; }
-  .card { animation: none; }
+  .deck.is-entering .card-inner, .deck.is-more .card-inner { animation-name: fade; }
   .card.is-seen .meter-fill { transition: none; }
   ::view-transition-old(root), ::view-transition-new(root) { animation-name: fade; animation-duration: 160ms; }
   ::view-transition-old(root) { animation-direction: reverse; }

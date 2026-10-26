@@ -51,10 +51,10 @@
       </div>
       <p class="picker-unit" id="picker-unit" aria-hidden="true">horas y minutos</p>
 
-      <!-- Intensity is the pace, swiped left and right. Only distance needs it. -->
+      <!-- Ritmo: the pace, swiped left and right. Only distance needs it. -->
       <div class="intensity" id="intensity" hidden>
         <div class="intensity-head">
-          <span class="intensity-label" id="intensity-label">Intensidad<span class="intensity-unit">min/km</span></span>
+          <span class="intensity-label" id="intensity-label">Ritmo<span class="intensity-unit">min/km</span></span>
           <span class="intensity-total" id="intensity-total">54:45 de carrera</span>
         </div>
         <div class="strip-frame">
@@ -69,19 +69,21 @@
       </div>
     </section>
 
-    <!-- Results: five albums to swipe through -->
+    <!-- Results: only the albums. Everything else is a swipe: past the first card back to the run,
+         past the last one five other albums, up on a card to open it in Spotify. -->
     <section class="view view-results" id="view-results" aria-labelledby="results-title" hidden>
-      <div class="results-head">
-        <button type="button" class="back" id="back" aria-label="Cambiar la sesión"><svg aria-hidden="true"><use href="#i-back"/></svg></button>
-        <div>
-          <h1 class="results-title" id="results-title">Para 45 min</h1>
-          <p class="results-sub" id="results-sub" aria-live="polite"></p>
-        </div>
-        <button type="button" class="reroll" id="reroll" hidden><svg aria-hidden="true"><use href="#i-shuffle"/></svg><span class="reroll-label">Otros 5</span></button>
+      <h1 class="sr-only" id="results-title">Discos para 45 min</h1>
+      <p class="sr-only" id="results-help">Desliza a los lados para pasar de disco. En el primero, desliza hacia la derecha para volver a elegir la salida; después del último, hacia la izquierda para ver otros cinco. Desliza un disco hacia arriba para abrirlo en Spotify.</p>
+      <div class="pager" id="pager" tabindex="0" role="region" aria-roledescription="carrusel" aria-label="Discos propuestos" aria-describedby="results-help">
+        <span class="pull pull-back" aria-hidden="true"><svg><use href="#i-back"/></svg></span>
+        <span class="pull pull-more" aria-hidden="true"><svg><use href="#i-shuffle"/></svg></span>
+        <span class="pull pull-open" aria-hidden="true"><svg><use href="#i-spotify"/></svg></span>
+        <ul class="deck" id="deck"></ul>
       </div>
-      <div class="ticks" id="ticks" aria-hidden="true"></div>
-      <ul class="deck" id="deck" aria-label="Discos propuestos"></ul>
       <div class="state" id="results-state" hidden></div>
+      <!-- The swipes, for keyboards and screen readers: hidden until focused. -->
+      <button type="button" class="sr-only focus-show" id="back">Volver a elegir la salida</button>
+      <button type="button" class="sr-only focus-show" id="reroll">Otros 5 discos</button>
     </section>
   </div>
 </body>
