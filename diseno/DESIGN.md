@@ -268,6 +268,8 @@ Grandes, llenos y para el pulgar.
 ### Navigation
 - **Barra:** marca a la izquierda (icono de colina de 28px + "Hill-B"), "Salir" en gris de apoyo a la derecha (600, 15px, 44px de zona táctil).
 - **Atrás:** círculo de 44px con flecha de 20px.
+- **Otros 5:** píldora de 44px en la cabecera de resultados, a la derecha del título: icono de barajar de 18px + "Otros 5" (700, 16px), mismo gris translúcido que Atrás, `scale(0.95)` al pulsar. Por debajo de 360px queda en círculo de 44px solo con el icono (el texto sigue para lectores de pantalla). Saca otros cinco discos con la entrada escalonada de siempre; se oculta si la biblioteca no tiene más discos.
+- **Subtítulo de resultados:** el rango del que salen los discos, "5 discos de 40 a 50 min"; crece cuando la búsqueda se agranda. Se anuncia con `aria-live`.
 - **Entre vistas:** View Transitions de 280ms con `--ease-drawer`; la vista nueva entra 18% desde la derecha al avanzar y desde la izquierda al volver.
 
 ### Album card (signature)
