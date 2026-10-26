@@ -11,6 +11,7 @@ import copy
 import math
 from pathlib import Path
 
+from fontTools.pens.basePen import BasePen
 from fontTools.pens.boundsPen import BoundsPen
 from fontTools.pens.recordingPen import RecordingPen
 from fontTools.pens.svgPathPen import SVGPathPen
@@ -25,6 +26,7 @@ WEIGHT, WIDTH = 700, 75  # the mark's B
 RIGHT_HILL = 1.4         # the right hill against the left one
 RIGHT_HOLLOW = 0.85      # the right hill's hollow, shrunk inside the same outline
 HOLLOW_ANCHOR = 0.5      # where along its floor the hollow shrinks to (0 left, 1 right)
+HOLLOW_CENTRING = 1.0    # how far the hollow moves to sit under its hill's centre once slanted
 SLANT = 35               # degrees, applied to the lying mark
 
 
@@ -82,6 +84,64 @@ ax, ay = hx0 + HOLLOW_ANCHOR * (hx1 - hx0), min(pts[i][1] for i in right_c)
 for i in right_c:
     x, y = pts[i]
     pts[i] = (ax + RIGHT_HOLLOW * (x - ax), ay + RIGHT_HOLLOW * (y - ay))
+
+
+def polygons(points):
+    """The mark's contours, flattened to polygons, for the given points."""
+    g = copy.deepcopy(glyph)
+    g.coordinates = type(glyph.coordinates)(points)
+
+    class Flat(BasePen):
+        def __init__(self):
+            super().__init__(None)
+            self.polys = []
+
+        def _moveTo(self, p):
+            self.polys.append([p])
+
+        def _lineTo(self, p):
+            self.polys[-1].append(p)
+
+        def _qCurveToOne(self, c, p):
+            (x0, y0), poly = self.polys[-1][-1], self.polys[-1]
+            for k in range(1, 17):
+                t = k / 16
+                poly.append(((1 - t) ** 2 * x0 + 2 * (1 - t) * t * c[0] + t * t * p[0],
+                             (1 - t) ** 2 * y0 + 2 * (1 - t) * t * c[1] + t * t * p[1]))
+
+    pen = Flat()
+    g.draw(pen, font["glyf"])
+    return pen.polys
+
+
+def right_of(poly, x):
+    """The part of a polygon right of the vertical line at x."""
+    out = []
+    for (x0, y0), (x1, y1) in zip(poly, poly[1:] + poly[:1]):
+        if x0 >= x:
+            out.append((x0, y0))
+        if (x0 >= x) != (x1 >= x):
+            out.append((x, y0 + (x - x0) * (y1 - y0) / (x1 - x0)))
+    return out
+
+
+def centroid(poly):
+    a = cx = cy = 0.0
+    for (x0, y0), (x1, y1) in zip(poly, poly[1:] + poly[:1]):
+        k = x0 * y1 - x1 * y0
+        a, cx, cy = a + k, cx + (x0 + x1) * k, cy + (y0 + y1) * k
+    return cx / (3 * a), cy / (3 * a)
+
+
+# Centre the hollow as it is seen, after the slant: the hill's silhouette (right of the middle bar)
+# and the hollow lean by different amounts because their centres sit at different heights.
+polys = polygons(pts)
+hollow_poly = polys[1] if right_c.start == outer else polys[2]
+hill_x, hill_y = centroid(right_of(polys[0], split))
+hol_x, hol_y = centroid(hollow_poly)
+shift = HOLLOW_CENTRING * ((hill_x + hill_y * lean) - (hol_x + hol_y * lean))
+for i in right_c:
+    pts[i] = (pts[i][0] + shift, pts[i][1])
 pts = [(x + y * lean, y) for x, y in pts]
 MARK = copy.deepcopy(glyph)
 MARK.coordinates = type(glyph.coordinates)(pts)
