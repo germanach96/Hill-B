@@ -144,6 +144,13 @@ async function run() {
         assert.ok(f.spill <= 1, `a card's content spills by ${f.spill}px`);
       }
       assert.equal(await page.evaluate(() => document.documentElement.scrollHeight), innerHeightOf(PHONE), 'the results never scroll');
+      // The next album shows its edge (the only sign there are more), and every card puts the
+      // difference in the same place under its running time.
+      const peek = await page.evaluate(() => innerWidth - document.querySelectorAll('.card')[1].getBoundingClientRect().left);
+      assert.ok(peek >= 8, `the next card shows only ${peek}px`);
+      const deltaGaps = await page.evaluate(() => [...document.querySelectorAll('.card')].map((c) =>
+        Math.round(c.querySelector('.card-delta').getBoundingClientRect().top - c.querySelector('.card-time').getBoundingClientRect().bottom)));
+      assert.equal(new Set(deltaGaps).size, 1, `the difference moves between cards: ${deltaGaps}`);
       await page.screenshot({ path: `${OUT}/mobile-results.png` });
       await snapshot(page, 'results');
 

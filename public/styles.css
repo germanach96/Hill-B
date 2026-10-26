@@ -400,8 +400,10 @@ html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden
   flex: 1;
   min-height: 0;
   margin: 0 calc(var(--pad) * -1);
-  padding: 4px 0 calc(var(--pad) + env(safe-area-inset-bottom, 0px));
+  padding: 8px 0 calc(var(--pad) + env(safe-area-inset-bottom, 0px));
   touch-action: none; /* every drag here is ours: sideways between cards, up to Spotify */
+  /* A lifted card slides under the top edge instead of over the wordmark. */
+  overflow: clip;
   user-select: none;
   -webkit-user-select: none;
   -webkit-touch-callout: none;
@@ -448,15 +450,21 @@ html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden
   background: var(--card-bg, var(--surface));
   color: var(--card-ink, var(--ink));
   transform: scale(0.95);
+  /* Neighbours shrink towards the card in front, so their 10px edge keeps showing beside it. */
+  transform-origin: right center;
   opacity: 0.8;
   transition: background-color 300ms ease, color 300ms ease, opacity 300ms ease,
     transform 420ms var(--ease-drawer);
 }
 .card.is-active { transform: none; opacity: 1; }
+.card.is-active ~ .card { transform-origin: left center; }
 
+/* Four groups (cover, name, run, songs) share the card's spare height evenly, so a tall phone
+   never shows one hollow band in the middle. */
 .card-inner {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   height: 100%;
   padding: 16px 16px 18px;
 }
@@ -480,8 +488,9 @@ html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden
   pointer-events: none;
 }
 
+.card-head { margin-top: 14px; }
 .card-title {
-  margin: 14px 0 0;
+  margin: 0;
   font-size: clamp(2rem, 5.5cqh, 3rem); /* grows with a tall card, like the running time */
   line-height: 0.95;
   display: -webkit-box;
@@ -500,13 +509,17 @@ html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden
 }
 .card-meta span { opacity: 0.78; font-weight: 500; }
 
-/* The run sits at the foot of the card; on a tall phone the spare height goes to the running time,
-   which grows with the card instead of leaving a hole under the cover. */
-.card-run { margin-top: auto; padding-top: 16px; }
-/* When the grown time leaves no room beside it, the difference drops whole to the next line. */
-.card-time-row { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px; }
-.card-time { font-size: clamp(3.25rem, 15cqh, 8rem); line-height: 0.85; }
-.card-delta { font-size: 15px; font-weight: 700; white-space: nowrap; }
+/* The running time is as big as the card allows on both axes: "45:56" is about 2.7 em wide in this
+   face, "1:02:03" about 3.6 em; the height share keeps it from eating the cover on a short phone. */
+.card-run { margin-top: 14px; }
+.card-time {
+  display: block;
+  font-size: max(3.25rem, min(17cqh, calc((100cqi - 32px) / 2.75)));
+  line-height: 0.85;
+}
+.card.is-long .card-time { font-size: max(3rem, min(17cqh, calc((100cqi - 32px) / 3.65))); }
+/* The difference always has its own line under the time: the same place on every card. */
+.card-delta { display: block; margin-top: 6px; font-size: 15px; font-weight: 700; white-space: nowrap; }
 
 /* The signature: the album's running time drawn to scale against the run. */
 .meter {

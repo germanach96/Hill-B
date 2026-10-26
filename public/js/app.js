@@ -297,14 +297,15 @@ function skeletonCard(i) {
   li.style.setProperty('--i', i);
   li.setAttribute('aria-hidden', 'true');
   li.innerHTML = `<div class="card-inner"><div class="cover-box"><span class="sk sk-cover"></span></div>
-    <span class="sk sk-title"></span><span class="sk sk-meta"></span><span class="sk sk-time"></span><span class="sk sk-meter"></span></div>`;
+    <div class="card-head"><span class="sk sk-title"></span><span class="sk sk-meta"></span></div>
+    <div class="card-run"><span class="sk sk-time"></span><span class="sk sk-meter"></span></div></div>`;
   return li;
 }
 
 function albumCard({ album, duration, delta }, i, target, count) {
   const scale = Math.max(duration, target);
   const li = document.createElement('li');
-  li.className = 'card';
+  li.className = duration >= 3600 ? 'card is-long' : 'card';
   li.style.setProperty('--i', i);
   li.style.setProperty('--album', (duration / scale).toFixed(4));
   li.style.setProperty('--run', (target / scale).toFixed(4));
@@ -322,13 +323,13 @@ function albumCard({ album, duration, delta }, i, target, count) {
         <img class="cover" alt="Portada de ${escapeAttr(album.name)}" width="640" height="640" draggable="false"
           ${album.image ? `src="${escapeAttr(album.image)}"` : ''} crossorigin="anonymous" decoding="async" ${i > 1 ? 'loading="lazy"' : ''}>
       </div>
-      <h2 class="card-title">${escapeHtml(album.name)}</h2>
-      <p class="card-meta">${escapeHtml(artists)}${album.year ? ` <span>${album.year}</span>` : ''}</p>
+      <div class="card-head">
+        <h2 class="card-title">${escapeHtml(album.name)}</h2>
+        <p class="card-meta">${escapeHtml(artists)}${album.year ? ` <span>${album.year}</span>` : ''}</p>
+      </div>
       <div class="card-run">
-        <div class="card-time-row">
-          <span class="card-time" data-seconds="${duration}">${formatDuration(duration)}</span>
-          <span class="card-delta">${describeDelta(delta)}</span>
-        </div>
+        <span class="card-time" data-seconds="${duration}">${formatDuration(duration)}</span>
+        <span class="card-delta">${describeDelta(delta)}</span>
         <div class="meter" role="img" aria-label="El disco dura ${formatDuration(duration)}; tu salida, ${formatDuration(target)}">
           <span class="meter-fill"></span><span class="meter-run"></span>
         </div>
@@ -364,8 +365,9 @@ function setActive(index) {
 }
 
 /**
- * Lifting a card opens the album in the Spotify app (spotify: link); on a phone without the app,
- * or where the link does nothing, the web player opens instead. On a computer, the web page in a tab.
+ * Lifting a card opens the album in the Spotify app (spotify: link). If the app did not take over
+ * (the page is still in front and focused 1.5 s later), the web player opens in a new tab: the app
+ * itself never navigates away, so coming back finds the same cards. On a computer, a tab at once.
  * A test, or anything else, can take the request over by cancelling the "hillb:open" event.
  */
 function openInSpotify(album) {
@@ -377,9 +379,20 @@ function openInSpotify(album) {
     window.open(album.url, '_blank', 'noopener');
     return;
   }
-  const fallback = setTimeout(() => { location.href = album.url; }, 1500);
-  const left = () => { if (document.visibilityState === 'hidden') clearTimeout(fallback); };
-  document.addEventListener('visibilitychange', left, { once: true });
+  const fallback = setTimeout(() => {
+    stop();
+    if (document.visibilityState === 'visible' && document.hasFocus()) window.open(album.url, '_blank', 'noopener');
+  }, 1500);
+  const stop = () => {
+    clearTimeout(fallback);
+    removeEventListener('blur', stop);
+    removeEventListener('pagehide', stop);
+    document.removeEventListener('visibilitychange', stop);
+  };
+  // Any sign that Spotify (or its "open in Spotify?" prompt) took the front cancels the fallback.
+  addEventListener('blur', stop);
+  addEventListener('pagehide', stop);
+  document.addEventListener('visibilitychange', stop);
   location.href = uri;
 }
 

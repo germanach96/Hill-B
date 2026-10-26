@@ -27,7 +27,7 @@ typography:
     fontFeature: "'tnum'"
   figure:
     fontFamily: "Archivo, system-ui, -apple-system, Segoe UI, sans-serif"
-    fontSize: "clamp(3.25rem, 15cqh, 8rem)"
+    fontSize: "max(3.25rem, min(17cqh, calc((100cqi - 32px) / 2.75)))"
     fontWeight: 900
     lineHeight: 0.85
     letterSpacing: "-0.01em"
@@ -225,7 +225,7 @@ Valores fuera de la paleta, intencionados: el `#000` dentro de la `mask-image` d
 
 ### Hierarchy
 - **Wheel** (Hill-B Figures 800, `--fig`, 1): las cifras de las dos ruedas y su separador ":" o ","; `--fig` vale `clamp(120px, min(24svh, calc((100vw - 2 * var(--pad)) / 2.1)), 240px)`: "60,9" con sus márgenes ocupa unas 2 em (medido), más un poco de holgura, así que la cifra llena el ancho sin que el navegador encoja una rueda, y la altura la frena. El separador lleva `0.07em` de margen a cada lado para que un 0 inclinado nunca pise los dos puntos. La fila mide 0.84 × `--fig` (las cifras miden 0.72 em de alto).
-- **Figure** (900, `clamp(3.25rem, 15cqh, 8rem)`, 0.85): duración del disco en la tarjeta, que crece con la altura de la tarjeta (la tarjeta es un contenedor de tamaño); cuenta hacia arriba al llegar. El extremo de 8rem es intencionado: en un teléfono alto la altura sobrante va a la duración en vez de dejar un hueco bajo la portada (aviso conocido del detector).
+- **Figure** (900, `max(3.25rem, min(17cqh, calc((100cqi - 32px) / 2.75)))`, 0.85): duración del disco en la tarjeta, que crece con la altura de la tarjeta (la tarjeta es un contenedor de tamaño); cuenta hacia arriba al llegar. El extremo de 8rem es intencionado: en un teléfono alto la altura sobrante va a la duración en vez de dejar un hueco bajo la portada (aviso conocido del detector).
 - **Headline** (900, `clamp(2rem, 5.5cqh, 3rem)`, 0.95): título del disco, máximo dos líneas (una en tarjetas de menos de 440px); crece con la tarjeta como la duración. No hay título de vista visible.
 - **Start** (900, 2rem, +0.02em): la palabra START del botón principal, más abierta que el resto de la voz de pantalla para leerse como una orden.
 - **Pace** (Hill-B Figures 800, 3rem): el ritmo dentro de su píldora.
@@ -306,7 +306,7 @@ El ritmo (3:00 a 9:00 /km, de 15 en 15 s) como una tira que se desliza de lado; 
 La baraja de resultados la mueve el dedo, no el scroll nativo (el scroll no distingue un tirón más allá de la primera o la última tarjeta, y esos tirones son acciones). Eventos de puntero con `touch-action: none`; el gesto elige su eje tras 8px.
 - **De lado:** una tarjeta por gesto, si se arrastra más del 22% de una tarjeta o con un golpe rápido (0.45 px/ms). Al soltar, la baraja se asienta en 420ms con `--ease-drawer`; se puede agarrar a media carrera.
 - **Más allá de los extremos:** banda elástica con la fórmula de Apple (`c = 0.55`): cuanto más se tira, menos sigue la tarjeta. Tirar a la derecha más allá de la primera vuelve a la sesión; tirar a la izquierda más allá de la última trae otros cinco discos (solo si la biblioteca tiene más), que entran desde la derecha.
-- **Hacia arriba:** levantar la tarjeta abre el disco en Spotify (en táctil, la app con `spotify:album:ID`, y la web si la página no se oculta en 1.5 s; en escritorio, una pestaña nueva). Hacia abajo solo resiste, al 30%.
+- **Hacia arriba:** levantar la tarjeta abre el disco en Spotify (en táctil, la app con `spotify:album:ID`, y la web en una pestaña nueva si a los 1.5 s la página sigue al frente y con el foco; la app nunca navega fuera, así que al volver están las mismas tarjetas; en escritorio, una pestaña nueva). La tarjeta levantada pasa por debajo del borde superior del carrusel (`overflow: clip`), nunca por encima del logo. Hacia abajo solo resiste, al 30%.
 - **Teclado:** la baraja es enfocable; las flechas pasan de disco y más allá de los extremos actúan como los tirones; flecha arriba o Intro abren el disco; Escape vuelve; Inicio y Fin van a la primera y la última.
 
 ### Pull hints (círculos de tirón)
@@ -325,9 +325,9 @@ Lo que hará soltar, revelado por el tirón: flecha atrás a la izquierda en el 
 
 ### Album card (signature)
 Un campo completo del color de su portada que ocupa exactamente una pantalla de teléfono: portada cuadrada, título en Headline (dos líneas máximo), artista y año, las canciones de The Magic Bus que lo trajeron, y al pie la duración en Figure con la diferencia frente a la salida y el medidor. No lleva botones: se abre en Spotify levantándola.
-- **Medidas:** relleno de 16px (18px abajo). La portada es tan ancha como la tarjeta y sigue cuadrada; en una pantalla corta cede altura (y con ella ancho) hasta un mínimo de 72px antes que empujar la tarjeta fuera de la pantalla. La duración y el medidor van anclados al pie (`margin-top: auto`); la diferencia ("Sobran 0:56") va a la derecha de la duración y, si no cabe, baja entera a la línea siguiente.
+- **Medidas:** relleno de 16px (18px abajo). La portada es tan ancha como la tarjeta y sigue cuadrada; en una pantalla corta cede altura (y con ella ancho) hasta un mínimo de 72px antes que empujar la tarjeta fuera de la pantalla. Cuatro grupos (portada; título y artista; duración, diferencia y medidor; canciones) se reparten por igual la altura sobrante (`justify-content: space-between`), así que una pantalla alta no deja un hueco en medio. La duración es tan grande como la tarjeta permite en los dos ejes (`max(3.25rem, min(17cqh, (100cqi − 32px) / 2.75))`; con horas, `/ 3.65`). La diferencia ("Sobran 0:56") va siempre en su propia línea, 6px bajo la duración: el mismo sitio en todas las tarjetas.
 - **Pantallas cortas:** con la tarjeta por debajo de 560px de alto se ocultan las canciones; por debajo de 440px, también artista y año y la leyenda del medidor, y el título queda en una línea.
-- **Al frente / detrás:** la del frente a tamaño y opacidad completos; las demás a `scale(0.95)` y 0.8.
+- **Al frente / detrás:** la del frente a tamaño y opacidad completos; las demás a `scale(0.95)` y 0.8, encogidas hacia la del frente (`transform-origin` a la derecha las anteriores y a la izquierda las siguientes) para que sus 10px sigan asomando.
 - **Medidor:** pista de 12px en `currentColor` al 18%, relleno en `currentColor` que crece a escala (`scaleX(--album)`) en 600ms con `--ease-out` la primera vez que la tarjeta queda centrada, mientras la duración cuenta hacia arriba con la misma curva. Una marca de 3px en `left: --run` señala la salida, recortada del relleno con un contorno del color de la tarjeta.
 - **Entrada:** las tarjetas suben 28px desde `scale(0.97)` en 460ms, escalonadas 60ms. Otros cinco entran 40px desde la derecha, de donde vino el tirón, en 420ms con `--ease-out`, escalonados 50ms. Con movimiento reducido, ambas son un fundido.
 
