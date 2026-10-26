@@ -16,11 +16,16 @@ Hill-B: app web móvil (PWA estática) que responde "¿qué disco entero me conv
 - Estilo Nike Run Club, paleta clara, viva y sencilla, mucha animación, 5 discos que se deslizan. Diseño documentado en `diseno/DESIGN.md` y producto en `diseno/PRODUCT.md`.
 - Cuenta de Spotify Premium. Client ID `6b13ef05e42d4331a1fbbbc839bc1092`.
 
-## Siguiente paso: terminar de medir los discos (en curso)
-Lectura del 2026-10-26 (rama `claude/clever-cannon-xdcy2b`): 1598 canciones → 829 discos enteros (álbum o compilación; sencillos y EP fuera). Hay **600 medidos** en `public/data/albums.json`; faltan 229 porque Spotify agotó la cuota diaria (`Retry-After` ≈ 24 h).
-1. Pasadas ~24 h, `node tools/sync.mjs read` reanuda: solo mide los que faltan (los ya medidos salen de `albums.json`).
-2. La sesión de Spotify vive en `.sync/` (fuera de git). En un contenedor nuevo hay que repetir el login: `node tools/sync.mjs login`, el usuario abre el enlace y pega la URL de vuelta, y `node tools/sync.mjs read "<URL>"`. La Redirect URI `http://127.0.0.1:5173/callback` ya está en el dashboard.
-3. Con los 829 medidos: commit y PR a `main`.
+## Pendiente: dos tareas bloqueadas por la cuota de Spotify (retomar el 2026-10-27)
+El usuario dirá "sigue" en la misma conversación. Spotify devolvió 429 con `Retry-After` ≈ 24 h el 2026-10-26: primero en `/albums`, `/tracks` y `/artists` por ID, y después también en `/search`. `/me` y leer la playlist siguen funcionando.
+
+1. **Medir los 229 discos que faltan** (600 de 829 en `public/data/albums.json`, PR #3): `node tools/sync.mjs read` mide solo los que faltan. Después, commit y PR a `main`.
+2. **Álbum original de las canciones no directas** (para el Excel `The Magic Bus.xlsx`): quedan 169 pendientes y 27 deducidas por el nombre sin verificar. Estado y scripts en `tools/catalogo/` (ver su README):
+   - `node tools/catalogo/dump.mjs <entries.json>`
+   - `node tools/catalogo/lookup.mjs <entries.json> tools/catalogo/cache.json tools/catalogo/results.json` (reanuda)
+   - `finalize.mjs`, `flatten.mjs` y `build_xlsx.py` → Excel nuevo para el usuario, con los 229 discos ya medidos.
+
+Si el contenedor es nuevo, la sesión de Spotify (`.sync/`, fuera de git) se perdió: `node tools/sync.mjs login`, el usuario abre el enlace y pega la URL de vuelta, y luego `node tools/sync.mjs read "<URL>"`. La Redirect URI ya está en el dashboard.
 
 ## Pendiente de definir por el usuario
 - Paso de *mood* (va después de elegir tiempo/km). No está construido.
