@@ -23,7 +23,8 @@ El usuario dirá "sigue" en la misma conversación. Spotify devolvió 429 con `R
 2. **Álbum original de las canciones no directas** (para el Excel `The Magic Bus.xlsx`): quedan 169 pendientes y 27 deducidas por el nombre sin verificar. Estado y scripts en `tools/catalogo/` (ver su README):
    - `node tools/catalogo/dump.mjs <entries.json>`
    - `node tools/catalogo/lookup.mjs <entries.json> tools/catalogo/cache.json tools/catalogo/results.json` (reanuda)
-   - `finalize.mjs`, `flatten.mjs` y `build_xlsx.py` → Excel nuevo para el usuario, con los 229 discos ya medidos.
+   - `finalize.mjs`, `additions.mjs`, `flatten.mjs` y `build_xlsx.py` → Excel nuevo para el usuario, con los 229 discos ya medidos.
+3. **Originales encontrados en la lista de discos**: el usuario quiere en la lista las dos versiones (la no original, sin sencillos ni EP, y la original encontrada), sin repetir. En el Excel ya están 112 (columna Origen = "Original encontrado"), sin medir. Mañana: medirlos con `/albums/{id}` (más los que salgan de las 169 pendientes) y proponer al usuario meterlos también en `public/data/albums.json` para que la app los recomiende.
 
 Si el contenedor es nuevo, la sesión de Spotify (`.sync/`, fuera de git) se perdió: `node tools/sync.mjs login`, el usuario abre el enlace y pega la URL de vuelta, y luego `node tools/sync.mjs read "<URL>"`. La Redirect URI ya está en el dashboard.
 
