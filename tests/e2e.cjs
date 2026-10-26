@@ -152,15 +152,22 @@ async function run() {
         assert.ok(f.spill <= 1, `a card's content spills by ${f.spill}px`);
       }
       assert.equal(await page.evaluate(() => document.documentElement.scrollHeight), innerHeightOf(PHONE), 'the results never scroll');
-      // The next album shows its edge (the only sign there are more), and every card puts the
-      // difference in the same place under its running time.
+      // The next album shows its edge (the only sign there are more).
       const peek = await page.evaluate(() => innerWidth - document.querySelectorAll('.card')[1].getBoundingClientRect().left);
       assert.ok(peek >= 8, `the next card shows only ${peek}px`);
-      // Measured in the card's own pixels: the neighbours are drawn at 95%.
-      const deltaGaps = await page.evaluate(() => [...document.querySelectorAll('.card')].map((c) =>
-        Math.round((c.querySelector('.card-delta').getBoundingClientRect().top - c.querySelector('.card-time').getBoundingClientRect().bottom)
-          / (c.getBoundingClientRect().width / c.offsetWidth))));
-      assert.ok(Math.max(...deltaGaps) - Math.min(...deltaGaps) <= 1, `the difference moves between cards: ${deltaGaps}`);
+      // The time and the kilometres side by side; each tag a bar of ten dots, the first one full.
+      const first = await page.evaluate(() => {
+        const c = document.querySelector('.card');
+        return {
+          km: c.querySelector('.card-km').textContent,
+          rows: [...c.querySelectorAll('.card-tags li')].map((li) => [li.querySelector('.tag-name').textContent,
+            li.querySelectorAll('.tag-dots i').length, li.querySelectorAll('.tag-dots i.on').length]),
+        };
+      });
+      assert.match(first.km, /^\d+,\d$|^\d+$/);
+      assert.ok(first.rows.length >= 4, `only ${first.rows.length} tags`);
+      assert.deepEqual(first.rows[0], ['indie rock', 10, 10]);
+      assert.ok(first.rows.every(([, all, on]) => all === 10 && on >= 1 && on <= 10));
       await page.screenshot({ path: `${OUT}/mobile-results.png` });
       await snapshot(page, 'results');
 

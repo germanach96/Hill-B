@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { sessionSeconds, pickAlbums, albumKm, formatKmValue, relevantTags, displayName, formatDuration, describeDelta, formatPace } from '../public/js/recommend.js';
+import { sessionSeconds, pickAlbums, albumKm, formatKmValue, relevantTags, rankedTags, displayName, formatDuration, describeDelta, formatPace } from '../public/js/recommend.js';
 
 test('sessionSeconds reads minutes, or distance at a pace', () => {
   assert.equal(sessionSeconds({ mode: 'time', minutes: 45 }), 2700);
@@ -112,7 +112,7 @@ test('relevantTags keeps what says something about the sound', () => {
       ['favourite albums', 9], ['00s', 7], ['dave grohl', 1]],
     artistTags: [['stoner rock', 100], ['alternative rock', 68], ['rock', 44], ['desert rock', 3], ['queens of the stone age', 20]],
   };
-  assert.deepEqual(relevantTags(qotsa), ['stoner rock', 'alternative rock', 'hard rock']);
+  assert.deepEqual(relevantTags(qotsa), ['stoner rock', 'alternative rock', 'hard rock', 'desert rock'], 'weight 3 still counts, 1 does not');
 });
 
 test('relevantTags merges spellings, drops the artist name and fills in from the artist', () => {
@@ -121,7 +121,7 @@ test('relevantTags merges spellings, drops the artist name and fills in from the
     tags: [],
     artistTags: [['trova', 100], ['cuba', 82], ['cantautor', 53], ['nueva trova', 50], ['silvio rodriguez', 30], ['latin', 7]],
   };
-  assert.deepEqual(relevantTags(album), ['nueva trova', 'cuba', 'cantautor'], 'trova sits inside nueva trova');
+  assert.deepEqual(relevantTags(album), ['nueva trova', 'cuba', 'cantautor', 'latin'], 'trova sits inside nueva trova');
   const hiphop = { artists: ['X'], tags: [['Hip-Hop', 100]], artistTags: [['hip hop', 90], ['latin grammy nominated', 60]] };
   assert.deepEqual(relevantTags(hiphop), ['Hip-Hop']);
   assert.deepEqual(relevantTags({ artists: ['Y'] }), [], 'no tags at all');
@@ -130,4 +130,14 @@ test('relevantTags merges spellings, drops the artist name and fills in from the
   assert.deepEqual(relevantTags(zucchero), ['italian']);
   const chile = { artists: ['Z'], tags: [['chile', 66], ['chilean', 66]], artistTags: [['rock chileno', 100]] };
   assert.deepEqual(relevantTags(chile), ['rock chileno', 'chile']);
+});
+
+test('rankedTags gives each tag 1 to 10 dots against the strongest one', () => {
+  const album = { artists: ['X'], tags: [['stoner rock', 100], ['alternative rock', 68], ['hard rock', 15]], artistTags: [] };
+  assert.deepEqual(rankedTags(album), [
+    { name: 'stoner rock', dots: 10 }, { name: 'alternative rock', dots: 7 }, { name: 'hard rock', dots: 2 },
+  ]);
+  const faint = { artists: ['X'], tags: [['folk', 100], ['blues', 11]], artistTags: [] };
+  assert.equal(rankedTags(faint)[1].dots, 1, 'never an empty bar');
+  assert.deepEqual(rankedTags({ artists: ['Y'] }), []);
 });

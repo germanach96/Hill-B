@@ -77,7 +77,7 @@ export function formatKmValue(km) {
 }
 
 // Tags that say nothing about the sound: personal lists, formats, awards. Tags with digits
-// (years, decades, "s2", "chill906") and one-off tags (weight under 10) go too.
+// (years, decades, "s2", "chill906") and one-off tags (weight under 3) go too.
 const TAG_NOISE = new Set(['favourite', 'favourites', 'favorite', 'favorites', 'favourite albums', 'favorite albums',
   'albums i own', 'seen live', 'vinyl', 'cd', 'album', 'all', 'this is music', 'fucking great', 'male vocalists',
   'female vocalists', 'male vocalist', 'female vocalist', 'canciones que me gustan mucho', 'musica del recuerdo', 'rock del bueno', 'under 2000 listeners']);
@@ -90,6 +90,14 @@ const tagKey = (name) => name.normalize('NFD').replace(/\p{M}/gu, '').toLowerCas
  * "alternative rock"), whose place and strength the precise one takes. An album tag counts in full, an artist tag at 70%, both at once get a bonus.
  */
 export function relevantTags(album, count = 5) {
+  return rankedTags(album, count).map((t) => t.name);
+}
+
+/**
+ * relevantTags with how strong each one is: `dots`, from 1 to 10, its score against the strongest
+ * tag of the album (which always has 10). The card draws them as bars of ten dots.
+ */
+export function rankedTags(album, count = 7) {
   // The artist's name and the album's own name are not tags ("zucchero", "la sesion cubana").
   const own = new Set([...(album.artists ?? []), album.name ?? '', (album.name ?? '').replace(/\s*[([].*?[)\]]/g, '')]
     .map(tagKey).filter(Boolean));
@@ -97,7 +105,7 @@ export function relevantTags(album, count = 5) {
   const add = (tags = [], factor) => {
     for (const [name, weight] of tags) {
       const key = tagKey(name);
-      if (weight < 10 || /\d/.test(key) || TAG_NOISE.has(key) || /grammy/.test(key) || own.has(key)) continue;
+      if (weight < 3 || /\d/.test(key) || TAG_NOISE.has(key) || /grammy/.test(key) || own.has(key)) continue;
       if ([...own].some((a) => a && key.includes(a))) continue;
       const prev = scored.get(key);
       const score = weight * factor;
@@ -121,7 +129,9 @@ export function relevantTags(album, count = 5) {
   for (const [key, t] of kept) {
     for (const [broad, b] of list) if (within(broad, key) && !kept.some(([k]) => k === broad)) t.score = Math.max(t.score, b.score);
   }
-  return kept.sort((x, y) => y[1].score - x[1].score).slice(0, count).map(([, t]) => t.name);
+  const top = kept.sort((x, y) => y[1].score - x[1].score).slice(0, count);
+  const max = top[0]?.[1].score ?? 1;
+  return top.map(([, t]) => ({ name: t.name, dots: Math.max(1, Math.round((t.score / max) * 10)) }));
 }
 
 /** "🚌 The Magic Bus @germanch96" reads as "The Magic Bus": emoji and @handle stay in Spotify. */

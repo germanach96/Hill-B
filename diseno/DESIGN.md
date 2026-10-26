@@ -231,7 +231,7 @@ Valores fuera de la paleta, intencionados: el `#000` dentro de la `mask-image` d
 - **Pace** (Hill-B Figures 800, 3rem): el ritmo dentro de su píldora.
 - **Action** (700, 18px, −0.005em): texto de los botones grandes de texto (reintento), y la unidad bajo las ruedas en tinta de apoyo.
 - **Body** (400, 16px, 1.5): texto general, canciones de la tarjeta (1.4, dos líneas); 600 en artista y año de la tarjeta; 700 en el interruptor, la etiqueta "Ritmo" y las píldoras de foco de resultados.
-- **Label** (600, 15px): textos secundarios, leyendas del medidor, avisos; la diferencia frente a la salida ("Sobran 0:56") en 700.
+- **Label** (600, 15px): textos secundarios y avisos. Los nombres de las etiquetas de la tarjeta van en 700, 16px.
 - **Marca** (800, 20px, `font-stretch: 75%`, mayúsculas): solo el logotipo de la barra.
 
 ### Named Rules
@@ -296,7 +296,7 @@ Dos columnas de cifras gigantes con scroll y snap nativos: el impulso y el rebot
 - **Foco de teclado:** la máscara cortaría un anillo en la rueda, así que el anillo (3px de tinta, radio de 24px) rodea todo el valor (`.picker:has(.wheel-y:focus-visible)`, separación `calc(var(--reach) * -1 + 6px)`) y la rueda que no tiene las teclas retrocede a opacidad 0.45, para que se vea qué número mueven las flechas.
 
 ### Pace strip (Ritmo)
-El ritmo (3:00 a 9:00 /km, de 15 en 15 s) como una tira que se desliza de lado; solo en distancia.
+El ritmo (3:00 a 9:00 /km, de 15 en 15 s) como una tira que se desliza de lado, en los dos modos: en Tiempo da los km ("≈ 8,7 km"), en Distancia el tiempo ("55:00 de carrera"), y en las tarjetas los km de cada disco.
 - **Valores:** de 3:00 a 9:00 /km de 15 en 15 s (25 valores).
 - **Cabecera:** "Ritmo" (700, 16px) con "min/km" en tinta de apoyo (500), y a la derecha el total de carrera en tinta de apoyo con cifras tabulares.
 - **Style:** una píldora fija de tinta de 144 × 64px en el centro; los ritmos, en voltio y en la voz Pace (Hill-B Figures, 3rem), pasan por ella con snap al centro (paso de 144px).
@@ -327,13 +327,15 @@ Lo que hará soltar, revelado por el tirón: flecha atrás a la izquierda en el 
 - **Entre vistas:** View Transitions en la dirección del flujo. La vista que sale se va en 220ms con `--ease-out` a opacidad 0, `blur(3px)`, `translateX(dir · −8%)` y `scale(0.985)`; la que entra llega en 440ms con `--ease-drawer` y 60ms de retraso, desde opacidad 0 y `translateX(dir · 10%)` (desde la derecha al avanzar, desde la izquierda al volver).
 
 ### Album card (signature)
-Un campo completo del color de su portada que ocupa exactamente una pantalla de teléfono: portada cuadrada, título en Headline (dos líneas máximo), artista y año, las canciones de The Magic Bus que lo trajeron, y al pie la duración en Figure con la diferencia frente a la salida y el medidor. No lleva botones: se abre en Spotify levantándola.
-- **Medidas:** relleno de 16px (18px abajo). La portada es tan ancha como la tarjeta y sigue cuadrada; en una pantalla corta cede altura (y con ella ancho) hasta un mínimo de 72px antes que empujar la tarjeta fuera de la pantalla. Cuatro grupos (portada; título y artista; duración, diferencia y medidor; canciones) se reparten por igual la altura sobrante (`justify-content: space-between`), así que una pantalla alta no deja un hueco en medio. La duración es tan grande como la tarjeta permite en los dos ejes (`max(3.25rem, min(17cqh, (100cqi − 32px) / 2.75))`; con horas, `/ 3.65`). La diferencia ("Sobran 0:56") va siempre en su propia línea, 6px bajo la duración: el mismo sitio en todas las tarjetas.
-- **Pantallas cortas:** con la tarjeta por debajo de 560px de alto se ocultan las canciones; por debajo de 440px, también artista y año y la leyenda del medidor, y el título queda en una línea.
+Un campo completo del color de su portada que ocupa exactamente una pantalla de teléfono: portada cuadrada, título en Headline (dos líneas máximo), artista y año, la duración del disco y los km que dura al ritmo elegido, y sus etiquetas de Last.fm con una barra de puntos cada una. No lleva botones: se abre en Spotify levantándola. Sin ritmo, sin diferencia frente a la salida, sin medidor y sin canciones de la playlist (decisión del usuario, 2026-10-26).
+- **Medidas:** relleno de 16px (18px abajo). La portada es tan ancha como la tarjeta y sigue cuadrada; en una pantalla corta cede altura (y con ella ancho) hasta un mínimo de 72px antes que empujar la tarjeta fuera de la pantalla. Los grupos (portada; título y artista; cifras; etiquetas) se reparten por igual la altura sobrante (`justify-content: space-between`).
+- **Cifras:** dos columnas iguales, misma altura de letra (`max(2.5rem, min(12cqh, (100cqi − 46px) / 5.5))`; con horas, `/ 7.3`). La duración en la voz Display (Archivo estrecha, 900); los km en la voz Figure (la cifra inclinada de las ruedas: es un número de la carrera) con "KM" en Display al 36%. km = duración ÷ ritmo, con un decimal y coma.
+- **Etiquetas:** hasta 7, una por fila: el nombre (16px, 700, minúsculas como vienen) y a la derecha una barra de 10 puntos de 9px con 4px de separación; tantos en `currentColor` como fuerza tenga la etiqueta frente a la más fuerte del disco (la primera siempre 10, ninguna menos de 1), el resto en `currentColor` al 20%. Elección y fuerza en `rankedTags` (`public/js/recommend.js`). Sin etiquetas, el bloque no aparece.
+- **Pantallas cortas:** con la tarjeta por debajo de 600px de alto quedan 5 etiquetas; por debajo de 500px, 3; por debajo de 420px, ni etiquetas ni artista y año, y el título en una línea.
 - **Al frente / detrás:** escala `1 − 0.05·d` y opacidad `1 − 0.2·d`, con `d` la distancia en tarjetas a la posición viva de la baraja (como mucho 1): la del frente a tamaño y opacidad completos, las demás hasta `scale(0.95)` y 0.8, encogidas hacia la del frente para que sus 10px sigan asomando (una escala sobre el borde cercano, escrita como desplazamiento `±ancho·(1 − escala)/2` con el origen en el centro, para que el origen nunca tenga que cambiar a media animación). Sale de los fotogramas del muelle, sin transiciones CSS en transform ni opacidad; solo el fondo y el color cambian con 300ms `ease`.
 - **Portadas:** las cinco se cargan a la vez (sin `loading="lazy"`: una portada que empezaba a cargar al entrar su tarjeta se decodificaba en pleno deslizamiento) y entran con su fundido solo después de `img.decode()`. El color de la tarjeta se lee de la portada cuando el hilo principal está libre (`requestIdleCallback`, o 400ms después en Safari, que no lo tiene).
 - **Portada:** entra con un fundido de opacidad de 320ms `ease` al cargar (o al fallar).
-- **Medidor:** pista de 12px en `currentColor` al 18%, relleno en `currentColor` que crece a escala (`scaleX(--album)`) en 600ms con `--ease-out` la primera vez que la tarjeta llega y se asienta (no mientras se desliza: un movimiento a la vez, y el hilo principal libre para el deslizamiento), mientras la duración cuenta hacia arriba con la misma curva. Una marca de 3px en `left: --run` señala la salida, recortada del relleno con un contorno del color de la tarjeta.
+- **Al llegar:** la primera vez que la tarjeta llega y se asienta (no mientras se desliza: un movimiento a la vez, y el hilo principal libre para el deslizamiento), la duración y los km cuentan hacia arriba en 600ms con `--ease-out`, y los puntos de cada etiqueta se encienden de izquierda a derecha (`scale(0.4)` y opacidad 0 → normal, 220ms `--ease-out`, 120ms + 50ms por fila + 22ms por punto).
 - **Entrada:** en cada búsqueda el contenido de las tarjetas sube desde `translateY(24px) scale(0.98)` y opacidad 0 en 560ms con `--ease-out`, con 80ms de retraso más 70ms por tarjeta, cuando la pantalla ya empieza a llegar. Otros cinco no tienen entrada propia: llegan con el muelle de la baraja (ver Album pager).
 
 ### Apertura (signature)
@@ -356,7 +358,7 @@ La réplica del logo se construye grande y solo se encoge (siempre nítida). Un 
 - **Do** elegir valores con ruedas de scroll y snap nativos, accesibles con teclado como `spinbutton`.
 - **Do** teñir cada tarjeta con el color de su propia portada dentro de los límites de luminosidad 0.36–0.70 y elegir su tinta (tinta o voltio) por contraste.
 - **Do** anclar la acción principal de la sesión en el dock inferior, a ancho completo, por encima del área segura.
-- **Do** hacer de cada tarjeta de disco una pantalla de teléfono sin scroll, con la duración y el medidor anclados al pie.
+- **Do** hacer de cada tarjeta de disco una pantalla de teléfono sin scroll, con la duración, los km y las etiquetas con sus puntos.
 - **Do** revelar cada acción de tirón con su círculo de 48px, que se arma en tinta con icono voltio cuando soltar actúa, y dar a cada gesto su equivalente de teclado.
 - **Do** reproducir todas las animaciones siempre, también con «Reducir movimiento» activado (lo pidió el propietario).
 

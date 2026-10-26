@@ -5,7 +5,7 @@ import { createWheel } from './wheel.js';
 import { createPager } from './pager.js';
 import { playSplash } from './splash.js';
 import {
-  sessionSeconds, pickAlbums, formatDuration, describeDelta, formatPace, albumKm, formatKmValue, relevantTags,
+  sessionSeconds, pickAlbums, formatDuration, formatPace, albumKm, formatKmValue, rankedTags,
 } from './recommend.js';
 
 const $ = (id) => document.getElementById(id);
@@ -32,12 +32,6 @@ prefs.pace = Math.min(PACE.max, Math.max(PACE.min, Math.round(prefs.pace / PACE.
 // library.status: loading | ready | empty | error
 const library = { status: 'loading', name: 'The Magic Bus', albums: [] };
 const colors = store.get(COLORS_KEY) ?? {};
-
-// Card proposals under review: ?tarjeta=1, 2 or 3 picks one, and this phone remembers it.
-const CARD_KEY = 'hillb.card';
-const askedCard = new URLSearchParams(location.search).get('tarjeta');
-if (['1', '2', '3'].includes(askedCard)) store.set(CARD_KEY, askedCard);
-root.dataset.card = ['1', '2', '3'].includes(store.get(CARD_KEY)) ? store.get(CARD_KEY) : '1';
 
 /* ---------- Views ---------- */
 
@@ -319,11 +313,12 @@ function skeletonCard(i) {
   li.setAttribute('aria-hidden', 'true');
   li.innerHTML = `<div class="card-inner"><div class="cover-box"><span class="sk sk-cover"></span></div>
     <div class="card-head"><span class="sk sk-title"></span><span class="sk sk-meta"></span></div>
-    <div class="card-run"><span class="sk sk-time"></span></div><div class="card-tags"><span class="sk sk-tags"></span></div></div>`;
+    <div class="card-run"><span class="sk sk-time"></span></div>
+    <div class="card-tags">${'<span class="sk sk-tags"></span>'.repeat(4)}</div></div>`;
   return li;
 }
 
-function albumCard({ album, duration, delta }, i, target, count) {
+function albumCard({ album, duration }, i, target, count) {
   const li = document.createElement('li');
   li.className = duration >= 3600 ? 'card is-long' : 'card';
   li.style.setProperty('--i', i);
@@ -333,9 +328,9 @@ function albumCard({ album, duration, delta }, i, target, count) {
 
   const artists = album.artists.join(', ');
   const km = albumKm(duration, prefs.pace);
-  const tags = relevantTags(album)
-    .map((t, rank) => `<li style="--s:${(0.8 ** rank).toFixed(3)};--len:${t.length}">${escapeHtml(t)}</li>`)
-    .join(' '); // the space lets a line of tags break between two tags
+  // Each tag with a bar of ten dots: how strong it is against the album's strongest tag.
+  const tags = rankedTags(album).map((t) => `<li><span class="tag-name">${escapeHtml(t.name)}</span>`
+    + `<span class="tag-dots" role="img" aria-label="${t.dots} de 10">${'<i class="on"></i>'.repeat(t.dots)}${'<i></i>'.repeat(10 - t.dots)}</span></li>`).join('');
 
   li.innerHTML = `
     <div class="card-inner">
@@ -348,9 +343,8 @@ function albumCard({ album, duration, delta }, i, target, count) {
         <p class="card-meta">${escapeHtml(artists)}${album.year ? ` <span>${album.year}</span>` : ''}</p>
       </div>
       <div class="card-run">
-        <p class="card-fig card-fig-time"><span class="card-time" data-seconds="${duration}">${formatDuration(duration)}</span><span class="card-label">Disco</span></p>
-        <p class="card-fig card-fig-km"><span class="card-km" data-km="${km}">${formatKmValue(km)}</span><span class="card-unit">km</span><span class="card-label">a ${formatPace(prefs.pace)} /km</span></p>
-        <span class="card-delta">${describeDelta(delta)}</span>
+        <p class="card-fig"><span class="card-time" data-seconds="${duration}">${formatDuration(duration)}</span><span class="sr-only"> de disco</span></p>
+        <p class="card-fig"><span class="card-km" data-km="${km}">${formatKmValue(km)}</span><span class="card-unit">km</span><span class="sr-only"> a ${formatPace(prefs.pace)} el kilómetro</span></p>
       </div>
       ${tags ? `<ul class="card-tags" aria-label="Etiquetas del disco y del artista">${tags}</ul>` : ''}
       <a class="sr-only" href="${escapeAttr(album.url)}" target="_blank" rel="noopener">Abrir ${escapeHtml(album.name)} en Spotify</a>
@@ -384,15 +378,17 @@ function setActive(index) {
   cards.forEach((c, i) => c.classList.toggle('is-active', i === index));
 }
 
-/** The running time and the kilometres count up, and the tags rise in one after another, once the
- *  card has landed, not while it glides: the eye follows one motion at a time. */
+/** The running time and the kilometres count up, and each tag's dots fill in from the left, row
+ *  after row, once the card has landed, not while it glides: the eye follows one motion at a time. */
 function arrive(index) {
   const card = $('deck').children[index];
   if (!card || card.classList.contains('is-skeleton') || card.classList.contains('is-seen')) return;
   countUp(card);
-  card.querySelectorAll('.card-tags li').forEach((li, i) => li.animate(
-    [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }],
-    { duration: 280, delay: 120 + i * 45, easing: 'cubic-bezier(0.23, 1, 0.32, 1)', fill: 'backwards' }));
+  card.querySelectorAll('.card-tags li').forEach((li, row) => {
+    li.querySelectorAll('.on').forEach((dot, k) => dot.animate(
+      [{ opacity: 0, transform: 'scale(0.4)' }, { opacity: 1, transform: 'none' }],
+      { duration: 220, delay: 120 + row * 50 + k * 22, easing: 'cubic-bezier(0.23, 1, 0.32, 1)', fill: 'backwards' }));
+  });
   card.classList.add('is-seen');
 }
 

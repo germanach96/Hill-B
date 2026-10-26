@@ -70,12 +70,11 @@ Para el futuro paso de *mood*. Spotify ya no da energía, tempo ni *valence* a a
 - Una edición ("Night Visions (Deluxe)") se pregunta también por su nombre simple y se queda con la que tiene más etiquetas.
 - La app todavía no las usa. En el Excel salen en la pestaña Discos.
 
-## Tarjeta de disco: rediseño en revisión (2026-10-26)
-Pedido del usuario: ver el tiempo del disco **y los km estimados** según el ritmo; quitar la barra y las canciones de la playlist; en su lugar, **etiquetas relevantes del disco y del artista**.
+## Tarjeta de disco (borrador, 2026-10-26)
+El usuario eligió la propuesta 1 («Dos cifras») de tres, con cambios: sin ritmo ni "Justo lo que corres / Sobran / Faltan", más etiquetas y las etiquetas como barras según sus puntos. Borrador en el PR #13, pendiente de su visto bueno.
 - El **ritmo se pide también en modo Tiempo** (la tira de ritmo sale en los dos modos; en Tiempo muestra "≈ 8,7 km", en Distancia "55:00 de carrera").
-- km del disco = duración ÷ ritmo (`albumKm`, `formatKmValue` en `public/js/recommend.js`). La cifra de km va en la letra inclinada de las ruedas (es un número de la carrera); la duración, en Archivo.
-- Etiquetas: `relevantTags` (mismo archivo, con pruebas): disco al 100 %, artista al 70 %; fuera ruido, años y décadas, nombres del artista y del disco, peso < 10; una por grafía; la genérica se va si hay una precisa que la contiene ("rock" bajo "alternative rock"). Hasta 5.
-- **3 propuestas, se elige con `?tarjeta=1|2|3`** (el teléfono la recuerda): 1 «Dos cifras» (duración y km lado a lado, etiquetas en píldoras), 2 «Cifra y línea» (duración gigante, km en una línea, etiquetas en mayúsculas con barras), 3 «Ficha» (portada más chica con las cifras al lado, etiquetas apiladas que bajan de tamaño). Falta que el usuario elija; después se quita el selector y se documenta en `diseno/DESIGN.md`.
+- La tarjeta: portada, título, artista y año, **duración y km** (duración ÷ ritmo) lado a lado, y **hasta 7 etiquetas** con una barra de 10 puntos cada una (`rankedTags` en `public/js/recommend.js`: disco al 100 %, artista al 70 %; fuera ruido, años, nombres del artista y del disco y peso < 3; la genérica se va si hay una precisa que la contiene). Detalle en `diseno/DESIGN.md` § Album card.
+- Sin barra de duración y sin canciones de la playlist.
 
 ## Pendiente de definir por el usuario
 - Paso de *mood* (va después de elegir tiempo/km). No está construido. Base posible: las etiquetas de Last.fm.
