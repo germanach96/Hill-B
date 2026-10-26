@@ -136,8 +136,13 @@
       },
       {
         "name": "pager-spring",
-        "value": "k = (2π/respuesta)², c = 4πζ/respuesta, masa 1, 4 subpasos por fotograma, asiento |Δx| < 0.25px y |v| < 6 px/s, velocidad limitada a 4000 px/s (medida en los últimos 100ms)",
-        "purpose": "Toda la baraja: cambio de tarjeta 0.55 / ζ 1, sin rebote; la velocidad del dedo se entrega con un tope de ω·distancia + 60 px/s hacia el destino (un cuarto en contra), para que un golpe fuerte se deslice ~300ms en vez de saltar; vuelta de la tarjeta levantada 0.42 / ζ 0.82; volver 0.45; otros cinco salen 0.42 y entran 0.6; abrir sube 0.36 y vuelve 0.45 / ζ 0.82. La cuenta de la duración y el medidor empiezan cuando la tarjeta se asienta. Escala, opacidad y origen de cada tarjeta y la marca de las barras de posición se dibujan en cada fotograma desde la posición viva; con movimiento reducido, saltan al destino."
+        "value": "k = (2π/respuesta)², c = 4πζ/respuesta, masa 1, calculado de antemano (8 subpasos por 1/60 s) y reproducido como fotogramas clave lineales de Web Animations (compositor), un fotograma adelantado, asiento |Δx| < 0.25px y |v| < 6 px/s, velocidad limitada a 4000 px/s (medida en los últimos 100ms)",
+        "purpose": "Toda la baraja: cambio de tarjeta 0.55 / ζ 1, sin rebote; la velocidad del dedo se entrega con un tope de ω·distancia + 60 px/s hacia el destino (un cuarto en contra), para que un golpe fuerte se deslice ~300ms en vez de saltar; vuelta de la tarjeta levantada 0.42 / ζ 0.82; volver 0.45; otros cinco salen 0.42 y entran 0.6; abrir sube 0.36 y vuelve 0.45 / ζ 0.82. La cuenta de la duración y el medidor empiezan cuando la tarjeta se asienta. Escala (hacia la tarjeta del frente, escrita como desplazamiento), opacidad de cada tarjeta y la marca de las barras de posición salen de la posición del muelle; tocar a media carrera lee la posición del reloj de la animación; con movimiento reducido, saltan al destino."
+      },
+      {
+        "name": "splash",
+        "value": "punto 220ms · carrera 1650ms lineal · meta 400ms ease-in-out · a casa 480ms ease-drawer · a START 430ms ease-in-out · START crece 360ms ease-out (clip-path circle)",
+        "purpose": "Apertura de ~3 s: el punto recorre las dos colinas y rellena la marca, el logo vuela a la barra y el punto se vuelve START. Un toque la salta; con movimiento reducido, fundido de 240ms."
       },
       {
         "name": "reduced-motion",
