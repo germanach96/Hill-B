@@ -13,7 +13,8 @@ colors:
 typography:
   wheel:
     fontFamily: "Archivo, system-ui, -apple-system, Segoe UI, sans-serif"
-    fontSize: "calc(clamp(80px, 12.5svh, 112px) * 0.9)"
+    fontSize: "calc(clamp(112px, min(19svh, 40vw), 168px) * 0.9)"
+    fontStyle: italic
     fontWeight: 900
     lineHeight: 1
     letterSpacing: "-0.01em"
@@ -43,10 +44,12 @@ typography:
     fontVariation: "'wdth' 62"
   pace:
     fontFamily: "Archivo, system-ui, -apple-system, Segoe UI, sans-serif"
-    fontSize: "20px"
-    fontWeight: 800
-    lineHeight: 1.5
+    fontSize: "2.25rem"
+    fontWeight: 900
+    fontStyle: italic
+    lineHeight: 1
     fontFeature: "'tnum'"
+    fontVariation: "'wdth' 62"
   action:
     fontFamily: "Archivo, system-ui, -apple-system, Segoe UI, sans-serif"
     fontSize: "18px"
@@ -122,16 +125,14 @@ components:
     textColor: "{colors.ink}"
     typography: "{typography.wheel}"
     rounded: "{rounded.card}"
-    height: "clamp(80px, 12.5svh, 112px)"
+    height: "clamp(112px, min(19svh, 40vw), 168px)"
   pace-pill:
-    textColor: "{colors.ink}"
-    typography: "{typography.pace}"
-    rounded: "{rounded.pill}"
-    width: "84px"
-    height: "52px"
-  pace-pill-selected:
     backgroundColor: "{colors.ink}"
     textColor: "{colors.volt}"
+    typography: "{typography.pace}"
+    rounded: "{rounded.pill}"
+    width: "144px"
+    height: "64px"
   icon-button:
     backgroundColor: "{colors.surface}"
     textColor: "{colors.ink}"
@@ -207,11 +208,11 @@ Valores fuera de la paleta, intencionados: el `#000` dentro de la `mask-image` d
 **Character:** Una sola familia en dos voces. La voz de pantalla es Archivo en su ancho mínimo y peso máximo, en mayúsculas: la de la pantalla de objetivo de Nike. La voz de texto es la misma familia a ancho normal, tranquila y legible a un brazo de distancia.
 
 ### Hierarchy
-- **Wheel** (900, 0.9 × la fila, 1): las cifras de las dos ruedas y su separador ":" o ","; la fila mide `clamp(80px, 12.5svh, 112px)`, así que la cifra crece con la altura de la pantalla.
+- **Wheel** (900 itálica, 0.9 × la fila, 1): las cifras de las dos ruedas y su separador ":" o ","; la fila mide `clamp(112px, min(19svh, 40vw), 168px)`, así que la cifra crece con la pantalla sin salirse en un teléfono estrecho. La itálica es el archivo `archivo-italic-latin.woff2` (Archivo Italic variable, subconjunto latino), solo para cifras.
 - **Figure** (900, 3.25rem, 0.9): duración del disco en la tarjeta; cuenta hacia arriba al llegar.
 - **Headline** (900, 2rem, 1): título de resultados ("Para 45 min") y título del disco (0.95, máximo dos líneas).
 - **Start** (900, 2rem, +0.02em): la palabra START del botón principal, más abierta que el resto de la voz de pantalla para leerse como una orden.
-- **Pace** (800, 20px, ancho normal): las píldoras de la tira de intensidad.
+- **Pace** (900 itálica, 2.25rem, estrecha): el ritmo dentro de la píldora de intensidad.
 - **Action** (700, 18px, −0.005em): texto de los botones grandes de texto (reintento), y la unidad bajo las ruedas en tinta de apoyo.
 - **Body** (400, 16px, 1.5): texto general, canciones de la tarjeta (1.4, dos líneas); 700 en el interruptor, la etiqueta "Intensidad" y "Otros 5".
 - **Label** (600, 15px): textos secundarios, leyendas del medidor, diferencia frente a la salida, subtítulo de resultados, avisos.
@@ -220,7 +221,7 @@ Valores fuera de la paleta, intencionados: el `#000` dentro de la `mask-image` d
 El botón "Abrir en Spotify" de la tarjeta usa 17px, un punto por debajo de Action, para caber en la tarjeta de 52px de alto; es intencionado.
 
 ### Named Rules
-**The Two Voices Rule.** Estrecha (62%), 900 y mayúsculas para cifras de las ruedas, START, títulos de vista y títulos de disco; ancho normal para todo lo demás. No hay pesos ni anchos intermedios en la voz de pantalla.
+**The Two Voices Rule.** Estrecha (62%), 900 y mayúsculas para cifras de las ruedas (en itálica, como el ritmo), START, títulos de vista y títulos de disco; ancho normal para todo lo demás. No hay pesos ni anchos intermedios en la voz de pantalla.
 
 **The Tabular Rule.** Toda cifra de tiempo, distancia, ritmo o recuento usa `font-variant-numeric: tabular-nums` para que no baile al cambiar ni al girar la rueda.
 
@@ -242,18 +243,18 @@ Una columna de teléfono: `max-width: 480px`, centrada, con 20px de margen later
 
 El ritmo de espaciado es 4 / 8 / 12 / 16 / 20 / 24px. Las separaciones verticales de la vista de sesión respiran con la altura de pantalla: bajo el interruptor `clamp(12px, 3svh, 32px)`, sobre la intensidad `clamp(16px, 3.5svh, 36px)`.
 
-**Sesión:** interruptor arriba; las ruedas en una rejilla `1fr auto 1fr` de tres filas de alto (fila `clamp(80px, 12.5svh, 112px)`), empujadas con `margin-top: auto` para que la altura sobrante se reparta arriba y abajo y el valor quede a media pantalla, al alcance del pulgar. Las dos cifras se pegan al separador (la de la izquierda alineada a la derecha y al revés) para leerse como un solo valor: 1:05, 10,5. La unidad va 10px por debajo, centrada. La tira de intensidad sangra hasta el borde del viewport y centra la píldora elegida con un relleno de `50% − 42px`.
+**Sesión:** interruptor arriba; las ruedas en una rejilla `1fr auto 1fr` de una fila de alto más un margen táctil invisible arriba y abajo (`--reach`, `clamp(24px, 5svh, 48px)`), empujadas con `margin-top: auto` para que la altura sobrante se reparta arriba y abajo y el valor quede a media pantalla, al alcance del pulgar. Las dos cifras se pegan al separador (la de la izquierda alineada a la derecha y al revés) para leerse como un solo valor: 1:05, 10,5. La unidad va 10px por debajo, centrada. La tira de intensidad sangra hasta el borde del viewport: todo su ancho se desliza, pero solo se pinta la píldora del centro.
 
 **Resultados:** cabecera en rejilla `44px 1fr auto` (atrás, título y subtítulo, "Otros 5"); cinco segmentos de posición de 4px; y un carrusel horizontal con snap obligatorio: tarjeta de `min(78vw, 376px)`, separación de 12px, centrada y con ambas vecinas asomando; el carril sangra hasta el borde del viewport. A partir de 520px, el carril se desvanece con una máscara de 32px en los bordes de la columna.
 
 ## Elevation & Depth
 
-Plano por completo: no hay ni una `box-shadow` en el sistema. La profundidad se transmite con pasos tonales de tinta sobre voltio (suelo, superficie, superficie pulsada) y con el campo de color de cada tarjeta. Lo que no está elegido retrocede por escala y opacidad, no por sombra: filas vecinas de las ruedas a 0.6 y 0.45, píldoras vecinas de la intensidad a 0.82 y 0.45, tarjetas vecinas del carrusel a 0.95 y 0.8 (estas, dirigidas por el scroll).
+Plano por completo: no hay ni una `box-shadow` en el sistema. La profundidad se transmite con pasos tonales de tinta sobre voltio (suelo, superficie, superficie pulsada) y con el campo de color de cada tarjeta. Lo que no está elegido no se ve o retrocede, nunca con sombra: las ruedas y la intensidad no enseñan valores vecinos (una máscara pinta solo la ventana), y las tarjetas vecinas del carrusel quedan a 0.95 y 0.8 (dirigidas por el scroll).
 
 ### Named Rules
 **The Flat Field Rule.** Ninguna superficie lleva sombra ni borde; se separa del suelo por tono o por color de portada.
 
-**The Step Back Rule.** Lo que rodea al valor elegido sigue visible pero retrocede (escala y opacidad ≥ 0.45, legible al sol): dice que la rueda gira sin competir con el valor.
+**The One Value Rule.** Las ruedas y la intensidad enseñan solo el valor actual, grande y en itálica, dentro de su ventana (decisión del dueño, 2026-10-26). Al deslizar, el valor siguiente entra por el borde de la ventana; antes no se ve. La ventana (banda de superficie o píldora de tinta) dice dónde deslizar.
 
 ## Shapes
 
@@ -275,15 +276,15 @@ Grandes, llenos y para el pulgar. Todos de tinta con texto voltio.
 
 ### Picker wheels (signature)
 Dos columnas de cifras gigantes con scroll y snap nativos: el impulso y el rebote del propio teléfono, una cifra por fila, y la fila central es el valor. Horas : minutos (0:05 a 5:59) o km , cientos de metros (1,0 a 60,9).
-- **Style:** tres filas visibles; la central sobre una banda de superficie con radio de 24px. Cifras en la voz Wheel (0.9 × la fila); el separador ":" o "," en la misma voz entre ambas.
-- **State:** la fila elegida a escala 1 y opacidad 1; las vecinas a `scale(0.6)` y 0.45, ancladas hacia el separador; transición de 160ms con `--ease-out`. Una vibración de 4ms por paso bajo el dedo donde el teléfono lo permite.
+- **Style:** una sola fila visible, la ventana: una banda de superficie con radio de 24px. Cifras en la voz Wheel (itálica, 0.9 × la fila) con 0.12 × la fila de margen lateral para la inclinación; el separador ":" o "," en la misma voz entre ambas.
+- **State:** `mask-image` pinta solo la ventana; la rueda se extiende `--reach` por encima y por debajo, invisible pero táctil (una máscara, a diferencia de `clip-path`, no recorta el área de toque). Al deslizar, las cifras pasan por la ventana como en un contador. Una vibración de 4ms por paso bajo el dedo donde el teléfono lo permite.
 - **Accesibilidad:** cada rueda es un `spinbutton` con valor y texto; flechas, Re Pág/Av Pág (±5), Inicio y Fin. Un salto de más de tres filas llega sin deslizarse.
 
 ### Intensity strip
 El ritmo (3:00 a 9:00 /km, de 5 en 5 s) como una tira que se desliza de lado; solo en distancia.
 - **Cabecera:** "Intensidad" (700, 16px) con "min/km" en tinta de apoyo (500), y a la derecha el total de carrera en tinta de apoyo con cifras tabulares.
-- **Style:** píldoras de 84px de paso y 52px de alto en la voz Pace, con snap al centro; las vecinas a `scale(0.82)` y 0.45.
-- **State:** la elegida es una píldora de tinta con texto voltio, a escala 1.
+- **Style:** una píldora fija de tinta de 144 × 64px en el centro; los ritmos, en voltio y en la voz Pace, pasan por ella con snap al centro (paso de 144px).
+- **State:** `mask-image` pinta solo la píldora; el resto de la tira es invisible pero se desliza con el pulgar. El foco de teclado rodea la píldora.
 
 ### Icon buttons (atrás, "Otros 5")
 - **Atrás:** círculo de superficie de 44px con flecha de 20px; `scale(0.92)` al pulsar.

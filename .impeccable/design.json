@@ -68,7 +68,7 @@
     "typographyMeta": {
       "wheel": {
         "displayName": "Wheel",
-        "purpose": "Cifras de las ruedas y su separador; 0.9 × la fila."
+        "purpose": "Cifras de las dos ruedas y su separador \":\" o \",\"; 900 itálica, 0.9 × la fila (clamp(112px, min(19svh, 40vw), 168px)). La itálica es archivo-italic-latin.woff2, solo para cifras."
       },
       "figure": {
         "displayName": "Figure",
@@ -84,7 +84,7 @@
       },
       "pace": {
         "displayName": "Pace",
-        "purpose": "Píldoras de la tira de intensidad."
+        "purpose": "El ritmo dentro de la píldora de intensidad; 900 itálica, 2.25rem, estrecha."
       },
       "action": {
         "displayName": "Action",
@@ -108,7 +108,7 @@
       {
         "name": "ease-out",
         "value": "cubic-bezier(0.23, 1, 0.32, 1)",
-        "purpose": "Respuesta al pulsar (140ms), filas de las ruedas y píldoras de intensidad (160ms), entrada de la intensidad (220ms, 60ms de retraso), entrada de tarjetas (460ms, escalonado 60ms), relleno del medidor y cuenta de la duración (600ms)."
+        "purpose": "Respuesta al pulsar (140ms), entrada de la intensidad (220ms, 60ms de retraso), entrada de tarjetas (460ms, escalonado 60ms), relleno del medidor y cuenta de la duración (600ms)."
       },
       {
         "name": "ease-in-out",
@@ -123,7 +123,7 @@
       {
         "name": "wheel-snap",
         "value": "scroll-snap-type: y mandatory / x mandatory",
-        "purpose": "Ruedas y tira con el scroll nativo del teléfono; los movimientos por teclado se deslizan si son de hasta tres filas."
+        "purpose": "Ruedas y tira con el scroll nativo del teléfono: el valor siguiente entra por el borde de la ventana; los movimientos por teclado se deslizan si son de hasta tres filas."
       },
       {
         "name": "reduced-motion",
@@ -175,17 +175,17 @@
       "name": "Ruedas de la sesión",
       "kind": "custom",
       "refersTo": "picker-band",
-      "description": "Dos ruedas verticales con scroll y snap nativos; el valor en la banda central de superficie, las vecinas a 0.6 y 0.45.",
-      "html": "<div class=\"ds-ground\"><div class=\"ds-picker\"><div class=\"ds-wheel ds-major\" tabindex=\"0\" role=\"spinbutton\" aria-label=\"Horas\"><div class=\"ds-row\">0</div><div class=\"ds-row is-sel\">1</div><div class=\"ds-row\">2</div></div><span class=\"ds-sep\">:</span><div class=\"ds-wheel ds-minor\" tabindex=\"0\" role=\"spinbutton\" aria-label=\"Minutos\"><div class=\"ds-row\">04</div><div class=\"ds-row is-sel\">05</div><div class=\"ds-row\">06</div></div></div><p class=\"ds-unit\">horas y minutos</p></div>",
-      "css": ".ds-ground { background: #d7ff1f; padding: 16px; width: 360px; color: #111111; font-family: Archivo, system-ui, sans-serif; } .ds-picker { --item: 96px; position: relative; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: calc(var(--item) * 3); } .ds-picker::before { content: \"\"; position: absolute; inset: var(--item) 0; border-radius: 24px; background: #c5ea1e; } .ds-wheel { position: relative; height: 100%; outline: none; } .ds-wheel:focus-visible { outline: 3px solid #111111; outline-offset: -3px; border-radius: 24px; } .ds-row, .ds-sep { font-stretch: 62%; font-weight: 900; text-transform: uppercase; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; font-size: calc(var(--item) * 0.9); line-height: 1; } .ds-row { display: flex; align-items: center; height: var(--item); padding-inline: 10px; opacity: 0.45; transform: scale(0.6); transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), opacity 160ms ease; } .ds-major .ds-row { justify-content: flex-end; transform-origin: right center; } .ds-minor .ds-row { justify-content: flex-start; transform-origin: left center; } .ds-row.is-sel { opacity: 1; transform: none; } .ds-sep { position: relative; } .ds-unit { margin: 10px 0 0; text-align: center; font-size: 18px; font-weight: 700; color: #485415; }"
+      "description": "Dos columnas de cifras gigantes con scroll y snap nativos. Una sola fila visible, la ventana: una banda de superficie con radio de 24px. Cifras en la voz Wheel (itálica, 0.9 × la fila) con 0.12 × la fila de margen lateral para la inclinación. `mask-image` pinta solo la ventana; la rueda se extiende `--reach` por encima y por debajo, invisible pero táctil. Al deslizar, las cifras pasan por la ventana como en un contador.",
+      "html": "<div class=\"ds-ground\"><div class=\"ds-picker\"><div class=\"ds-wheel ds-major\" tabindex=\"0\" role=\"spinbutton\" aria-label=\"Horas\" aria-valuenow=\"1\"><div class=\"ds-track\"><div class=\"ds-row\">0</div><div class=\"ds-row\">1</div><div class=\"ds-row\">2</div></div></div><span class=\"ds-sep\">:</span><div class=\"ds-wheel ds-minor\" tabindex=\"0\" role=\"spinbutton\" aria-label=\"Minutos\" aria-valuenow=\"5\"><div class=\"ds-track\"><div class=\"ds-row\">04</div><div class=\"ds-row\">05</div><div class=\"ds-row\">06</div></div></div></div><p class=\"ds-unit\">horas y minutos</p></div>",
+      "css": ".ds-ground { background: #d7ff1f; padding: 16px; width: 360px; color: #111111; font-family: Archivo, system-ui, sans-serif; } .ds-picker { --item: 128px; --reach: 32px; position: relative; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: calc(var(--item) + var(--reach) * 2); } .ds-picker::before { content: \"\"; position: absolute; inset: var(--reach) 0; border-radius: 24px; background: #c5ea1e; } .ds-wheel { position: relative; height: 100%; overflow: hidden; padding-block: var(--reach); box-sizing: border-box; outline: none; mask-image: linear-gradient(to bottom, transparent var(--reach), #000 var(--reach), #000 calc(100% - var(--reach)), transparent calc(100% - var(--reach))); } .ds-wheel:focus-visible { outline: 3px solid #111111; outline-offset: calc(var(--reach) * -1 - 3px); border-radius: 24px; } .ds-track { transform: translateY(calc(var(--item) * -1)); transition: transform 260ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-wheel:hover .ds-track { transform: translateY(calc(var(--item) * -2)); } .ds-row, .ds-sep { font-stretch: 62%; font-weight: 900; font-style: italic; text-transform: uppercase; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; font-size: calc(var(--item) * 0.9); line-height: 1; } .ds-row { display: flex; align-items: center; height: var(--item); padding-inline: calc(var(--item) * 0.12); } .ds-major .ds-row { justify-content: flex-end; } .ds-minor .ds-row { justify-content: flex-start; } .ds-sep { position: relative; } .ds-unit { margin: 10px 0 0; text-align: center; font-size: 18px; font-weight: 700; color: #485415; } @media (prefers-reduced-motion: reduce) { .ds-track { transition: none; } }"
     },
     {
       "name": "Tira de intensidad",
       "kind": "chip",
       "refersTo": "pace-pill",
-      "description": "El ritmo como tira que se desliza de lado; el elegido es una píldora de tinta con texto voltio.",
-      "html": "<div class=\"ds-ground\"><div class=\"ds-int-head\"><span class=\"ds-int-label\">Intensidad<span class=\"ds-int-unit\">min/km</span></span><span class=\"ds-int-total\">54:45 de carrera</span></div><div class=\"ds-strip\" tabindex=\"0\" role=\"spinbutton\" aria-label=\"Intensidad\"><span class=\"ds-pill\">5:20</span><span class=\"ds-pill\">5:25</span><span class=\"ds-pill is-sel\">5:30</span><span class=\"ds-pill\">5:35</span><span class=\"ds-pill\">5:40</span></div></div>",
-      "css": ".ds-ground { background: #d7ff1f; padding: 16px; width: 360px; color: #111111; font-family: Archivo, system-ui, sans-serif; } .ds-int-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-size: 16px; } .ds-int-label { font-weight: 700; } .ds-int-unit { margin-left: 4px; font-weight: 500; color: #485415; } .ds-int-total { color: #485415; font-variant-numeric: tabular-nums; } .ds-strip { display: flex; justify-content: center; align-items: center; height: 64px; margin-top: 10px; overflow: hidden; outline: none; } .ds-strip:focus-visible { outline: 3px solid #111111; outline-offset: -3px; border-radius: 24px; } .ds-pill { flex: 0 0 84px; display: grid; place-items: center; height: 52px; border-radius: 999px; font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums; opacity: 0.45; transform: scale(0.82); transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), opacity 160ms ease, background-color 160ms ease, color 160ms ease; } .ds-pill:hover { opacity: 0.7; } .ds-pill.is-sel { background: #111111; color: #d7ff1f; opacity: 1; transform: none; }"
+      "description": "El ritmo (3:00 a 9:00 /km, de 5 en 5 s) como una tira que se desliza de lado; solo en distancia. Una píldora fija de tinta de 144 × 64px en el centro; los ritmos, en voltio y en la voz Pace, pasan por ella con snap al centro (paso de 144px). `mask-image` pinta solo la píldora; el resto de la tira es invisible pero se desliza con el pulgar.",
+      "html": "<div class=\"ds-ground\"><div class=\"ds-int-head\"><span class=\"ds-int-label\">Intensidad<span class=\"ds-int-unit\">min/km</span></span><span class=\"ds-int-total\">54:45 de carrera</span></div><div class=\"ds-frame\"><div class=\"ds-strip\" tabindex=\"0\" role=\"spinbutton\" aria-label=\"Intensidad\" aria-valuetext=\"5:30 min/km\"><div class=\"ds-strip-track\"><span class=\"ds-pace\">5:25</span><span class=\"ds-pace\">5:30</span><span class=\"ds-pace\">5:35</span></div></div></div></div>",
+      "css": ".ds-ground { background: #d7ff1f; padding: 16px; width: 360px; color: #111111; font-family: Archivo, system-ui, sans-serif; } .ds-int-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-size: 16px; } .ds-int-label { font-weight: 700; } .ds-int-unit { margin-left: 4px; font-weight: 500; color: #485415; } .ds-int-total { color: #485415; font-variant-numeric: tabular-nums; } .ds-frame { --pitem: 144px; position: relative; margin-top: 10px; } .ds-frame::before { content: \"\"; position: absolute; top: 6px; bottom: 6px; left: calc(50% - var(--pitem) / 2); width: var(--pitem); border-radius: 999px; background: #111111; } .ds-frame:has(.ds-strip:focus-visible)::before { outline: 3px solid #111111; outline-offset: 3px; } .ds-strip { position: relative; height: 76px; overflow: hidden; outline: none; mask-image: linear-gradient(to right, transparent calc(50% - var(--pitem) / 2), #000 calc(50% - var(--pitem) / 2), #000 calc(50% + var(--pitem) / 2), transparent calc(50% + var(--pitem) / 2)); } .ds-strip-track { display: flex; height: 100%; padding-inline: calc(50% - var(--pitem) / 2); transform: translateX(calc(var(--pitem) * -1)); transition: transform 260ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-strip:hover .ds-strip-track { transform: translateX(calc(var(--pitem) * -2)); } .ds-pace { flex: 0 0 var(--pitem); display: grid; place-items: center; font-stretch: 62%; font-weight: 900; font-style: italic; text-transform: uppercase; font-size: 2.25rem; font-variant-numeric: tabular-nums; color: #d7ff1f; } @media (prefers-reduced-motion: reduce) { .ds-strip-track { transition: none; } }"
     },
     {
       "name": "Cabecera de resultados",
@@ -246,7 +246,7 @@
       },
       {
         "name": "The Two Voices Rule",
-        "body": "Estrecha (62%), 900 y mayúsculas para cifras de las ruedas, START, títulos de vista y títulos de disco; ancho normal para todo lo demás. No hay pesos ni anchos intermedios en la voz de pantalla.",
+        "body": "Estrecha (62%), 900 y mayúsculas para cifras de las ruedas (en itálica, como el ritmo), START, títulos de vista y títulos de disco; ancho normal para todo lo demás. No hay pesos ni anchos intermedios en la voz de pantalla.",
         "section": "typography"
       },
       {
@@ -265,8 +265,8 @@
         "section": "elevation"
       },
       {
-        "name": "The Step Back Rule",
-        "body": "Lo que rodea al valor elegido sigue visible pero retrocede (escala y opacidad ≥ 0.45, legible al sol): dice que la rueda gira sin competir con el valor.",
+        "name": "The One Value Rule",
+        "body": "Las ruedas y la intensidad enseñan solo el valor actual, grande y en itálica, dentro de su ventana (decisión del dueño, 2026-10-26). Al deslizar, el valor siguiente entra por el borde de la ventana; antes no se ve. La ventana (banda de superficie o píldora de tinta) dice dónde deslizar.",
         "section": "elevation"
       }
     ],
