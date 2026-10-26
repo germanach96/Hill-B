@@ -26,7 +26,7 @@ WEIGHT, WIDTH = 700, 75  # the mark's B
 RIGHT_HILL = 1.4         # the right hill against the left one
 RIGHT_HOLLOW = 0.85      # the right hill's hollow, shrunk inside the same outline
 HOLLOW_ANCHOR = 0.5      # where along its floor the hollow shrinks to (0 left, 1 right)
-HOLLOW_CENTRING = 1.0    # how far the hollow moves to sit under its hill's centre once slanted
+HOLLOW_CENTRING = 0.5    # how far the hollow moves towards its hill's centre once slanted (owner's pick: halfway)
 SLANT = 35               # degrees, applied to the lying mark
 
 
