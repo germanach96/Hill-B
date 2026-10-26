@@ -3,7 +3,7 @@
 Actualizado: 2026-10-26.
 
 ## Qué es
-Hill-B: app web móvil (PWA estática) que responde "¿qué disco entero me conviene escuchar en esta sesión de correr?". Propone 5 discos de la playlist "The Magic Bus" (`77Yaz4xSfZjJqRTIXo4ZE2`, del usuario) cuya duración mejor cubre la salida, por tiempo o por km + ritmo.
+Hill-B: app web móvil (PWA estática) que responde "¿qué disco entero me conviene escuchar en esta sesión de correr?". Propone 5 discos de la playlist "The Magic Bus" (`77Yaz4xSfZjJqRTIXo4ZE2`, del usuario) cuya duración se acerca a la salida, por tiempo o por km + ritmo.
 
 ## Dónde está
 - Publicada en **https://hill-b.onrender.com** (Render, sitio estático desde `main`, `render.yaml` → `public/`). Cada merge a `main` redespliega.
@@ -17,6 +17,13 @@ Hill-B: app web móvil (PWA estática) que responde "¿qué disco entero me conv
 - Cuenta de Spotify Premium. Client ID `6b13ef05e42d4331a1fbbbc839bc1092`.
 - Claude le manda al usuario el catálogo en Excel (`python3 tools/excel.py <archivo.xlsx>`): pestaña Canciones (con caso y álbum original) y pestaña Discos.
 
+## Cómo elige los 5 discos (decidido por el usuario, 2026-10-26)
+`pickAlbums` en `public/js/recommend.js`, pruebas en `tests/recommend.test.mjs`.
+- Toma los discos que duran entre la salida −5 min y +5 min (1 h → de 0:55 a 1:05).
+- Si en esa ventana hay menos de 10 discos (el doble de los que se muestran), la abre 5 min más por cada lado, y así hasta tener 10.
+- De ahí elige 5 al azar: con el mismo tiempo, cada búsqueda da otros discos. Los 5 que se acaban de mostrar solo repiten si la ventana no tiene otros.
+- Se muestran del más cercano al más lejano.
+
 ## Flujo de una canción nueva (decidido por el usuario, 2026-10-26)
 Lo hace `node tools/sync.mjs read`; las reglas están en `tools/catalog.mjs` y sus pruebas en `tests/catalog.test.mjs`.
 1. Se toma el disco de la canción.
@@ -26,7 +33,7 @@ Lo hace `node tools/sync.mjs read`; las reglas están en `tools/catalog.mjs` y s
 5. Se miden los discos nuevos (duración entera, portada, artistas, año, pistas) y van a `public/data/albums.json`.
 - **No se quita nada**: si una canción sale de la playlist, sus discos se quedan. El usuario avisa si quiere quitar algo.
 - **Sin original encontrado**: el usuario lo revisa a mano en el Excel. Si encuentra el disco, Claude lo pone en `data/manual.json` (`{"originals": {"<ID canción>": "<ID o enlace del disco>"}}`) y corre `read`; si no dice nada, se ignora.
-- **La app recomienda una sola versión**: una edición y su original (mismo disco, por ejemplo *Night Visions* y *Night Visions (Deluxe)*) comparten `group` y solo sale la que mejor encaja. Un en vivo o un recopilatorio es otro disco y puede salir junto al original.
+- **La app recomienda una sola versión**: una edición y su original (mismo disco, por ejemplo *Night Visions* y *Night Visions (Deluxe)*) comparten `group` y solo sale una de las dos. Un en vivo o un recopilatorio es otro disco y puede salir junto al original.
 
 ## Pendiente: bloqueado por la cuota de Spotify (retomar el 2026-10-27)
 El usuario dirá "sigue" en la misma conversación. Spotify devolvió 429 con `Retry-After` ≈ 24 h el 2026-10-26: primero en `/albums`, `/tracks` y `/artists` por ID, y después también en `/search`. `/me` y leer la playlist siguen funcionando.
@@ -41,7 +48,6 @@ Si el contenedor es nuevo, la sesión de Spotify (`.sync/`, fuera de git) se per
 
 ## Pendiente de definir por el usuario
 - Paso de *mood* (va después de elegir tiempo/km). No está construido.
-- Factor aleatorio.
 - Detalles extra de cada disco además de portada, artista y duración.
 
 ## Notas técnicas

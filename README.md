@@ -1,6 +1,6 @@
 # Hill-B
 
-¿Qué disco entero me conviene escuchar en esta sesión de correr? Hill-B lee tu playlist de Spotify ("The Magic Bus"), junta los discos de sus canciones y te propone los cinco que mejor cubren lo que vas a correr, por tiempo o por distancia y ritmo.
+¿Qué disco entero me conviene escuchar en esta sesión de correr? Hill-B lee tu playlist de Spotify ("The Magic Bus"), junta los discos de sus canciones y te propone cinco al azar entre los que duran casi lo mismo que vas a correr, por tiempo o por distancia y ritmo.
 
 Web estática instalable en el móvil (PWA), sin inicio de sesión: los discos van dentro de la app en `public/data/albums.json`. Spotify solo se usa para leer la playlist cuando se pide (lo hace Claude con `tools/sync.mjs`) y para el botón "Abrir en Spotify".
 
@@ -28,6 +28,6 @@ python3 tools/excel.py "The Magic Bus.xlsx"   # el catálogo en Excel (necesita 
 
 ```bash
 npm run dev    # http://127.0.0.1:5173
-npm test       # lógica de ranking y del catálogo (Node)
+npm test       # lógica de recomendación y del catálogo (Node)
 npm run e2e    # recorrido en navegador con datos inventados; capturas en .impeccable/review/
 ```

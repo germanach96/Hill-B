@@ -1,7 +1,7 @@
 // The app reads its albums from /data/albums.json, written by tools/sync.mjs (run by Claude).
 // It never talks to Spotify: the only link to Spotify is the "Abrir en Spotify" button.
 import { store } from './store.js';
-import { sessionSeconds, rankAlbums, formatDuration, describeDelta, formatPace } from './recommend.js';
+import { sessionSeconds, pickAlbums, formatDuration, describeDelta, formatPace } from './recommend.js';
 
 const $ = (id) => document.getElementById(id);
 const root = document.documentElement;
@@ -206,11 +206,24 @@ function libraryChanged() {
 let renderedKey = '';
 let observer = null;
 
+// The draw for the current search: kept across re-renders, drawn again on every "Buscar discos".
+let draw = { target: null, albums: null, ranked: [] };
+let lastShown = [];
+
+function drawAlbums(target, fresh) {
+  if (fresh || draw.target !== target || draw.albums !== library.albums) {
+    const ranked = pickAlbums(library.albums, target, { count: RESULT_COUNT, recent: lastShown });
+    draw = { target, albums: library.albums, ranked };
+    if (ranked.length) lastShown = ranked.map((r) => r.album.id);
+  }
+  return draw.ranked;
+}
+
 function renderResults({ entering = false } = {}) {
   const target = sessionSeconds(prefs);
   const isTime = prefs.mode === 'time';
   const ready = library.status === 'ready';
-  const ranked = ready ? rankAlbums(library.albums, target, RESULT_COUNT) : [];
+  const ranked = ready ? drawAlbums(target, entering) : [];
 
   $('results-title').textContent = isTime ? `Para ${prefs.minutes} min` : `Para ${formatKm(prefs.km)} km`;
   const count = ranked.length === 1 ? 'Un disco' : `${ranked.length} discos`;
