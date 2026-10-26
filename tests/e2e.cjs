@@ -29,6 +29,7 @@ async function newPage(browser, device, { scheme = 'light', reduced = 'no-prefer
 }
 
 const settle = (page) => page.waitForTimeout(900);
+const innerHeightOf = (device) => device.viewport.height;
 
 // A real touch swipe on a wheel (CDP touch events), so the browser's own snap and momentum run.
 async function swipe(page, selector, { x = 0, y = 0 }) {
@@ -125,39 +126,70 @@ async function run() {
       const titles = await page.locator('.card-title').allTextContents();
       assert.equal(titles.length, 5);
       assert.equal(new Set(titles).size, 5);
-      assert.equal(await page.locator('#results-title').textContent(), 'Para 45 min');
+      assert.equal(await page.locator('#results-title').textContent(), 'Discos para 45 min');
       const bg = await page.locator('.card').first().evaluate((el) => getComputedStyle(el).backgroundColor);
       assert.notEqual(bg, 'rgb(241, 241, 238)', 'the first card takes its colour from the cover');
       assert.equal(await page.locator('h1:visible').count(), 1);
+      // Only the wordmark and the cards: no title, button or link takes room on the screen.
+      const shown = await page.evaluate(() => [...document.querySelectorAll('#view-results :is(h1, p, button, a)')]
+        .filter((el) => { const r = el.getBoundingClientRect(); return r.width > 2 && r.height > 2; }).map((el) => el.outerHTML.slice(0, 60)));
+      assert.deepEqual(shown.filter((h) => !h.startsWith('<p class="card-')), [], 'nothing but the cards on the results screen');
+      // Each card fits the phone screen whole: nothing below the fold, nothing clipped inside.
+      const fit = await page.evaluate(() => [...document.querySelectorAll('.card')].map((c) => ({
+        bottom: c.getBoundingClientRect().bottom,
+        spill: c.querySelector('.card-inner').scrollHeight - c.querySelector('.card-inner').clientHeight,
+      })));
+      for (const f of fit) {
+        assert.ok(f.bottom <= innerHeightOf(PHONE) + 1, `a card ends below the screen (${f.bottom})`);
+        assert.ok(f.spill <= 1, `a card's content spills by ${f.spill}px`);
+      }
+      assert.equal(await page.evaluate(() => document.documentElement.scrollHeight), innerHeightOf(PHONE), 'the results never scroll');
       await page.screenshot({ path: `${OUT}/mobile-results.png` });
       await snapshot(page, 'results');
 
-      // Swipe to the second album.
+      const active = () => page.evaluate(() => [...document.querySelectorAll('.card')].findIndex((c) => c.classList.contains('is-active')));
+      // Swipe to the second album, and back.
       const t1 = Date.now();
-      await page.locator('#deck').evaluate((d) => d.scrollBy({ left: d.clientWidth * 0.8 }));
-      await page.waitForFunction(() => document.querySelectorAll('.tick')[1]?.classList.contains('is-on'));
-      report.push(`Deslizar → segunda tarjeta activa: ${Date.now() - t1} ms`);
-      await page.waitForTimeout(800);
+      await swipe(page, '#pager', { x: -200 });
+      assert.equal(await active(), 1);
+      report.push(`Deslizar → segunda tarjeta activa: ${Date.now() - t1} ms (con el asentado)`);
       await page.screenshot({ path: `${OUT}/mobile-results-2.png` });
+      await swipe(page, '#pager', { x: 200 });
+      assert.equal(await active(), 0);
 
-      // "Otros 5": a different set for the same run (the fixture has 10 albums, so none repeats).
-      assert.match(await page.locator('#results-sub').textContent(), /^5 discos de \d+ a \d+\u00a0min$/);
+      // Up on a card opens that album in Spotify (the request is caught here instead of leaving the page).
+      await page.evaluate(() => {
+        window.__opened = [];
+        addEventListener('hillb:open', (e) => { e.preventDefault(); window.__opened.push(e.detail); });
+      });
+      await swipe(page, '#pager', { y: -260 });
+      const firstId = await page.locator('.card').first().getAttribute('data-album');
+      assert.deepEqual(await page.evaluate(() => window.__opened.map((o) => o.uri)), [`spotify:album:${firstId}`]);
+      assert.equal(await active(), 0, 'lifting a card does not move the deck');
+
+      // Past the last album: five others (the fixture has 10 albums, so none repeats).
+      for (let i = 0; i < 4; i++) await swipe(page, '#pager', { x: -200 });
+      assert.equal(await active(), 4);
       const t2 = Date.now();
-      await page.getByRole('button', { name: 'Otros 5' }).click();
+      await swipe(page, '#pager', { x: -200 });
       await page.waitForFunction((before) => {
         const now = [...document.querySelectorAll('.card-title')].map((el) => el.textContent);
         return now.length === 5 && !now.some((t) => before.includes(t));
       }, titles);
-      report.push(`Otros 5 → tarjetas nuevas: ${Date.now() - t2} ms`);
-      await page.waitForTimeout(900);
-      assert.equal(await page.evaluate(() => document.getElementById('deck').scrollLeft), 0, 'the new deck starts at its first album');
-      await page.screenshot({ path: `${OUT}/mobile-results-otros.png` });
-      await page.getByRole('button', { name: 'Otros 5' }).click();
+      report.push(`Más allá del último → otros 5: ${Date.now() - t2} ms (con el asentado)`);
+      assert.equal(await active(), 0, 'the new set starts at its first album');
       await page.waitForTimeout(600);
+      await page.screenshot({ path: `${OUT}/mobile-results-otros.png` });
+      for (let i = 0; i < 5; i++) await swipe(page, '#pager', { x: -200 });
       assert.equal(await page.locator('.card-title').count(), 5, 'when every album was seen, they come round again');
+      assert.equal(await active(), 0);
 
-      // Back keeps the session; distance with pace.
-      await page.getByRole('button', { name: 'Cambiar la sesión' }).click();
+      // Past the first album: back to the run, which is kept.
+      await swipe(page, '#pager', { x: 200 });
+      await page.locator('#view-session').waitFor({ state: 'visible' });
+      assert.equal(await valueOf(page, '#wheel-minor'), '45');
+
+      // Distance with pace.
       await page.getByRole('radio', { name: 'Distancia' }).click();
       await page.waitForTimeout(400);
       assert.equal(await valueOf(page, '#wheel-major'), '10');
@@ -170,10 +202,12 @@ async function run() {
       assert.notEqual(await valueOf(page, '#pace-wheel'), '5:30', 'a sideways swipe changes the intensity');
       await page.locator('#pace-wheel').focus();
       await page.keyboard.press('Home');
-      for (let i = 0; i < 29; i++) await page.keyboard.press('ArrowRight');
+      // 15 s steps: nine to the right of 3:00 is 5:15.
+      for (let i = 0; i < 9; i++) await page.keyboard.press('ArrowRight');
       await page.waitForTimeout(800);
-      assert.equal(await valueOf(page, '#pace-wheel'), '5:25');
-      assert.equal(await page.locator('#intensity-total').textContent(), '54:10 de carrera');
+      assert.equal(await valueOf(page, '#pace-wheel'), '5:15');
+      assert.equal(await page.evaluate(() => document.querySelectorAll('#pace-wheel .wheel-item').length), 25, '3:00 to 9:00 in 15 s steps');
+      assert.equal(await page.locator('#intensity-total').textContent(), '52:30 de carrera');
       // Hundreds of metres on the second wheel: 10,5 km.
       await page.locator('#wheel-minor').focus();
       for (let i = 0; i < 5; i++) await page.keyboard.press('ArrowUp');
@@ -186,7 +220,7 @@ async function run() {
       await settle(page);
       await page.screenshot({ path: `${OUT}/mobile-distance.png` });
       await page.getByRole('button', { name: 'Start' }).click();
-      await page.locator('#results-title', { hasText: 'Para 10,5 km' }).waitFor();
+      await page.waitForFunction(() => document.getElementById('results-title').textContent === 'Discos para 10,5 km');
       await page.waitForTimeout(1200);
       await page.screenshot({ path: `${OUT}/mobile-results-distance.png` });
 
