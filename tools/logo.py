@@ -63,13 +63,18 @@ def write(rel, text):
     print("wrote", rel)
 
 
-# Rounded-square app icon and favicon; maskable keeps the mark inside the 80% safe circle.
+# Rounded-square app icon; maskable keeps the mark inside the 80% safe circle. The flat, heavy
+# base makes the mark look low, so it sits a little above centre.
 write("public/icon.svg", svg("0 0 512 512",
       f'<rect width="512" height="512" rx="112" fill="{VOLT}"/>'
-      f'<path fill="{INK}" d="{mark_centred(512, 328, 6)}"/>'))
+      f'<path fill="{INK}" d="{mark_centred(512, 328, -6)}"/>'))
 write("public/icon-maskable.svg", svg("0 0 512 512",
       f'<rect width="512" height="512" fill="{VOLT}"/>'
-      f'<path fill="{INK}" d="{mark_centred(512, 272, 5)}"/>'))
+      f'<path fill="{INK}" d="{mark_centred(512, 272, -5)}"/>'))
+# Favicon (16-32px in a tab): the same B, larger in a tighter tile so its notch and counters stay open.
+write("public/favicon.svg", svg("0 0 512 512",
+      f'<rect width="512" height="512" rx="88" fill="{VOLT}"/>'
+      f'<path fill="{INK}" d="{mark_centred(512, 448, -6)}"/>'))
 
 # The mark alone, tight to its ink.
 mw = 688
@@ -86,16 +91,18 @@ for ch in word:
     parts.append(path(W, g, (1, 0, 0, -1, pen_x, CAP)))
     pen_x += font["hmtx"][g][0] + tracking
 word_w = pen_x - tracking
-lock_h = CAP  # mark as tall as the caps
+OVERSHOOT = 1.015  # round hill tops rise slightly past the flat caps so they look as tall
+lock_h = CAP * OVERSHOOT
 lock_mw = MARK_W * lock_h / MARK_H
-gap = 0.4 * CAP
+gap = 0.4 * font["head"].unitsPerEm  # 0.4em, the app bar's 8px at 20px
 word_body = "".join(f'<path d="{d}"/>' for d in parts)
+rise = lock_h - CAP  # the mark shares the baseline, so its overshoot goes above the caps
 lockup = (f'<path d="{mark(lock_mw, 0, 0)}"/>'
-          f'<g transform="translate({lock_mw + gap:.1f} 0)">{word_body}</g>')
-view = f"0 0 {lock_mw + gap + word_w:.1f} {lock_h}"
+          f'<g transform="translate({lock_mw + gap:.1f} {rise:.1f})">{word_body}</g>')
+view = f"0 0 {lock_mw + gap + word_w:.1f} {lock_h:.1f}"
 write("diseno/logo/hill-b-logo.svg", svg(view, f'<g fill="{INK}">{lockup}</g>'))
 write("diseno/logo/hill-b-logo-volt.svg", svg(
-    f"-{0.5 * CAP:.0f} -{0.5 * CAP:.0f} {lock_mw + gap + word_w + CAP:.1f} {2 * CAP}",
+    f"-{0.5 * CAP:.0f} -{0.5 * CAP:.0f} {lock_mw + gap + word_w + CAP:.1f} {lock_h + CAP:.1f}",
     f'<rect x="-{0.5 * CAP:.0f}" y="-{0.5 * CAP:.0f}" width="100%" height="100%" fill="{VOLT}"/>'
     f'<g fill="{INK}">{lockup}</g>'))
 

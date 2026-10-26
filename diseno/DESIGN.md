@@ -228,9 +228,10 @@ Cada tarjeta de disco recibe `--card-bg` y `--card-ink` calculados de su portada
 La marca es la **B acostada**: la B de Archivo a peso 900 y ancho 75, girada 90° a la izquierda. Su lomo queda abajo como suelo y sus dos panzas se vuelven dos colinas, la de la derecha algo más alta. Es a la vez la inicial y la "Hill" del nombre. Es la letra tal cual, sin redibujar, y la genera `tools/logo.py` desde `public/fonts/archivo-latin.woff2` (los PNG, `node tools/logo-png.mjs`).
 
 - **Marca sola:** `diseno/logo/hill-b-marca.svg`. Tinta sobre blanco o sobre voltio; voltio sobre tinta solo en piezas fuera de la app.
-- **Logo horizontal:** `diseno/logo/hill-b-logo.svg` (y `hill-b-logo-volt.svg` sobre campo voltio). La marca mide lo mismo que las mayúsculas de "HILL-B" (800, ancho 75) y se separa de ellas 0.4 de esa altura.
-- **Icono de la app:** campo voltio con la marca en tinta al 64% del ancho, bajada 6/512 para compensar las curvas de arriba (`public/icon.svg`). La versión enmascarable la deja al 53% para que quepa en el círculo seguro del 80% (`public/icon-maskable.svg`).
-- **En la barra:** la marca a la altura de las mayúsculas de la palabra (0.688em de alto, 0.906em de ancho) y 8px antes de ella.
+- **Logo horizontal:** `diseno/logo/hill-b-logo.svg` (y `hill-b-logo-volt.svg` sobre campo voltio). La marca comparte la línea base con "HILL-B" (800, ancho 75), mide su altura de mayúsculas más un 1.5% para que las colinas redondas parezcan tan altas como las mayúsculas planas, y se separa de la palabra 0.4em (los 8px de la barra).
+- **Icono de la app:** campo voltio con la marca en tinta al 64% del ancho, subida 6/512 porque la base plana y pesada la hace parecer baja (`public/icon.svg`). La versión enmascarable la deja al 53% para que quepa en el círculo seguro del 80% (`public/icon-maskable.svg`).
+- **Favicon:** la misma B al 88% de un cuadro de esquinas más cerradas (`public/favicon.svg` y `icons/favicon-32.png`), para que sus huecos sigan abiertos a 16-32px. No se redibuja la letra.
+- **En la barra:** la misma proporción que el logo horizontal: 0.698em de alto, 0.92em de ancho, 8px antes de la palabra.
 
 **The Lying B Rule.** La B se tumba siempre hacia la izquierda, con las colinas hacia arriba; nunca de pie, nunca boca abajo, nunca en espejo. No lleva contorno, sombra ni degradado, y no se recoloca: tinta, voltio o blanco.
 

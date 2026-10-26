@@ -8,6 +8,7 @@ const { chromium } = createRequire(import.meta.url)('playwright');
 const ROOT = new URL('..', import.meta.url).pathname;
 
 const icons = [
+  ['public/favicon.svg', 'public/icons/favicon-32.png', 32],
   ['public/icon.svg', 'public/icons/icon-192.png', 192],
   ['public/icon.svg', 'public/icons/icon-512.png', 512],
   ['public/icon-maskable.svg', 'public/icons/icon-maskable-512.png', 512],
