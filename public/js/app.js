@@ -149,6 +149,8 @@ function setPace(value) {
 $('pace-less').addEventListener('click', () => setPace(prefs.pace - PACE.step));
 $('pace-more').addEventListener('click', () => setPace(prefs.pace + PACE.step));
 
+$('reroll').addEventListener('click', () => renderResults({ entering: true, how: 'more' }));
+
 $('find').addEventListener('click', () => {
   amount.blur();
   show('results', 1, () => renderResults({ entering: true }));
@@ -206,30 +208,38 @@ function libraryChanged() {
 let renderedKey = '';
 let observer = null;
 
-// The draw for the current search: kept across re-renders, drawn again on every "Buscar discos".
-let draw = { target: null, albums: null, ranked: [] };
-let lastShown = [];
+// The draw for the current search: kept across re-renders. "Buscar discos" draws again avoiding the
+// set just shown; "Otros 5" draws again avoiding everything shown for this run, looking further out if needed.
+let draw = { target: null, albums: null, picks: [], reach: 0, seen: [] };
 
-function drawAlbums(target, fresh) {
-  if (fresh || draw.target !== target || draw.albums !== library.albums) {
-    const ranked = pickAlbums(library.albums, target, { count: RESULT_COUNT, recent: lastShown });
-    draw = { target, albums: library.albums, ranked };
-    if (ranked.length) lastShown = ranked.map((r) => r.album.id);
-  }
-  return draw.ranked;
+let counted = { albums: null, records: 0 };
+function recordCount(albums) {
+  if (counted.albums !== albums) counted = { albums, records: new Set(albums.map((a) => a.group ?? a.id)).size };
+  return counted.records;
 }
 
-function renderResults({ entering = false } = {}) {
+function drawAlbums(target, how) {
+  const sameRun = draw.target === target && draw.albums === library.albums;
+  if (how === 'keep' && sameRun) return draw;
+  const shown = draw.picks.map((r) => r.album.id);
+  const seen = !sameRun ? [] : how === 'more' ? [...draw.seen, ...shown] : shown;
+  const { picks, reach } = pickAlbums(library.albums, target, { count: RESULT_COUNT, seen });
+  draw = { target, albums: library.albums, picks, reach, seen };
+  return draw;
+}
+
+function renderResults({ entering = false, how = entering ? 'search' : 'keep' } = {}) {
   const target = sessionSeconds(prefs);
   const isTime = prefs.mode === 'time';
   const ready = library.status === 'ready';
-  const ranked = ready ? drawAlbums(target, entering) : [];
+  const { picks: ranked, reach } = ready ? drawAlbums(target, how) : { picks: [], reach: 0 };
 
   $('results-title').textContent = isTime ? `Para ${prefs.minutes} min` : `Para ${formatKm(prefs.km)} km`;
   const count = ranked.length === 1 ? 'Un disco' : `${ranked.length} discos`;
-  $('results-sub').textContent = !ranked.length ? `De ${library.name}`
-    : isTime ? `${count} de ${library.name}`
-    : `${count}, ${formatDuration(target)} a ${formatPace(prefs.pace)}\u00a0/km`;
+  const range = `de ${Math.max(0, Math.round((target - reach) / 60))} a ${Math.round((target + reach) / 60)}\u00a0min`;
+  // The run's own length is on every card ("Tu salida"): the subtitle says where the albums come from.
+  $('results-sub').textContent = ranked.length ? `${count} ${range}` : `De ${library.name}`;
+  $('reroll').hidden = !ranked.length || recordCount(library.albums) <= ranked.length;
 
   const state = $('results-state');
   const deck = $('deck');

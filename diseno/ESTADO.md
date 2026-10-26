@@ -23,6 +23,7 @@ Hill-B: app web móvil (PWA estática) que responde "¿qué disco entero me conv
 - Si en esa ventana hay menos de 10 discos (el doble de los que se muestran), la abre 5 min más por cada lado, y así hasta tener 10.
 - De ahí elige 5 al azar: con el mismo tiempo, cada búsqueda da otros discos. Los 5 que se acaban de mostrar solo repiten si la ventana no tiene otros.
 - Se muestran del más cercano al más lejano.
+- **Botón "Otros 5"** (cabecera de resultados): saca 5 que no hayas visto en esta búsqueda. Si en el rango ya no quedan 5 sin ver, lo agranda 5 min por lado. El subtítulo dice el rango ("5 discos de 40 a 50 min"). Cuando ya viste todos, vuelven a salir.
 
 ## Flujo de una canción nueva (decidido por el usuario, 2026-10-26)
 Lo hace `node tools/sync.mjs read`; las reglas están en `tools/catalog.mjs` y sus pruebas en `tests/catalog.test.mjs`.

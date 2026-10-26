@@ -112,14 +112,21 @@ async function run() {
       await page.waitForTimeout(800);
       await page.screenshot({ path: `${OUT}/mobile-results-2.png` });
 
-      // Same run, new search: a different set (the fixture has 10 albums, so none repeats).
-      await page.getByRole('button', { name: 'Cambiar la sesión' }).click();
-      await page.getByRole('button', { name: 'Buscar discos' }).click();
-      await page.locator('.card').first().waitFor({ state: 'visible' });
+      // "Otros 5": a different set for the same run (the fixture has 10 albums, so none repeats).
+      assert.match(await page.locator('#results-sub').textContent(), /^5 discos de \d+ a \d+\u00a0min$/);
+      const t2 = Date.now();
+      await page.getByRole('button', { name: 'Otros 5' }).click();
+      await page.waitForFunction((before) => {
+        const now = [...document.querySelectorAll('.card-title')].map((el) => el.textContent);
+        return now.length === 5 && !now.some((t) => before.includes(t));
+      }, titles);
+      report.push(`Otros 5 → tarjetas nuevas: ${Date.now() - t2} ms`);
+      await page.waitForTimeout(900);
+      assert.equal(await page.evaluate(() => document.getElementById('deck').scrollLeft), 0, 'the new deck starts at its first album');
+      await page.screenshot({ path: `${OUT}/mobile-results-otros.png` });
+      await page.getByRole('button', { name: 'Otros 5' }).click();
       await page.waitForTimeout(600);
-      const again = await page.locator('.card-title').allTextContents();
-      assert.equal(again.length, 5);
-      assert.deepEqual(again.filter((t) => titles.includes(t)), [], 'asking again for 45 min gives other albums');
+      assert.equal(await page.locator('.card-title').count(), 5, 'when every album was seen, they come round again');
 
       // Back keeps the session; distance with pace.
       await page.getByRole('button', { name: 'Cambiar la sesión' }).click();
