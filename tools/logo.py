@@ -24,6 +24,7 @@ INK, VOLT = "#111111", "#d7ff1f"
 WEIGHT, WIDTH = 700, 75  # the mark's B
 RIGHT_HILL = 1.4         # the right hill against the left one
 RIGHT_HOLLOW = 0.85      # the right hill's hollow, shrunk inside the same outline
+HOLLOW_ANCHOR = 0.5      # where along its floor the hollow shrinks to (0 left, 1 right)
 SLANT = 35               # degrees, applied to the lying mark
 
 
@@ -74,9 +75,10 @@ lean = math.tan(math.radians(SLANT))
 pts = []
 for (hx, hy), (lx, ly) in zip(heavy, light):
     pts.append((pivot + RIGHT_HILL * (lx - pivot), RIGHT_HILL * ly) if hx > split else (hx, hy))
-# The right hollow shrinks towards its bottom left corner, so the middle bar and the ground keep
-# their thickness and the hill's top and far side get fuller.
-ax, ay = min(pts[i][0] for i in right_c), min(pts[i][1] for i in right_c)
+# The right hollow shrinks towards a point on its floor, so the ground keeps its thickness, the
+# hill's top gets fuller and the hollow stays centred between the middle bar and the far side.
+hx0, hx1 = min(pts[i][0] for i in right_c), max(pts[i][0] for i in right_c)
+ax, ay = hx0 + HOLLOW_ANCHOR * (hx1 - hx0), min(pts[i][1] for i in right_c)
 for i in right_c:
     x, y = pts[i]
     pts[i] = (ax + RIGHT_HOLLOW * (x - ax), ay + RIGHT_HOLLOW * (y - ay))
