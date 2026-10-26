@@ -1,15 +1,25 @@
-// Reads a Spotify playlist and writes public/data/albums.json, the data the app ships with.
-// Run by Claude in the dev container; the app itself never talks to Spotify.
+// Reads a Spotify playlist into the catalog (data/catalog.json) and writes public/data/albums.json,
+// the data the app ships with. Run by Claude in the dev container; the app itself never talks to Spotify.
 //
 //   node tools/sync.mjs login                  prints the one-time Spotify login link
 //   node tools/sync.mjs read "<redirect URL>"  finishes that login and reads the playlist
 //   node tools/sync.mjs read                   reads again with the session kept in .sync/
 //   --playlist <id or open.spotify.com URL>    another playlist (default: The Magic Bus)
 //
-// Only albums the data file does not have yet are measured; an interrupted read resumes.
+// For each new song (rules in tools/catalog.mjs):
+//   1. its album comes with the song; if the catalog has it, the song only joins it;
+//   2. if that album is a special version, search the studio original (same recording by ISRC,
+//      then title and artist) and add it too, unless it is already there;
+//   3. measure every full album still without its running time (GET /albums/{id}, one per call).
+// Originals set by hand go in data/manual.json. Each step saves as it goes: when Spotify's quota
+// runs out, run `read` again later and it carries on where it stopped.
 import { createHash, randomBytes } from 'node:crypto';
 import { mkdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
-import { buildLibrary, albumsToMeasure, displayName } from '../public/js/recommend.js';
+import { displayName } from '../public/js/recommend.js';
+import {
+  emptyCatalog, addEntries, songsWithoutOriginal, pickOriginal, slimTrack, baseTitle, setOriginal,
+  applyManual, albumsToMeasure, setMeasured, buildLibrary,
+} from './catalog.mjs';
 
 const CLIENT_ID = '6b13ef05e42d4331a1fbbbc839bc1092';
 const REDIRECT = 'http://127.0.0.1:5173/callback';
@@ -17,6 +27,8 @@ const DEFAULT_PLAYLIST = '77Yaz4xSfZjJqRTIXo4ZE2'; // The Magic Bus
 const ROOT = new URL('..', import.meta.url).pathname;
 const STATE = `${ROOT}.sync`; // gitignored: PKCE verifier, session, partial measurements
 const DATA = `${ROOT}public/data/albums.json`;
+const CATALOG = `${ROOT}data/catalog.json`; // every song, its album and its original
+const MANUAL = `${ROOT}data/manual.json`; // originals the owner found by hand
 
 const readJson = (path) => (existsSync(path) ? JSON.parse(readFileSync(path, 'utf8')) : null);
 const writeJson = (path, value) => writeFileSync(path, JSON.stringify(value, null, 1));
@@ -102,44 +114,96 @@ async function read(redirectUrl, playlistArg) {
     url = page.next;
   }
 
-  const current = readJson(DATA);
-  const known = {
-    ...(current?.playlist?.id === id ? Object.fromEntries(current.albums.map((a) => [a.id, a.seconds])) : {}),
-    ...readJson(`${STATE}/seconds.json`),
+  const catalog = readJson(CATALOG) ?? emptyCatalog(id);
+  if (catalog.playlist !== id) throw new Error(`data/catalog.json es de la playlist ${catalog.playlist}, no de ${id}.`);
+  const save = () => {
+    mkdirSync(`${ROOT}data`, { recursive: true });
+    writeJson(CATALOG, catalog);
   };
-  const missing = albumsToMeasure(entries, known);
-  console.log(`\nDiscos nuevos por medir: ${missing.length}`);
-  let done = 0;
+  const added = addEntries(catalog, entries);
+  applyManual(catalog, readJson(MANUAL));
+  console.log(`\nCanciones nuevas: ${added.length}`);
+  save();
+
   let stopped = null;
+  const pending = songsWithoutOriginal(catalog);
+  console.log(`Canciones por buscar su álbum original: ${pending.length}`);
+  let searched = 0;
+  try {
+    for (const songId of pending) {
+      await findOriginal(catalog, songId);
+      if (++searched % 10 === 0) { save(); process.stdout.write(`\rBuscadas: ${searched}`); }
+    }
+  } catch (err) {
+    if (!err.quota) throw err;
+    stopped = err;
+  }
+  save();
+
+  const missing = albumsToMeasure(catalog);
+  console.log(`\nDiscos por medir: ${missing.length}`);
+  let done = 0;
+  let measureStop = null;
   const worker = async () => {
-    while (missing.length && !stopped) {
-      const album = missing.shift();
+    while (missing.length && !measureStop) {
+      const albumId = missing.shift();
       try {
-        const a = await api(`/albums/${album.id}`);
-        let ms = a.tracks.items.reduce((s, t) => s + t.duration_ms, 0);
+        const a = await api(`/albums/${albumId}`);
+        let ms = a.tracks.items.reduce((sum, t) => sum + t.duration_ms, 0);
         for (let next = a.tracks.next; next;) {
           const page = await api(next);
-          ms += page.items.reduce((s, t) => s + t.duration_ms, 0);
+          ms += page.items.reduce((sum, t) => sum + t.duration_ms, 0);
           next = page.next;
         }
-        known[album.id] = Math.round(ms / 1000);
-        if (++done % 10 === 0) { writeJson(`${STATE}/seconds.json`, known); process.stdout.write(`\rMedidos: ${done}`); }
+        setMeasured(catalog, albumId, a, Math.round(ms / 1000));
+        if (++done % 10 === 0) { save(); process.stdout.write(`\rMedidos: ${done}`); }
       } catch (err) {
-        stopped = err;
+        if (!err.quota) throw err;
+        measureStop = err;
       }
     }
   };
   await Promise.all([worker(), worker(), worker()]);
-  writeJson(`${STATE}/seconds.json`, known);
+  save();
 
-  const lib = buildLibrary({ playlist, entries, seconds: known });
+  const lib = buildLibrary(catalog, { playlist });
   mkdirSync(`${ROOT}public/data`, { recursive: true });
   writeJson(DATA, lib);
   console.log(`\n${lib.albums.length} discos enteros de ${lib.songCount} canciones → public/data/albums.json`);
-  if (stopped) {
-    console.log(`Interrumpido: ${stopped.message} Faltan ${albumsToMeasure(entries, known).length}; vuelve a correr \`read\` para seguir.`);
+  const left = { search: songsWithoutOriginal(catalog).length, measure: albumsToMeasure(catalog).length };
+  if (left.search || left.measure) {
+    console.log(`Spotify limitó las consultas: faltan ${left.search} canciones por buscar y ${left.measure} discos por medir. Vuelve a correr \`read\` más tarde.`);
     process.exitCode = 2;
   }
+}
+
+/** Searches the studio original of a song from a special version: same recording, then title and artist. */
+async function findOriginal(catalog, songId) {
+  const song = catalog.songs[songId];
+  const own = catalog.albums[song.album];
+  const search = async (q, pages) => {
+    const out = [];
+    for (let p = 0; p < pages; p++) {
+      // Search returns 10 results per call at most (2026 API).
+      const r = await api(`/search?type=track&limit=10&offset=${p * 10}&q=${encodeURIComponent(q)}`);
+      out.push(...(r.tracks?.items ?? []).filter(Boolean).map(slimTrack));
+      if (!r.tracks?.next) break;
+    }
+    return out;
+  };
+  let found = null;
+  let how = '';
+  if (song.isrc) {
+    found = pickOriginal(await search(`isrc:${song.isrc}`, 2), song, own);
+    if (found) how = 'Misma grabación (ISRC)';
+  }
+  if (!found || found.edition) {
+    const title = baseTitle(song.name);
+    const byName = pickOriginal((await search(`track:"${title}" artist:"${song.artists[0]}"`, 3))
+      .filter((t) => baseTitle(t.name) === title), song, own);
+    if (byName && (!found || !byName.edition)) { found = byName; how = 'Misma canción en otro disco (título y artista)'; }
+  }
+  setOriginal(catalog, songId, found, how);
 }
 
 const [cmd, arg] = process.argv.slice(2).filter((x, i, all) => x !== '--playlist' && all[i - 1] !== '--playlist');
