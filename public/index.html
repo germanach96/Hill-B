@@ -6,7 +6,7 @@
   <title>Hill-B</title>
   <meta name="description" content="El disco entero que te dura toda la salida a correr, sacado de tu playlist.">
   <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#d7ff1f">
   <link rel="manifest" href="/manifest.webmanifest">
   <link rel="icon" href="/icons/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -37,40 +37,35 @@
 
     <!-- Session: how long, then the albums -->
     <section class="view view-session" id="view-session" aria-labelledby="session-title" hidden>
-      <h1 class="session-title" id="session-title">¿Cuánto vas a correr?</h1>
+      <h1 class="sr-only" id="session-title">Elige tu salida</h1>
 
-      <div class="segmented" role="radiogroup" aria-label="Medir la sesión por">
+      <div class="segmented" role="radiogroup" aria-label="Medir la salida por">
         <span class="segmented-thumb" aria-hidden="true"></span>
         <button type="button" role="radio" class="segment" data-mode="time" aria-checked="true">Tiempo</button>
         <button type="button" role="radio" class="segment" data-mode="distance" aria-checked="false">Distancia</button>
       </div>
 
-      <div class="dial">
-        <button type="button" class="step" id="less" aria-label="Menos"><svg aria-hidden="true"><use href="#i-minus"/></svg></button>
-        <div class="dial-value">
-          <label class="sr-only" for="amount" id="amount-label">Minutos</label>
-          <input class="amount" id="amount" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" value="45">
-          <span class="unit" id="unit" aria-hidden="true">minutos</span>
-        </div>
-        <button type="button" class="step" id="more" aria-label="Más"><svg aria-hidden="true"><use href="#i-plus"/></svg></button>
+      <!-- Two vertical wheels: hours : minutes, or km , hundreds of metres. Swipe up and down. -->
+      <div class="picker" id="picker">
+        <div class="wheel" id="wheel-major" tabindex="0" role="spinbutton"></div>
+        <span class="picker-sep" id="picker-sep" aria-hidden="true">:</span>
+        <div class="wheel" id="wheel-minor" tabindex="0" role="spinbutton"></div>
       </div>
+      <p class="picker-unit" id="picker-unit" aria-hidden="true">horas y minutos</p>
 
-      <div class="presets" id="presets" role="group" aria-label="Sesiones habituales"></div>
-
-      <div class="pace" id="pace" hidden>
-        <span class="pace-label" id="pace-label">Ritmo</span>
-        <div class="pace-control">
-          <button type="button" class="step step-small" id="pace-less" aria-label="Ritmo más rápido"><svg aria-hidden="true"><use href="#i-minus"/></svg></button>
-          <output class="pace-value" id="pace-value" aria-labelledby="pace-label">5:30</output>
-          <button type="button" class="step step-small" id="pace-more" aria-label="Ritmo más lento"><svg aria-hidden="true"><use href="#i-plus"/></svg></button>
+      <!-- Intensity is the pace, swiped left and right. Only distance needs it. -->
+      <div class="intensity" id="intensity" hidden>
+        <div class="intensity-head">
+          <span class="intensity-label" id="intensity-label">Intensidad</span>
+          <span class="intensity-total" id="intensity-total">54:45 de carrera</span>
         </div>
-        <span class="pace-total" id="pace-total">55:00 de carrera</span>
+        <div class="strip" id="pace-wheel" tabindex="0" role="spinbutton" aria-labelledby="intensity-label"></div>
       </div>
 
       <p class="library" id="library" aria-live="polite"></p>
 
       <div class="dock">
-        <button class="btn btn-volt" id="find" type="button">Buscar discos</button>
+        <button class="btn btn-start" id="find" type="button">Start</button>
       </div>
     </section>
 

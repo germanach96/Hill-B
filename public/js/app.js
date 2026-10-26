@@ -1,6 +1,7 @@
 // The app reads its albums from /data/albums.json, written by tools/sync.mjs (run by Claude).
 // It never talks to Spotify: the only link to Spotify is the "Abrir en Spotify" button.
 import { store } from './store.js';
+import { createWheel } from './wheel.js';
 import { sessionSeconds, pickAlbums, formatDuration, describeDelta, formatPace } from './recommend.js';
 
 const $ = (id) => document.getElementById(id);
@@ -11,14 +12,19 @@ const PREFS_KEY = 'hillb.prefs';
 const COLORS_KEY = 'hillb.colors';
 const DATA_URL = '/data/albums.json';
 
+// Wheel ranges: time 0:05 to 5:59, distance 1,0 to 60,9 km, intensity 3:00 to 9:00 per km.
 const LIMITS = {
-  time: { min: 5, max: 300, step: 5, presets: [30, 45, 60, 90] },
-  distance: { min: 1, max: 60, step: 1, presets: [5, 10, 15, 21.1] },
+  time: { min: 5, maxHours: 5 },
+  distance: { min: 1, maxKm: 60 },
 };
-const PACE = { min: 180, max: 600, step: 5 };
+const PACE = { min: 180, max: 540, step: 5 };
 const RESULT_COUNT = 5;
 
 const prefs = { mode: 'time', minutes: 45, km: 10, pace: 330, ...store.get(PREFS_KEY) };
+// Saved values from older versions may sit outside the wheels: bring them onto a row.
+prefs.minutes = Math.min(LIMITS.time.maxHours * 60 + 59, Math.max(LIMITS.time.min, Math.round(prefs.minutes)));
+prefs.km = Math.min(LIMITS.distance.maxKm + 0.9, Math.max(LIMITS.distance.min, Math.round(prefs.km * 10) / 10));
+prefs.pace = Math.min(PACE.max, Math.max(PACE.min, Math.round(prefs.pace / PACE.step) * PACE.step));
 
 // library.status: loading | ready | empty | error
 const library = { status: 'loading', name: 'The Magic Bus', albums: [], syncedAt: null };
@@ -50,64 +56,74 @@ function setThemeColor() {
 
 /* ---------- Session ---------- */
 
-const amount = $('amount');
-
 function formatKm(km) {
   return Number.isInteger(km) ? String(km) : km.toFixed(1).replace('.', ',');
 }
 
-function currentValue() {
-  return prefs.mode === 'time' ? prefs.minutes : prefs.km;
+function formatMinutes(total) {
+  const h = Math.floor(total / 60);
+  const m = total % 60;
+  return h ? `${h} h${m ? ` ${String(m).padStart(2, '0')}` : ''}` : `${m} min`;
 }
 
-function setValue(value) {
-  const { min, max } = LIMITS[prefs.mode];
-  const clamped = Math.min(max, Math.max(min, value));
-  if (prefs.mode === 'time') prefs.minutes = Math.round(clamped);
-  else prefs.km = Math.round(clamped * 10) / 10;
+const range = (from, to, step = 1) => Array.from({ length: Math.floor((to - from) / step) + 1 }, (_, i) => from + i * step);
+const two = (n) => String(n).padStart(2, '0');
+
+const major = createWheel($('wheel-major'), { label: 'Horas', onChange: onWheel });
+const minor = createWheel($('wheel-minor'), { label: 'Minutos', onChange: onWheel });
+const paceWheel = createWheel($('pace-wheel'), { axis: 'x', label: 'Intensidad, minutos por kilómetro', onChange: onPace });
+
+/** Fills both wheels for the current mode and centres them on the saved value. */
+function renderWheels() {
+  const isTime = prefs.mode === 'time';
+  if (isTime) {
+    $('wheel-major').setAttribute('aria-label', 'Horas');
+    $('wheel-minor').setAttribute('aria-label', 'Minutos');
+    major.setValues(range(0, LIMITS.time.maxHours), { selected: Math.floor(prefs.minutes / 60) });
+    minor.setValues(range(0, 59), { format: two, selected: prefs.minutes % 60 });
+  } else {
+    $('wheel-major').setAttribute('aria-label', 'Kilómetros');
+    $('wheel-minor').setAttribute('aria-label', 'Cientos de metros');
+    const tenths = Math.round(prefs.km * 10);
+    major.setValues(range(0, LIMITS.distance.maxKm), { selected: Math.floor(tenths / 10) });
+    minor.setValues(range(0, 9), { selected: tenths % 10 });
+  }
+  paceWheel.setValues(range(PACE.min, PACE.max, PACE.step), {
+    format: formatPace, selected: (prefs.pace - PACE.min) / PACE.step,
+  });
+}
+
+function onWheel() {
+  if (prefs.mode === 'time') {
+    const total = major.value * 60 + minor.value;
+    // Nothing under five minutes: the wheel slides back to 0:05.
+    if (total < LIMITS.time.min) { minor.set(LIMITS.time.min, { smooth: true }); prefs.minutes = LIMITS.time.min; }
+    else prefs.minutes = total;
+  } else {
+    const km = major.value + minor.value / 10;
+    if (km < LIMITS.distance.min) { major.set(LIMITS.distance.min, { smooth: true }); prefs.km = LIMITS.distance.min + minor.value / 10; }
+    else prefs.km = Math.round(km * 10) / 10;
+  }
   store.set(PREFS_KEY, prefs);
   renderSession();
 }
 
+function onPace(value) {
+  prefs.pace = value;
+  store.set(PREFS_KEY, prefs);
+  renderSession();
+}
+
+/** Everything around the wheels that follows the chosen values. */
 function renderSession() {
   const isTime = prefs.mode === 'time';
   const seg = document.querySelector('.segmented');
   seg.dataset.mode = prefs.mode;
   for (const b of seg.querySelectorAll('.segment')) b.setAttribute('aria-checked', String(b.dataset.mode === prefs.mode));
-
-  const value = currentValue();
-  if (document.activeElement !== amount) amount.value = isTime ? String(value) : formatKm(value);
-  amount.inputMode = isTime ? 'numeric' : 'decimal';
-  $('amount-label').textContent = isTime ? 'Minutos' : 'Kilómetros';
-  $('unit').textContent = isTime ? 'minutos' : 'kilómetros';
-  const { min, max } = LIMITS[prefs.mode];
-  $('less').disabled = value <= min;
-  $('more').disabled = value >= max;
-
-  const presets = $('presets');
-  presets.replaceChildren(...LIMITS[prefs.mode].presets.map((p) => {
-    const b = document.createElement('button');
-    b.type = 'button';
-    b.className = 'preset';
-    b.textContent = isTime ? `${p}′` : `${formatKm(p)} km`;
-    b.setAttribute('aria-label', isTime ? `${p} minutos` : `${formatKm(p)} kilómetros`);
-    b.setAttribute('aria-pressed', String(p === value));
-    b.addEventListener('click', () => { nudge(p > value ? 1 : -1); setValue(p); });
-    return b;
-  }));
-
-  $('pace').hidden = isTime;
-  $('pace-value').textContent = formatPace(prefs.pace);
-  $('pace-total').textContent = `${formatDuration(sessionSeconds(prefs))} de carrera`;
-  $('pace-less').disabled = prefs.pace <= PACE.min;
-  $('pace-more').disabled = prefs.pace >= PACE.max;
-}
-
-function nudge(direction) {
-  if (reducedMotion.matches) return;
-  amount.classList.remove('tick-up', 'tick-down');
-  void amount.offsetWidth; // restart the nudge on rapid taps
-  amount.classList.add(direction > 0 ? 'tick-up' : 'tick-down');
+  $('picker-sep').textContent = isTime ? ':' : ',';
+  $('picker-unit').textContent = isTime ? 'horas y minutos' : 'kilómetros';
+  $('intensity').hidden = isTime;
+  $('intensity-total').textContent = `${formatDuration(sessionSeconds(prefs))} de carrera`;
 }
 
 for (const b of document.querySelectorAll('.segment')) {
@@ -116,6 +132,7 @@ for (const b of document.querySelectorAll('.segment')) {
     prefs.mode = b.dataset.mode;
     store.set(PREFS_KEY, prefs);
     renderSession();
+    renderWheels();
   });
 }
 document.querySelector('.segmented').addEventListener('keydown', (e) => {
@@ -126,33 +143,9 @@ document.querySelector('.segmented').addEventListener('keydown', (e) => {
   document.querySelector(`.segment[data-mode="${next}"]`).focus();
 });
 
-$('less').addEventListener('click', () => { nudge(-1); setValue(currentValue() - LIMITS[prefs.mode].step); });
-$('more').addEventListener('click', () => { nudge(1); setValue(currentValue() + LIMITS[prefs.mode].step); });
-
-amount.addEventListener('input', () => {
-  const allowed = prefs.mode === 'time' ? /[^0-9]/g : /[^0-9.,]/g;
-  amount.value = amount.value.replace(allowed, '').slice(0, 5);
-});
-amount.addEventListener('change', () => {
-  const parsed = parseFloat(amount.value.replace(',', '.'));
-  amount.blur();
-  setValue(Number.isFinite(parsed) ? parsed : currentValue());
-});
-amount.addEventListener('keydown', (e) => { if (e.key === 'Enter') amount.blur(); });
-amount.addEventListener('focus', () => amount.select());
-
-function setPace(value) {
-  prefs.pace = Math.min(PACE.max, Math.max(PACE.min, value));
-  store.set(PREFS_KEY, prefs);
-  renderSession();
-}
-$('pace-less').addEventListener('click', () => setPace(prefs.pace - PACE.step));
-$('pace-more').addEventListener('click', () => setPace(prefs.pace + PACE.step));
-
 $('reroll').addEventListener('click', () => renderResults({ entering: true, how: 'more' }));
 
 $('find').addEventListener('click', () => {
-  amount.blur();
   show('results', 1, () => renderResults({ entering: true }));
 });
 
@@ -234,7 +227,7 @@ function renderResults({ entering = false, how = entering ? 'search' : 'keep' } 
   const ready = library.status === 'ready';
   const { picks: ranked, reach } = ready ? drawAlbums(target, how) : { picks: [], reach: 0 };
 
-  $('results-title').textContent = isTime ? `Para ${prefs.minutes} min` : `Para ${formatKm(prefs.km)} km`;
+  $('results-title').textContent = isTime ? `Para ${formatMinutes(prefs.minutes)}` : `Para ${formatKm(prefs.km)} km`;
   const count = ranked.length === 1 ? 'Un disco' : `${ranked.length} discos`;
   const range = `de ${Math.max(0, Math.round((target - reach) / 60))} a ${Math.round((target + reach) / 60)}\u00a0min`;
   // The run's own length is on every card ("Tu salida"): the subtitle says where the albums come from.
@@ -468,13 +461,14 @@ function escapeHtml(s = '') {
 }
 const escapeAttr = escapeHtml;
 
-$('back').addEventListener('click', () => show('session', -1));
+// The wheels lost their scroll position while hidden: centre them again on the way back.
+$('back').addEventListener('click', () => show('session', -1, () => { major.refresh(); minor.refresh(); paceWheel.refresh(); }));
 
 /* ---------- Boot ---------- */
 
 function boot() {
   renderSession();
-  show('session');
+  show('session', 1, renderWheels);
   loadLibrary();
   // Page-colour transitions start after the first screen is painted.
   requestAnimationFrame(() => requestAnimationFrame(() => root.classList.add('is-live')));
