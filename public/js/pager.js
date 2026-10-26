@@ -15,7 +15,8 @@
 // runs on the compositor, so covers decoding or colours being sampled on the main thread cannot
 // drop its frames. A frame-by-frame JavaScript loop is exactly what stuttered on the phone.
 
-const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+// The glides always play, whatever the phone's "reduce motion" setting: the owner asked for the
+// motion, and with it on the deck jumped straight to the next card.
 const SLOP = 8; // px before a drag picks its axis
 const FLICK = 0.35; // px/ms: a release this fast counts even when short
 const MAX_SPEED = 4000; // px/s handed to a spring, so a wild flick cannot fling the deck
@@ -158,7 +159,7 @@ export function createPager(pager, track, { ticks, onIndex, onSettle, onBack, on
     const fy = (i) => py[Math.min(i, py.length - 1)];
     const endX = fx(n - 1);
     const endY = fy(n - 1);
-    if (reducedMotion.matches || n < 2) {
+    if (n < 2) {
       pos.x = endX;
       pos.y = endY;
       draw();
@@ -235,7 +236,7 @@ export function createPager(pager, track, { ticks, onIndex, onSettle, onBack, on
     // This set leaves to the left at the finger's speed; the next one arrives from the right with it.
     fling = Math.min(velocity, -600);
     glide({ x: { to: xOf(last()) - pager.clientWidth * 0.6, velocity: fling, response: 0.42 } });
-    track.animate([{ opacity: 1 }, { opacity: 0 }], { duration: reducedMotion.matches ? 0 : 160, easing: 'ease', fill: 'forwards' })
+    track.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 160, easing: 'ease', fill: 'forwards' })
       .finished.then(() => onMore(), () => onMore());
   }
 
@@ -368,7 +369,7 @@ export function createPager(pager, track, { ticks, onIndex, onSettle, onBack, on
       index = 0;
       pos.y = 0;
       track.getAnimations().forEach((a) => a.cancel());
-      if (arriving && !reducedMotion.matches) {
+      if (arriving) {
         pos.x = pager.clientWidth * 0.55;
         draw();
         glide({ x: { to: 0, velocity: fling, response: 0.6 } }, () => onSettle?.(0));
@@ -378,7 +379,7 @@ export function createPager(pager, track, { ticks, onIndex, onSettle, onBack, on
         draw();
       }
       onIndex(0);
-      if (!arriving || reducedMotion.matches) onSettle?.(0);
+      if (!arriving) onSettle?.(0);
     },
     more: () => more(),
     get index() { return index; },

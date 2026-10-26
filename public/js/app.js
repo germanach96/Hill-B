@@ -8,7 +8,6 @@ import { sessionSeconds, pickAlbums, formatDuration, describeDelta, formatPace }
 
 const $ = (id) => document.getElementById(id);
 const root = document.documentElement;
-const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 
 const PREFS_KEY = 'hillb.prefs';
 const COLORS_KEY = 'hillb.colors';
@@ -140,7 +139,7 @@ for (const b of document.querySelectorAll('.segment')) {
     renderSession();
     renderWheels();
     const dy = before - picker.getBoundingClientRect().top;
-    if (!reducedMotion.matches) {
+    {
       picker.animate([{ transform: `translateY(${dy}px)`, opacity: 0.4 }, { transform: 'none', opacity: 1 }],
         { duration: 260, easing: 'cubic-bezier(0.77, 0, 0.175, 1)' });
       if (prefs.mode === 'distance') {
@@ -427,7 +426,7 @@ function openInSpotify(album) {
 function countUp(card) {
   const el = card.querySelector('.card-time');
   const total = Number(el?.dataset.seconds);
-  if (!el || !total || reducedMotion.matches) return;
+  if (!el || !total) return;
   const start = performance.now();
   const ease = (t) => 1 - (1 - t) ** 4; // close to cubic-bezier(0.23, 1, 0.32, 1)
   const frame = (now) => {
@@ -539,12 +538,16 @@ function boot() {
   loadLibrary();
   // The opening plays over the laid-out session screen, once the wordmark's font is in so the
   // drawn mark lands exactly on the header's (never waiting more than 600 ms for it).
+  // If it cannot play (an old browser), the yellow goes at once instead of covering the app.
   Promise.race([document.fonts.ready, new Promise((r) => setTimeout(r, 600))]).then(() => playSplash({
     brand: document.querySelector('.bar .brand'),
     start: $('find'),
     arriving: [document.querySelector('.segmented'), $('picker'), $('picker-unit'), $('intensity'), $('library')]
       .filter((el) => el && !el.hidden && el.offsetParent),
-  }));
+  })).catch(() => {
+    $('splash')?.remove();
+    document.querySelector('.bar .brand').style.opacity = '';
+  });
   // Page-colour transitions start after the first screen is painted.
   requestAnimationFrame(() => requestAnimationFrame(() => root.classList.add('is-live')));
 }
