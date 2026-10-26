@@ -1,5 +1,7 @@
 # Hill-B
 
+Estado actual del proyecto y siguiente paso: @diseno/ESTADO.md
+
 Reglas de diseño (skills obligatorias Impeccable, Emil Kowalski, Taste, Figma y Playwright): @diseno/SKILLS-DISENO.md
 
 ## Git
