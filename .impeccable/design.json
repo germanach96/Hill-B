@@ -68,7 +68,7 @@
     "typographyMeta": {
       "figures": {
         "displayName": "Hill-B Figures",
-        "purpose": "La voz de cifras: Roboto Flex (OFL) fijada a wdth 25, slnt -10, wght 800, opsz 144, YTUC 760 y reducida a \"0-9 : ,\" (public/fonts/hillb-figures.woff2, ~2 KB). La inclinación va en la fuente (sin font-style italic), font-synthesis none, cifras tabulares, letter-spacing 0.05em, line-height 1. Solo para las ruedas, su separador, el ritmo y los km de la tarjeta."
+        "purpose": "La voz de cifras: Roboto Flex (OFL) fijada a wdth 25, slnt -10, wght 800, opsz 144, YTUC 760 y reducida a \"0-9 : , .\" (public/fonts/hillb-figures.woff2, ~2 KB). La inclinación va en la fuente (sin font-style italic), font-synthesis none, cifras tabulares, letter-spacing 0.05em, line-height 1. Solo para las ruedas, su separador, el ritmo y los km de la tarjeta."
       },
       "wheel": {
         "displayName": "Wheel",

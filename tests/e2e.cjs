@@ -88,7 +88,7 @@ async function run() {
       const { page, errors, context } = await newPage(browser, PHONE, { empty: true });
       await page.goto(BASE);
       await skipSplash(page);
-      await page.locator('#library', { hasText: 'Todavía no hay discos cargados' }).waitFor();
+      await page.locator('#library', { hasText: 'No albums loaded yet' }).waitFor();
       assert.ok(await page.getByRole('button', { name: 'Start' }).isDisabled());
       await page.screenshot({ path: `${OUT}/mobile-empty.png` });
       assert.ok(errors.every((e) => /404|Failed to load resource/.test(e)), errors.join('\n'));
@@ -134,7 +134,7 @@ async function run() {
       const titles = await page.locator('.card-title').allTextContents();
       assert.equal(titles.length, 5);
       assert.equal(new Set(titles).size, 5);
-      assert.equal(await page.locator('#results-title').textContent(), 'Discos para 45 min');
+      assert.equal(await page.locator('#results-title').textContent(), 'Albums for 45 min');
       const bg = await page.locator('.card').first().evaluate((el) => getComputedStyle(el).backgroundColor);
       assert.notEqual(bg, 'rgb(241, 241, 238)', 'the first card takes its colour from the cover');
       assert.equal(await page.locator('h1:visible').count(), 1);
@@ -165,7 +165,7 @@ async function run() {
           numbers: c.querySelector('.card-tags').textContent.match(/\d/g),
         };
       });
-      assert.match(first.km, /^\d+,\d$|^\d+$/);
+      assert.match(first.km, /^\d+\.\d$|^\d+$/);
       assert.ok(first.rows.length >= 4, `only ${first.rows.length} tags`);
       assert.deepEqual(first.rows[0], ['indie rock', 1]);
       assert.ok(first.rows.every(([, l], i) => l > 0 && l <= 1 && (i === 0 || l <= first.rows[i - 1][1])));
@@ -219,13 +219,13 @@ async function run() {
       assert.equal(await valueOf(page, '#wheel-minor'), '45');
 
       // Distance with pace.
-      await page.getByRole('radio', { name: 'Distancia' }).click();
+      await page.getByRole('radio', { name: 'Distance' }).click();
       await page.waitForTimeout(400);
       assert.equal(await valueOf(page, '#wheel-major'), '10');
       assert.equal(await valueOf(page, '#wheel-minor'), '0');
-      assert.equal(await page.locator('#intensity-total').textContent(), '55:00 de carrera');
+      assert.equal(await page.locator('#intensity-total').textContent(), '55:00 of running');
       assert.equal(await page.locator('#picker-unit').textContent(), 'KM');
-      assert.equal(await page.locator('#intensity-label').textContent(), 'Ritmomin/km');
+      assert.equal(await page.locator('#intensity-label').textContent(), 'Pacemin/km');
       // Intensity is swiped sideways; then set exactly with the keyboard.
       await swipe(page, '#pace-wheel', { x: -200 });
       assert.notEqual(await valueOf(page, '#pace-wheel'), '5:30', 'a sideways swipe changes the intensity');
@@ -236,7 +236,7 @@ async function run() {
       await page.waitForTimeout(800);
       assert.equal(await valueOf(page, '#pace-wheel'), '5:15');
       assert.equal(await page.evaluate(() => document.querySelectorAll('#pace-wheel .wheel-item').length), 25, '3:00 to 9:00 in 15 s steps');
-      assert.equal(await page.locator('#intensity-total').textContent(), '52:30 de carrera');
+      assert.equal(await page.locator('#intensity-total').textContent(), '52:30 of running');
       // Hundreds of metres on the second wheel: 10,5 km.
       await page.locator('#wheel-minor').focus();
       for (let i = 0; i < 5; i++) await page.keyboard.press('ArrowUp');
@@ -249,7 +249,7 @@ async function run() {
       await settle(page);
       await page.screenshot({ path: `${OUT}/mobile-distance.png` });
       await page.getByRole('button', { name: 'Start' }).click();
-      await page.waitForFunction(() => document.getElementById('results-title').textContent === 'Discos para 10,5 km');
+      await page.waitForFunction(() => document.getElementById('results-title').textContent === 'Albums for 10.5 km');
       await page.waitForTimeout(1200);
       await page.screenshot({ path: `${OUT}/mobile-results-distance.png` });
 

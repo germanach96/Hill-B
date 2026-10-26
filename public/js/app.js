@@ -60,7 +60,7 @@ function setThemeColor() {
 /* ---------- Session ---------- */
 
 function formatKm(km) {
-  return Number.isInteger(km) ? String(km) : km.toFixed(1).replace('.', ',');
+  return Number.isInteger(km) ? String(km) : km.toFixed(1);
 }
 
 function formatMinutes(total) {
@@ -72,21 +72,21 @@ function formatMinutes(total) {
 const range = (from, to, step = 1) => Array.from({ length: Math.floor((to - from) / step) + 1 }, (_, i) => from + i * step);
 const two = (n) => String(n).padStart(2, '0');
 
-const major = createWheel($('wheel-major'), { label: 'Horas', onChange: onWheel });
-const minor = createWheel($('wheel-minor'), { label: 'Minutos', onChange: onWheel });
-const paceWheel = createWheel($('pace-wheel'), { axis: 'x', label: 'Ritmo, minutos por kilómetro', onChange: onPace });
+const major = createWheel($('wheel-major'), { label: 'Hours', onChange: onWheel });
+const minor = createWheel($('wheel-minor'), { label: 'Minutes', onChange: onWheel });
+const paceWheel = createWheel($('pace-wheel'), { axis: 'x', label: 'Pace, minutes per kilometer', onChange: onPace });
 
 /** Fills both wheels for the current mode and centres them on the saved value. */
 function renderWheels() {
   const isTime = prefs.mode === 'time';
   if (isTime) {
-    $('wheel-major').setAttribute('aria-label', 'Horas');
-    $('wheel-minor').setAttribute('aria-label', 'Minutos');
+    $('wheel-major').setAttribute('aria-label', 'Hours');
+    $('wheel-minor').setAttribute('aria-label', 'Minutes');
     major.setValues(range(0, LIMITS.time.maxHours), { selected: Math.floor(prefs.minutes / 60) });
     minor.setValues(range(0, 59), { format: two, selected: prefs.minutes % 60 });
   } else {
-    $('wheel-major').setAttribute('aria-label', 'Kilómetros');
-    $('wheel-minor').setAttribute('aria-label', 'Cientos de metros');
+    $('wheel-major').setAttribute('aria-label', 'Kilometers');
+    $('wheel-minor').setAttribute('aria-label', 'Hundreds of meters');
     const tenths = Math.round(prefs.km * 10);
     major.setValues(range(0, LIMITS.distance.maxKm), { selected: Math.floor(tenths / 10) });
     minor.setValues(range(0, 9), { selected: tenths % 10 });
@@ -123,13 +123,13 @@ function renderSession() {
   const seg = document.querySelector('.segmented');
   seg.dataset.mode = prefs.mode;
   for (const b of seg.querySelectorAll('.segment')) b.setAttribute('aria-checked', String(b.dataset.mode === prefs.mode));
-  $('picker-sep').textContent = isTime ? ':' : ',';
-  $('picker-unit').textContent = isTime ? 'horas y minutos' : 'KM';
+  $('picker-sep').textContent = isTime ? ':' : '.';
+  $('picker-unit').textContent = isTime ? 'hours and minutes' : 'KM';
   // The pace is asked in both modes: by time it turns the run into kilometres, by distance into time,
   // and the cards give each album in both.
   $('intensity-total').textContent = isTime
     ? `≈ ${formatKmValue(albumKm(prefs.minutes * 60, prefs.pace))} km`
-    : `${formatDuration(sessionSeconds(prefs))} de carrera`;
+    : `${formatDuration(sessionSeconds(prefs))} of running`;
 }
 
 for (const b of document.querySelectorAll('.segment')) {
@@ -172,10 +172,10 @@ function renderLibrary() {
       el.textContent = ''; // nothing to say when the albums are there: the line only speaks up when they are not
       break;
     case 'empty':
-      el.textContent = 'Todavía no hay discos cargados.';
+      el.textContent = 'No albums loaded yet.';
       break;
     case 'error':
-      el.innerHTML = 'No se pudieron abrir los discos de la app. <button type="button" class="link" id="reload">Reintentar</button>';
+      el.innerHTML = 'Couldn’t open the app’s albums. <button type="button" class="link" id="reload">Try again</button>';
       $('reload').addEventListener('click', loadLibrary);
       break;
     default:
@@ -249,7 +249,7 @@ function renderResults({ entering = false, how = entering ? 'search' : 'keep' } 
   const { picks: ranked } = ready ? drawAlbums(target, how) : { picks: [] };
 
   // No visible title: the run is on every card ("Tu salida"). Screen readers still get one.
-  $('results-title').textContent = isTime ? `Discos para ${formatMinutes(prefs.minutes)}` : `Discos para ${formatKm(prefs.km)} km`;
+  $('results-title').textContent = isTime ? `Albums for ${formatMinutes(prefs.minutes)}` : `Albums for ${formatKm(prefs.km)} km`;
   $('reroll').hidden = !canMore();
 
   const state = $('results-state');
@@ -273,8 +273,8 @@ function renderResults({ entering = false, how = entering ? 'search' : 'keep' } 
     $('pager').hidden = true;
     state.hidden = false;
     state.innerHTML = library.status === 'error'
-      ? '<p>No se pudieron abrir los discos de la app.</p><button class="btn btn-ink" type="button" id="retry">Reintentar</button>'
-      : '<p>Todavía no hay discos cargados.</p><p>Se leen una vez desde Spotify y quedan guardados en la app.</p>';
+      ? '<p>Couldn’t open the app’s albums.</p><button class="btn btn-ink" type="button" id="retry">Try again</button>'
+      : '<p>No albums loaded yet.</p><p>They’re read once from Spotify and stay in the app.</p>';
     $('retry')?.addEventListener('click', loadLibrary);
     return;
   }
@@ -323,7 +323,7 @@ function albumCard({ album, duration }, i, target, count) {
   li.className = duration >= 3600 ? 'card is-long' : 'card';
   li.style.setProperty('--i', i);
   li.dataset.album = album.id;
-  li.setAttribute('aria-label', `${i + 1} de ${count}: ${album.name}`);
+  li.setAttribute('aria-label', `${i + 1} of ${count}: ${album.name}`);
   applyColor(li, colors[album.id]);
 
   const artists = album.artists.join(', ');
@@ -336,7 +336,7 @@ function albumCard({ album, duration }, i, target, count) {
   li.innerHTML = `
     <div class="card-inner">
       <div class="cover-box">
-        <img class="cover" alt="Portada de ${escapeAttr(album.name)}" width="640" height="640" draggable="false"
+        <img class="cover" alt="Cover of ${escapeAttr(album.name)}" width="640" height="640" draggable="false"
           ${album.image ? `src="${escapeAttr(album.image)}"` : ''} crossorigin="anonymous" decoding="async">
       </div>
       <div class="card-head">
@@ -344,11 +344,11 @@ function albumCard({ album, duration }, i, target, count) {
         <p class="card-meta">${escapeHtml(artists)}${album.year ? ` <span>${album.year}</span>` : ''}</p>
       </div>
       <div class="card-run">
-        <p class="card-fig"><span class="card-time" data-seconds="${duration}" aria-hidden="true">0:00</span><span class="sr-only">${formatDuration(duration)} de disco</span></p>
-        <p class="card-fig"><span class="card-km" data-km="${km}" aria-hidden="true">0</span><span class="card-unit" aria-hidden="true">km</span><span class="sr-only">${formatKmValue(km)} km a ${formatPace(prefs.pace)} el kilómetro</span></p>
+        <p class="card-fig"><span class="card-time" data-seconds="${duration}" aria-hidden="true">0:00</span><span class="sr-only">${formatDuration(duration)} long</span></p>
+        <p class="card-fig"><span class="card-km" data-km="${km}" aria-hidden="true">0</span><span class="card-unit" aria-hidden="true">km</span><span class="sr-only">${formatKmValue(km)} km at ${formatPace(prefs.pace)} per km</span></p>
       </div>
-      ${tags ? `<ul class="card-tags" aria-label="Etiquetas del disco y del artista">${tags}</ul>` : ''}
-      <a class="sr-only" href="${escapeAttr(album.url)}" target="_blank" rel="noopener">Abrir ${escapeHtml(album.name)} en Spotify</a>
+      ${tags ? `<ul class="card-tags" aria-label="Album and artist tags">${tags}</ul>` : ''}
+      <a class="sr-only" href="${escapeAttr(album.url)}" target="_blank" rel="noopener">Open ${escapeHtml(album.name)} in Spotify</a>
     </div>`;
 
   // All five covers load at once and are decoded before they fade in: a cover that only started

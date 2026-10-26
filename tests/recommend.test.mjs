@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { sessionSeconds, pickAlbums, albumKm, formatKmValue, relevantTags, rankedTags, displayName, formatDuration, describeDelta, formatPace } from '../public/js/recommend.js';
+import { sessionSeconds, pickAlbums, albumKm, formatKmValue, relevantTags, rankedTags, displayName, formatDuration, formatPace } from '../public/js/recommend.js';
 
 test('sessionSeconds reads minutes, or distance at a pace', () => {
   assert.equal(sessionSeconds({ mode: 'time', minutes: 45 }), 2700);
@@ -91,16 +91,13 @@ test('formatting', () => {
   assert.equal(formatDuration(2894), '48:14');
   assert.equal(formatDuration(3725), '1:02:05');
   assert.equal(formatDuration(59), '0:59');
-  assert.equal(describeDelta(192), 'Sobran 3:12');
-  assert.equal(describeDelta(-90), 'Faltan 1:30');
-  assert.equal(describeDelta(20), 'Justo lo que corres');
   assert.equal(formatPace(330), '5:30');
   assert.equal(formatPace(305), '5:05');
 });
 
 test('albumKm and formatKmValue: the album measured in kilometres at a pace', () => {
   assert.equal(albumKm(2907, 330), 2907 / 330);
-  assert.equal(formatKmValue(albumKm(2907, 330)), '8,8');
+  assert.equal(formatKmValue(albumKm(2907, 330)), '8.8');
   assert.equal(formatKmValue(10.04), '10');
   assert.equal(albumKm(2907, 0), 0);
 });

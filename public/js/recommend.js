@@ -11,7 +11,7 @@ export const WINDOW = { start: 5 * 60, step: 5 * 60 };
 /**
  * Picks `count` albums at random among those whose full running time is close to the run.
  * The window starts at ±5 min of the run and widens 5 min each side until it holds `pool` records
- * (twice the deck, so there is room to vary) and `count` records not in `seen`, so "Otros 5" keeps
+ * (twice the deck, so there is room to vary) and `count` records not in `seen`, so "5 more" keeps
  * finding new albums by looking further out. Seen records only fill in when there are no others left.
  * Two editions of one record share a `group` (the original and its deluxe, say): one of them at most,
  * and once one edition is seen the record counts as seen.
@@ -70,10 +70,10 @@ export function albumKm(seconds, pace) {
   return pace > 0 ? seconds / pace : 0;
 }
 
-/** "8,8": one decimal, Spanish comma; whole numbers without it. */
+/** "8.8": one decimal; whole numbers without it. */
 export function formatKmValue(km) {
   const tenths = Math.round(km * 10) / 10;
-  return Number.isInteger(tenths) ? String(tenths) : tenths.toFixed(1).replace('.', ',');
+  return Number.isInteger(tenths) ? String(tenths) : tenths.toFixed(1);
 }
 
 // Tags that say nothing about the sound: personal lists, formats, awards. Tags with digits
@@ -136,7 +136,7 @@ export function rankedTags(album, count = 7) {
 
 /** "🚌 The Magic Bus @germanch96" reads as "The Magic Bus": emoji and @handle stay in Spotify. */
 export function displayName(name = '') {
-  return name.replace(/\p{Extended_Pictographic}\uFE0F?/gu, '').replace(/@\S+/g, '').trim() || 'tu playlist';
+  return name.replace(/\p{Extended_Pictographic}\uFE0F?/gu, '').replace(/@\S+/g, '').trim() || 'your playlist';
 }
 
 export function formatDuration(totalSec) {
@@ -145,12 +145,6 @@ export function formatDuration(totalSec) {
   const m = Math.floor((s % 3600) / 60);
   const sec = String(s % 60).padStart(2, '0');
   return h ? `${h}:${String(m).padStart(2, '0')}:${sec}` : `${m}:${sec}`;
-}
-
-/** "Sobran 3:12", "Faltan 1:30" or "Justo": the delta in the runner's words. */
-export function describeDelta(delta) {
-  if (Math.abs(delta) < 30) return 'Justo lo que corres';
-  return delta > 0 ? `Sobran ${formatDuration(delta)}` : `Faltan ${formatDuration(-delta)}`;
 }
 
 export function formatPace(secPerKm) {

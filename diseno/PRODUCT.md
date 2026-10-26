@@ -28,6 +28,8 @@ Used on a phone, outdoors or at the door, often one-handed, just before a run; p
 
 ## Capabilities and Constraints
 
+- UI language: English (owner's decision, 2026-10-26), km with a decimal point.
+
 - Confirmed: read the playlist, group its tracks by album, compute each album's full running time, and match albums to the run duration the user enters.
 - Confirmed (2026-10-26): a song from a special release (single, deluxe, live, compilation, remaster) also brings in the studio album it first came out on; both versions are candidates, never twice the same record, and singles/EPs never are. The app proposes only one edition of a record per result set. Nothing is removed when songs leave the playlist; originals not found are set by hand by the owner. Workflow in `diseno/ESTADO.md`.
 - Open decision: **mood**. The user will specify how mood is defined later. Spotify audio features are not available to new apps, so mood cannot come from the API's valence/energy. Each album now carries its Last.fm tags and its main artist's tags (mostly genre and era, some mood words), the likely base for it.

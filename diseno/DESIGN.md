@@ -233,7 +233,7 @@ Valores fuera de la paleta, intencionados: el `#000` dentro de la `mask-image` d
 
 **Display Font:** Archivo variable a `font-stretch: 62%` (con system-ui, -apple-system, Segoe UI, sans-serif)
 **Body Font:** Archivo variable a ancho normal (mismo respaldo)
-**Figure Font:** Hill-B Figures (`public/fonts/hillb-figures.woff2`, ~2 KB): Roboto Flex (OFL) fijada a wdth 25, slnt −10, wght 800, opsz 144, YTUC 760 y reducida a "0-9 : ,". Respaldo Archivo.
+**Figure Font:** Hill-B Figures (`public/fonts/hillb-figures.woff2`, ~2 KB): Roboto Flex (OFL) fijada a wdth 25, slnt −10, wght 800, opsz 144, YTUC 760 y reducida a "0-9 : , .". Respaldo Archivo.
 
 **Character:** Tres voces. La voz de texto es Archivo a ancho normal, tranquila y legible a un brazo de distancia. La voz de pantalla es Archivo en su ancho mínimo y peso máximo, en mayúsculas: la de la pantalla de objetivo de Nike. La voz de cifras es Hill-B Figures: las cifras más largas, afiladas y rápidas de un muestrario de diez fuentes, elegidas por el propietario (2026-10-26). La inclinación va dentro de la fuente (sin `font-style: italic`), con `font-synthesis: none`, cifras tabulares, `letter-spacing: 0.05em` (las cifras inclinadas van sobre avances estrechos: un pelo entre el 4 y el 5) y `line-height: 1`.
 
@@ -245,7 +245,7 @@ Valores fuera de la paleta, intencionados: el `#000` dentro de la `mask-image` d
 - **Start** (900, 2rem, +0.02em): la palabra START del botón principal, más abierta que el resto de la voz de pantalla para leerse como una orden.
 - **Pace** (Hill-B Figures 800, 3rem): el ritmo dentro de su píldora.
 - **Action** (700, 18px, −0.005em): texto de los botones grandes de texto (reintento), y la unidad bajo las ruedas en tinta de apoyo.
-- **Body** (400, 16px, 1.5): texto general; 600 en artista y año de la tarjeta; 700 en el interruptor, la etiqueta "Ritmo" y las píldoras de foco de resultados.
+- **Body** (400, 16px, 1.5): texto general; 600 en artista y año de la tarjeta; 700 en el interruptor, la etiqueta "Pace" y las píldoras de foco de resultados.
 - **Label** (600, 15px): textos secundarios y avisos. Los nombres de las etiquetas de la tarjeta van en la voz Tag (700, 16px, 1.25, una línea con puntos suspensivos).
 - **Marca** (800, 20px, `font-stretch: 75%`, mayúsculas): solo el logotipo de la barra.
 
@@ -272,9 +272,9 @@ Una columna de teléfono: `max-width: 480px`, centrada, con 20px de margen later
 
 El ritmo de espaciado es 4 / 8 / 12 / 16 / 20 / 24px, con 10px para lo que asoma o cuelga de un valor (unidad bajo las ruedas, tira del ritmo, separación entre tarjetas). Las separaciones verticales de la vista de sesión respiran con la altura de pantalla: bajo el interruptor `clamp(12px, 3svh, 32px)`, sobre el ritmo `clamp(16px, 3.5svh, 36px)`.
 
-**Sesión:** interruptor arriba; las ruedas en una rejilla `auto auto auto` centrada (`justify-content: center`: el valor se centra como un solo grupo y cada rueda mide lo que su valor más ancho, "60", "59") de una fila de alto más un margen táctil invisible arriba y abajo (`--reach`, `clamp(24px, 5svh, 48px)`), empujadas con `margin-top: auto` para que la altura sobrante se reparta arriba y abajo y el valor quede a media pantalla, al alcance del pulgar. Las dos cifras se pegan al separador (la de la izquierda alineada a la derecha y al revés) para leerse como un solo valor: 1:05, 10,5. Margen lateral en em: la rueda mayor `0.1em 0.05em` y la menor `0.05em 0.1em`, más holgura por fuera para la bandera del 1 y la punta de la inclinación, justa contra el separador. La unidad va 10px por debajo, centrada: "horas y minutos" o "KM". No hay línea de biblioteca cuando los discos están cargados (la pantalla es solo ruedas y START); solo aparece para decir que no hay discos o que no se pudieron abrir. La tira del ritmo sangra hasta el borde del viewport: todo su ancho se desliza, pero solo se pinta la píldora del centro.
+**Sesión:** interruptor arriba; las ruedas en una rejilla `auto auto auto` centrada (`justify-content: center`: el valor se centra como un solo grupo y cada rueda mide lo que su valor más ancho, "60", "59") de una fila de alto más un margen táctil invisible arriba y abajo (`--reach`, `clamp(24px, 5svh, 48px)`), empujadas con `margin-top: auto` para que la altura sobrante se reparta arriba y abajo y el valor quede a media pantalla, al alcance del pulgar. Las dos cifras se pegan al separador (la de la izquierda alineada a la derecha y al revés) para leerse como un solo valor: 1:05, 10,5. Margen lateral en em: la rueda mayor `0.1em 0.05em` y la menor `0.05em 0.1em`, más holgura por fuera para la bandera del 1 y la punta de la inclinación, justa contra el separador. La unidad va 10px por debajo, centrada: "hours and minutes" o "KM". No hay línea de biblioteca cuando los discos están cargados (la pantalla es solo ruedas y START); solo aparece para decir que no hay discos o que no se pudieron abrir. La tira del ritmo sangra hasta el borde del viewport: todo su ancho se desliza, pero solo se pinta la píldora del centro.
 
-**Resultados:** solo la barra de la marca, las barras de posición y las tarjetas, siempre una pantalla de teléfono: la vista mide `100dvh` sin scroll de página. El título ("Discos para 45 min") y la ayuda de los gestos existen solo para lectores de pantalla. Las cinco barras de posición van encima de las tarjetas (2px arriba, 8px abajo), a lo ancho de la columna. La baraja (pager) sangra hasta el borde de la columna y ocupa toda la altura que queda (4px arriba; abajo, pad más el área segura). Cada tarjeta mide el ancho de la baraja menos dos pads y toda su altura; la separación es de 10px, así que las vecinas asoman 10px por cada lado, lo justo para decir "hay más". La tarjeta es un contenedor de tamaño: sus medidas responden a su propia altura, no a la del viewport (ver Album card).
+**Resultados:** solo la barra de la marca, las barras de posición y las tarjetas, siempre una pantalla de teléfono: la vista mide `100dvh` sin scroll de página. El título ("Albums for 45 min") y la ayuda de los gestos existen solo para lectores de pantalla. Las cinco barras de posición van encima de las tarjetas (2px arriba, 8px abajo), a lo ancho de la columna. La baraja (pager) sangra hasta el borde de la columna y ocupa toda la altura que queda (4px arriba; abajo, pad más el área segura). Cada tarjeta mide el ancho de la baraja menos dos pads y toda su altura; la separación es de 10px, así que las vecinas asoman 10px por cada lado, lo justo para decir "hay más". La tarjeta es un contenedor de tamaño: sus medidas responden a su propia altura, no a la del viewport (ver Album card).
 
 ## Elevation & Depth
 
@@ -296,7 +296,7 @@ Grandes, llenos y para el pulgar. Todos de tinta con texto voltio.
 - **START (principal):** píldora de tinta a ancho completo, 64px de alto como mínimo, "Start" en la voz Start (estrecha, 900, 2rem, mayúsculas) en voltio. Única acción principal de la sesión, en el dock.
 - **Ink:** píldora de tinta con texto voltio en Action, 60px (52px dentro de paneles de estado); reintentos.
 - **Hover / Active:** hover solo en punteros finos (ink-hover); al pulsar, `scale(0.97)` en 140ms con `--ease-out` y ink-press. Deshabilitado a opacidad 0.45 sin escala.
-- **Píldoras de foco (resultados):** "Volver a elegir la salida" y "Otros 5 discos" son botones solo para lectores de pantalla; con el foco del teclado aparecen como una píldora de tinta con texto voltio (44px de alto, 0 18px, 700, 16px) fija arriba a la derecha, sobre la baraja. Sin foco no se ven.
+- **Píldoras de foco (resultados):** "Change your run" y "5 more albums" son botones solo para lectores de pantalla; con el foco del teclado aparecen como una píldora de tinta con texto voltio (44px de alto, 0 18px, 700, 16px) fija arriba a la derecha, sobre la baraja. Sin foco no se ven.
 
 ### Segmented control (Tiempo / Distancia)
 - **Style:** pista de superficie en píldora con 4px de holgura; dos opciones de 48px, 700, 16px.
@@ -311,9 +311,9 @@ Dos columnas de cifras gigantes con scroll y snap nativos: el impulso y el rebot
 - **Foco de teclado:** la máscara cortaría un anillo en la rueda, así que el anillo (3px de tinta, radio de 24px) rodea todo el valor (`.picker:has(.wheel-y:focus-visible)`, separación `calc(var(--reach) * -1 + 6px)`) y la rueda que no tiene las teclas retrocede a opacidad 0.45, para que se vea qué número mueven las flechas.
 
 ### Pace strip (Ritmo)
-El ritmo (3:00 a 9:00 /km, de 15 en 15 s) como una tira que se desliza de lado, en los dos modos: en Tiempo da los km ("≈ 8,7 km"), en Distancia el tiempo ("55:00 de carrera"), y en las tarjetas los km de cada disco.
+El ritmo (3:00 a 9:00 /km, de 15 en 15 s) como una tira que se desliza de lado, en los dos modos: en Tiempo da los km ("≈ 8.7 km"), en Distancia el tiempo ("55:00 of running"), y en las tarjetas los km de cada disco.
 - **Valores:** de 3:00 a 9:00 /km de 15 en 15 s (25 valores).
-- **Cabecera:** "Ritmo" (700, 16px) con "min/km" en tinta de apoyo (500), y a la derecha el total de carrera en tinta de apoyo con cifras tabulares.
+- **Cabecera:** "Pace" (700, 16px) con "min/km" en tinta de apoyo (500), y a la derecha el total de carrera en tinta de apoyo con cifras tabulares.
 - **Style:** una píldora fija de tinta de 144 × 64px en el centro; los ritmos, en voltio y en la voz Pace (Hill-B Figures, 3rem), pasan por ella con snap al centro (paso de 144px).
 - **State:** `mask-image` pinta solo la píldora; el resto de la tira es invisible pero se desliza con el pulgar. El foco de teclado rodea la píldora.
 
