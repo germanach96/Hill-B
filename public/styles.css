@@ -175,7 +175,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 @media (hover: hover) and (pointer: fine) {
   .btn-volt:hover { background: #cdf713; }
   .btn-ink:hover { background: #262626; }
-  .step:hover, .back:hover, .preset:hover { background: var(--surface-press); }
+  .step:hover, .back:hover, .reroll:hover, .preset:hover { background: var(--surface-press); }
 }
 
 /* ---------- Session ---------- */
@@ -347,7 +347,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 .results-head {
   display: grid;
-  grid-template-columns: 44px 1fr;
+  grid-template-columns: 44px 1fr auto;
   align-items: center;
   gap: 12px;
   margin-top: 4px;
@@ -363,6 +363,26 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 .back svg { width: 20px; height: 20px; }
 .back:active { transform: scale(0.92); }
+.reroll {
+  height: 44px;
+  padding: 0 16px 0 14px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgb(17 17 17 / 0.07);
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: transform 140ms var(--ease-out), background-color 140ms ease;
+}
+.reroll svg { width: 18px; height: 18px; flex: none; }
+.reroll:active { transform: scale(0.95); background: rgb(17 17 17 / 0.12); }
+/* Narrow phones: the title keeps one line and the button becomes a circle like "back"; the label stays for screen readers. */
+@media (max-width: 359px) {
+  .reroll { width: 44px; padding: 0; justify-content: center; }
+  .reroll-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
 .results-title { margin: 0; font-size: 2rem; line-height: 1; }
 .results-sub { margin: 2px 0 0; font-size: 15px; color: var(--muted); }
 

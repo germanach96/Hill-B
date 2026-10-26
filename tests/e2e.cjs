@@ -95,7 +95,8 @@ async function run() {
       report.push(`Buscar discos → primera tarjeta visible: ${clickToCards} ms`);
       await page.waitForTimeout(1200);
       const titles = await page.locator('.card-title').allTextContents();
-      assert.deepEqual(titles, ['Sal y Asfalto', 'Luz de Sodio', 'Carretera Norte', 'Pulso', 'Hill Repeats']);
+      assert.equal(titles.length, 5);
+      assert.equal(new Set(titles).size, 5);
       assert.equal(await page.locator('#results-title').textContent(), 'Para 45 min');
       const bg = await page.locator('.card').first().evaluate((el) => getComputedStyle(el).backgroundColor);
       assert.notEqual(bg, 'rgb(241, 241, 238)', 'the first card takes its colour from the cover');
@@ -110,6 +111,22 @@ async function run() {
       report.push(`Deslizar → segunda tarjeta activa: ${Date.now() - t1} ms`);
       await page.waitForTimeout(800);
       await page.screenshot({ path: `${OUT}/mobile-results-2.png` });
+
+      // "Otros 5": a different set for the same run (the fixture has 10 albums, so none repeats).
+      assert.match(await page.locator('#results-sub').textContent(), /^5 discos de \d+ a \d+\u00a0min$/);
+      const t2 = Date.now();
+      await page.getByRole('button', { name: 'Otros 5' }).click();
+      await page.waitForFunction((before) => {
+        const now = [...document.querySelectorAll('.card-title')].map((el) => el.textContent);
+        return now.length === 5 && !now.some((t) => before.includes(t));
+      }, titles);
+      report.push(`Otros 5 → tarjetas nuevas: ${Date.now() - t2} ms`);
+      await page.waitForTimeout(900);
+      assert.equal(await page.evaluate(() => document.getElementById('deck').scrollLeft), 0, 'the new deck starts at its first album');
+      await page.screenshot({ path: `${OUT}/mobile-results-otros.png` });
+      await page.getByRole('button', { name: 'Otros 5' }).click();
+      await page.waitForTimeout(600);
+      assert.equal(await page.locator('.card-title').count(), 5, 'when every album was seen, they come round again');
 
       // Back keeps the session; distance with pace.
       await page.getByRole('button', { name: 'Cambiar la sesión' }).click();

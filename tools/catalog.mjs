@@ -8,7 +8,7 @@
 //   album. Both versions go in, never twice the same album; singles and EPs never do.
 // - Nothing is removed: albums stay when their songs leave the playlist.
 // - Songs with no original found stay without one; the owner sets them by hand in data/manual.json.
-// - The app proposes one version per album (see `group` and rankAlbums).
+// - The app proposes one version per album (see `group` and pickAlbums).
 
 export const LIVE = /\b(live|en vivo|ao vivo|en directo|unplugged|ac[uú]stico|mtv|concierto|in concert|on stage|bbc sessions?)\b|\bvivo\b/i;
 export const COMP = /\b(greatest hits|grandes [eé]xitos|best of|the best|lo mejor|essential|esencial|collection|colecci[oó]n|anthology|antolog[ií]a|hits|singles|retrospective|gold|platinum|definitive|the very best|20th century masters|b-sides|rarities|rarezas|exitos|éxitos)\b/i;
