@@ -137,17 +137,17 @@
       {
         "name": "pager-spring",
         "value": "k = (2π/respuesta)², c = 4πζ/respuesta, masa 1, calculado de antemano (8 subpasos por 1/60 s) y reproducido como fotogramas clave lineales de Web Animations (compositor), un fotograma adelantado, asiento |Δx| < 0.25px y |v| < 6 px/s, velocidad limitada a 4000 px/s (medida en los últimos 100ms)",
-        "purpose": "Toda la baraja: cambio de tarjeta 0.55 / ζ 1, sin rebote; la velocidad del dedo se entrega con un tope de ω·distancia + 60 px/s hacia el destino (un cuarto en contra), para que un golpe fuerte se deslice ~300ms en vez de saltar; vuelta de la tarjeta levantada 0.42 / ζ 0.82; volver 0.45; otros cinco salen 0.42 y entran 0.6; abrir sube 0.36 y vuelve 0.45 / ζ 0.82. La cuenta de la duración y el medidor empiezan cuando la tarjeta se asienta. Escala (hacia la tarjeta del frente, escrita como desplazamiento), opacidad de cada tarjeta y la marca de las barras de posición salen de la posición del muelle; tocar a media carrera lee la posición del reloj de la animación; con movimiento reducido, saltan al destino."
+        "purpose": "Toda la baraja: cambio de tarjeta 0.55 / ζ 1, sin rebote; la velocidad del dedo se entrega con un tope de ω·distancia + 60 px/s hacia el destino (un cuarto en contra), para que un golpe fuerte se deslice ~300ms en vez de saltar; vuelta de la tarjeta levantada 0.42 / ζ 0.82; volver 0.45; otros cinco salen 0.42 y entran 0.6; abrir sube 0.36 y vuelve 0.45 / ζ 0.82. La cuenta de la duración y el medidor empiezan cuando la tarjeta se asienta. Escala (hacia la tarjeta del frente, escrita como desplazamiento), opacidad de cada tarjeta y la marca de las barras de posición salen de la posición del muelle; tocar a media carrera lee la posición del reloj de la animación; se reproducen siempre, aunque el teléfono pida reducir movimiento."
       },
       {
         "name": "splash",
         "value": "punto 220ms · carrera 1650ms lineal · meta 400ms ease-in-out · a casa 480ms ease-drawer · a START 430ms ease-in-out · START crece 360ms ease-out (clip-path circle)",
-        "purpose": "Apertura de ~3 s: el punto recorre las dos colinas y rellena la marca, el logo vuela a la barra y el punto se vuelve START. Un toque la salta; con movimiento reducido, fundido de 240ms."
+        "purpose": "Apertura de ~3 s: el punto recorre las dos colinas y rellena la marca, el logo vuela a la barra y el punto se vuelve START. Un toque la salta; sale también con «Reducir movimiento» activado."
       },
       {
         "name": "reduced-motion",
-        "value": "prefers-reduced-motion: reduce",
-        "purpose": "Transiciones a 0ms, ruedas sin deslizamiento ni FLIP, muelles de la baraja que saltan a su destino, entrada y cambios de vista como fundido de 160ms, portada sin fundido, sin cuenta ni relleno animado."
+        "value": "ignorado a propósito",
+        "purpose": "Decisión del propietario (2026-10-26): toda la animación se reproduce aunque el teléfono pida reducir movimiento; con ese ajuste la baraja saltaba de tarjeta y la apertura no salía."
       }
     ],
     "breakpoints": [
@@ -249,7 +249,7 @@
       "Resultados sin botones visibles: cada disco ocupa una pantalla de teléfono y las acciones son gestos con banda elástica y un círculo de aviso.",
       "Controles en píldora, tarjetas de 24px, sin sombras ni bordes.",
       "Cifras tabulares en todo lo que cuenta tiempo o distancia.",
-      "Movimiento con curvas de salida fuertes y respeto completo a `prefers-reduced-motion`."
+      "Movimiento con curvas de salida fuertes, siempre: la app no atiende a `prefers-reduced-motion` (decisión del propietario)."
     ],
     "rules": [
       {
@@ -309,7 +309,7 @@
       "Do anclar la acción principal de la sesión en el dock inferior, a ancho completo, por encima del área segura.",
       "Do hacer de cada tarjeta de disco una pantalla de teléfono sin scroll, con la duración y el medidor anclados al pie.",
       "Do revelar cada acción de tirón con su círculo de 48px, que se arma en tinta con icono voltio cuando soltar actúa, y dar a cada gesto su equivalente de teclado.",
-      "Do dar a cada animación su alternativa con `prefers-reduced-motion` (fundido o nada)."
+      "Do reproducir todas las animaciones siempre, también con «Reducir movimiento» activado (lo pidió el propietario)."
     ],
     "donts": [
       "Don't usar blanco: ni suelo, ni texto, ni tinta de tarjeta.",

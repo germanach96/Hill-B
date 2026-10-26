@@ -699,12 +699,5 @@ html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden
 @keyframes vt-out { to   { opacity: 0; filter: blur(3px); transform: translateX(calc(var(--dir, 1) * -8%)) scale(0.985); } }
 @keyframes vt-in  { from { opacity: 0; transform: translateX(calc(var(--dir, 1) * 10%)); } }
 
-@media (prefers-reduced-motion: reduce) {
-  html, body, .dock, .card { transition-duration: 0ms; }
-  .deck.is-entering .card-inner { animation-name: fade; }
-  .card.is-seen .meter-fill { transition: none; }
-  .cover { transition-duration: 0ms; }
-  ::view-transition-old(root), ::view-transition-new(root) { animation-name: fade; animation-duration: 160ms; }
-  ::view-transition-old(root) { animation-direction: reverse; }
-}
-@keyframes fade { from { opacity: 0; } }
+/* Every motion plays, whatever the phone's "reduce motion" setting: the owner asked for it (on
+   their iPhone the setting turned the glides into jumps and skipped the opening). */

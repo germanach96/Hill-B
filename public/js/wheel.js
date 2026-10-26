@@ -1,7 +1,6 @@
 // A picker wheel on native snap scrolling: the phone's own momentum and rubber band, one value per
 // row, and the row in the centre is the value. Vertical for time and distance, horizontal for pace.
 
-const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 
 export function createWheel(el, { axis = 'y', label, onChange }) {
   const vertical = axis === 'y';
@@ -33,7 +32,7 @@ export function createWheel(el, { axis = 'y', label, onChange }) {
   }
 
   function scrollTo(i, smooth) {
-    el.scrollTo({ [vertical ? 'top' : 'left']: i * size(), behavior: smooth && !reducedMotion.matches ? 'smooth' : 'instant' });
+    el.scrollTo({ [vertical ? 'top' : 'left']: i * size(), behavior: smooth ? 'smooth' : 'instant' });
   }
 
   el.addEventListener('scroll', () => {

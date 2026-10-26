@@ -2,7 +2,7 @@
 // Hill-B mark, filling the mark in behind it. At the finish the mark settles into the header beside
 // its name, and the dot runs down to the START button and becomes it. About three seconds, all of it
 // Web Animations on transform, opacity and clip-path, so it stays smooth while the app boots behind.
-// A tap skips it; with reduced motion the yellow simply fades away.
+// A tap skips it. It plays even with the phone's "reduce motion" setting on: the owner asked for it.
 
 const EASE_OUT = 'cubic-bezier(0.23, 1, 0.32, 1)';
 const EASE_IN_OUT = 'cubic-bezier(0.77, 0, 0.175, 1)';
@@ -48,11 +48,6 @@ export function playSplash({ brand, start, arriving = [] }) {
     brand.style.opacity = '';
     splash.remove();
   };
-
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    return ground.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 240, easing: 'ease', fill: 'forwards' })
-      .finished.then(done, done);
-  }
 
   const vw = innerWidth;
   const vh = innerHeight;
