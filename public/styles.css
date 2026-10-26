@@ -387,9 +387,26 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 /* ---------- Results ---------- */
 
-/* The results are one phone screen, always: the wordmark and the cards, nothing to scroll. */
+/* The results are one phone screen, always: the wordmark, the position bars and the cards. */
 html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden; }
 .view-results { min-height: 0; }
+
+/* One bar per album; the ink mark is drawn from the deck's live position (pager.js), so it slides
+   from bar to bar with the finger instead of jumping when the card settles. */
+.ticks {
+  display: flex;
+  gap: 4px;
+  margin: 2px 0 8px;
+}
+.tick {
+  position: relative;
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  overflow: hidden;
+  background: var(--surface-press);
+}
+.tick-fill { position: absolute; inset: 0; background: var(--ink); opacity: 0; }
 
 .pager {
   --gap: 10px;
@@ -400,7 +417,7 @@ html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden
   flex: 1;
   min-height: 0;
   margin: 0 calc(var(--pad) * -1);
-  padding: 8px 0 calc(var(--pad) + env(safe-area-inset-bottom, 0px));
+  padding: 4px 0 calc(var(--pad) + env(safe-area-inset-bottom, 0px));
   touch-action: none; /* every drag here is ours: sideways between cards, up to Spotify */
   /* A lifted card slides under the top edge instead of over the wordmark. */
   overflow: clip;
@@ -409,7 +426,7 @@ html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden
   -webkit-touch-callout: none;
   outline: none;
 }
-.pager:focus-visible .card.is-active { outline: 3px solid var(--ink); outline-offset: 3px; }
+.pager:focus-visible .card.is-active { outline: 3px solid var(--ink); outline-offset: -3px; }
 .deck {
   list-style: none;
   display: flex;
@@ -449,15 +466,11 @@ html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden
   border-radius: var(--radius-card);
   background: var(--card-bg, var(--surface));
   color: var(--card-ink, var(--ink));
-  transform: scale(0.95);
-  /* Neighbours shrink towards the card in front, so their 10px edge keeps showing beside it. */
-  transform-origin: right center;
-  opacity: 0.8;
-  transition: background-color 300ms ease, color 300ms ease, opacity 300ms ease,
-    transform 420ms var(--ease-drawer);
+  /* Size, fade and lift come from the pager's springs every frame (pager.js), not from transitions:
+     the neighbours grow and shrink with the finger, towards the card in front. */
+  will-change: transform;
+  transition: background-color 300ms ease, color 300ms ease;
 }
-.card.is-active { transform: none; opacity: 1; }
-.card.is-active ~ .card { transform-origin: left center; }
 
 /* Four groups (cover, name, run, songs) share the card's spare height evenly, so a tall phone
    never shows one hollow band in the middle. */
@@ -486,7 +499,11 @@ html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden
   background: rgb(0 0 0 / 0.08);
   object-fit: cover;
   pointer-events: none;
+  /* A cover that arrives late fades in instead of popping onto the card. */
+  opacity: 0;
+  transition: opacity 320ms ease;
 }
+.cover.is-loaded { opacity: 1; }
 
 .card-head { margin-top: 14px; }
 .card-title {
@@ -621,32 +638,28 @@ html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden
 
 /* Cards rise in once per search, staggered; their content is visible by default. */
 .deck.is-entering .card-inner {
-  animation: rise 460ms var(--ease-out) both;
-  animation-delay: calc(var(--i, 0) * 60ms);
+  animation: rise 560ms var(--ease-out) both;
+  animation-delay: calc(80ms + var(--i, 0) * 70ms); /* after the screen has started arriving */
 }
 @keyframes rise {
-  from { opacity: 0; transform: translateY(28px) scale(0.97); }
+  from { opacity: 0; transform: translateY(24px) scale(0.98); }
 }
 
-/* Five others come in from the right, where the pull came from. */
-.deck.is-more .card-inner {
-  animation: in-right 420ms var(--ease-out) both;
-  animation-delay: calc(var(--i, 0) * 50ms);
-}
-@keyframes in-right {
-  from { opacity: 0; transform: translateX(40px); }
-}
-
-/* View changes slide along the flow: forward from the right, back from the left. */
-::view-transition-old(root) { animation: vt-out 280ms var(--ease-drawer) both; }
-::view-transition-new(root) { animation: vt-in 280ms var(--ease-drawer) both; }
-@keyframes vt-out { to   { opacity: 0; transform: translateX(calc(var(--dir, 1) * -18%)); } }
-@keyframes vt-in  { from { opacity: 0; transform: translateX(calc(var(--dir, 1) * 18%)); } }
+/* View changes slide along the flow: forward from the right, back from the left. The screen
+   leaving goes a little faster than the one arriving, and both travel a short way, so the change
+   reads as one glide rather than a swap. */
+/* The old screen is nearly gone, softened by a little blur, before the new one is half in: two
+   different layouts never sit on top of each other at full strength. */
+::view-transition-old(root) { animation: vt-out 220ms var(--ease-out) both; }
+::view-transition-new(root) { animation: vt-in 440ms var(--ease-drawer) 60ms both; }
+@keyframes vt-out { to   { opacity: 0; filter: blur(3px); transform: translateX(calc(var(--dir, 1) * -8%)) scale(0.985); } }
+@keyframes vt-in  { from { opacity: 0; transform: translateX(calc(var(--dir, 1) * 10%)); } }
 
 @media (prefers-reduced-motion: reduce) {
   html, body, .dock, .card { transition-duration: 0ms; }
-  .deck.is-entering .card-inner, .deck.is-more .card-inner { animation-name: fade; }
+  .deck.is-entering .card-inner { animation-name: fade; }
   .card.is-seen .meter-fill { transition: none; }
+  .cover { transition-duration: 0ms; }
   ::view-transition-old(root), ::view-transition-new(root) { animation-name: fade; animation-duration: 160ms; }
   ::view-transition-old(root) { animation-direction: reverse; }
 }

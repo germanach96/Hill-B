@@ -235,6 +235,7 @@ const pager = createPager($('pager'), $('deck'), {
   onIndex: (i) => setActive(i),
   onBack: goBack,
   onMore: () => renderResults({ entering: true, how: 'more' }),
+  ticks: $('ticks'),
   canMore,
   onOpen: (i) => openInSpotify(draw.picks[i]?.album),
 });
@@ -256,6 +257,7 @@ function renderResults({ entering = false, how = entering ? 'search' : 'keep' } 
     if (renderedKey !== 'loading') {
       renderedKey = 'loading';
       deck.replaceChildren(...[0, 1, 2].map(skeletonCard));
+      renderTicks(RESULT_COUNT);
     }
     state.hidden = true;
     $('pager').hidden = false;
@@ -265,6 +267,7 @@ function renderResults({ entering = false, how = entering ? 'search' : 'keep' } 
   if (!ranked.length) {
     renderedKey = library.status;
     deck.replaceChildren();
+    renderTicks(0);
     $('pager').hidden = true;
     state.hidden = false;
     state.innerHTML = library.status === 'error'
@@ -281,14 +284,24 @@ function renderResults({ entering = false, how = entering ? 'search' : 'keep' } 
   renderedKey = key;
 
   deck.replaceChildren(...ranked.map((r, i) => albumCard(r, i, target, ranked.length)));
-  pager.reset();
-
-  // A new search rises in; five others come in from the right, where the pull came from.
-  const enter = how === 'more' ? 'is-more' : 'is-entering';
-  deck.classList.remove('is-entering', 'is-more');
+  renderTicks(ranked.length);
+  // Five others glide in from the right with the pull that asked for them; a new search rises in.
+  pager.reset({ arriving: how === 'more' });
+  if (how === 'more') return;
+  deck.classList.remove('is-entering');
   void deck.offsetWidth;
-  deck.classList.add(enter);
-  setTimeout(() => deck.classList.remove(enter), 460 + ranked.length * 60 + 80);
+  deck.classList.add('is-entering');
+  setTimeout(() => deck.classList.remove('is-entering'), 460 + ranked.length * 60 + 80);
+}
+
+/** One bar per album; the pager fills them from the deck's live position, so the mark slides with the finger. */
+function renderTicks(count) {
+  $('ticks').replaceChildren(...Array.from({ length: count }, () => {
+    const t = document.createElement('span');
+    t.className = 'tick';
+    t.innerHTML = '<span class="tick-fill"></span>';
+    return t;
+  }));
 }
 
 function skeletonCard(i) {
@@ -340,6 +353,12 @@ function albumCard({ album, duration, delta }, i, target, count) {
     </div>`;
 
   const img = li.querySelector('img');
+  const shown = () => img.classList.add('is-loaded');
+  if (!album.image || (img.complete && img.naturalWidth)) shown();
+  else {
+    img.addEventListener('load', shown, { once: true });
+    img.addEventListener('error', shown, { once: true }); // the placeholder then, never an empty hole
+  }
   if (!colors[album.id] && album.image) {
     const sample = () => {
       const c = sampleColor(img);
@@ -496,7 +515,7 @@ function goBack() {
   show('session', -1, () => { major.refresh(); minor.refresh(); paceWheel.refresh(); });
 }
 $('back').addEventListener('click', goBack);
-$('reroll').addEventListener('click', () => renderResults({ entering: true, how: 'more' }));
+$('reroll').addEventListener('click', () => pager.more());
 
 /* ---------- Boot ---------- */
 
