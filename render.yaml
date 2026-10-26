@@ -4,11 +4,6 @@ services:
     runtime: static
     buildCommand: ""
     staticPublishPath: ./public
-    routes:
-      # Spotify sends the login back to /callback; the app itself finishes it.
-      - type: rewrite
-        source: /callback
-        destination: /index.html
     headers:
       - path: /*
         name: X-Content-Type-Options

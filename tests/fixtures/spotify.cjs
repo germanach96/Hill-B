@@ -1,4 +1,4 @@
-// Synthetic Spotify data for the browser tests. Invented albums and artists: nothing here is real.
+// Synthetic data for the browser tests. Invented albums and artists: nothing here is real.
 const PLAYLIST_ID = '77Yaz4xSfZjJqRTIXo4ZE2';
 
 const ALBUMS = [
@@ -16,7 +16,7 @@ const ALBUMS = [
   { id: 'ep01', name: 'Calentamiento', artist: 'Cometa Club', year: 2022, seconds: 1080, cover: 12, type: 'single', songs: ['Estirar', 'Trote suave'] },
 ];
 
-const albumObject = (a, base) => ({
+const albumObject = (a) => ({
   id: a.id,
   name: a.name,
   album_type: a.type ?? 'album',
@@ -47,53 +47,32 @@ function albumTracks(a) {
   }));
 }
 
-/** Routes api.spotify.com and i.scdn.co for one Playwright context. */
-async function mockSpotify(context, { quotaAfter = Infinity, covers } = {}) {
-  const all = entries();
-  let albumCalls = 0;
-  const stats = { albumCalls: 0, playlistPages: 0 };
+/** The albums.json the app would ship with, built from these fixtures. */
+function albumsJson() {
+  return {
+    playlist: { id: PLAYLIST_ID, name: 'The Magic Bus', snapshot: 'snap-1' },
+    syncedAt: '2026-10-25T20:00:00.000Z',
+    songCount: entries().filter((e) => e.item?.type === 'track' && !e.item.is_local).length,
+    albums: ALBUMS.filter((a) => !a.type).map((a) => ({
+      id: a.id, name: a.name, artists: [a.artist], year: String(a.year),
+      image: `https://i.scdn.co/image/test-c${a.cover}`,
+      url: `https://open.spotify.com/album/${a.id}`, songs: a.songs, seconds: a.seconds,
+    })),
+  };
+}
 
-  await context.route('https://api.spotify.com/v1/**', async (route) => {
-    const url = new URL(route.request().url());
-    const json = (body, status = 200, headers = {}) =>
-      route.fulfill({ status, contentType: 'application/json', headers, body: JSON.stringify(body) });
-
-    if (url.pathname === `/v1/playlists/${PLAYLIST_ID}`) {
-      return json({ name: '🚌 The Magic Bus @germanch96', snapshot_id: 'snap-1' });
-    }
-    if (url.pathname === `/v1/playlists/${PLAYLIST_ID}/items`) {
-      stats.playlistPages += 1;
-      const offset = Number(url.searchParams.get('offset') ?? 0);
-      const limit = Number(url.searchParams.get('limit') ?? 50);
-      const next = offset + limit < all.length
-        ? `https://api.spotify.com/v1/playlists/${PLAYLIST_ID}/items?offset=${offset + limit}&limit=${limit}`
-        : null;
-      return json({ items: all.slice(offset, offset + limit), total: all.length, next });
-    }
-    const m = url.pathname.match(/^\/v1\/albums\/(\w+)$/);
-    if (m) {
-      albumCalls += 1;
-      stats.albumCalls = albumCalls;
-      if (albumCalls > quotaAfter) {
-        return json({ error: { status: 429, message: 'Too many requests', reason: 'QUOTA_EXCEEDED' } }, 429, { 'Retry-After': '3600' });
-      }
-      const a = ALBUMS.find((x) => x.id === m[1]);
-      return json({ ...albumObject(a), tracks: { items: albumTracks(a), next: null, total: 10 } });
-    }
-    return json({ error: { status: 404, message: 'Not found' } }, 404);
-  });
-
+/** Serves /data/albums.json (or a 404 when `empty`) and the covers for one Playwright context. */
+async function mockData(context, { covers, empty = false } = {}) {
+  await context.route('**/data/albums.json', (route) => (empty
+    ? route.fulfill({ status: 404, body: 'Not found' })
+    : route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(albumsJson()) })));
   await context.route('https://i.scdn.co/image/**', (route) => {
     const n = route.request().url().match(/test-c(\d+)/)[1];
     return route.fulfill({
-      status: 200,
-      contentType: 'image/png',
-      headers: { 'Access-Control-Allow-Origin': '*' },
-      path: `${covers}/c${n}.png`,
+      status: 200, contentType: 'image/png',
+      headers: { 'Access-Control-Allow-Origin': '*' }, path: `${covers}/c${n}.png`,
     });
   });
-
-  return stats;
 }
 
-module.exports = { mockSpotify, ALBUMS, PLAYLIST_ID };
+module.exports = { mockData, albumsJson, entries, ALBUMS, PLAYLIST_ID };

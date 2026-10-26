@@ -8,7 +8,7 @@ web
 
 ## Stack
 
-Static HTML/CSS/JS, no framework and no build step, installable on the phone as a PWA, deployed as a Render static site. Spotify login runs in the browser with Authorization Code + PKCE (no client secret, no server). Spotify Client ID: `6b13ef05e42d4331a1fbbbc839bc1092` (public identifier).
+Static HTML/CSS/JS, no framework and no build step, installable on the phone as a PWA, deployed as a Render static site. **No login in the app**: it reads its albums from `public/data/albums.json`, which Claude writes with `tools/sync.mjs` (Spotify PKCE login done once by the owner) and commits. Re-reads happen only when the owner asks. Spotify's only role in the app is the "Abrir en Spotify" link to each album. Spotify Client ID: `6b13ef05e42d4331a1fbbbc839bc1092` (public identifier).
 
 ## Users
 
@@ -31,7 +31,7 @@ Used on a phone, outdoors or at the door, often one-handed, just before a run; p
 - Confirmed: read the playlist, group its tracks by album, compute each album's full running time, and match albums to the run duration the user enters.
 - Open decision: **mood**. The user will specify how mood is defined later. Spotify audio features are not available to new apps, so mood cannot come from the API's valence/energy.
 - Open decision: **random factor**. Planned, to be designed later.
-- Album lookups are one request per album and count against the shared Development Mode quota, so album data is cached on the device.
+- About 800 albums: read once; a re-read only measures albums the data file does not have yet and resumes if Spotify cuts the quota.
 
 ## Evidence on Hand
 

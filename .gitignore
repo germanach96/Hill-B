@@ -3,3 +3,4 @@
 .impeccable/hook.cache.json
 .taste-skill/
 node_modules/
+.sync/

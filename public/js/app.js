@@ -1,18 +1,15 @@
-import * as spotify from './spotify.js';
-import {
-  collectAlbums, countSongs, isFullAlbum, sessionSeconds, rankAlbums,
-  formatDuration, describeDelta, formatPace,
-} from './recommend.js';
+// The app reads its albums from /data/albums.json, written by tools/sync.mjs (run by Claude).
+// It never talks to Spotify: the only link to Spotify is the "Abrir en Spotify" button.
+import { store } from './store.js';
+import { sessionSeconds, rankAlbums, formatDuration, describeDelta, formatPace } from './recommend.js';
 
-const { store } = spotify;
 const $ = (id) => document.getElementById(id);
 const root = document.documentElement;
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 
 const PREFS_KEY = 'hillb.prefs';
-const LIBRARY_KEY = 'hillb.library';
-const DURATIONS_KEY = 'hillb.durations';
 const COLORS_KEY = 'hillb.colors';
+const DATA_URL = '/data/albums.json';
 
 const LIMITS = {
   time: { min: 5, max: 300, step: 5, presets: [30, 45, 60, 90] },
@@ -23,23 +20,18 @@ const RESULT_COUNT = 5;
 
 const prefs = { mode: 'time', minutes: 45, km: 10, pace: 330, ...store.get(PREFS_KEY) };
 
-// library.status: idle | playlist | measuring | ready | partial | error
-const library = {
-  status: 'idle', name: 'The Magic Bus', albums: [], songCount: 0,
-  done: 0, total: 0, error: null,
-};
-let durations = store.get(DURATIONS_KEY) ?? {};
+// library.status: loading | ready | empty | error
+const library = { status: 'loading', name: 'The Magic Bus', albums: [], syncedAt: null };
 const colors = store.get(COLORS_KEY) ?? {};
 
 /* ---------- Views ---------- */
 
-const VIEWS = ['connect', 'session', 'results'];
+const VIEWS = ['session', 'results'];
 
 function show(view, dir = 1, then) {
   const apply = () => {
     root.dataset.view = view;
     for (const v of VIEWS) $(`view-${v}`).hidden = v !== view;
-    $('logout').hidden = view === 'connect';
     setThemeColor();
     window.scrollTo(0, 0);
     then?.(); // runs once the view is visible, so scroll positions and observers apply
@@ -55,29 +47,6 @@ function setThemeColor() {
   const value = getComputedStyle(root).getPropertyValue('--page').trim() || '#ffffff';
   document.querySelector('meta[name="theme-color"]').setAttribute('content', value);
 }
-
-/* ---------- Connect ---------- */
-
-function showConnect(message) {
-  const note = $('connect-error');
-  note.textContent = message ?? '';
-  note.hidden = !message;
-  show('connect');
-}
-
-$('connect').addEventListener('click', () => {
-  $('connect').disabled = true;
-  spotify.startLogin().catch(() => {
-    $('connect').disabled = false;
-    showConnect('No se pudo abrir Spotify. Prueba otra vez.');
-  });
-});
-
-$('logout').addEventListener('click', () => {
-  spotify.logout();
-  library.status = 'idle';
-  showConnect();
-});
 
 /* ---------- Session ---------- */
 
@@ -185,109 +154,46 @@ $('find').addEventListener('click', () => {
   show('results', 1, () => renderResults({ entering: true }));
 });
 
-/* ---------- Library: the playlist, its albums and their running times ---------- */
+/* ---------- Library: the albums shipped with the app ---------- */
+
+const dateFormat = new Intl.DateTimeFormat('es', { day: 'numeric', month: 'long' });
 
 function renderLibrary() {
   const el = $('library');
-  const bar = (ratio) => `<span class="library-bar"><span style="--progress:${ratio.toFixed(3)}"></span></span>`;
-  const n = (x) => x.toLocaleString('es');
   switch (library.status) {
-    case 'playlist':
-      el.innerHTML = `Leyendo ${escapeHtml(library.name)}… ${n(library.done)} canciones${bar(library.total ? library.done / library.total : 0)}`;
-      break;
-    case 'measuring':
-      el.innerHTML = `Midiendo discos: ${n(library.done)} de ${n(library.total)}${bar(library.total ? library.done / library.total : 0)}`;
-      break;
     case 'ready':
-      el.textContent = `${library.name}: ${n(library.songCount)} canciones, ${n(fullAlbums().length)} discos enteros`;
+      el.textContent = `${library.name}: ${library.albums.length.toLocaleString('es')} discos enteros`
+        + (library.syncedAt ? `, leídos el ${dateFormat.format(new Date(library.syncedAt))}` : '');
       break;
-    case 'partial':
-      el.textContent = `Spotify limitó las consultas: ${n(measuredCount())} de ${n(fullAlbums().length)} discos medidos. El resto, en un rato.`;
+    case 'empty':
+      el.textContent = 'Todavía no hay discos cargados.';
       break;
     case 'error':
-      el.textContent = library.error;
+      el.innerHTML = 'No se pudieron abrir los discos de la app. <button type="button" class="link" id="reload">Reintentar</button>';
+      $('reload').addEventListener('click', loadLibrary);
       break;
     default:
       el.textContent = '';
   }
+  $('find').disabled = library.status !== 'ready';
 }
 
-const fullAlbums = () => library.albums.filter(isFullAlbum);
-const measuredCount = () => fullAlbums().filter((a) => durations[a.id] > 0).length;
-
-let loading = null;
-function loadLibrary() {
-  loading ??= runLoad().finally(() => { loading = null; });
-  return loading;
-}
-
-async function runLoad() {
+async function loadLibrary() {
+  library.status = 'loading';
+  libraryChanged();
   try {
-    library.status = 'playlist';
-    library.done = 0;
-    library.total = 0;
-    libraryChanged();
-
-    const meta = await spotify.getPlaylist();
-    library.name = cleanName(meta.name);
-    const cached = store.get(LIBRARY_KEY);
-    if (cached?.snapshot === meta.snapshot_id) {
-      library.albums = cached.albums;
-      library.songCount = cached.songCount;
-    } else {
-      const entries = await spotify.getPlaylistEntries(undefined, (done, total) => {
-        library.done = done;
-        library.total = total;
-        libraryChanged();
-      });
-      library.albums = collectAlbums(entries);
-      library.songCount = countSongs(entries);
-      store.set(LIBRARY_KEY, { snapshot: meta.snapshot_id, albums: library.albums, songCount: library.songCount });
-    }
-
-    const missing = fullAlbums().filter((a) => !(durations[a.id] > 0));
-    library.status = 'measuring';
-    library.total = missing.length;
-    library.done = 0;
-    if (missing.length) libraryChanged();
-    await measure(missing);
-
-    library.status = 'ready';
-    libraryChanged();
-  } catch (err) {
-    store.set(DURATIONS_KEY, durations);
-    if (err.kind === 'auth') { showConnect(err.message); return; }
-    if (err.kind === 'quota' && measuredCount() > 0) library.status = 'partial';
-    else {
-      library.status = 'error';
-      library.error = err.kind === 'quota'
-        ? 'Spotify limitó las consultas por ahora. Prueba en un rato.'
-        : err.message;
-    }
-    libraryChanged();
+    const res = await fetch(DATA_URL, { cache: 'no-cache' });
+    if (res.status === 404) { library.status = 'empty'; libraryChanged(); return; }
+    if (!res.ok) throw new Error(String(res.status));
+    const data = await res.json();
+    library.name = data.playlist?.name || library.name;
+    library.albums = data.albums ?? [];
+    library.syncedAt = data.syncedAt ?? null;
+    library.status = library.albums.length ? 'ready' : 'empty';
+  } catch {
+    library.status = 'error';
   }
-}
-
-async function measure(albums) {
-  const queue = [...albums];
-  let sinceSave = 0;
-  // Three at a time: fast enough for a first run, gentle on the shared Development Mode quota.
-  const worker = async () => {
-    while (queue.length) {
-      const album = queue.shift();
-      durations[album.id] = await spotify.getAlbumSeconds(album.id);
-      library.done += 1;
-      if (++sinceSave >= 5) { store.set(DURATIONS_KEY, durations); sinceSave = 0; }
-      libraryChanged();
-    }
-  };
-  await Promise.all([worker(), worker(), worker()]);
-  store.set(DURATIONS_KEY, durations);
-}
-
-function cleanName(name = '') {
-  // The playlist's emoji and @handle stay in Spotify; the interface says "The Magic Bus".
-  return name.replace(/\p{Extended_Pictographic}️?/gu, '').replace(/@\S+/g, '').trim() || 'tu playlist';
+  libraryChanged();
 }
 
 function libraryChanged() {
@@ -303,59 +209,42 @@ let observer = null;
 function renderResults({ entering = false } = {}) {
   const target = sessionSeconds(prefs);
   const isTime = prefs.mode === 'time';
-  const ready = ['ready', 'partial'].includes(library.status);
-  const ranked = ready ? rankAlbums(library.albums, durations, target, RESULT_COUNT) : [];
+  const ready = library.status === 'ready';
+  const ranked = ready ? rankAlbums(library.albums, target, RESULT_COUNT) : [];
 
   $('results-title').textContent = isTime ? `Para ${prefs.minutes} min` : `Para ${formatKm(prefs.km)} km`;
   const count = ranked.length === 1 ? 'Un disco' : `${ranked.length} discos`;
-  $('results-sub').textContent = !ready || !ranked.length ? `De ${library.name}`
-    : library.status === 'partial' ? `Spotify cortó tras medir ${measuredCount()} de ${fullAlbums().length} discos`
+  $('results-sub').textContent = !ranked.length ? `De ${library.name}`
     : isTime ? `${count} de ${library.name}`
     : `${count}, ${formatDuration(target)} a ${formatPace(prefs.pace)}\u00a0/km`;
 
   const state = $('results-state');
   const deck = $('deck');
 
-  if (library.status === 'error') {
-    renderedKey = 'error';
-    deck.replaceChildren();
-    $('ticks').replaceChildren();
-    state.hidden = false;
-    state.innerHTML = `<p>${escapeHtml(library.error)}</p><button class="btn btn-ink" type="button" id="retry">Reintentar</button>`;
-    $('retry').addEventListener('click', () => loadLibrary());
-    return;
-  }
-
-  if (!ready) {
+  if (library.status === 'loading') {
     if (renderedKey !== 'loading') {
       renderedKey = 'loading';
       deck.replaceChildren(...[0, 1, 2].map(skeletonCard));
       $('ticks').replaceChildren(...[0, 1, 2, 3, 4].map(() => tick()));
     }
-    state.hidden = false;
-    state.innerHTML = `<p>${library.status === 'measuring' ? 'Midiendo cuánto dura cada disco.' : `Leyendo ${escapeHtml(library.name)}.`}</p>
-      <p>${library.status === 'measuring' ? `${library.done} de ${library.total} discos. Solo la primera vez: luego queda guardado.` : 'Un momento.'}</p>`;
+    state.hidden = true;
     return;
   }
 
   if (!ranked.length) {
-    renderedKey = 'empty';
+    renderedKey = library.status;
     deck.replaceChildren();
     $('ticks').replaceChildren();
     state.hidden = false;
-    state.innerHTML = `<p>No hay discos enteros en ${escapeHtml(library.name)} todavía.</p>
-      <p>Los sencillos y EP no cuentan. Añade canciones de discos completos en Spotify y vuelve a buscar.</p>`;
+    state.innerHTML = library.status === 'error'
+      ? '<p>No se pudieron abrir los discos de la app.</p><button class="btn btn-ink" type="button" id="retry">Reintentar</button>'
+      : '<p>Todavía no hay discos cargados.</p><p>Se leen una vez desde Spotify y quedan guardados en la app.</p>';
+    $('retry')?.addEventListener('click', loadLibrary);
     return;
   }
 
   const key = `${target}|${ranked.map((r) => r.album.id).join(',')}`;
-  state.hidden = library.status !== 'partial';
-  if (library.status === 'partial') {
-    state.innerHTML = `<p>${ranked.length === 1 ? 'Este disco sale' : `Estos ${ranked.length} discos salen`} de los ${measuredCount()} que Spotify dejó medir.</p>
-      <p>Vuelve a intentarlo en un rato para medir los otros ${fullAlbums().length - measuredCount()}.</p>
-      <button class="btn btn-ink" type="button" id="retry">Reintentar</button>`;
-    $('retry').addEventListener('click', () => loadLibrary());
-  }
+  state.hidden = true;
   if (key === renderedKey && !entering) return;
   renderedKey = key;
 
@@ -560,17 +449,10 @@ $('back').addEventListener('click', () => show('session', -1));
 
 /* ---------- Boot ---------- */
 
-async function boot() {
+function boot() {
   renderSession();
-  try {
-    await spotify.finishLogin();
-  } catch (err) {
-    showConnect(err.message);
-    requestAnimationFrame(() => root.classList.add('is-live'));
-    return;
-  }
-  if (!spotify.isLoggedIn()) showConnect();
-  else { show('session'); loadLibrary(); }
+  show('session');
+  loadLibrary();
   // Page-colour transitions start after the first screen is painted.
   requestAnimationFrame(() => requestAnimationFrame(() => root.classList.add('is-live')));
 }

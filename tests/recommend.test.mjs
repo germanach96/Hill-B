@@ -1,7 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  collectAlbums, countSongs, sessionSeconds, rankAlbums, formatDuration, describeDelta, formatPace,
+  collectAlbums, countSongs, sessionSeconds, rankAlbums, albumsToMeasure, buildLibrary, displayName,
+  formatDuration, describeDelta, formatPace,
 } from '../public/js/recommend.js';
 
 const track = (name, album, extra = {}) => ({
@@ -40,28 +41,35 @@ test('sessionSeconds reads minutes, or distance at a pace', () => {
   assert.equal(sessionSeconds({ mode: 'distance', km: 21.1, pace: 300 }), 6330);
 });
 
+const album = (id, seconds, songs = ['x']) => ({ id, seconds, songs });
+
 test('rankAlbums prefers albums that cover the run, penalises falling short twice as much', () => {
-  const albums = ['long', 'short', 'exact', 'single', 'way-long'].map((id) => ({
-    id, type: id === 'single' ? 'single' : 'album', songs: ['x'],
-  }));
-  const durations = { long: 2700 + 300, short: 2700 - 200, exact: 2700 + 10, single: 2700, 'way-long': 5000 };
-  const ranked = rankAlbums(albums, durations, 2700, 5);
+  const albums = [album('long', 3000), album('short', 2500), album('exact', 2710), album('way-long', 5000)];
+  const ranked = rankAlbums(albums, 2700, 5);
   assert.deepEqual(ranked.map((r) => r.album.id), ['exact', 'long', 'short', 'way-long']);
   assert.equal(ranked[0].delta, 10);
   assert.equal(ranked[2].delta, -200);
 });
 
-test('rankAlbums breaks ties with the album that has more songs in the playlist', () => {
-  const albums = [{ id: 'one', type: 'album', songs: ['a'] }, { id: 'three', type: 'album', songs: ['a', 'b', 'c'] }];
-  const ranked = rankAlbums(albums, { one: 3000, three: 3000 }, 2700);
-  assert.equal(ranked[0].album.id, 'three');
+test('rankAlbums breaks ties with the album that has more songs in the playlist, and caps the count', () => {
+  assert.equal(rankAlbums([album('one', 3000), album('three', 3000, ['a', 'b', 'c'])], 2700)[0].album.id, 'three');
+  assert.equal(rankAlbums(Array.from({ length: 9 }, (_, i) => album(`a${i}`, 2000 + i * 100)), 2400, 5).length, 5);
 });
 
-test('rankAlbums ignores albums not measured yet and caps the count', () => {
-  const albums = Array.from({ length: 9 }, (_, i) => ({ id: `a${i}`, type: 'album', songs: [] }));
-  const durations = Object.fromEntries(albums.slice(0, 7).map((a, i) => [a.id, 2000 + i * 100]));
-  assert.equal(rankAlbums(albums, durations, 2400, 5).length, 5);
-  assert.equal(rankAlbums(albums, {}, 2400, 5).length, 0);
+test('buildLibrary keeps measured full albums only; albumsToMeasure lists the rest', () => {
+  const a = { id: 'a', name: 'Norte' };
+  const b = { id: 'b', name: 'Sur', type: 'single' };
+  const c = { id: 'c', name: 'Este' };
+  const entries = [track('Uno', a), track('Dos', a), track('Tres', b), track('Cuatro', c)];
+  assert.deepEqual(albumsToMeasure(entries, { a: 2800 }).map((x) => x.id), ['c']);
+  const lib = buildLibrary({ playlist: { id: 'p', name: 'The Magic Bus', snapshot: 's' }, entries, seconds: { a: 2800, b: 200 }, syncedAt: 't' });
+  assert.deepEqual(lib.albums.map((x) => [x.id, x.seconds, x.songs.length]), [['a', 2800, 2]]);
+  assert.equal(lib.songCount, 4);
+  assert.equal('type' in lib.albums[0], false);
+});
+
+test('displayName drops the emoji and the @handle', () => {
+  assert.equal(displayName('🚌 The Magic Bus @germanch96'), 'The Magic Bus');
 });
 
 test('formatting', () => {

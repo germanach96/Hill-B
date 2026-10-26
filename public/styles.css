@@ -24,7 +24,7 @@
   --ink: #111111;
   --muted: #55554f;        /* 7.4:1 on white */
   --volt: #d7ff1f;         /* the one accent: primary action and the connect field */
-  --page: var(--ground);   /* volt on the connect screen, white everywhere else */
+  --page: var(--ground);
 
   --font: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
   --display-stretch: 62%;
@@ -130,14 +130,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 .brand-mark { width: 28px; height: 28px; color: var(--ink); }
 
-.bar-action {
-  min-height: 44px;
-  padding: 0 4px;
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--muted);
-}
-
 .view {
   flex: 1;
   display: flex;
@@ -182,33 +174,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .btn-volt:hover { background: #cdf713; }
   .btn-ink:hover { background: #262626; }
   .step:hover, .back:hover, .preset:hover { background: var(--surface-press); }
-}
-
-/* ---------- Connect ---------- */
-
-[data-view="connect"] { --page: var(--volt); }
-
-.view-connect { padding-top: 12vh; }
-
-.connect-title {
-  margin: 0;
-  font-size: clamp(3.5rem, 16vw, 5.5rem);
-  line-height: 0.9;
-  text-wrap: balance;
-}
-
-.connect-lede {
-  margin: 24px 0 0;
-  max-width: 30ch;
-  font-size: 19px;
-  line-height: 1.45;
-  font-weight: 500;
-}
-
-.notice {
-  margin: 20px 0 0;
-  font-size: 15px;
-  font-weight: 600;
 }
 
 /* ---------- Session ---------- */
@@ -349,6 +314,15 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   text-align: center;
   font-variant-numeric: tabular-nums;
 }
+.library a,
+.link {
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: underline 2px;
+  text-underline-offset: 4px;
+}
+.link { font-size: inherit; }
+
 .library-bar {
   display: block;
   height: 4px;

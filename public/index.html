@@ -31,21 +31,7 @@
   <div class="app" id="app">
     <header class="bar">
       <span class="brand"><svg class="brand-mark" aria-hidden="true"><use href="#i-mark"/></svg>Hill-B</span>
-      <button class="bar-action" id="logout" type="button" hidden>Salir</button>
     </header>
-
-    <!-- Connect: the first run, before Spotify -->
-    <section class="view view-connect" id="view-connect" aria-labelledby="connect-title" hidden>
-      <h1 class="connect-title" id="connect-title">Un disco por salida</h1>
-      <p class="connect-lede">Dime cuánto vas a correr y te propongo cinco discos de The Magic Bus que te duran toda la sesión.</p>
-      <p class="notice" id="connect-error" role="alert" hidden></p>
-      <div class="dock">
-        <button class="btn btn-ink" id="connect" type="button">
-          <svg class="btn-icon" aria-hidden="true"><use href="#i-spotify"/></svg>
-          Conectar con Spotify
-        </button>
-      </div>
-    </section>
 
     <!-- Session: how long, then the albums -->
     <section class="view view-session" id="view-session" aria-labelledby="session-title" hidden>

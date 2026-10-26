@@ -1,11 +1,11 @@
-// Browser test: drives the app against a mocked Spotify and saves screenshots to .impeccable/review/.
+// Browser test: drives the app with synthetic album data and saves screenshots to .impeccable/review/.
 // Run with `npm run e2e`. Uses the preinstalled Playwright (require works from any directory).
 const { chromium } = require('playwright');
 const { spawn } = require('node:child_process');
 const { mkdirSync } = require('node:fs');
 const path = require('node:path');
 const assert = require('node:assert/strict');
-const { mockSpotify } = require('./fixtures/spotify.cjs');
+const { mockData } = require('./fixtures/spotify.cjs');
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT = path.join(ROOT, '.impeccable/review');
@@ -16,19 +16,16 @@ const BASE = `http://127.0.0.1:${PORT}`;
 const PHONE = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true };
 const DESKTOP = { viewport: { width: 1440, height: 900 } };
 
-const loggedIn = () => {
-  localStorage.setItem('hillb.tokens', JSON.stringify({ access: 'test', refresh: 'test', expiresAt: Date.now() + 3.6e6 }));
-};
-
-async function newPage(browser, device, { login = true, scheme = 'light', reduced = 'no-preference', quotaAfter } = {}) {
+async function newPage(browser, device, { scheme = 'light', reduced = 'no-preference', empty = false } = {}) {
   const context = await browser.newContext({ ...device, colorScheme: scheme, reducedMotion: reduced });
-  if (login) await context.addInitScript(loggedIn);
-  const stats = await mockSpotify(context, { covers: COVERS, quotaAfter });
+  const stats = await mockData(context, { covers: COVERS, empty });
+  const spotifyCalls = [];
+  context.on('request', (r) => { if (/spotify\.com\/(v1|api|authorize)/.test(r.url())) spotifyCalls.push(r.url()); });
   const page = await context.newPage();
   const errors = [];
   page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
   page.on('pageerror', (e) => errors.push(String(e)));
-  return { context, page, errors, stats };
+  return { context, page, errors, stats, spotifyCalls };
 }
 
 const settle = (page) => page.waitForTimeout(900);
@@ -61,27 +58,25 @@ async function run() {
   const browser = await chromium.launch();
   const report = [];
   try {
-    // 1. Connect, first run.
+    // 1. No data file yet: the session screen says so and the search waits.
     {
-      const { page, errors, context } = await newPage(browser, PHONE, { login: false });
+      const { page, errors, context } = await newPage(browser, PHONE, { empty: true });
       await page.goto(BASE);
-      await page.getByRole('button', { name: 'Conectar con Spotify' }).waitFor();
-      assert.equal(await page.locator('h1:visible').count(), 1);
-      await page.screenshot({ path: `${OUT}/mobile-connect.png` });
-      assert.deepEqual(errors, []);
+      await page.locator('#library', { hasText: 'Todavía no hay discos cargados' }).waitFor();
+      assert.ok(await page.getByRole('button', { name: 'Buscar discos' }).isDisabled());
+      await page.screenshot({ path: `${OUT}/mobile-empty.png` });
+      assert.ok(errors.every((e) => /404|Failed to load resource/.test(e)), errors.join('\n'));
       await context.close();
     }
 
     // 2. Session, then results, on a phone.
     {
-      const { page, errors, context, stats } = await newPage(browser, PHONE);
+      const { page, errors, context, spotifyCalls } = await newPage(browser, PHONE);
       await page.goto(BASE);
       await page.getByRole('heading', { name: '¿Cuánto vas a correr?' }).waitFor();
       await page.locator('#library', { hasText: 'discos enteros' }).waitFor();
       const libraryText = await page.locator('#library').textContent();
-      assert.match(libraryText, /The Magic Bus: 36 canciones, 10 discos enteros/);
-      assert.equal(stats.playlistPages, 1);
-      assert.equal(stats.albumCalls, 10, 'singles and EPs are never measured');
+      assert.match(libraryText, /The Magic Bus: 10 discos enteros, leídos el 25 de octubre/);
       await settle(page);
       assert.equal(await page.locator('h1:visible').count(), 1);
       await page.screenshot({ path: `${OUT}/mobile.png` });
@@ -130,28 +125,9 @@ async function run() {
       await page.waitForTimeout(1200);
       await page.screenshot({ path: `${OUT}/mobile-results-distance.png` });
 
-      // A reload uses the cache: no album is measured twice.
-      await page.reload();
-      await page.locator('#library', { hasText: 'discos enteros' }).waitFor();
-      assert.equal(stats.albumCalls, 10, 'durations come from the cache on reload');
-
-      // Long press feedback timing: the button reacts on press.
+      assert.deepEqual(spotifyCalls, [], 'the app never calls the Spotify API');
       report.push(`Errores de consola (móvil): ${errors.length}`);
       assert.deepEqual(errors, []);
-      await context.close();
-    }
-
-    // 3. Quota exceeded midway: results from what was measured, and the reason in words.
-    {
-      const { page, errors, context } = await newPage(browser, PHONE, { quotaAfter: 6 });
-      await page.goto(BASE);
-      await page.locator('#library', { hasText: 'Spotify limitó' }).waitFor();
-      await page.getByRole('button', { name: 'Buscar discos' }).click();
-      await page.locator('.card').first().waitFor();
-      await page.waitForTimeout(1200);
-      await page.screenshot({ path: `${OUT}/mobile-quota.png`, fullPage: true });
-      // The 429 itself logs a network error in the console; nothing else may.
-      assert.ok(errors.every((e) => /429|Failed to load resource/.test(e)), errors.join('\n'));
       await context.close();
     }
 

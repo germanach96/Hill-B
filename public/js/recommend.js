@@ -59,17 +59,42 @@ export function sessionSeconds({ mode, minutes, km, pace }) {
  * An album that ends before the run is worth half as much per second as one that runs over,
  * because silence mid-run is worse than stopping the record at the door.
  */
-export function rankAlbums(albums, durations, targetSec, count = 5) {
+export function rankAlbums(albums, targetSec, count = 5) {
   return albums
-    .filter((a) => isFullAlbum(a) && durations[a.id] > 0)
+    .filter((a) => a.seconds > 0)
     .map((album) => {
-      const duration = durations[album.id];
-      const delta = duration - targetSec;
+      const delta = album.seconds - targetSec;
       const cost = delta >= 0 ? delta : -delta * 2;
-      return { album, duration, delta, cost };
+      return { album, duration: album.seconds, delta, cost };
     })
     .sort((x, y) => x.cost - y.cost || y.album.songs.length - x.album.songs.length)
     .slice(0, count);
+}
+
+/** Full albums of the playlist that have no running time yet in `known` (album id → seconds). */
+export function albumsToMeasure(entries, known) {
+  return collectAlbums(entries).filter((a) => isFullAlbum(a) && !(known[a.id] > 0));
+}
+
+/**
+ * The data file the app ships with: every full album behind the playlist's songs, with its
+ * running time. Albums no longer in the playlist drop out; songs are recounted on every read.
+ */
+export function buildLibrary({ playlist, entries, seconds, syncedAt = new Date().toISOString() }) {
+  const albums = collectAlbums(entries)
+    .filter((a) => isFullAlbum(a) && seconds[a.id] > 0)
+    .map(({ type, totalTracks, ...a }) => ({ ...a, seconds: seconds[a.id] }));
+  return {
+    playlist: { id: playlist.id, name: playlist.name, snapshot: playlist.snapshot },
+    syncedAt,
+    songCount: countSongs(entries),
+    albums,
+  };
+}
+
+/** "🚌 The Magic Bus @germanch96" reads as "The Magic Bus": emoji and @handle stay in Spotify. */
+export function displayName(name = '') {
+  return name.replace(/\p{Extended_Pictographic}\uFE0F?/gu, '').replace(/@\S+/g, '').trim() || 'tu playlist';
 }
 
 export function formatDuration(totalSec) {
