@@ -22,6 +22,8 @@ Hill-B: app web móvil (PWA estática) que responde "¿qué disco entero me conv
   - después de la última, deslizar hacia la izquierda = otros 5 discos;
   - deslizar una tarjeta hacia arriba = abrir ese disco en la app de Spotify.
   - Mientras tiras aparece la pista de lo que pasará (flecha, barajar, Spotify), que se pone negra cuando ya al soltar se hace.
+  - Arriba, **5 barritas** dicen en qué disco estás; la marca se desliza con el dedo.
+  - **Movimiento (2026-10-26, el usuario lo pidió más suave):** todo va con muelles que salen de donde está la tarjeta y conservan la velocidad del dedo; el tamaño de las vecinas y las barritas siguen la posición en vivo. Las acciones continúan el gesto: al pedir otros 5 la tanda se va a la izquierda y la nueva entra por la derecha con esa velocidad; al abrir Spotify la tarjeta sigue subiendo y vuelve sola; al volver, la pantalla sale rápida con un leve desenfoque y la otra entra suave. Las portadas que tardan entran con un fundido.
 - Logo: dos colinas de una B acostada (Archivo 700, girada a la izquierda, la colina derecha 1.4× más grande con su hueco al 85% y desplazado a medias hacia su centro, inclinada 35° ya en horizontal). Archivos en `diseno/logo/`, reglas en `diseno/DESIGN.md` § Logo.
 - Cuenta de Spotify Premium. Client ID `6b13ef05e42d4331a1fbbbc839bc1092`.
 - Claude le manda al usuario el catálogo en Excel (`python3 tools/excel.py <archivo.xlsx>`): pestaña Canciones (con caso y álbum original) y pestaña Discos.

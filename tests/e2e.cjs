@@ -159,6 +159,9 @@ async function run() {
       const t1 = Date.now();
       await swipe(page, '#pager', { x: -200 });
       assert.equal(await active(), 1);
+      // The five position bars: the second one is inked now, the others are not.
+      const marks = await page.evaluate(() => [...document.querySelectorAll('.tick-fill')].map((f) => Number(getComputedStyle(f).opacity)));
+      assert.deepEqual(marks, [0, 1, 0, 0, 0]);
       report.push(`Deslizar → segunda tarjeta activa: ${Date.now() - t1} ms (con el asentado)`);
       await page.screenshot({ path: `${OUT}/mobile-results-2.png` });
       await swipe(page, '#pager', { x: 200 });
