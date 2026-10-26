@@ -336,7 +336,7 @@ function albumCard({ album, duration, delta }, i, target, count) {
     <div class="card-inner">
       <div class="cover-box">
         <img class="cover" alt="Portada de ${escapeAttr(album.name)}" width="640" height="640" draggable="false"
-          ${album.image ? `src="${escapeAttr(album.image)}"` : ''} crossorigin="anonymous" decoding="async" ${i > 1 ? 'loading="lazy"' : ''}>
+          ${album.image ? `src="${escapeAttr(album.image)}"` : ''} crossorigin="anonymous" decoding="async">
       </div>
       <div class="card-head">
         <h2 class="card-title">${escapeHtml(album.name)}</h2>
@@ -354,21 +354,21 @@ function albumCard({ album, duration, delta }, i, target, count) {
       <a class="sr-only" href="${escapeAttr(album.url)}" target="_blank" rel="noopener">Abrir ${escapeHtml(album.name)} en Spotify</a>
     </div>`;
 
+  // All five covers load at once and are decoded before they fade in: a cover that only started
+  // loading (lazily) as its card glided into view decoded mid-glide and cost the glide its frames.
   const img = li.querySelector('img');
   const shown = () => img.classList.add('is-loaded');
-  if (!album.image || (img.complete && img.naturalWidth)) shown();
-  else {
-    img.addEventListener('load', shown, { once: true });
-    img.addEventListener('error', shown, { once: true }); // the placeholder then, never an empty hole
-  }
+  if (!album.image) shown();
+  else img.decode().then(shown, shown); // on error the placeholder shows, never an empty hole
   if (!colors[album.id] && album.image) {
-    const sample = () => {
+    // Reading the cover's pixels is main-thread work: it waits for a quiet moment.
+    const sample = () => whenIdle(() => {
       const c = sampleColor(img);
       if (!c) return;
       colors[album.id] = c;
       store.set(COLORS_KEY, colors);
       applyColor(li, c);
-    };
+    });
     if (img.complete && img.naturalWidth) sample();
     else img.addEventListener('load', sample, { once: true });
   }
@@ -439,6 +439,12 @@ function countUp(card) {
 }
 
 /* ---------- Colour from the cover ---------- */
+
+/** Runs `fn` when the main thread is free (Safari has no requestIdleCallback: a short wait then). */
+function whenIdle(fn) {
+  if ('requestIdleCallback' in window) requestIdleCallback(fn, { timeout: 1200 });
+  else setTimeout(fn, 400);
+}
 
 function applyColor(el, c) {
   if (!c) return;
