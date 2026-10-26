@@ -177,10 +177,10 @@ Rechazos confirmados por el propietario y por la dirección: no parecerse a Spot
 
 ## Colors
 
-Paleta de alto contraste casi acromática con un único acento eléctrico; el resto del color lo ponen las portadas.
+Paleta de alto contraste: **el voltio (#d7ff1f) es el color principal de Hill-B y, con el negro de la tinta, es su pareja de marca** (decisión del propietario). Logo, icono, bienvenida y acción principal salen de esa pareja; el blanco es suelo y el resto del color lo ponen las portadas.
 
 ### Primary
-- **Voltio** (volt): fondo de la acción principal ("Buscar discos") y campo completo de la pantalla de conexión, donde la página entera pasa a voltio y el botón es de tinta. Sus estados hover (volt-hover) y pulsado (volt-press) son el mismo tono ligeramente más oscuro. Con tinta encima siempre, nunca blanco.
+- **Voltio** (volt): el color principal y de marca: campo del icono y del logo,  fondo de la acción principal ("Buscar discos") y campo completo de la pantalla de conexión, donde la página entera pasa a voltio y el botón es de tinta. Sus estados hover (volt-hover) y pulsado (volt-press) son el mismo tono ligeramente más oscuro. Con tinta encima siempre, nunca blanco.
 
 ### Neutral
 - **Tinta** (ink): texto, iconos, estados seleccionados (pastilla del segmentado, preset activo), botón secundario, anillo de foco, relleno de las barras de progreso. Hover y pulsado en ink-hover / ink-press.
@@ -193,6 +193,8 @@ Paleta de alto contraste casi acromática con un único acento eléctrico; el re
 Cada tarjeta de disco recibe `--card-bg` y `--card-ink` calculados de su portada: se agrupan los píxeles en doce familias de tono más grises, gana la familia con más área viva, y su color se aleja de la luminosidad de la portada (−0.10 si es clara, +0.12 si es oscura), limitado a luminosidad HSL 0.36–0.70 y saturación ≤ 0.90. La tinta de la tarjeta es `#111111` o `#ffffff`, la de mayor contraste. Sin muestra (portada sin CORS), la tarjeta queda en superficie.
 
 ### Named Rules
+**The Brand Pair Rule.** La identidad es voltio y tinta, nada más: ningún otro color de marca, ningún voltio sobre blanco sin tinta al lado, ningún texto en voltio sobre blanco.
+
 **The One Volt Rule.** El voltio marca la única acción principal de la pantalla, o es el campo completo de la bienvenida. Los estados seleccionados son tinta, nunca voltio.
 
 **The Cover Field Rule.** El color de una tarjeta sale de su propia portada, nunca de una paleta inventada; la página que la rodea sigue blanca.
@@ -225,15 +227,15 @@ Cada tarjeta de disco recibe `--card-bg` y `--card-ink` calculados de su portada
 
 ## Logo
 
-La marca es la **B acostada**: la B de Archivo a peso 900 y ancho 75, girada 90° a la izquierda. Su lomo queda abajo como suelo y sus dos panzas se vuelven dos colinas, la de la derecha algo más alta. Es a la vez la inicial y la "Hill" del nombre. Es la letra tal cual, sin redibujar, y la genera `tools/logo.py` desde `public/fonts/archivo-latin.woff2` (los PNG, `node tools/logo-png.mjs`).
+La marca son **dos colinas sobre el suelo**, sacadas de una B acostada. Se parte de la B de Archivo a peso 700 y ancho 75, girada 90° a la izquierda: su lomo queda abajo como suelo y sus dos panzas son las colinas. La colina de la derecha (la panza de abajo de la B) sale de una B más fina ampliada 1.4×, así que es visiblemente más grande con el mismo trazo, y la barra entre los huecos conserva su grosor. Por último, la marca acostada se inclina 12° hacia delante, como una cursiva aplicada ya en horizontal: las colinas se inclinan, el suelo sigue plano. La genera `tools/logo.py` desde `public/fonts/archivo-latin.woff2` (los PNG, `node tools/logo-png.mjs`).
 
-- **Marca sola:** `diseno/logo/hill-b-marca.svg`. Tinta sobre blanco o sobre voltio; voltio sobre tinta solo en piezas fuera de la app.
-- **Logo horizontal:** `diseno/logo/hill-b-logo.svg` (y `hill-b-logo-volt.svg` sobre campo voltio). La marca comparte la línea base con "HILL-B" (800, ancho 75), mide su altura de mayúsculas más un 1.5% para que las colinas redondas parezcan tan altas como las mayúsculas planas, y se separa de la palabra 0.4em (los 8px de la barra).
-- **Icono de la app:** campo voltio con la marca en tinta al 64% del ancho, subida 6/512 porque la base plana y pesada la hace parecer baja (`public/icon.svg`). La versión enmascarable la deja al 53% para que quepa en el círculo seguro del 80% (`public/icon-maskable.svg`).
-- **Favicon:** la misma B al 88% de un cuadro de esquinas más cerradas (`public/favicon.svg` y `icons/favicon-32.png`), para que sus huecos sigan abiertos a 16-32px. No se redibuja la letra.
-- **En la barra:** la misma proporción que el logo horizontal: 0.698em de alto, 0.92em de ancho, 8px antes de la palabra.
+- **Marca sola:** `diseno/logo/hill-b-marca.svg`. Tinta sobre voltio o sobre blanco; voltio sobre tinta solo en piezas fuera de la app.
+- **Logo horizontal:** `diseno/logo/hill-b-logo.svg` (y `hill-b-logo-volt.svg` sobre campo voltio). La marca comparte la línea base con "HILL-B" (800, ancho 75, recta), su colina mayor sube a la altura de las mayúsculas más un 1.5% para que lo redondo parezca tan alto como lo plano, y se separa de la palabra 0.4em (los 8px de la barra).
+- **Icono de la app:** campo voltio con la marca en tinta al 64% del ancho, desplazada 9/512 arriba y 6/512 a la izquierda porque la base plana y la colina grande cargan el peso abajo a la derecha (`public/icon.svg`). La versión enmascarable la deja al 53% para que quepa en el círculo seguro del 80% (`public/icon-maskable.svg`).
+- **Favicon:** la misma marca al 88% de un cuadro de esquinas más cerradas (`public/favicon.svg` y `icons/favicon-32.png`), para que sus huecos sigan abiertos a 16-32px.
+- **En la barra:** la misma proporción que el logo horizontal: 0.698em de alto, 1.02em de ancho, 8px antes de la palabra.
 
-**The Lying B Rule.** La B se tumba siempre hacia la izquierda, con las colinas hacia arriba; nunca de pie, nunca boca abajo, nunca en espejo. No lleva contorno, sombra ni degradado, y no se recoloca: tinta, voltio o blanco.
+**The Two Hills Rule.** La colina pequeña a la izquierda, la grande a la derecha, ambas inclinadas hacia delante sobre un suelo plano; nunca de pie, boca abajo ni en espejo. No lleva contorno, sombra ni degradado, y solo va en tinta y voltio (blanco como suelo cuando hace falta).
 
 ## Layout
 

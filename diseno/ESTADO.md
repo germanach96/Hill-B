@@ -14,7 +14,8 @@ Hill-B: app web móvil (PWA estática) que responde "¿qué disco entero me conv
 - Sin inicio de sesión en la app y sin página de carga. La app solo lee `public/data/albums.json`; Spotify solo sirve para cargar datos y para el botón "Abrir en Spotify".
 - Los datos los carga Claude: el usuario dice la playlist y Claude lee, guarda y abre PR. Son ~800 discos; se leen una vez y a veces se releen (solo se miden los nuevos).
 - Estilo Nike Run Club, paleta clara, viva y sencilla, mucha animación, 5 discos que se deslizan. Diseño documentado en `diseno/DESIGN.md` y producto en `diseno/PRODUCT.md`.
-- Logo: una B en negrita acostada (Archivo 900, girada a la izquierda, sus panzas son dos colinas). Archivos en `diseno/logo/`, reglas en `diseno/DESIGN.md` § Logo.
+- Color principal: el voltio `#d7ff1f`; con el negro (`#111111`) es la pareja de marca.
+- Logo: dos colinas de una B acostada (Archivo 700, girada a la izquierda, la colina derecha 1.4× más grande, inclinada 12° ya en horizontal). Archivos en `diseno/logo/`, reglas en `diseno/DESIGN.md` § Logo.
 - Cuenta de Spotify Premium. Client ID `6b13ef05e42d4331a1fbbbc839bc1092`.
 
 ## Siguiente paso: terminar de medir los discos (en curso)
