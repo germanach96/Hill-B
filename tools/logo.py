@@ -22,6 +22,7 @@ FONT = ROOT / "public/fonts/archivo-latin.woff2"
 INK, VOLT = "#111111", "#d7ff1f"
 WEIGHT, WIDTH = 700, 75  # the mark's B
 RIGHT_HILL = 1.4         # the right hill against the left one
+RIGHT_HOLLOW = 0.85      # the right hill's hollow, shrunk inside the same outline
 SLANT = 12               # degrees, applied to the lying mark
 
 
@@ -52,7 +53,11 @@ def spine(wght):
 
 
 font, glyph, ends, heavy = lying_b(WEIGHT)
-light_w = min(range(100, WEIGHT + 1, 10), key=lambda w: abs(spine(w) * RIGHT_HILL - spine(WEIGHT)))
+# The lighter B whose stem, enlarged, matches the mark's: a coarse pass, then a fine one.
+target = spine(WEIGHT) / RIGHT_HILL
+coarse = min(range(100, WEIGHT + 1, 50), key=lambda w: abs(spine(w) - target))
+light_w = min(range(max(100, coarse - 40), min(WEIGHT, coarse + 40) + 1, 10),
+              key=lambda w: abs(spine(w) - target))
 light = lying_b(light_w)[3]
 outer, first, second = ends[0] + 1, ends[1] + 1, len(heavy)
 counters = [range(outer, first), range(first, second)]
@@ -67,8 +72,14 @@ split = bar_left + bar / 2
 lean = math.tan(math.radians(SLANT))
 pts = []
 for (hx, hy), (lx, ly) in zip(heavy, light):
-    x, y = (pivot + RIGHT_HILL * (lx - pivot), RIGHT_HILL * ly) if hx > split else (hx, hy)
-    pts.append((x + y * lean, y))
+    pts.append((pivot + RIGHT_HILL * (lx - pivot), RIGHT_HILL * ly) if hx > split else (hx, hy))
+# The right hollow shrinks towards its bottom left corner, so the middle bar and the ground keep
+# their thickness and the hill's top and far side get fuller.
+ax, ay = min(pts[i][0] for i in right_c), min(pts[i][1] for i in right_c)
+for i in right_c:
+    x, y = pts[i]
+    pts[i] = (ax + RIGHT_HOLLOW * (x - ax), ay + RIGHT_HOLLOW * (y - ay))
+pts = [(x + y * lean, y) for x, y in pts]
 MARK = copy.deepcopy(glyph)
 MARK.coordinates = type(glyph.coordinates)(pts)
 _rec = RecordingPen()
