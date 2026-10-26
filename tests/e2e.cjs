@@ -29,6 +29,12 @@ async function newPage(browser, device, { scheme = 'light', reduced = 'no-prefer
 }
 
 const settle = (page) => page.waitForTimeout(900);
+// The opening plays on every load; the tests tap through it (a tap skips it) and wait until it is gone.
+async function skipSplash(page) {
+  await page.waitForFunction(() => !document.getElementById('splash') || document.querySelector('.splash-dot'));
+  await page.evaluate(() => document.getElementById('splash')?.dispatchEvent(new PointerEvent('pointerdown')));
+  await page.waitForFunction(() => !document.getElementById('splash'));
+}
 const innerHeightOf = (device) => device.viewport.height;
 
 // A real touch swipe on a wheel (CDP touch events), so the browser's own snap and momentum run.
@@ -81,6 +87,7 @@ async function run() {
     {
       const { page, errors, context } = await newPage(browser, PHONE, { empty: true });
       await page.goto(BASE);
+      await skipSplash(page);
       await page.locator('#library', { hasText: 'Todavía no hay discos cargados' }).waitFor();
       assert.ok(await page.getByRole('button', { name: 'Start' }).isDisabled());
       await page.screenshot({ path: `${OUT}/mobile-empty.png` });
@@ -92,6 +99,7 @@ async function run() {
     {
       const { page, errors, context, spotifyCalls } = await newPage(browser, PHONE);
       await page.goto(BASE);
+      await skipSplash(page);
       await page.locator('#find:not([disabled])').waitFor();
       // With the albums in, nothing is said about them: the screen is the wheels and START.
       assert.equal(await page.locator('#library').isVisible(), false);
@@ -244,6 +252,7 @@ async function run() {
     {
       const { page, errors, context } = await newPage(browser, DESKTOP);
       await page.goto(BASE);
+      await skipSplash(page);
       await page.locator('#find:not([disabled])').waitFor();
       await settle(page);
       await page.screenshot({ path: `${OUT}/desktop.png` });
@@ -257,6 +266,7 @@ async function run() {
     {
       const { page, errors, context } = await newPage(browser, PHONE, { scheme: 'dark', reduced: 'reduce' });
       await page.goto(BASE);
+      await skipSplash(page);
       await page.locator('#find:not([disabled])').waitFor();
       await settle(page);
       await page.screenshot({ path: `${OUT}/mobile-dark-pref.png` });
@@ -272,6 +282,7 @@ async function run() {
     {
       const { page, context } = await newPage(browser, DESKTOP, { login: false });
       await page.goto(BASE);
+      await skipSplash(page);
       await page.evaluate(() => document.fonts.ready);
       const widths = await page.evaluate(() => {
         const span = (text, tnum) => {

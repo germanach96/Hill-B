@@ -3,6 +3,7 @@
 import { store } from './store.js';
 import { createWheel } from './wheel.js';
 import { createPager } from './pager.js';
+import { playSplash } from './splash.js';
 import { sessionSeconds, pickAlbums, formatDuration, describeDelta, formatPace } from './recommend.js';
 
 const $ = (id) => document.getElementById(id);
@@ -530,6 +531,14 @@ function boot() {
   renderSession();
   show('session', 1, renderWheels);
   loadLibrary();
+  // The opening plays over the laid-out session screen, once the wordmark's font is in so the
+  // drawn mark lands exactly on the header's (never waiting more than 600 ms for it).
+  Promise.race([document.fonts.ready, new Promise((r) => setTimeout(r, 600))]).then(() => playSplash({
+    brand: document.querySelector('.bar .brand'),
+    start: $('find'),
+    arriving: [document.querySelector('.segmented'), $('picker'), $('picker-unit'), $('intensity'), $('library')]
+      .filter((el) => el && !el.hidden && el.offsetParent),
+  }));
   // Page-colour transitions start after the first screen is painted.
   requestAnimationFrame(() => requestAnimationFrame(() => root.classList.add('is-live')));
 }

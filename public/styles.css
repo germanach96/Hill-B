@@ -113,6 +113,50 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   line-height: 1;
 }
 
+/* ---------- Opening (splash.js) ---------- */
+
+/* Covers the first paint in plain yellow; the script draws on it and removes it. If the script never
+   runs, it gets out of the way by itself. */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  overflow: hidden;
+  animation: splash-failsafe 0s 6s forwards;
+}
+@keyframes splash-failsafe { to { visibility: hidden; pointer-events: none; } }
+.splash-ground { position: absolute; inset: 0; background: var(--volt); }
+.brand.splash-brand {
+  position: absolute;
+  left: 0;
+  top: 0;
+  gap: 0.4em; /* the header's 8px at 20px, so the replica scales as one piece */
+  transform-origin: 0 0;
+  white-space: nowrap;
+  will-change: transform;
+}
+.splash-brand .brand-mark { overflow: visible; }
+.splash-word { display: inline-block; }
+.splash-cover { fill: var(--volt); }
+.splash-route {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 0.32;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.splash-dot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  background: var(--ink);
+  opacity: 0;
+  will-change: transform;
+}
+
 /* ---------- Shell ---------- */
 
 .app {
