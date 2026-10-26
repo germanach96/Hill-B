@@ -11,14 +11,19 @@ colors:
   surface-press: "#b7d71d"
   muted: "#485415"
 typography:
-  wheel:
-    fontFamily: "Archivo, system-ui, -apple-system, Segoe UI, sans-serif"
-    fontSize: "calc(clamp(112px, min(19svh, 40vw), 168px) * 0.9)"
-    fontStyle: italic
-    fontWeight: 900
+  figures:
+    fontFamily: "Hill-B Figures, Archivo, system-ui, sans-serif"
+    fontSize: "1em"
+    fontWeight: 800
     lineHeight: 1
-    letterSpacing: "-0.01em"
-    fontVariation: "'wdth' 62"
+    letterSpacing: "0.05em"
+    fontFeature: "'tnum'"
+  wheel:
+    fontFamily: "Hill-B Figures, Archivo, system-ui, sans-serif"
+    fontSize: "clamp(120px, min(24svh, calc((100vw - 2 * 20px) / 1.8)), 240px)"
+    fontWeight: 800
+    lineHeight: 1
+    letterSpacing: "0.05em"
     fontFeature: "'tnum'"
   figure:
     fontFamily: "Archivo, system-ui, -apple-system, Segoe UI, sans-serif"
@@ -43,13 +48,12 @@ typography:
     letterSpacing: "0.02em"
     fontVariation: "'wdth' 62"
   pace:
-    fontFamily: "Archivo, system-ui, -apple-system, Segoe UI, sans-serif"
-    fontSize: "2.25rem"
-    fontWeight: 900
-    fontStyle: italic
+    fontFamily: "Hill-B Figures, Archivo, system-ui, sans-serif"
+    fontSize: "3rem"
+    fontWeight: 800
     lineHeight: 1
+    letterSpacing: "0.05em"
     fontFeature: "'tnum'"
-    fontVariation: "'wdth' 62"
   action:
     fontFamily: "Archivo, system-ui, -apple-system, Segoe UI, sans-serif"
     fontSize: "18px"
@@ -120,12 +124,12 @@ components:
     textColor: "{colors.volt}"
     rounded: "{rounded.pill}"
     height: "48px"
-  picker-band:
-    backgroundColor: "{colors.surface}"
+  picker:
+    backgroundColor: "{colors.ground}"
     textColor: "{colors.ink}"
     typography: "{typography.wheel}"
     rounded: "{rounded.card}"
-    height: "clamp(112px, min(19svh, 40vw), 168px)"
+    height: "calc(clamp(120px, min(24svh, calc((100vw - 2 * 20px) / 1.8)), 240px) * 0.84)"
   pace-pill:
     backgroundColor: "{colors.ink}"
     textColor: "{colors.volt}"
@@ -158,7 +162,7 @@ components:
 
 **Creative North Star: "La pantalla de objetivo"**
 
-Hill-B habla el registro de Nike Run Club puesto en serio, sobre el color de su propia marca: toda la app se apoya en el voltio, con la tinta casi negra como único contraste, y números enormes en Archivo estrecho y negro que ocupan la pantalla como el objetivo de una carrera. La duración de la salida es la protagonista: dos ruedas de cifras gigantes que se deslizan con el pulgar, y todo lo demás (interruptor, intensidad, discos) se mide contra ella. Es una app de un solo pulgar, en la puerta de casa: pocos elementos por pantalla, controles grandes en píldora y una sola acción principal, START, anclada abajo.
+Hill-B habla el registro de Nike Run Club puesto en serio, sobre el color de su propia marca: toda la app se apoya en el voltio, con la tinta casi negra como único contraste, y números enormes, largos e inclinados como los de un cronómetro, que ocupan la pantalla como el objetivo de una carrera. La duración de la salida es la protagonista: dos ruedas de cifras gigantes que se deslizan con el pulgar, y todo lo demás (interruptor, intensidad, discos) se mide contra ella. Es una app de un solo pulgar, en la puerta de casa: pocos elementos por pantalla, controles grandes en píldora y una sola acción principal, START, anclada abajo.
 
 La profundidad no existe: superficies planas que se separan del voltio por un paso tonal de tinta mezclada, nunca por sombras ni bordes. El blanco no aparece. Lo que destaca es tinta (selección, START, reintento) con el texto en voltio; el otro color vivo es la portada de cada disco, que tiñe su tarjeta entera. El movimiento es abundante pero funcional: las ruedas giran con el scroll nativo del teléfono, cambian de sitio con un FLIP al cambiar de modo, cada cambio de vista se desliza en la dirección del flujo, y la barra del disco se llena a escala contra la salida.
 
@@ -167,7 +171,7 @@ Rechazos confirmados por el propietario y por la dirección: no parecerse a Spot
 **Key Characteristics:**
 - Solo modo claro (`color-scheme: light`); el suelo voltio es la identidad, en toda la app.
 - Dos colores: voltio y tinta. Sin blanco; los tonos secundarios son tinta mezclada sobre voltio, no grises.
-- Una sola familia, Archivo variable: estrecha, negra y en mayúsculas para cifras, START y títulos; ancho normal para el texto.
+- Tres voces: Archivo a ancho normal para el texto; Archivo estrecha, negra y en mayúsculas para START, títulos y la duración del disco; y Hill-B Figures (Roboto Flex fijada estrecha e inclinada) para las cifras de las ruedas y la intensidad.
 - Ruedas de selección con scroll y snap nativos en lugar de botones − / + o atajos.
 - Controles en píldora, tarjetas de 24px, sin sombras ni bordes.
 - Cifras tabulares en todo lo que cuenta tiempo o distancia.
@@ -182,7 +186,7 @@ Paleta de dos colores: **el voltio es el color principal de Hill-B y, con el neg
 
 ### Neutral
 - **Tinta** (ink): texto, iconos, estados seleccionados (pastilla del interruptor, ritmo elegido), botón START y botón de reintento, anillo de foco, relleno de la barra de biblioteca y del segmento de posición activo. Hover y pulsado en ink-hover / ink-press.
-- **Superficie** (surface): tinta al 9% sobre voltio. Todo contenedor o control en reposo: banda central de las ruedas, pista del interruptor, botón atrás y "Otros 5", paneles de estado, tarjeta sin color y esqueletos, pista de la barra de biblioteca.
+- **Superficie** (surface): tinta al 9% sobre voltio. Todo contenedor o control en reposo: pista del interruptor, botón atrás y "Otros 5", paneles de estado, tarjeta sin color y esqueletos, pista de la barra de biblioteca.
 - **Superficie pulsada** (surface-press): tinta al 16% sobre voltio. Respuesta al pulsar o pasar por encima de un control de superficie; bloques del esqueleto; segmentos de posición inactivos.
 - **Tinta de apoyo** (muted): tinta al 72% sobre voltio. Texto secundario: unidad bajo las ruedas, "min/km", total de carrera, subtítulo de resultados, recuento de biblioteca. 7.1:1 sobre voltio, 5.9:1 sobre superficie.
 
@@ -204,15 +208,16 @@ Valores fuera de la paleta, intencionados: el `#000` dentro de la `mask-image` d
 
 **Display Font:** Archivo variable a `font-stretch: 62%` (con system-ui, -apple-system, Segoe UI, sans-serif)
 **Body Font:** Archivo variable a ancho normal (mismo respaldo)
+**Figure Font:** Hill-B Figures (`public/fonts/hillb-figures.woff2`, ~2 KB): Roboto Flex (OFL) fijada a wdth 25, slnt −10, wght 800, opsz 144, YTUC 760 y reducida a "0-9 : ,". Respaldo Archivo.
 
-**Character:** Una sola familia en dos voces. La voz de pantalla es Archivo en su ancho mínimo y peso máximo, en mayúsculas: la de la pantalla de objetivo de Nike. La voz de texto es la misma familia a ancho normal, tranquila y legible a un brazo de distancia.
+**Character:** Tres voces. La voz de texto es Archivo a ancho normal, tranquila y legible a un brazo de distancia. La voz de pantalla es Archivo en su ancho mínimo y peso máximo, en mayúsculas: la de la pantalla de objetivo de Nike. La voz de cifras es Hill-B Figures: las cifras más largas, afiladas y rápidas de un muestrario de diez fuentes, elegidas por el propietario (2026-10-26). La inclinación va dentro de la fuente (sin `font-style: italic`), con `font-synthesis: none`, cifras tabulares, `letter-spacing: 0.05em` (las cifras inclinadas van sobre avances estrechos: un pelo entre el 4 y el 5) y `line-height: 1`.
 
 ### Hierarchy
-- **Wheel** (900 itálica, 0.9 × la fila, 1): las cifras de las dos ruedas y su separador ":" o ","; la fila mide `clamp(112px, min(19svh, 40vw), 168px)`, así que la cifra crece con la pantalla sin salirse en un teléfono estrecho. La itálica es el archivo `archivo-italic-latin.woff2` (Archivo Italic variable, subconjunto latino), solo para cifras.
+- **Wheel** (Hill-B Figures 800, `--fig`, 1): las cifras de las dos ruedas y su separador ":" o ","; `--fig` vale `clamp(120px, min(24svh, calc((100vw - 2 * var(--pad)) / 1.8)), 240px)`: "60,9" con sus márgenes ocupa unas 1.8 em, así que la cifra llena el ancho y la altura la frena. La fila mide 0.84 × `--fig` (las cifras miden 0.72 em de alto).
 - **Figure** (900, 3.25rem, 0.9): duración del disco en la tarjeta; cuenta hacia arriba al llegar.
 - **Headline** (900, 2rem, 1): título de resultados ("Para 45 min") y título del disco (0.95, máximo dos líneas).
 - **Start** (900, 2rem, +0.02em): la palabra START del botón principal, más abierta que el resto de la voz de pantalla para leerse como una orden.
-- **Pace** (900 itálica, 2.25rem, estrecha): el ritmo dentro de la píldora de intensidad.
+- **Pace** (Hill-B Figures 800, 3rem): el ritmo dentro de la píldora de intensidad.
 - **Action** (700, 18px, −0.005em): texto de los botones grandes de texto (reintento), y la unidad bajo las ruedas en tinta de apoyo.
 - **Body** (400, 16px, 1.5): texto general, canciones de la tarjeta (1.4, dos líneas); 700 en el interruptor, la etiqueta "Intensidad" y "Otros 5".
 - **Label** (600, 15px): textos secundarios, leyendas del medidor, diferencia frente a la salida, subtítulo de resultados, avisos.
@@ -221,7 +226,7 @@ Valores fuera de la paleta, intencionados: el `#000` dentro de la `mask-image` d
 El botón "Abrir en Spotify" de la tarjeta usa 17px, un punto por debajo de Action, para caber en la tarjeta de 52px de alto; es intencionado.
 
 ### Named Rules
-**The Two Voices Rule.** Estrecha (62%), 900 y mayúsculas para cifras de las ruedas (en itálica, como el ritmo), START, títulos de vista y títulos de disco; ancho normal para todo lo demás. No hay pesos ni anchos intermedios en la voz de pantalla.
+**The Three Voices Rule.** Texto en Archivo a ancho normal; pantalla en Archivo estrecha (62%), 900 y mayúsculas para START, títulos de vista, títulos de disco y la duración del disco; cifras en Hill-B Figures (800, inclinación de la fuente) solo para las ruedas, su separador y el ritmo. No hay pesos ni anchos intermedios en la voz de pantalla, ni itálica sintetizada en ninguna voz.
 
 **The Tabular Rule.** Toda cifra de tiempo, distancia, ritmo o recuento usa `font-variant-numeric: tabular-nums` para que no baile al cambiar ni al girar la rueda.
 
@@ -243,7 +248,7 @@ Una columna de teléfono: `max-width: 480px`, centrada, con 20px de margen later
 
 El ritmo de espaciado es 4 / 8 / 12 / 16 / 20 / 24px. Las separaciones verticales de la vista de sesión respiran con la altura de pantalla: bajo el interruptor `clamp(12px, 3svh, 32px)`, sobre la intensidad `clamp(16px, 3.5svh, 36px)`.
 
-**Sesión:** interruptor arriba; las ruedas en una rejilla `1fr auto 1fr` de una fila de alto más un margen táctil invisible arriba y abajo (`--reach`, `clamp(24px, 5svh, 48px)`), empujadas con `margin-top: auto` para que la altura sobrante se reparta arriba y abajo y el valor quede a media pantalla, al alcance del pulgar. Las dos cifras se pegan al separador (la de la izquierda alineada a la derecha y al revés) para leerse como un solo valor: 1:05, 10,5. La unidad va 10px por debajo, centrada. La tira de intensidad sangra hasta el borde del viewport: todo su ancho se desliza, pero solo se pinta la píldora del centro.
+**Sesión:** interruptor arriba; las ruedas en una rejilla `auto auto auto` centrada (`justify-content: center`: el valor se centra como un solo grupo y cada rueda mide lo que su valor más ancho, "60", "59") de una fila de alto más un margen táctil invisible arriba y abajo (`--reach`, `clamp(24px, 5svh, 48px)`), empujadas con `margin-top: auto` para que la altura sobrante se reparta arriba y abajo y el valor quede a media pantalla, al alcance del pulgar. Las dos cifras se pegan al separador (la de la izquierda alineada a la derecha y al revés) para leerse como un solo valor: 1:05, 10,5. Margen lateral en em: la rueda mayor `0.1em 0.05em` y la menor `0.05em 0.1em`, más holgura por fuera para la bandera del 1 y la punta de la inclinación, justa contra el separador. La unidad va 10px por debajo, centrada. La tira de intensidad sangra hasta el borde del viewport: todo su ancho se desliza, pero solo se pinta la píldora del centro.
 
 **Resultados:** cabecera en rejilla `44px 1fr auto` (atrás, título y subtítulo, "Otros 5"); cinco segmentos de posición de 4px; y un carrusel horizontal con snap obligatorio: tarjeta de `min(78vw, 376px)`, separación de 12px, centrada y con ambas vecinas asomando; el carril sangra hasta el borde del viewport. A partir de 520px, el carril se desvanece con una máscara de 32px en los bordes de la columna.
 
@@ -254,11 +259,11 @@ Plano por completo: no hay ni una `box-shadow` en el sistema. La profundidad se 
 ### Named Rules
 **The Flat Field Rule.** Ninguna superficie lleva sombra ni borde; se separa del suelo por tono o por color de portada.
 
-**The One Value Rule.** Las ruedas y la intensidad enseñan solo el valor actual, grande y en itálica, dentro de su ventana (decisión del dueño, 2026-10-26). Al deslizar, el valor siguiente entra por el borde de la ventana; antes no se ve. La ventana (banda de superficie o píldora de tinta) dice dónde deslizar.
+**The One Value Rule.** Las ruedas y la intensidad enseñan solo el valor actual, grande e inclinado, dentro de su ventana (decisión del dueño, 2026-10-26). Al deslizar, el valor siguiente entra por el borde de la ventana; antes no se ve. En las ruedas la ventana es invisible: el valor va directo sobre el voltio, sin banda detrás; en la intensidad la ventana es la píldora de tinta.
 
 ## Shapes
 
-Formas blandas y llenas. Todo control es una píldora (999px) o un círculo (atrás, "Otros 5" estrecho, 44px). Las tarjetas de disco y la banda central de las ruedas usan 24px; los paneles de estado 20px; la portada 8px, casi cuadrada como la entrega Spotify; las barras del medidor y los bloques del esqueleto 6px y las marcas finas 2px. El anillo de foco es de 3px en tinta, separado 3px, con radio de 12px; en las ruedas va hacia dentro (−3px) con el radio de 24px. No hay bordes ni divisores: las barras de progreso y la marca de la salida en el medidor son rellenos, no líneas de estructura.
+Formas blandas y llenas. Todo control es una píldora (999px) o un círculo (atrás, "Otros 5" estrecho, 44px). Las tarjetas de disco usan 24px; los paneles de estado 20px; la portada 8px, casi cuadrada como la entrega Spotify; las barras del medidor y los bloques del esqueleto 6px y las marcas finas 2px. El anillo de foco es de 3px en tinta, separado 3px, con radio de 12px; en las ruedas rodea el valor entero (`.picker`), metido hacia dentro `--reach` menos 6px, con el radio de 24px. No hay bordes ni divisores: las barras de progreso y la marca de la salida en el medidor son rellenos, no líneas de estructura.
 
 ## Components
 
@@ -276,14 +281,15 @@ Grandes, llenos y para el pulgar. Todos de tinta con texto voltio.
 
 ### Picker wheels (signature)
 Dos columnas de cifras gigantes con scroll y snap nativos: el impulso y el rebote del propio teléfono, una cifra por fila, y la fila central es el valor. Horas : minutos (0:05 a 5:59) o km , cientos de metros (1,0 a 60,9).
-- **Style:** una sola fila visible, la ventana: una banda de superficie con radio de 24px. Cifras en la voz Wheel (itálica, 0.9 × la fila) con 0.12 × la fila de margen lateral para la inclinación; el separador ":" o "," en la misma voz entre ambas.
+- **Style:** una sola fila visible, la ventana, invisible: sin banda ni fondo, el valor va directo sobre el voltio. Cifras en la voz Wheel (Hill-B Figures a `--fig`, fila de 0.84 × `--fig`), con margen lateral de 0.1em por fuera y 0.05em contra el separador; el separador ":" o "," en la misma voz entre ambas.
 - **State:** `mask-image` pinta solo la ventana; la rueda se extiende `--reach` por encima y por debajo, invisible pero táctil (una máscara, a diferencia de `clip-path`, no recorta el área de toque). Al deslizar, las cifras pasan por la ventana como en un contador. Una vibración de 4ms por paso bajo el dedo donde el teléfono lo permite.
 - **Accesibilidad:** cada rueda es un `spinbutton` con valor y texto; flechas, Re Pág/Av Pág (±5), Inicio y Fin. Un salto de más de tres filas llega sin deslizarse.
+- **Foco de teclado:** la máscara cortaría un anillo en la rueda, así que el anillo (3px de tinta, radio de 24px) rodea todo el valor (`.picker:has(.wheel-y:focus-visible)`, separación `calc(var(--reach) * -1 + 6px)`) y la rueda que no tiene las teclas retrocede a opacidad 0.45, para que se vea qué número mueven las flechas.
 
 ### Intensity strip
 El ritmo (3:00 a 9:00 /km, de 5 en 5 s) como una tira que se desliza de lado; solo en distancia.
 - **Cabecera:** "Intensidad" (700, 16px) con "min/km" en tinta de apoyo (500), y a la derecha el total de carrera en tinta de apoyo con cifras tabulares.
-- **Style:** una píldora fija de tinta de 144 × 64px en el centro; los ritmos, en voltio y en la voz Pace, pasan por ella con snap al centro (paso de 144px).
+- **Style:** una píldora fija de tinta de 144 × 64px en el centro; los ritmos, en voltio y en la voz Pace (Hill-B Figures, 3rem), pasan por ella con snap al centro (paso de 144px).
 - **State:** `mask-image` pinta solo la píldora; el resto de la tira es invisible pero se desliza con el pulgar. El foco de teclado rodea la píldora.
 
 ### Icon buttons (atrás, "Otros 5")
@@ -313,7 +319,7 @@ Un campo completo del color de su portada: portada cuadrada de ancho completo, t
 - **Do** marcar la selección y la acción principal con tinta y texto voltio.
 - **Do** separar contenedores del suelo con superficie (#c5ea1e) y responder al pulsar con superficie pulsada (#b7d71d) o escala (0.92–0.97, 140ms).
 - **Do** escribir el texto secundario en tinta de apoyo (#485415), tinta mezclada sobre voltio.
-- **Do** poner cifras, START y títulos en Archivo a 62%, 900 y mayúsculas, con cifras tabulares.
+- **Do** poner START, títulos y la duración del disco en Archivo a 62%, 900 y mayúsculas, y las cifras de las ruedas y del ritmo en Hill-B Figures; siempre con cifras tabulares.
 - **Do** elegir valores con ruedas de scroll y snap nativos, accesibles con teclado como `spinbutton`.
 - **Do** teñir cada tarjeta con el color de su propia portada dentro de los límites de luminosidad 0.36–0.70 y elegir su tinta (tinta o voltio) por contraste.
 - **Do** anclar la acción principal en el dock inferior, a ancho completo, por encima del área segura.
@@ -326,5 +332,6 @@ Un campo completo del color de su portada: portada cuadrada de ancho completo, t
 - **Don't** usar tarjetas de estadísticas ni anillos de progreso de panel de fitness.
 - **Don't** añadir sombras ni bordes a superficies o controles.
 - **Don't** volver a botones − / + ni a atajos de sesión: el valor se elige girando la rueda.
-- **Don't** usar una segunda familia tipográfica ni pesos intermedios en la voz de pantalla.
+- **Don't** añadir una cuarta voz ni pesos intermedios en la voz de pantalla; Hill-B Figures solo lleva cifras, ":" y ",".
+- **Don't** volver a poner una banda de superficie detrás del valor de las ruedas ni sintetizar itálica.
 - **Don't** animar esqueletos con brillo; son la maqueta plana de la tarjeta final.

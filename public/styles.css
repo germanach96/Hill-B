@@ -8,15 +8,13 @@
   font-display: swap;
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-/* The italic, only for the figures the wheels show (latin subset: digits, ":" and ","). */
+/* The figures of the wheels and the intensity: Roboto Flex (OFL) pinned to its narrowest, slanted
+   cut (wdth 25, slnt -10, wght 800, opsz 144, YTUC 760) and cut down to "0-9 : ," — 2 KB. */
 @font-face {
-  font-family: "Archivo";
-  src: url("/fonts/archivo-italic-latin.woff2") format("woff2");
-  font-style: italic;
-  font-weight: 100 900;
-  font-stretch: 62% 125%;
+  font-family: "Hill-B Figures";
+  src: url("/fonts/hillb-figures.woff2") format("woff2");
+  font-weight: 800;
   font-display: swap;
-  unicode-range: U+0000-00FF;
 }
 @font-face {
   font-family: "Archivo";
@@ -31,7 +29,7 @@
   --volt: #d7ff1f;         /* the brand colour, the logo's yellow */
   --ink: #111111;          /* the one contrast colour: text, controls, the Start button */
   --ground: var(--volt);
-  --surface: #c5ea1e;      /* ink at 9% over volt: tracks, the wheel's centre band, skeletons */
+  --surface: #c5ea1e;      /* ink at 9% over volt: tracks, skeletons */
   --surface-press: #b7d71d;/* ink at 16% over volt */
   --muted: #485415;        /* ink at 72% over volt, 7.1:1: secondary text stays in the ink family */
   --page: var(--ground);
@@ -94,10 +92,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 /* Display voice: Archivo at its narrowest and heaviest, the Nike goal-screen register. */
 .results-title,
-.wheel-y .wheel-item,
-.picker-sep,
 .btn-start,
-.wheel-x .wheel-item,
 .card-title,
 .card-time {
   font-stretch: var(--display-stretch);
@@ -105,6 +100,18 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   text-transform: uppercase;
   letter-spacing: -0.01em;
   font-variant-numeric: tabular-nums;
+}
+
+/* Figure voice: the run's numbers, long and slanted like a stopwatch. The slant is in the font. */
+.wheel-y .wheel-item,
+.picker-sep,
+.wheel-x .wheel-item {
+  font-family: "Hill-B Figures", "Archivo", system-ui, sans-serif;
+  font-weight: 800;
+  font-synthesis: none;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em; /* the slanted figures sit on narrow advances: keep a hair between 4 and 5 */
+  line-height: 1;
 }
 
 /* ---------- Shell ---------- */
@@ -225,27 +232,24 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 .segment[aria-checked="true"] { color: var(--volt); }
 
-/* The wheels: one value at a time, huge and italic, in a window. A swipe rolls the next value in
-   through the window's edge; the values around it are never shown. The wheel reaches past the
+/* The wheels: one value at a time, huge, straight on the ground. A swipe rolls the next value in
+   through an invisible window; the values around it are never shown. The wheel reaches past the
    window (--reach) so the whole block takes the thumb, but only the window is painted. */
 .picker {
-  --item: clamp(112px, min(19svh, 40vw), 168px); /* tall phones get it bigger, narrow ones keep "45" inside */
+  /* The figure fills the width: "60,9" is about 1.8 em wide with its margins, and the height keeps it in check. */
+  --fig: clamp(120px, min(24svh, calc((100vw - 2 * var(--pad)) / 1.8)), 240px);
+  --item: calc(var(--fig) * 0.84); /* the digits stand 0.72 em tall */
   --reach: clamp(24px, 5svh, 48px);
   position: relative;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  /* The value is centred as one group; each wheel is as wide as its widest value ("60", "59"). */
+  grid-template-columns: auto auto auto;
+  justify-content: center;
   align-items: center;
   height: calc(var(--item) + var(--reach) * 2);
   /* The spare height splits above and below the wheels (the dock takes the other half): the
      value sits at mid-screen, within the thumb's reach, instead of high under the toggle. */
   margin-top: auto;
-}
-.picker::before {
-  content: "";
-  position: absolute;
-  inset: var(--reach) 0;
-  border-radius: var(--radius-card);
-  background: var(--surface);
 }
 .wheel-y {
   position: relative;
@@ -262,27 +266,25 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 .wheel-y::-webkit-scrollbar,
 .wheel-x::-webkit-scrollbar { display: none; }
-.wheel-y:focus-visible,
-.wheel-x:focus-visible { outline: 3px solid var(--ink); outline-offset: calc(var(--reach, 6px) * -1 - 3px); border-radius: var(--radius-card); }
+/* The mask would cut a ring drawn on the wheel itself: the ring goes round the whole value, and the
+   wheel that does not have the keys steps back so it is clear which number the arrows move. */
+.wheel-y:focus-visible { outline: none; }
+.picker:has(.wheel-y:focus-visible) { outline: 3px solid var(--ink); outline-offset: calc(var(--reach) * -1 + 6px); border-radius: var(--radius-card); }
+.picker:has(.wheel-y:focus-visible) .wheel-y:not(:focus-visible) { opacity: 0.45; }
 .wheel-y .wheel-item {
   display: flex;
   align-items: center;
   height: var(--item);
-  /* Room for the italic's lean, so the top of a 0 or a 4 is never cut by the wheel's edge. */
-  padding-inline: calc(var(--item) * 0.12);
   scroll-snap-align: center;
-  font-size: calc(var(--item) * 0.9);
-  font-style: italic;
-  line-height: 1;
+  font-size: var(--fig);
 }
 /* The two numbers hug the separator, so the pair reads as one value: 1:05, 10,5. */
-#wheel-major .wheel-item { justify-content: flex-end; }
-#wheel-minor .wheel-item { justify-content: flex-start; }
+/* Room on the outer side for the flag of a 1 and the top of the slant; tight against the separator. */
+#wheel-major .wheel-item { justify-content: flex-end; padding-inline: 0.1em 0.05em; }
+#wheel-minor .wheel-item { justify-content: flex-start; padding-inline: 0.05em 0.1em; }
 .picker-sep {
   position: relative;
-  font-size: calc(var(--item) * 0.9);
-  font-style: italic;
-  line-height: 1;
+  font-size: var(--fig);
 }
 .picker-unit {
   margin: 10px 0 0;
@@ -341,9 +343,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   place-items: center;
   height: 100%;
   scroll-snap-align: center;
-  font-size: 2.25rem;
-  font-style: italic;
-  font-variant-numeric: tabular-nums;
+  font-size: 3rem;
   color: var(--volt);
 }
 
