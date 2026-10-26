@@ -24,10 +24,21 @@ function spring(value) {
   return { x: value, v: 0, target: value, k: 0, c: 0, on: false, done: null };
 }
 function aim(s, target, { response = 0.45, damping = 1, velocity } = {}, done = null) {
+  const omega = (2 * Math.PI) / response;
   s.target = target;
-  s.k = (2 * Math.PI / response) ** 2; // stiffness for mass 1
-  s.c = (4 * Math.PI * damping) / response; // damping coefficient
-  if (velocity !== undefined) s.v = clamp(velocity, -MAX_SPEED, MAX_SPEED);
+  s.k = omega ** 2; // stiffness for mass 1
+  s.c = 2 * damping * omega; // damping coefficient
+  if (velocity !== undefined) {
+    // Hand over the finger's speed, but never more than a clean glide to the target can carry:
+    // a critically damped spring starting at ω·distance eases out like a pure exponential. Faster
+    // than that, a hard flick crossed the whole card in two or three frames on the phone and read
+    // as a jump. Speed away from the target (a drag reversed at release) is kept small, so the
+    // card turns round softly instead of lurching.
+    const toward = Math.sign(target - s.x);
+    const cap = omega * Math.abs(target - s.x) + 60;
+    const v = clamp(velocity, -MAX_SPEED, MAX_SPEED);
+    s.v = Math.sign(v) === toward ? clamp(v, -cap, cap) : clamp(v, -cap * 0.25, cap * 0.25);
+  }
   s.done = done;
   s.on = true;
   if (reducedMotion.matches) settle(s);
@@ -52,7 +63,7 @@ function advance(s, dt) {
   if (Math.abs(s.x - s.target) < 0.25 && Math.abs(s.v) < 6) settle(s);
 }
 
-export function createPager(pager, track, { ticks, onIndex, onBack, onMore, canMore, onOpen }) {
+export function createPager(pager, track, { ticks, onIndex, onSettle, onBack, onMore, canMore, onOpen }) {
   const pulls = {
     back: pager.querySelector('.pull-back'),
     more: pager.querySelector('.pull-more'),
@@ -147,15 +158,16 @@ export function createPager(pager, track, { ticks, onIndex, onBack, onMore, canM
     const next = clamp(i, 0, last());
     const changed = next !== index;
     index = next;
-    // A flick lands with a whisker of overshoot; a slow drag or a key settles without one.
-    aim(deck, xOf(index), { response: 0.42, damping: Math.abs(velocity) > 600 ? 0.86 : 1, velocity }, null);
+    // Critically damped: the card glides in and stops, never wobbles; whatever the flick, the glide
+    // takes about the same time (90% in 0.2 s, still at 0.4 s).
+    aim(deck, xOf(index), { response: 0.55, damping: 1, velocity }, () => onSettle?.(index));
     kick();
     if (changed) onIndex(index);
   }
 
   function back(velocity = 0) {
     // The deck keeps travelling right as the run screen slides in: one motion, not a cut.
-    aim(deck, xOf(index) + pager.clientWidth * 0.5, { response: 0.4, velocity: Math.max(velocity, 300) }, null);
+    aim(deck, xOf(index) + pager.clientWidth * 0.5, { response: 0.45, velocity: Math.max(velocity, 300) }, null);
     kick();
     onBack();
   }
@@ -163,7 +175,7 @@ export function createPager(pager, track, { ticks, onIndex, onBack, onMore, canM
   function more(velocity = 0) {
     // This set leaves to the left at the finger's speed; the next one arrives from the right with it.
     fling = Math.min(velocity, -600);
-    aim(deck, xOf(last()) - pager.clientWidth * 0.6, { response: 0.35, velocity: fling }, null);
+    aim(deck, xOf(last()) - pager.clientWidth * 0.6, { response: 0.42, velocity: fling }, null);
     kick();
     track.animate([{ opacity: 1 }, { opacity: 0 }], { duration: reducedMotion.matches ? 0 : 160, easing: 'ease', fill: 'forwards' })
       .finished.then(() => onMore(), () => onMore());
@@ -171,7 +183,7 @@ export function createPager(pager, track, { ticks, onIndex, onBack, onMore, canM
 
   function open(velocity = 0) {
     // The card keeps rising a little as Spotify takes over, then settles back for when you return.
-    aim(lift, -Math.min(140, pager.clientHeight * 0.18), { response: 0.3, velocity: Math.min(velocity, -300) }, () => {
+    aim(lift, -Math.min(140, pager.clientHeight * 0.18), { response: 0.36, velocity: Math.min(velocity, -300) }, () => {
       setTimeout(() => { aim(lift, 0, { response: 0.45, damping: 0.82 }); kick(); }, 260);
     });
     kick();
@@ -307,7 +319,7 @@ export function createPager(pager, track, { ticks, onIndex, onBack, onMore, canM
       track.getAnimations().forEach((a) => a.cancel());
       if (arriving && !reducedMotion.matches) {
         deck.x = pager.clientWidth * 0.55;
-        aim(deck, 0, { response: 0.55, velocity: fling });
+        aim(deck, 0, { response: 0.6, velocity: fling }, () => onSettle?.(0));
         track.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 240, easing: 'cubic-bezier(0.23, 1, 0.32, 1)' });
         kick();
       } else {
@@ -316,6 +328,7 @@ export function createPager(pager, track, { ticks, onIndex, onBack, onMore, canM
       }
       draw();
       onIndex(0);
+      if (!arriving || reducedMotion.matches) onSettle?.(0);
     },
     more: () => more(),
     get index() { return index; },

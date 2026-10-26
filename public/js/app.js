@@ -233,6 +233,7 @@ function drawAlbums(target, how) {
 
 const pager = createPager($('pager'), $('deck'), {
   onIndex: (i) => setActive(i),
+  onSettle: (i) => arrive(i),
   onBack: goBack,
   onMore: () => renderResults({ entering: true, how: 'more' }),
   ticks: $('ticks'),
@@ -378,8 +379,14 @@ function setActive(index) {
   const card = cards[index];
   if (!card) return;
   cards.forEach((c, i) => c.classList.toggle('is-active', i === index));
-  if (card.classList.contains('is-skeleton')) return;
-  if (!card.classList.contains('is-seen')) countUp(card);
+}
+
+/** The running time counts up and the meter fills once the card has landed, not while it glides:
+ *  the eye follows one motion at a time, and the main thread stays free for the glide. */
+function arrive(index) {
+  const card = $('deck').children[index];
+  if (!card || card.classList.contains('is-skeleton') || card.classList.contains('is-seen')) return;
+  countUp(card);
   card.classList.add('is-seen');
 }
 
