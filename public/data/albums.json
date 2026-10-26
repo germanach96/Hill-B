@@ -4,8 +4,8 @@
   "name": "The Magic Bus",
   "snapshot": "AAAHRiYd0P5jsUb6EBH71zwKuviOHEdk"
  },
- "syncedAt": "2026-10-26T09:01:32.554Z",
- "songCount": 1598,
+ "syncedAt": "2026-10-26T10:04:13.447Z",
+ "songCount": 1596,
  "albums": [
   {
    "id": "70LrG6HFcu3zITOoXOzQFa",
@@ -20,7 +20,8 @@
    "songs": [
     "Tv"
    ],
-   "seconds": 2274
+   "seconds": 2274,
+   "group": "70LrG6HFcu3zITOoXOzQFa"
   },
   {
    "id": "2n5AOB0lGse7qp38HvVROB",
@@ -37,7 +38,8 @@
     "Quelqu'un M'a Dit",
     "Vagabond"
    ],
-   "seconds": 3146
+   "seconds": 3146,
+   "group": "2n5AOB0lGse7qp38HvVROB"
   },
   {
    "id": "6vuykQgDLUCiZ7YggIpLM9",
@@ -52,7 +54,8 @@
     "Identikit",
     "Present Tense"
    ],
-   "seconds": 3157
+   "seconds": 3157,
+   "group": "6vuykQgDLUCiZ7YggIpLM9"
   },
   {
    "id": "4urAt6KrPJuOUjVmdrPC2B",
@@ -68,7 +71,8 @@
     "Dejándose Caer",
     "Sincericidio"
    ],
-   "seconds": 2865
+   "seconds": 2865,
+   "group": "4urAt6KrPJuOUjVmdrPC2B"
   },
   {
    "id": "6X5Q67CsxndSPng67Xxqua",
@@ -82,7 +86,8 @@
    "songs": [
     "Complicado y Aturdido / Mulher de Fases"
    ],
-   "seconds": 2560
+   "seconds": 2560,
+   "group": "6X5Q67CsxndSPng67Xxqua"
   },
   {
    "id": "6S0BIiWtnqU0PtumXMpin0",
@@ -98,7 +103,8 @@
     "Whiskey, Whiskey, Whiskey",
     "Something Like Olivia"
    ],
-   "seconds": 2805
+   "seconds": 2805,
+   "group": "6S0BIiWtnqU0PtumXMpin0"
   },
   {
    "id": "7jGYTQoGzQzTWGUKhppr26",
@@ -115,7 +121,8 @@
     "Mi Swing Es Tropical (feat. Tempo & The Candela Allstars)",
     "I Like It Like That"
    ],
-   "seconds": 4412
+   "seconds": 4412,
+   "group": "7jGYTQoGzQzTWGUKhppr26"
   },
   {
    "id": "500FEaUzn8lN9zWFyZG5C2",
@@ -128,9 +135,14 @@
    "url": "https://open.spotify.com/album/500FEaUzn8lN9zWFyZG5C2",
    "songs": [
     "High And Dry",
-    "Fake Plastic Trees"
+    "Fake Plastic Trees",
+    "Street Spirit (Fade Out)",
+    "Bullet Proof ... I Wish I Was",
+    "Black Star",
+    "(Nice Dream)"
    ],
-   "seconds": 2920
+   "seconds": 2920,
+   "group": "500FEaUzn8lN9zWFyZG5C2"
   },
   {
    "id": "4kEpYjZieMpwjTPQXIwMBH",
@@ -144,7 +156,8 @@
    "songs": [
     "Safe and Sound"
    ],
-   "seconds": 2691
+   "seconds": 2691,
+   "group": "4kEpYjZieMpwjTPQXIwMBH"
   },
   {
    "id": "6dMfMvS3hyk3ZCl4yljEDD",
@@ -160,7 +173,8 @@
     "Kill Your Heroes",
     "Jump on My Shoulders"
    ],
-   "seconds": 7709
+   "seconds": 7709,
+   "group": "1fag8cnc5p4Umu4tRMAsLv"
   },
   {
    "id": "6yGp5e6Puhx155c8dQ8e6P",
@@ -174,7 +188,8 @@
    "songs": [
     "Hollow Moon (Bad Wolf)"
    ],
-   "seconds": 3324
+   "seconds": 3324,
+   "group": "6yGp5e6Puhx155c8dQ8e6P"
   },
   {
    "id": "6UTNGpgi32axo5ilCMPhCF",
@@ -188,7 +203,8 @@
    "songs": [
     "Mentiras"
    ],
-   "seconds": 2981
+   "seconds": 2981,
+   "group": "6UTNGpgi32axo5ilCMPhCF"
   },
   {
    "id": "2mPZNQNgW1zrkIPyL9XJcf",
@@ -205,7 +221,8 @@
     "Aquí No Es Así",
     "Quisiera Ser Alcohol"
    ],
-   "seconds": 2821
+   "seconds": 2821,
+   "group": "2mPZNQNgW1zrkIPyL9XJcf"
   },
   {
    "id": "67Dcij2NQJrTJQA1rgFRhV",
@@ -219,7 +236,8 @@
    "songs": [
     "Despues Del After"
    ],
-   "seconds": 2549
+   "seconds": 2549,
+   "group": "67Dcij2NQJrTJQA1rgFRhV"
   },
   {
    "id": "041YsXPnMtLP23cgZFFLbO",
@@ -233,7 +251,8 @@
    "songs": [
     "A Dónde Van los Muertos? - MTV Unplugged [En Vivo]"
    ],
-   "seconds": 2718
+   "seconds": 2718,
+   "group": "041YsXPnMtLP23cgZFFLbO"
   },
   {
    "id": "4VrCmnvxHy7Kij5jpE5zoQ",
@@ -247,7 +266,8 @@
    "songs": [
     "Todo Cuenta - En Vivo Auditorio Nacional"
    ],
-   "seconds": 4415
+   "seconds": 4415,
+   "group": "4VrCmnvxHy7Kij5jpE5zoQ"
   },
   {
    "id": "25WLz1zNyzbXZnAMFZXpKW",
@@ -259,9 +279,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b273e86227d6997fd07c4c1c5ffc",
    "url": "https://open.spotify.com/album/25WLz1zNyzbXZnAMFZXpKW",
    "songs": [
-    "Flores en Febrero"
+    "Flores en Febrero",
+    "Ahí Estaré"
    ],
-   "seconds": 4778
+   "seconds": 4778,
+   "group": "25WLz1zNyzbXZnAMFZXpKW"
   },
   {
    "id": "2Y2jwkzcM6CszpX1FEghEw",
@@ -275,7 +297,8 @@
    "songs": [
     "San Miguel"
    ],
-   "seconds": 2744
+   "seconds": 2744,
+   "group": "2Y2jwkzcM6CszpX1FEghEw"
   },
   {
    "id": "3B8sRsQWEcVVeo3msMowPB",
@@ -289,7 +312,8 @@
    "songs": [
     "Siempre me quedará"
    ],
-   "seconds": 3180
+   "seconds": 3180,
+   "group": "3B8sRsQWEcVVeo3msMowPB"
   },
   {
    "id": "1Tng1uGqDjFgs6n4Ud25fH",
@@ -303,7 +327,8 @@
    "songs": [
     "Un Beso de Desayuno"
    ],
-   "seconds": 4652
+   "seconds": 4652,
+   "group": "1Tng1uGqDjFgs6n4Ud25fH"
   },
   {
    "id": "4H1UMurbDPzRjrRA5l0nNp",
@@ -318,7 +343,8 @@
     "Prometiste - MTV Unplugged [En Vivo]",
     "Viento - MTV Unplugged [En Vivo]"
    ],
-   "seconds": 4209
+   "seconds": 4209,
+   "group": "4H1UMurbDPzRjrRA5l0nNp"
   },
   {
    "id": "2UXYiuoHLdW9PxqU2BjV7z",
@@ -332,7 +358,8 @@
    "songs": [
     "Blue Ain't Your Color"
    ],
-   "seconds": 2747
+   "seconds": 2747,
+   "group": "2UXYiuoHLdW9PxqU2BjV7z"
   },
   {
    "id": "753f7OFwNV6FL9aB1ro8zZ",
@@ -346,7 +373,8 @@
    "songs": [
     "Shooting Stars"
    ],
-   "seconds": 2520
+   "seconds": 2520,
+   "group": "753f7OFwNV6FL9aB1ro8zZ"
   },
   {
    "id": "2mumCpGmuE9iDeOvMx6XrB",
@@ -360,7 +388,8 @@
    "songs": [
     "Stereo Hearts (feat. Adam Levine)"
    ],
-   "seconds": 2614
+   "seconds": 2614,
+   "group": "2mumCpGmuE9iDeOvMx6XrB"
   },
   {
    "id": "3HT71y5yfO04EWZazhJXLR",
@@ -374,7 +403,8 @@
    "songs": [
     "Baila Morena"
    ],
-   "seconds": 2997
+   "seconds": 2997,
+   "group": "3HT71y5yfO04EWZazhJXLR"
   },
   {
    "id": "4tUxQkrduOE8sfgwJ5BI2F",
@@ -386,9 +416,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b273f6c46838e4425ea96e2562fe",
    "url": "https://open.spotify.com/album/4tUxQkrduOE8sfgwJ5BI2F",
    "songs": [
-    "Clint Eastwood"
+    "Clint Eastwood",
+    "19-2000 - Soulchild Remix"
    ],
-   "seconds": 3881
+   "seconds": 3881,
+   "group": "4tUxQkrduOE8sfgwJ5BI2F"
   },
   {
    "id": "2dIGnmEIy1WZIcZCFSj6i8",
@@ -404,7 +436,8 @@
     "Superfast Jellyfish (feat. Gruff Rhys and De La Soul)",
     "Empire Ants (feat. Little Dragon)"
    ],
-   "seconds": 3413
+   "seconds": 3413,
+   "group": "2dIGnmEIy1WZIcZCFSj6i8"
   },
   {
    "id": "7HvIrSkKGJCzd8AKyjTJ6Q",
@@ -418,7 +451,8 @@
    "songs": [
     "Song 2 - 2012 Remaster"
    ],
-   "seconds": 7417
+   "seconds": 7417,
+   "group": "7HvIrSkKGJCzd8AKyjTJ6Q"
   },
   {
    "id": "0iyWxTBrrClm4XW0pz5V7S",
@@ -433,7 +467,8 @@
     "Hard Sun",
     "Society"
    ],
-   "seconds": 2883
+   "seconds": 2883,
+   "group": "0iyWxTBrrClm4XW0pz5V7S"
   },
   {
    "id": "4Z2N4b70UcKbJABiiOanrX",
@@ -447,7 +482,8 @@
    "songs": [
     "Je veux"
    ],
-   "seconds": 2344
+   "seconds": 2344,
+   "group": "4Z2N4b70UcKbJABiiOanrX"
   },
   {
    "id": "4WW3ME0M2dUoAK5hmbXsN7",
@@ -461,9 +497,11 @@
    "songs": [
     "bâtard",
     "carmen",
-    "sommeil"
+    "sommeil",
+    "Tous les mêmes"
    ],
-   "seconds": 2732
+   "seconds": 2732,
+   "group": "4WW3ME0M2dUoAK5hmbXsN7"
   },
   {
    "id": "2dOAj4iuNL7hjLB91kmrvu",
@@ -478,7 +516,8 @@
     "J'aime les moches",
     "Mon colloc'"
    ],
-   "seconds": 2295
+   "seconds": 2295,
+   "group": "2dOAj4iuNL7hjLB91kmrvu"
   },
   {
    "id": "7MKi8PuCX5QJtaG9wLbOI2",
@@ -492,7 +531,8 @@
    "songs": [
     "Loser"
    ],
-   "seconds": 2859
+   "seconds": 2859,
+   "group": "7MKi8PuCX5QJtaG9wLbOI2"
   },
   {
    "id": "3teu4biw5zhcN7QgjmKzGS",
@@ -506,7 +546,8 @@
    "songs": [
     "I Took A Pill In Ibiza"
    ],
-   "seconds": 3497
+   "seconds": 3497,
+   "group": "3teu4biw5zhcN7QgjmKzGS"
   },
   {
    "id": "4yXuwmc8Qn190CYHajzScu",
@@ -521,7 +562,8 @@
     "Reality (feat. Janieck Devy) - Radio Edit",
     "Are You With Me - Radio Edit"
    ],
-   "seconds": 3091
+   "seconds": 3091,
+   "group": "4yXuwmc8Qn190CYHajzScu"
   },
   {
    "id": "4m2880jivSbbyEGAKfITCa",
@@ -536,7 +578,8 @@
     "Instant Crush (feat. Julian Casablancas)",
     "Get Lucky (feat. Pharrell Williams and Nile Rodgers)"
    ],
-   "seconds": 4477
+   "seconds": 4477,
+   "group": "4m2880jivSbbyEGAKfITCa"
   },
   {
    "id": "7xl50xr9NDkd3i2kBbzsNZ",
@@ -555,7 +598,8 @@
     "Hard to Concentrate",
     "Tell Me Baby"
    ],
-   "seconds": 9103
+   "seconds": 9103,
+   "group": "7xl50xr9NDkd3i2kBbzsNZ"
   },
   {
    "id": "2Y9IRtehByVkegoD7TcLfi",
@@ -571,7 +615,8 @@
     "Parallel Universe",
     "Purple Stain"
    ],
-   "seconds": 4076
+   "seconds": 4076,
+   "group": "0fLhefnjlIV3pGNF9Wo8CD"
   },
   {
    "id": "5wZtSIvijWCMc1vlPFqAyB",
@@ -588,7 +633,8 @@
     "Look Around",
     "Dance, Dance, Dance"
    ],
-   "seconds": 3563
+   "seconds": 3563,
+   "group": "5wZtSIvijWCMc1vlPFqAyB"
   },
   {
    "id": "53tvjWbVNZKd3CvpENkzOC",
@@ -603,7 +649,8 @@
     "Fortune Faded",
     "Soul to Squeeze"
    ],
-   "seconds": 3997
+   "seconds": 3997,
+   "group": "53tvjWbVNZKd3CvpENkzOC"
   },
   {
    "id": "7kOivwbxDlUcVa4dCBCsWg",
@@ -617,7 +664,8 @@
    "songs": [
     "Billionaire (feat. Bruno Mars)"
    ],
-   "seconds": 2118
+   "seconds": 2118,
+   "group": "7kOivwbxDlUcVa4dCBCsWg"
   },
   {
    "id": "6ZG5lRT77aJ3btmArcykra",
@@ -629,10 +677,12 @@
    "image": "https://i.scdn.co/image/ab67616d0000b2739164bafe9aaa168d93f4816a",
    "url": "https://open.spotify.com/album/6ZG5lRT77aJ3btmArcykra",
    "songs": [
+    "Shiver",
     "Yellow",
     "Don't Panic"
    ],
-   "seconds": 2516
+   "seconds": 2516,
+   "group": "6ZG5lRT77aJ3btmArcykra"
   },
   {
    "id": "4E7bV0pzG0LciBSWTszra6",
@@ -647,7 +697,8 @@
     "Fix You",
     "Til Kingdom Come"
    ],
-   "seconds": 3725
+   "seconds": 3725,
+   "group": "4E7bV0pzG0LciBSWTszra6"
   },
   {
    "id": "3cfAM8b8KqJRoIzt3zLKqw",
@@ -661,7 +712,8 @@
    "songs": [
     "Up&Up"
    ],
-   "seconds": 2750
+   "seconds": 2750,
+   "group": "3cfAM8b8KqJRoIzt3zLKqw"
   },
   {
    "id": "71pRFAwHBLrjKYRG7V1Q2o",
@@ -678,7 +730,8 @@
     "Strawberry Swing",
     "Violet Hill"
    ],
-   "seconds": 4399
+   "seconds": 4399,
+   "group": "71pRFAwHBLrjKYRG7V1Q2o"
   },
   {
    "id": "4OHNH3sDzIxnmUADXzv2kT",
@@ -692,9 +745,12 @@
    "songs": [
     "Mr. Brightside",
     "All These Things That I've Done",
-    "Somebody Told Me"
+    "Somebody Told Me",
+    "Glamorous Indie Rock And Roll - Sawdust Version",
+    "Mr. Brightside - Original Demo"
    ],
-   "seconds": 4079
+   "seconds": 4079,
+   "group": "4OHNH3sDzIxnmUADXzv2kT"
   },
   {
    "id": "62zNw66LWCYoYSPGkJ2qCm",
@@ -707,9 +763,12 @@
    "url": "https://open.spotify.com/album/62zNw66LWCYoYSPGkJ2qCm",
    "songs": [
     "Exitlude",
-    "For Reasons Unknown"
+    "For Reasons Unknown",
+    "Sam's Town - Live From Abbey Road / 2006",
+    "Read My Mind"
    ],
-   "seconds": 2654
+   "seconds": 2654,
+   "group": "62zNw66LWCYoYSPGkJ2qCm"
   },
   {
    "id": "3bvS3DlTwV35j2qwFhDvxx",
@@ -724,7 +783,8 @@
     "Be Still",
     "Miss Atomic Bomb"
    ],
-   "seconds": 3080
+   "seconds": 3080,
+   "group": "3bvS3DlTwV35j2qwFhDvxx"
   },
   {
    "id": "2k8KgmDp9oHrmu0MIj4XDE",
@@ -736,26 +796,14 @@
    "image": "https://i.scdn.co/image/ab67616d0000b27313f2466b83507515291acce4",
    "url": "https://open.spotify.com/album/2k8KgmDp9oHrmu0MIj4XDE",
    "songs": [
-    "Someday"
-   ],
-   "seconds": 2112
-  },
-  {
-   "id": "2yNaksHgeMQM9Quse463b5",
-   "name": "Is This It",
-   "artists": [
-    "The Strokes"
-   ],
-   "year": "2001",
-   "image": "https://i.scdn.co/image/ab67616d0000b273a388a3f20d1bf2123249cc79",
-   "url": "https://open.spotify.com/album/2yNaksHgeMQM9Quse463b5",
-   "songs": [
+    "Someday",
     "Last Nite",
     "Is This It",
     "The Modern Age",
     "Barely Legal"
    ],
-   "seconds": 2148
+   "seconds": 2112,
+   "group": "2k8KgmDp9oHrmu0MIj4XDE"
   },
   {
    "id": "1HQ61my1h3VWp2EBWKlp0n",
@@ -768,11 +816,16 @@
    "url": "https://open.spotify.com/album/1HQ61my1h3VWp2EBWKlp0n",
    "songs": [
     "You Only Live Once",
+    "Heart In a Cage",
     "On the Other Side",
     "Razorblade",
-    "Electricityscape"
+    "Ize of the World",
+    "Electricityscape",
+    "15 Minutes",
+    "Fear of Sleep"
    ],
-   "seconds": 3123
+   "seconds": 3123,
+   "group": "1HQ61my1h3VWp2EBWKlp0n"
   },
   {
    "id": "6Jx4cGhWHewTcfKDJKguBQ",
@@ -787,7 +840,8 @@
     "Under Cover of Darkness",
     "Two Kinds of Happiness"
    ],
-   "seconds": 2053
+   "seconds": 2053,
+   "group": "6Jx4cGhWHewTcfKDJKguBQ"
   },
   {
    "id": "5nI4Eo1vWUWXzeT4WrzTGL",
@@ -801,7 +855,8 @@
    "songs": [
     "Alibi"
    ],
-   "seconds": 4660
+   "seconds": 4660,
+   "group": "6OlCoydaNFUU7v1Xo5ZJPx"
   },
   {
    "id": "0Ikw6ho559687KCPbSjr0K",
@@ -816,10 +871,14 @@
     "Gold",
     "Polaroid",
     "Friction",
+    "Shots - Broiler Remix",
+    "Gold - Jorgen Odegard Remix",
+    "Monster",
     "Release",
     "Who We Are"
    ],
-   "seconds": 4984
+   "seconds": 4984,
+   "group": "0Ikw6ho559687KCPbSjr0K"
   },
   {
    "id": "4ySSx2L6h2siW22LK6dwhN",
@@ -834,7 +893,8 @@
     "Secrets",
     "All The Right Moves"
    ],
-   "seconds": 2854
+   "seconds": 2854,
+   "group": "4ySSx2L6h2siW22LK6dwhN"
   },
   {
    "id": "42UJjk8i8L0De7lQtu7sqi",
@@ -849,7 +909,8 @@
     "Love Runs Out",
     "I Lived"
    ],
-   "seconds": 4437
+   "seconds": 4437,
+   "group": "42UJjk8i8L0De7lQtu7sqi"
   },
   {
    "id": "1IM3GwptCGYjRkzCBolyFK",
@@ -863,7 +924,8 @@
    "songs": [
     "How to Save a Life"
    ],
-   "seconds": 2756
+   "seconds": 2756,
+   "group": "1IM3GwptCGYjRkzCBolyFK"
   },
   {
    "id": "7abzxOHgW8mcecRhBzlPnw",
@@ -877,7 +939,8 @@
    "songs": [
     "Hey, Soul Sister"
    ],
-   "seconds": 2608
+   "seconds": 2608,
+   "group": "7abzxOHgW8mcecRhBzlPnw"
   },
   {
    "id": "6XMk5rlnvEtbOUhUlIGl0R",
@@ -889,9 +952,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b273833110ebd5e6cdf55d5ec0e8",
    "url": "https://open.spotify.com/album/6XMk5rlnvEtbOUhUlIGl0R",
    "songs": [
-    "Como Tú (Magic Music Box)"
+    "Como Tú (Magic Music Box)",
+    "Souvenir"
    ],
-   "seconds": 2473
+   "seconds": 2473,
+   "group": "6XMk5rlnvEtbOUhUlIGl0R"
   },
   {
    "id": "4Dgxy95K9BWkDUvQPTaYBb",
@@ -908,7 +973,8 @@
     "Belief - Live at the Nokia Theatre, Los Angeles, CA - December 2007",
     "Slow Dancing in a Burning Room - Live at the Nokia Theatre, Los Angeles, CA - December 2007"
    ],
-   "seconds": 7468
+   "seconds": 7468,
+   "group": "4Dgxy95K9BWkDUvQPTaYBb"
   },
   {
    "id": "2xwpvruPfeNRKx3X78UDd8",
@@ -922,7 +988,8 @@
    "songs": [
     "Cuando Me Enamoro"
    ],
-   "seconds": 4199
+   "seconds": 4199,
+   "group": "2xwpvruPfeNRKx3X78UDd8"
   },
   {
    "id": "4fBsaQElJBVCEsK0nbL0Dy",
@@ -936,7 +1003,8 @@
    "songs": [
     "Muchachita Linda"
    ],
-   "seconds": 1907
+   "seconds": 1907,
+   "group": "4fBsaQElJBVCEsK0nbL0Dy"
   },
   {
    "id": "4ZmCBqmAmzZaw6AKnlXqQI",
@@ -951,7 +1019,8 @@
     "Come Get Her",
     "No Type"
    ],
-   "seconds": 2737
+   "seconds": 2737,
+   "group": "4ZmCBqmAmzZaw6AKnlXqQI"
   },
   {
    "id": "5rOHrnrRomvSJhQLGVtfJ8",
@@ -965,7 +1034,8 @@
    "songs": [
     "Without Me"
    ],
-   "seconds": 3064
+   "seconds": 3064,
+   "group": "5rOHrnrRomvSJhQLGVtfJ8"
   },
   {
    "id": "6qNJATpLgC004oSMhU3tC8",
@@ -979,7 +1049,8 @@
    "songs": [
     "Wish You Were Here - 2011 Remastered Version"
    ],
-   "seconds": 6662
+   "seconds": 6662,
+   "group": "0bCAjiUamIFqKJsekOYuRw"
   },
   {
    "id": "61ydlH3GzijGrRrivGZASi",
@@ -993,7 +1064,8 @@
    "songs": [
     "Run"
    ],
-   "seconds": 7183
+   "seconds": 7183,
+   "group": "61ydlH3GzijGrRrivGZASi"
   },
   {
    "id": "78guAsers0klWl6RwzgDLd",
@@ -1008,7 +1080,8 @@
     "Like a Stone",
     "I Am the Highway"
    ],
-   "seconds": 3925
+   "seconds": 3925,
+   "group": "78guAsers0klWl6RwzgDLd"
   },
   {
    "id": "55jET4vDioHHd7ztX7OX3h",
@@ -1022,7 +1095,8 @@
    "songs": [
     "No Rain"
    ],
-   "seconds": 3324
+   "seconds": 3324,
+   "group": "55jET4vDioHHd7ztX7OX3h"
   },
   {
    "id": "46rGAcYt8T7iNyePUob4YO",
@@ -1035,9 +1109,11 @@
    "url": "https://open.spotify.com/album/46rGAcYt8T7iNyePUob4YO",
    "songs": [
     "Run Boy Run",
-    "I Love You"
+    "I Love You",
+    "I Love You - Acoustic"
    ],
-   "seconds": 2903
+   "seconds": 2903,
+   "group": "46rGAcYt8T7iNyePUob4YO"
   },
   {
    "id": "5x7VOruWJbNqZGfIHczhmV",
@@ -1052,7 +1128,8 @@
     "Yo Más Te Adoro",
     "Di Que No Te Vas"
    ],
-   "seconds": 2762
+   "seconds": 2762,
+   "group": "5x7VOruWJbNqZGfIHczhmV"
   },
   {
    "id": "6Tap30zqzXj22sVKoy1GUj",
@@ -1068,7 +1145,8 @@
     "Ya Me Enteré",
     "Qué Gano Olvidándote"
    ],
-   "seconds": 2248
+   "seconds": 2248,
+   "group": "6Tap30zqzXj22sVKoy1GUj"
   },
   {
    "id": "1gDqOyL8NmU2LQPtFutRng",
@@ -1087,7 +1165,8 @@
     "Así de Grandes Son las Ideas",
     "Ojos Color Sol (feat. Silvio Rodríguez)"
    ],
-   "seconds": 3491
+   "seconds": 3491,
+   "group": "1gDqOyL8NmU2LQPtFutRng"
   },
   {
    "id": "3yqcj5G3zkeXuWIx6cjQgx",
@@ -1102,7 +1181,8 @@
     "Latinoamérica (feat. Totó la Momposina, Susana Baca & Maria Rita)",
     "Muerte En Hawaii"
    ],
-   "seconds": 3152
+   "seconds": 3152,
+   "group": "3yqcj5G3zkeXuWIx6cjQgx"
   },
   {
    "id": "5QqFpppnhRlNXjHlDiDexl",
@@ -1117,7 +1197,8 @@
     "La Perla (feat. Rubén Blades & La Chilinga)",
     "Electro Movimiento"
    ],
-   "seconds": 3641
+   "seconds": 3641,
+   "group": "5QqFpppnhRlNXjHlDiDexl"
   },
   {
    "id": "2Lvsyubptl5ITRCjy0FTmH",
@@ -1131,7 +1212,8 @@
    "songs": [
     "Tengo Tu Love"
    ],
-   "seconds": 3252
+   "seconds": 3252,
+   "group": "2Lvsyubptl5ITRCjy0FTmH"
   },
   {
    "id": "4R3tXoorBpHji6Jdms8a4Q",
@@ -1145,7 +1227,8 @@
    "songs": [
     "Santeria"
    ],
-   "seconds": 4666
+   "seconds": 4666,
+   "group": "4R3tXoorBpHji6Jdms8a4Q"
   },
   {
    "id": "1ITpsfAcoaSe4i1tUXm44D",
@@ -1159,7 +1242,8 @@
    "songs": [
     "Comfortably Numb - 2011 Remastered Version"
    ],
-   "seconds": 9361
+   "seconds": 9361,
+   "group": "5Dbax7G8SWrP9xyzkOvy2F"
   },
   {
    "id": "4bNrOExXvKw1xjgwmVHSjk",
@@ -1173,7 +1257,8 @@
    "songs": [
     "Me gustas tu"
    ],
-   "seconds": 2839
+   "seconds": 2839,
+   "group": "4bNrOExXvKw1xjgwmVHSjk"
   },
   {
    "id": "2xckodyvw7xfpkmnEsNK90",
@@ -1187,7 +1272,8 @@
    "songs": [
     "Stop Crying Your Heart Out"
    ],
-   "seconds": 4631
+   "seconds": 4631,
+   "group": "2xckodyvw7xfpkmnEsNK90"
   },
   {
    "id": "0PTVq4kaAAuROnfvfA7bHG",
@@ -1199,9 +1285,12 @@
    "image": "https://i.scdn.co/image/ab67616d0000b273d9cf309cca48a59b1c75746a",
    "url": "https://open.spotify.com/album/0PTVq4kaAAuROnfvfA7bHG",
    "songs": [
-    "Wonderwall"
+    "Wonderwall",
+    "Don't Look Back In Anger - Remastered",
+    "Champagne Supernova - Remastered"
    ],
-   "seconds": 3011
+   "seconds": 3011,
+   "group": "0PTVq4kaAAuROnfvfA7bHG"
   },
   {
    "id": "3F7qb5AiQdWxuMgSyQ9zyg",
@@ -1215,7 +1304,8 @@
    "songs": [
     "Live Forever - Remastered"
    ],
-   "seconds": 12263
+   "seconds": 12263,
+   "group": "3LzKUdUTdJb6P7xGN6SotC"
   },
   {
    "id": "3xoAUqjKs7Ps7wR26VAMbq",
@@ -1229,7 +1319,8 @@
    "songs": [
     "Bongo Bong"
    ],
-   "seconds": 2752
+   "seconds": 2752,
+   "group": "3xoAUqjKs7Ps7wR26VAMbq"
   },
   {
    "id": "62jIXzDsu18rooOl6dVu61",
@@ -1241,23 +1332,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b2733ed7f5bfbaa00a3825740773",
    "url": "https://open.spotify.com/album/62jIXzDsu18rooOl6dVu61",
    "songs": [
-    "Everybody's Changing"
-   ],
-   "seconds": 9033
-  },
-  {
-   "id": "5QqVXRTiGpLgmo1YNoz9Bk",
-   "name": "Hopes and Fears (Deluxe Edition)",
-   "artists": [
-    "Keane"
-   ],
-   "year": "2009",
-   "image": "https://i.scdn.co/image/ab67616d0000b273d1a0d9a7cf88083aac260c33",
-   "url": "https://open.spotify.com/album/5QqVXRTiGpLgmo1YNoz9Bk",
-   "songs": [
+    "Everybody's Changing",
     "Somewhere Only We Know"
    ],
-   "seconds": 9033
+   "seconds": 9033,
+   "group": "0MlTOiC5ZYKFGeZ8h3D4rd"
   },
   {
    "id": "0VVATc0t0tyepI4VRwduCp",
@@ -1271,7 +1350,8 @@
    "songs": [
     "You Make Me Feel"
    ],
-   "seconds": 2715
+   "seconds": 2715,
+   "group": "0VVATc0t0tyepI4VRwduCp"
   },
   {
    "id": "3GLyKimxM58Lu1N6FAEAEa",
@@ -1285,7 +1365,8 @@
    "songs": [
     "Bala perdida"
    ],
-   "seconds": 4361
+   "seconds": 4361,
+   "group": "3GLyKimxM58Lu1N6FAEAEa"
   },
   {
    "id": "3GqsyMrJu3o8jLiGyBsBQW",
@@ -1299,7 +1380,8 @@
    "songs": [
     "Let It Go"
    ],
-   "seconds": 2891
+   "seconds": 2891,
+   "group": "3GqsyMrJu3o8jLiGyBsBQW"
   },
   {
    "id": "3hARKC8cinq3mZLLAEaBh9",
@@ -1315,7 +1397,8 @@
     "Hotline Bling",
     "Controlla"
    ],
-   "seconds": 4875
+   "seconds": 4875,
+   "group": "3hARKC8cinq3mZLLAEaBh9"
   },
   {
    "id": "04G0YylSjvDQZrjOfE5jA5",
@@ -1329,9 +1412,11 @@
    "songs": [
     "I'm Yours",
     "Lucky",
-    "Details in the Fabric (feat. James Morrison)"
+    "Details in the Fabric (feat. James Morrison)",
+    "I'm Yours - Live on HSN Live"
    ],
-   "seconds": 3053
+   "seconds": 3053,
+   "group": "04G0YylSjvDQZrjOfE5jA5"
   },
   {
    "id": "1UwzOp5hn3lAbOqsAfXBw8",
@@ -1345,7 +1430,8 @@
    "songs": [
     "Details in the Fabric (feat. James Morrison)"
    ],
-   "seconds": 6921
+   "seconds": 6921,
+   "group": "04G0YylSjvDQZrjOfE5jA5"
   },
   {
    "id": "2Tyx5dLhHYkx6zeAdVaTzN",
@@ -1359,7 +1445,8 @@
    "songs": [
     "Weekend (feat. Miguel)"
    ],
-   "seconds": 4234
+   "seconds": 4234,
+   "group": "2Tyx5dLhHYkx6zeAdVaTzN"
   },
   {
    "id": "2JLDMOX168DhnueBb946kw",
@@ -1373,7 +1460,8 @@
    "songs": [
     "Skinny Love"
    ],
-   "seconds": 2235
+   "seconds": 2235,
+   "group": "2JLDMOX168DhnueBb946kw"
   },
   {
    "id": "5VoeRuTrGhTbKelUfwymwu",
@@ -1387,7 +1475,8 @@
    "songs": [
     "Born To Die"
    ],
-   "seconds": 5634
+   "seconds": 5634,
+   "group": "5VoeRuTrGhTbKelUfwymwu"
   },
   {
    "id": "1YETjeIkkvMlKq427v6LWH",
@@ -1401,7 +1490,8 @@
    "songs": [
     "Sirena"
    ],
-   "seconds": 4109
+   "seconds": 4109,
+   "group": "1YETjeIkkvMlKq427v6LWH"
   },
   {
    "id": "0IySVSEp9VEDQMtaVd37HA",
@@ -1416,7 +1506,8 @@
     "Coincidir",
     "Ratapampam"
    ],
-   "seconds": 3247
+   "seconds": 3247,
+   "group": "0IySVSEp9VEDQMtaVd37HA"
   },
   {
    "id": "2s1c9DHSdgPzR7rqInQDr3",
@@ -1430,7 +1521,8 @@
    "songs": [
     "Con La Mano Levantá (feat. Estopa)"
    ],
-   "seconds": 2687
+   "seconds": 2687,
+   "group": "2s1c9DHSdgPzR7rqInQDr3"
   },
   {
    "id": "0NfmXeIvmXywovqG2uGVpr",
@@ -1444,7 +1536,8 @@
    "songs": [
     "Moving"
    ],
-   "seconds": 2746
+   "seconds": 2746,
+   "group": "0NfmXeIvmXywovqG2uGVpr"
   },
   {
    "id": "7DyUbEBGWYeDnclvoJFDnL",
@@ -1458,7 +1551,8 @@
    "songs": [
     "Amor Marinero"
    ],
-   "seconds": 3183
+   "seconds": 3183,
+   "group": "7DyUbEBGWYeDnclvoJFDnL"
   },
   {
    "id": "2aKJ1XjOutOWXUNp6UrSJ5",
@@ -1473,7 +1567,8 @@
     "Pokito a Poko",
     "Mi Primo Juan"
    ],
-   "seconds": 4090
+   "seconds": 4090,
+   "group": "2aKJ1XjOutOWXUNp6UrSJ5"
   },
   {
    "id": "6ILlAsXOF5S8OdIYyS1XZf",
@@ -1490,7 +1585,8 @@
     "Un Millon de Cicatrices",
     "Zapatillas"
    ],
-   "seconds": 4409
+   "seconds": 4409,
+   "group": "6ILlAsXOF5S8OdIYyS1XZf"
   },
   {
    "id": "5E2LBAl6sq7k4TdAPqSCMH",
@@ -1504,7 +1600,8 @@
    "songs": [
     "Lady Madrid"
    ],
-   "seconds": 3802
+   "seconds": 3802,
+   "group": "5E2LBAl6sq7k4TdAPqSCMH"
   },
   {
    "id": "7lHpaqpWE6tQYFHPJ0dlqG",
@@ -1518,7 +1615,8 @@
    "songs": [
     "No tienes corazón (con Joaquín Sabina)"
    ],
-   "seconds": 3251
+   "seconds": 3251,
+   "group": "7lHpaqpWE6tQYFHPJ0dlqG"
   },
   {
    "id": "6svTt5o2lUgIrgYDKVmdnD",
@@ -1532,7 +1630,8 @@
    "songs": [
     "True Love Waits (Live In Oslo)"
    ],
-   "seconds": 2422
+   "seconds": 2422,
+   "group": "6svTt5o2lUgIrgYDKVmdnD"
   },
   {
    "id": "3QofKE2yZcsjKOUw6fyyn3",
@@ -1546,7 +1645,8 @@
    "songs": [
     "Across the Universe"
    ],
-   "seconds": 2854
+   "seconds": 2854,
+   "group": "3QofKE2yZcsjKOUw6fyyn3"
   },
   {
    "id": "18nf6cYVWv09j9DEUKv7qO",
@@ -1564,7 +1664,8 @@
     "While My Guitar Gently Weeps",
     "Happiness Is A Warm Gun - From \"Across The Universe\" Soundtrack"
    ],
-   "seconds": 5972
+   "seconds": 5972,
+   "group": "18nf6cYVWv09j9DEUKv7qO"
   },
   {
    "id": "1435j1Cd1T8MJLSos4Arll",
@@ -1578,7 +1679,8 @@
    "songs": [
     "Quisiera Saber (with Natalia Lafourcade)"
    ],
-   "seconds": 2751
+   "seconds": 2751,
+   "group": "1435j1Cd1T8MJLSos4Arll"
   },
   {
    "id": "5uMfshtC2Jwqui0NUyUYIL",
@@ -1592,7 +1694,8 @@
    "songs": [
     "The Funeral"
    ],
-   "seconds": 2169
+   "seconds": 2169,
+   "group": "5uMfshtC2Jwqui0NUyUYIL"
   },
   {
    "id": "7fZH0aUAjY3ay25obOUf2a",
@@ -1606,7 +1709,8 @@
    "songs": [
     "Love Yourself"
    ],
-   "seconds": 4179
+   "seconds": 4179,
+   "group": "7fZH0aUAjY3ay25obOUf2a"
   },
   {
    "id": "5CZR6ljD0x9fTiS4mh9wMp",
@@ -1621,7 +1725,8 @@
     "Use Somebody",
     "Sex on Fire"
    ],
-   "seconds": 2559
+   "seconds": 2559,
+   "group": "5CZR6ljD0x9fTiS4mh9wMp"
   },
   {
    "id": "5lnQLEUiVDkLbFJHXHQu9m",
@@ -1634,9 +1739,11 @@
    "url": "https://open.spotify.com/album/5lnQLEUiVDkLbFJHXHQu9m",
    "songs": [
     "Walk",
-    "I Should Have Known"
+    "I Should Have Known",
+    "These Days - Live at the Roundhouse, London, UK - July 2011"
    ],
-   "seconds": 2870
+   "seconds": 2870,
+   "group": "5lnQLEUiVDkLbFJHXHQu9m"
   },
   {
    "id": "1y52PqmT2akfjRiwNKyFNf",
@@ -1652,7 +1759,8 @@
     "Better Together",
     "She Will Be Loved"
    ],
-   "seconds": 3736
+   "seconds": 3736,
+   "group": "1y52PqmT2akfjRiwNKyFNf"
   },
   {
    "id": "7gGcnUEEQgIMV2JRwVQbrF",
@@ -1669,7 +1777,8 @@
     "She Will Be Loved",
     "Sunday Morning"
    ],
-   "seconds": 2760
+   "seconds": 2760,
+   "group": "7gGcnUEEQgIMV2JRwVQbrF"
   },
   {
    "id": "58ufpQsJ1DS5kq4hhzQDiI",
@@ -1685,7 +1794,8 @@
     "Money Make Her Smile",
     "If I Knew"
    ],
-   "seconds": 2097
+   "seconds": 2097,
+   "group": "58ufpQsJ1DS5kq4hhzQDiI"
   },
   {
    "id": "6J84szYCnMfzEcvIcfWMFL",
@@ -1701,7 +1811,8 @@
     "Count on Me",
     "Talking to the Moon"
    ],
-   "seconds": 2526
+   "seconds": 2526,
+   "group": "6J84szYCnMfzEcvIcfWMFL"
   },
   {
    "id": "4UZ0792AClQ9vo3d74x9fY",
@@ -1715,7 +1826,8 @@
    "songs": [
     "Drop The Game"
    ],
-   "seconds": 7381
+   "seconds": 7381,
+   "group": "4UZ0792AClQ9vo3d74x9fY"
   },
   {
    "id": "2ytxqdwQ0Hn9JeQmcIWHuh",
@@ -1729,7 +1841,8 @@
    "songs": [
     "Talk Is Cheap"
    ],
-   "seconds": 3090
+   "seconds": 3090,
+   "group": "2ytxqdwQ0Hn9JeQmcIWHuh"
   },
   {
    "id": "4kmaiZUCt3HFQWLM7J7kds",
@@ -1743,7 +1856,8 @@
    "songs": [
     "No Diggity"
    ],
-   "seconds": 3176
+   "seconds": 3176,
+   "group": "4kmaiZUCt3HFQWLM7J7kds"
   },
   {
    "id": "6HgUpYksC2nqd3rDlLjqgs",
@@ -1757,7 +1871,8 @@
    "songs": [
     "How We Operate"
    ],
-   "seconds": 3104
+   "seconds": 3104,
+   "group": "6HgUpYksC2nqd3rDlLjqgs"
   },
   {
    "id": "3YHf7ooFmrTOsp4jPM3aFj",
@@ -1771,7 +1886,8 @@
    "songs": [
     "All I Want"
    ],
-   "seconds": 3352
+   "seconds": 3352,
+   "group": "3YHf7ooFmrTOsp4jPM3aFj"
   },
   {
    "id": "1khk55bAWAqPyGVfYJQVP9",
@@ -1785,7 +1901,8 @@
    "songs": [
     "Reckoning Song (One Day)"
    ],
-   "seconds": 3301
+   "seconds": 3301,
+   "group": "1khk55bAWAqPyGVfYJQVP9"
   },
   {
    "id": "0bUTHlWbkSQysoM3VsWldT",
@@ -1800,7 +1917,8 @@
     "Feel Good Inc.",
     "Kids with Guns"
    ],
-   "seconds": 3103
+   "seconds": 3103,
+   "group": "0bUTHlWbkSQysoM3VsWldT"
   },
   {
    "id": "3cpEWPCmAkKQunvQmeYP1t",
@@ -1814,9 +1932,11 @@
    "songs": [
     "Me enamoras con todo",
     "Mexicana",
+    "Mexicana (feat. Lila Downs)",
     "Te matan los celos"
    ],
-   "seconds": 2524
+   "seconds": 2524,
+   "group": "3cpEWPCmAkKQunvQmeYP1t"
   },
   {
    "id": "7Kmmw7Z5D2UD5MVwdm10sT",
@@ -1834,7 +1954,8 @@
     "Call It What You Want",
     "Waste"
    ],
-   "seconds": 2303
+   "seconds": 2303,
+   "group": "7Kmmw7Z5D2UD5MVwdm10sT"
   },
   {
    "id": "6deiaArbeoqp1xPEGdEKp1",
@@ -1851,21 +1972,8 @@
     "Dosed",
     "Universally Speaking"
    ],
-   "seconds": 4592
-  },
-  {
-   "id": "2XjPrtaAqvviEgSHCpzHmM",
-   "name": "Smoke + Mirrors (Deluxe)",
-   "artists": [
-    "Imagine Dragons"
-   ],
-   "year": "2015",
-   "image": "https://i.scdn.co/image/ab67616d0000b273cea3c0a6ba24064406105564",
-   "url": "https://open.spotify.com/album/2XjPrtaAqvviEgSHCpzHmM",
-   "songs": [
-    "Shots - Broiler Remix"
-   ],
-   "seconds": 4212
+   "seconds": 4592,
+   "group": "1jWKVgnHX8nwR551hQNx5K"
   },
   {
    "id": "1cyi0yclphC7UPuKm7ZP9S",
@@ -1879,7 +1987,8 @@
    "songs": [
     "Vecina"
    ],
-   "seconds": 2549
+   "seconds": 2549,
+   "group": "1cyi0yclphC7UPuKm7ZP9S"
   },
   {
    "id": "3HNhcC2akXPyytTa5gsAVv",
@@ -1892,9 +2001,11 @@
    "url": "https://open.spotify.com/album/3HNhcC2akXPyytTa5gsAVv",
    "songs": [
     "Brazos De Sol",
-    "Vienes Con El Sol"
+    "Vienes Con El Sol",
+    "Brazos de Sol"
    ],
-   "seconds": 3991
+   "seconds": 3991,
+   "group": "3HNhcC2akXPyytTa5gsAVv"
   },
   {
    "id": "2Hv4CIt50qRTakHeBsTpNf",
@@ -1908,7 +2019,8 @@
    "songs": [
     "Corazón - + Hidden Track 'Mendrugo'"
    ],
-   "seconds": 3482
+   "seconds": 3482,
+   "group": "2Hv4CIt50qRTakHeBsTpNf"
   },
   {
    "id": "6DWTUm9rifRvl5PTyNMwqV",
@@ -1922,7 +2034,8 @@
    "songs": [
     "Hasta la Raíz"
    ],
-   "seconds": 3156
+   "seconds": 3156,
+   "group": "6DWTUm9rifRvl5PTyNMwqV"
   },
   {
    "id": "30SqWqmSU9ww0Btb1j4rpU",
@@ -1936,7 +2049,8 @@
    "songs": [
     "Let's Hurt Tonight"
    ],
-   "seconds": 3636
+   "seconds": 3636,
+   "group": "30SqWqmSU9ww0Btb1j4rpU"
   },
   {
    "id": "2uCT4mOiWKmQpfoBVhBS8z",
@@ -1952,7 +2066,8 @@
     "Miedo (with Lenine)",
     "Pasaba Por Aquí (with Luis Eduardo Aute) - En Directo"
    ],
-   "seconds": 10208
+   "seconds": 10208,
+   "group": "2uCT4mOiWKmQpfoBVhBS8z"
   },
   {
    "id": "1jbwmJmXHFMrrnzcvLjy6G",
@@ -1966,7 +2081,8 @@
    "songs": [
     "Verde Más Allá"
    ],
-   "seconds": 2353
+   "seconds": 2353,
+   "group": "1jbwmJmXHFMrrnzcvLjy6G"
   },
   {
    "id": "3XAyEMflBDI6eDhnKikvbd",
@@ -1980,7 +2096,8 @@
    "songs": [
     "Dodo"
    ],
-   "seconds": 2516
+   "seconds": 2516,
+   "group": "3XAyEMflBDI6eDhnKikvbd"
   },
   {
    "id": "6vYZRdVMaV1EZ8zwKGH1oL",
@@ -1994,7 +2111,8 @@
    "songs": [
     "Judith"
    ],
-   "seconds": 2893
+   "seconds": 2893,
+   "group": "6vYZRdVMaV1EZ8zwKGH1oL"
   },
   {
    "id": "3xFSl9lIRaYXIYkIn3OIl9",
@@ -2008,7 +2126,8 @@
    "songs": [
     "Chandelier"
    ],
-   "seconds": 2919
+   "seconds": 2919,
+   "group": "3xFSl9lIRaYXIYkIn3OIl9"
   },
   {
    "id": "5ps3FwS0qGdRCvXop8q9vn",
@@ -2023,7 +2142,8 @@
     "Safe And Sound",
     "Kangaroo Court"
    ],
-   "seconds": 3682
+   "seconds": 3682,
+   "group": "3rLiil7YBkoGXLrFtwYcju"
   },
   {
    "id": "5z6klKjs2g01A8z5sHljhQ",
@@ -2038,7 +2158,8 @@
     "At Home",
     "Follow"
    ],
-   "seconds": 3715
+   "seconds": 3715,
+   "group": "23XRO9y7lYZepyAiD4RUSq"
   },
   {
    "id": "4BsVjS7EwiLAF0vnVBVFu9",
@@ -2050,9 +2171,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b273238b22ffd954c158144d9145",
    "url": "https://open.spotify.com/album/4BsVjS7EwiLAF0vnVBVFu9",
    "songs": [
-    "Love Natural"
+    "Love Natural",
+    "Bridge of Bones"
    ],
-   "seconds": 2268
+   "seconds": 2268,
+   "group": "4BsVjS7EwiLAF0vnVBVFu9"
   },
   {
    "id": "0Ryad9M1b1MxSjgXdHCh1c",
@@ -2066,7 +2189,8 @@
    "songs": [
     "Nuvole Bianche"
    ],
-   "seconds": 4142
+   "seconds": 4142,
+   "group": "0Ryad9M1b1MxSjgXdHCh1c"
   },
   {
    "id": "52EWfxMzxU6YoAzIX2naUV",
@@ -2080,7 +2204,8 @@
    "songs": [
     "Somos aire"
    ],
-   "seconds": 3874
+   "seconds": 3874,
+   "group": "52EWfxMzxU6YoAzIX2naUV"
   },
   {
    "id": "0dAvbhVYW3bGnLldQ8Nvwn",
@@ -2094,7 +2219,8 @@
    "songs": [
     "Centuries"
    ],
-   "seconds": 2347
+   "seconds": 2347,
+   "group": "0dAvbhVYW3bGnLldQ8Nvwn"
   },
   {
    "id": "4oYCLNTit3Uq6uStaJG21G",
@@ -2108,7 +2234,8 @@
    "songs": [
     "Lucha De Gigantes"
    ],
-   "seconds": 2413
+   "seconds": 2413,
+   "group": "5Vi36yUkwFN0QhdoIItpCR"
   },
   {
    "id": "5uJpRBjDkTW8wtwDimhkdm",
@@ -2123,7 +2250,8 @@
     "The Boxer",
     "I Will Wait"
    ],
-   "seconds": 3818
+   "seconds": 3818,
+   "group": "7rlmzEQPP4b6T6OhlnTdRn"
   },
   {
    "id": "1qVdFG0aW6FxFIoq7vetC5",
@@ -2137,7 +2265,8 @@
    "songs": [
     "Clika Nostra (feat. Santa Estilo)"
    ],
-   "seconds": 2440
+   "seconds": 2440,
+   "group": "1qVdFG0aW6FxFIoq7vetC5"
   },
   {
    "id": "5aLIm5xrN5UxUZOXbjyrrx",
@@ -2153,7 +2282,8 @@
     "Duerme conmigo",
     "Agua"
    ],
-   "seconds": 3488
+   "seconds": 3488,
+   "group": "5aLIm5xrN5UxUZOXbjyrrx"
   },
   {
    "id": "032As7g2w1djuAaEm3VH4Y",
@@ -2172,7 +2302,8 @@
     "Depende",
     "Bonito"
    ],
-   "seconds": 3966
+   "seconds": 3966,
+   "group": "032As7g2w1djuAaEm3VH4Y"
   },
   {
    "id": "3EqJvDO7ffoOKV9da4LvSq",
@@ -2186,7 +2317,8 @@
    "songs": [
     "19-2000 - Soulchild Remix"
    ],
-   "seconds": 3374
+   "seconds": 3374,
+   "group": "3EqJvDO7ffoOKV9da4LvSq"
   },
   {
    "id": "5WGN7m5BK95GiuafTCL3JQ",
@@ -2202,7 +2334,8 @@
     "Mi Primer Millon",
     "Pasos de Gigantes"
    ],
-   "seconds": 3667
+   "seconds": 3667,
+   "group": "5WGN7m5BK95GiuafTCL3JQ"
   },
   {
    "id": "3oCkAeDln8FVoGIOvf9TNl",
@@ -2216,21 +2349,8 @@
    "songs": [
     "Tabaco y Chanel"
    ],
-   "seconds": 2857
-  },
-  {
-   "id": "5rAS8AGeGH1KBxcjTzpVKA",
-   "name": "First Impressions Of Earth",
-   "artists": [
-    "The Strokes"
-   ],
-   "year": "2005",
-   "image": "https://i.scdn.co/image/ab67616d0000b2739ce174dc6c2c92a8cadc4c9c",
-   "url": "https://open.spotify.com/album/5rAS8AGeGH1KBxcjTzpVKA",
-   "songs": [
-    "Heart In a Cage"
-   ],
-   "seconds": 3123
+   "seconds": 2857,
+   "group": "3oCkAeDln8FVoGIOvf9TNl"
   },
   {
    "id": "1xT9MvDzHT1zjQuo6gvuu0",
@@ -2244,7 +2364,8 @@
    "songs": [
     "Todas Mueren por Mí - En Vivo"
    ],
-   "seconds": 5803
+   "seconds": 5803,
+   "group": "1xT9MvDzHT1zjQuo6gvuu0"
   },
   {
    "id": "54FlK7Mg1gDyCpE11R0hEs",
@@ -2256,9 +2377,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b273eefa320070f635caea1e4742",
    "url": "https://open.spotify.com/album/54FlK7Mg1gDyCpE11R0hEs",
    "songs": [
-    "Lobo Hombre en París"
+    "Lobo Hombre en París",
+    "Amor Depredador"
    ],
-   "seconds": 3919
+   "seconds": 3919,
+   "group": "54FlK7Mg1gDyCpE11R0hEs"
   },
   {
    "id": "0vBlWMhZ9cDeFoAwKSQxzO",
@@ -2272,7 +2395,8 @@
    "songs": [
     "Amor Depredador"
    ],
-   "seconds": 3210
+   "seconds": 3210,
+   "group": "0vBlWMhZ9cDeFoAwKSQxzO"
   },
   {
    "id": "4qiTo13u4cRnHCAjxpQpzW",
@@ -2287,7 +2411,8 @@
     "Hipnotízame",
     "El Microbito"
    ],
-   "seconds": 4628
+   "seconds": 4628,
+   "group": "4qiTo13u4cRnHCAjxpQpzW"
   },
   {
    "id": "39wqLGypRpdofU9MEM9bl1",
@@ -2301,7 +2426,8 @@
    "songs": [
     "Vivo"
    ],
-   "seconds": 9839
+   "seconds": 9839,
+   "group": "39wqLGypRpdofU9MEM9bl1"
   },
   {
    "id": "7FWURYlOLSEouiW90KvJAK",
@@ -2315,7 +2441,8 @@
    "songs": [
     "Eres"
    ],
-   "seconds": 3193
+   "seconds": 3193,
+   "group": "7FWURYlOLSEouiW90KvJAK"
   },
   {
    "id": "1IXpuLm1vdOTdgKanYs4UL",
@@ -2331,7 +2458,8 @@
     "A la Pirámide del Sol (en vivo)",
     "Tu Prisa (en vivo)"
    ],
-   "seconds": 3009
+   "seconds": 3009,
+   "group": "1IXpuLm1vdOTdgKanYs4UL"
   },
   {
    "id": "7HvlcB4kC6QivGpN7ABaVP",
@@ -2347,7 +2475,8 @@
     "Vía Láctea",
     "Poli Love"
    ],
-   "seconds": 2421
+   "seconds": 2421,
+   "group": "7HvlcB4kC6QivGpN7ABaVP"
   },
   {
    "id": "23uwbUFc7rUihkqMzlZvrs",
@@ -2362,7 +2491,8 @@
    "songs": [
     "No Me Pidas Ser Tu Amigo"
    ],
-   "seconds": 3366
+   "seconds": 3366,
+   "group": "23uwbUFc7rUihkqMzlZvrs"
   },
   {
    "id": "2Zh22bHXvqHRxGI7a5xfRX",
@@ -2374,9 +2504,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b27387c4f6ac13f20dd4b985d4a5",
    "url": "https://open.spotify.com/album/2Zh22bHXvqHRxGI7a5xfRX",
    "songs": [
+    "Frío",
     "Frio (feat. Antonio Orozco)"
    ],
-   "seconds": 2984
+   "seconds": 2984,
+   "group": "2Zh22bHXvqHRxGI7a5xfRX"
   },
   {
    "id": "5mq8VTN0b6nvuVnJn0k6dz",
@@ -2390,7 +2522,8 @@
    "songs": [
     "One"
    ],
-   "seconds": 2520
+   "seconds": 2520,
+   "group": "5mq8VTN0b6nvuVnJn0k6dz"
   },
   {
    "id": "0uRFz92JmjwDbZbB7hEBIr",
@@ -2404,7 +2537,8 @@
    "songs": [
     "Everybody Talks"
    ],
-   "seconds": 2795
+   "seconds": 2795,
+   "group": "0uRFz92JmjwDbZbB7hEBIr"
   },
   {
    "id": "6oZ5iDw1LT25svEK0g5OqT",
@@ -2418,7 +2552,8 @@
    "songs": [
     "Animal"
    ],
-   "seconds": 2867
+   "seconds": 2867,
+   "group": "6oZ5iDw1LT25svEK0g5OqT"
   },
   {
    "id": "7eyQXxuf2nGj9d2367Gi5f",
@@ -2432,9 +2567,12 @@
    "songs": [
     "15 Step",
     "Nude",
-    "Reckoner"
+    "Reckoner",
+    "House Of Cards",
+    "Weird Fishes / Arpeggi"
    ],
-   "seconds": 2559
+   "seconds": 2559,
+   "group": "7eyQXxuf2nGj9d2367Gi5f"
   },
   {
    "id": "7dxKtc08dYeRVHt3p9CZJn",
@@ -2446,9 +2584,12 @@
    "image": "https://i.scdn.co/image/ab67616d0000b273adb1732fa8d44b8eb2f6c0bf",
    "url": "https://open.spotify.com/album/7dxKtc08dYeRVHt3p9CZJn",
    "songs": [
-    "Karma Police"
+    "Karma Police",
+    "No Surprises",
+    "Let Down"
    ],
-   "seconds": 3221
+   "seconds": 3221,
+   "group": "7dxKtc08dYeRVHt3p9CZJn"
   },
   {
    "id": "4XHIjbhjRmqWlosjj5rqSI",
@@ -2462,7 +2603,8 @@
    "songs": [
     "CASTLE OF GLASS"
    ],
-   "seconds": 2223
+   "seconds": 2223,
+   "group": "4XHIjbhjRmqWlosjj5rqSI"
   },
   {
    "id": "1fqibtpI0bwD73uQGeEnhn",
@@ -2476,7 +2618,8 @@
    "songs": [
     "New Divide"
    ],
-   "seconds": 3119
+   "seconds": 3119,
+   "group": "1fqibtpI0bwD73uQGeEnhn"
   },
   {
    "id": "2tlTBLz2w52rpGCLBGyGw6",
@@ -2492,7 +2635,8 @@
     "Bleed It Out",
     "No More Sorrow"
    ],
-   "seconds": 2609
+   "seconds": 2609,
+   "group": "2tlTBLz2w52rpGCLBGyGw6"
   },
   {
    "id": "5uvXx5ZQswNRFCdHR521YZ",
@@ -2506,7 +2650,8 @@
    "songs": [
     "Waiting for the End"
    ],
-   "seconds": 2870
+   "seconds": 2870,
+   "group": "5uvXx5ZQswNRFCdHR521YZ"
   },
   {
    "id": "6XugH9v6xehP63bivW8zAn",
@@ -2520,7 +2665,8 @@
    "songs": [
     "La Que Me Gusta"
    ],
-   "seconds": 2873
+   "seconds": 2873,
+   "group": "6XugH9v6xehP63bivW8zAn"
   },
   {
    "id": "4ZqTPNXU0MBXs2iCcwjOPe",
@@ -2534,7 +2680,8 @@
    "songs": [
     "The Middle"
    ],
-   "seconds": 7836
+   "seconds": 7836,
+   "group": "0UJhhj5bn5AGAjryFnhueP"
   },
   {
    "id": "1SrvubPy1Dg2BWJyTMcmgr",
@@ -2548,7 +2695,8 @@
    "songs": [
     "Prayer in C - Robin Schulz Radio Edit"
    ],
-   "seconds": 4018
+   "seconds": 4018,
+   "group": "1SrvubPy1Dg2BWJyTMcmgr"
   },
   {
    "id": "3R2TVCA5PMMnEcVlIOCMEG",
@@ -2562,7 +2710,8 @@
    "songs": [
     "Lost on You"
    ],
-   "seconds": 2229
+   "seconds": 2229,
+   "group": "3R2TVCA5PMMnEcVlIOCMEG"
   },
   {
    "id": "6MeLjaERUK6fJ58YZpPlyC",
@@ -2576,7 +2725,8 @@
    "songs": [
     "A la Orilla de la Chimenea"
    ],
-   "seconds": 2870
+   "seconds": 2870,
+   "group": "6MeLjaERUK6fJ58YZpPlyC"
   },
   {
    "id": "7FuhgOwoael0fsg9zjZxog",
@@ -2590,7 +2740,8 @@
    "songs": [
     "I Can't Stay"
    ],
-   "seconds": 2501
+   "seconds": 2501,
+   "group": "7FuhgOwoael0fsg9zjZxog"
   },
   {
    "id": "2m7L60M210ABzrY9GLyBPZ",
@@ -2605,7 +2756,8 @@
     "Starlight - Live at Rome Olympic Stadium",
     "Madness - Live at Rome Olympic Stadium"
    ],
-   "seconds": 3878
+   "seconds": 3878,
+   "group": "2m7L60M210ABzrY9GLyBPZ"
   },
   {
    "id": "2HXRjHb2nbLJa5r70FBtdT",
@@ -2619,7 +2771,8 @@
    "songs": [
     "Traidora (feat. Marc Anthony) - Salsa Version"
    ],
-   "seconds": 2830
+   "seconds": 2830,
+   "group": "2HXRjHb2nbLJa5r70FBtdT"
   },
   {
    "id": "3mRSojK9iE4F9YtmRjwKyl",
@@ -2634,7 +2787,8 @@
     "Fotografía",
     "A Dios Le Pido"
    ],
-   "seconds": 2559
+   "seconds": 2559,
+   "group": "3mRSojK9iE4F9YtmRjwKyl"
   },
   {
    "id": "4PbvuHe58nrbPLRHnq8n6K",
@@ -2648,7 +2802,8 @@
    "songs": [
     "I've Just Seen A Face - From \"Across The Universe\" Soundtrack"
    ],
-   "seconds": 3128
+   "seconds": 3128,
+   "group": "4PbvuHe58nrbPLRHnq8n6K"
   },
   {
    "id": "5AgsHUKFxr5DApRCmulIqJ",
@@ -2662,7 +2817,8 @@
    "songs": [
     "Immigrants (We Get The Job Done)"
    ],
-   "seconds": 4433
+   "seconds": 4433,
+   "group": "5AgsHUKFxr5DApRCmulIqJ"
   },
   {
    "id": "1V0QB1RJovZkfLRiBFEeCx",
@@ -2678,7 +2834,8 @@
     "Here We Kum",
     "Frijolero"
    ],
-   "seconds": 2285
+   "seconds": 2285,
+   "group": "1V0QB1RJovZkfLRiBFEeCx"
   },
   {
    "id": "5IdHICj3ET8Pi2IwjNCPNK",
@@ -2692,7 +2849,8 @@
    "songs": [
     "Amateur (Rock Me Amadeus)"
    ],
-   "seconds": 2665
+   "seconds": 2665,
+   "group": "5IdHICj3ET8Pi2IwjNCPNK"
   },
   {
    "id": "5SFYZd4HOnlHunnO1z6y09",
@@ -2706,7 +2864,8 @@
    "songs": [
     "Gimme Tha Power"
    ],
-   "seconds": 2684
+   "seconds": 2684,
+   "group": "5SFYZd4HOnlHunnO1z6y09"
   },
   {
    "id": "6reTSIf5MoBco62rk8T7Q1",
@@ -2720,7 +2879,8 @@
    "songs": [
     "Under Pressure - Remastered 2011"
    ],
-   "seconds": 2614
+   "seconds": 2614,
+   "group": "4pFJdTvK6zNyWOO3W1hkGd"
   },
   {
    "id": "6hQ0chAbM8I4x9h2dSWu6z",
@@ -2732,9 +2892,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b273a5ce876db4a2ef4e85a3b24d",
    "url": "https://open.spotify.com/album/6hQ0chAbM8I4x9h2dSWu6z",
    "songs": [
-    "Yofo"
+    "Yofo",
+    "Blame Me"
    ],
-   "seconds": 3444
+   "seconds": 3444,
+   "group": "6hQ0chAbM8I4x9h2dSWu6z"
   },
   {
    "id": "4SkNTRn1fYZaEhQtD0P8ng",
@@ -2749,9 +2911,11 @@
     "Un Día de Sol",
     "Orden Natural",
     "Díganle Que Estoy Bien",
+    "Díganle Que Estoy Bien (En Vivo)",
     "Empieza Hoy"
    ],
-   "seconds": 2502
+   "seconds": 2502,
+   "group": "4SkNTRn1fYZaEhQtD0P8ng"
   },
   {
    "id": "4KJCTmDLyr3AYJAN8dBaKo",
@@ -2765,7 +2929,8 @@
    "songs": [
     "Wavin' Flag"
    ],
-   "seconds": 3553
+   "seconds": 3553,
+   "group": "4KJCTmDLyr3AYJAN8dBaKo"
   },
   {
    "id": "28LFs98k7cTrXm2S2Xc65I",
@@ -2779,7 +2944,8 @@
    "songs": [
     "Me gusta como eres (feat. Niccolo Fabi) - En italiano"
    ],
-   "seconds": 2595
+   "seconds": 2595,
+   "group": "28LFs98k7cTrXm2S2Xc65I"
   },
   {
    "id": "1Ub9NlTSBT3Z64IzckKxMn",
@@ -2793,7 +2959,8 @@
    "songs": [
     "Suicidas"
    ],
-   "seconds": 2595
+   "seconds": 2595,
+   "group": "1Ub9NlTSBT3Z64IzckKxMn"
   },
   {
    "id": "0QkgxSUu5hG0yMkmVXBFKi",
@@ -2807,7 +2974,8 @@
    "songs": [
     "El Duelo (feat. Ely Guerra)"
    ],
-   "seconds": 4224
+   "seconds": 4224,
+   "group": "0QkgxSUu5hG0yMkmVXBFKi"
   },
   {
    "id": "5UOaWbjsdPwjPzzQbCGPWl",
@@ -2822,7 +2990,8 @@
     "Crystal Express",
     "All We Need"
    ],
-   "seconds": 3470
+   "seconds": 3470,
+   "group": "5UOaWbjsdPwjPzzQbCGPWl"
   },
   {
    "id": "3I9Z1nDCL4E0cP62flcbI5",
@@ -2836,7 +3005,8 @@
    "songs": [
     "Sweet Child O' Mine"
    ],
-   "seconds": 3209
+   "seconds": 3209,
+   "group": "3I9Z1nDCL4E0cP62flcbI5"
   },
   {
    "id": "0kJbDT8VGMScK8YDzNNvzV",
@@ -2851,7 +3021,8 @@
     "I'm Not The Only One",
     "Stay With Me"
    ],
-   "seconds": 4984
+   "seconds": 4984,
+   "group": "08jWgM4vSkTose4blKBWov"
   },
   {
    "id": "0RHX9XECH8IVI3LNgWDpmQ",
@@ -2867,7 +3038,8 @@
     "The Scientist",
     "Green Eyes"
    ],
-   "seconds": 3251
+   "seconds": 3251,
+   "group": "0RHX9XECH8IVI3LNgWDpmQ"
   },
   {
    "id": "4wuYQ9hyF1EGmrtjMpgpE9",
@@ -2881,7 +3053,8 @@
    "songs": [
     "Home Is Such A Lonely Place"
    ],
-   "seconds": 2565
+   "seconds": 2565,
+   "group": "4wuYQ9hyF1EGmrtjMpgpE9"
   },
   {
    "id": "2r2r78NE05YjyHyVbVgqFn",
@@ -2902,7 +3075,8 @@
     "Semi-Automatic",
     "Ode to Sleep"
    ],
-   "seconds": 2869
+   "seconds": 2869,
+   "group": "2r2r78NE05YjyHyVbVgqFn"
   },
   {
    "id": "06yabywxOqRzRxqRn5dnGP",
@@ -2916,7 +3090,8 @@
    "songs": [
     "When We Were Younger"
    ],
-   "seconds": 4534
+   "seconds": 4534,
+   "group": "06yabywxOqRzRxqRn5dnGP"
   },
   {
    "id": "44Ig8dzqOkvkGDzaUof9lK",
@@ -2930,7 +3105,8 @@
    "songs": [
     "Stairway to Heaven - Remaster"
    ],
-   "seconds": 4990
+   "seconds": 4990,
+   "group": "44Ig8dzqOkvkGDzaUof9lK"
   },
   {
    "id": "0FZK97MXMm5mUQ8mtudjuK",
@@ -2945,7 +3121,8 @@
     "Welcome to the Black Parade",
     "Teenagers"
    ],
-   "seconds": 3117
+   "seconds": 3117,
+   "group": "0FZK97MXMm5mUQ8mtudjuK"
   },
   {
    "id": "78bpIziExqiI9qztvNFlQu",
@@ -2964,7 +3141,8 @@
     "Knee Socks",
     "I Wanna Be Yours"
    ],
-   "seconds": 2508
+   "seconds": 2508,
+   "group": "78bpIziExqiI9qztvNFlQu"
   },
   {
    "id": "4vUKONViRdI5YPPDx8mnzW",
@@ -2976,9 +3154,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b273b38e53ebc43deea5ae7e57fd",
    "url": "https://open.spotify.com/album/4vUKONViRdI5YPPDx8mnzW",
    "songs": [
-    "Black Treacle"
+    "Black Treacle",
+    "She's Thunderstorms"
    ],
-   "seconds": 2409
+   "seconds": 2409,
+   "group": "4vUKONViRdI5YPPDx8mnzW"
   },
   {
    "id": "1pIsO2loAVLYcjjSVv6oVe",
@@ -2990,9 +3170,12 @@
    "image": "https://i.scdn.co/image/ab67616d0000b273bf3bbde54aa69bafa90c6db6",
    "url": "https://open.spotify.com/album/1pIsO2loAVLYcjjSVv6oVe",
    "songs": [
-    "Feathery - Bonus track"
+    "Feathery - Bonus track",
+    "Stolen Dance",
+    "Down By The River"
    ],
-   "seconds": 3373
+   "seconds": 3373,
+   "group": "1pIsO2loAVLYcjjSVv6oVe"
   },
   {
    "id": "6NWYmlHxAME5KXtxrTlUxW",
@@ -3006,7 +3189,8 @@
    "songs": [
     "Ho Hey"
    ],
-   "seconds": 2537
+   "seconds": 2537,
+   "group": "6NWYmlHxAME5KXtxrTlUxW"
   },
   {
    "id": "2ww7MYrkExsljnKhcINDse",
@@ -3021,21 +3205,8 @@
     "Cough Syrup",
     "Garands"
    ],
-   "seconds": 3853
-  },
-  {
-   "id": "6ecx4OFG0nlUMqAi9OXQER",
-   "name": "Smoke + Mirrors (Deluxe)",
-   "artists": [
-    "Imagine Dragons"
-   ],
-   "year": "2015",
-   "image": "https://i.scdn.co/image/ab67616d0000b2731551c93dfa33ea4f30ef4eea",
-   "url": "https://open.spotify.com/album/6ecx4OFG0nlUMqAi9OXQER",
-   "songs": [
-    "Monster"
-   ],
-   "seconds": 4792
+   "seconds": 3853,
+   "group": "0SjFStr64eylrHDmZHGiTI"
   },
   {
    "id": "4xkM0BwLM9H2IUcbYzpcBI",
@@ -3049,7 +3220,8 @@
    "songs": [
     "Sweater Weather"
    ],
-   "seconds": 2754
+   "seconds": 2754,
+   "group": "4xkM0BwLM9H2IUcbYzpcBI"
   },
   {
    "id": "6bcl0ZcPJWJtyuRsOyhvfv",
@@ -3063,7 +3235,8 @@
    "songs": [
     "Take Me To Church"
    ],
-   "seconds": 6447
+   "seconds": 6447,
+   "group": "0Uv83rRhY5QvHKkQoULRKk"
   },
   {
    "id": "22cFcAQkydpTzeSKQZEKv0",
@@ -3075,9 +3248,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b2737a24cc2f17550f5257409689",
    "url": "https://open.spotify.com/album/22cFcAQkydpTzeSKQZEKv0",
    "songs": [
-    "The Truth"
+    "The Truth",
+    "Nevermind - alternate version"
    ],
-   "seconds": 2885
+   "seconds": 2885,
+   "group": "22cFcAQkydpTzeSKQZEKv0"
   },
   {
    "id": "0ZQkueWQFxBrCsfkhxc4jg",
@@ -3091,7 +3266,8 @@
    "songs": [
     "Lost Stars"
    ],
-   "seconds": 3287
+   "seconds": 3287,
+   "group": "0ZQkueWQFxBrCsfkhxc4jg"
   },
   {
    "id": "7LM15kMdKV1ZD0tg6HUOU4",
@@ -3105,7 +3281,8 @@
    "songs": [
     "Historias De Danzón Y De Arrabal"
    ],
-   "seconds": 4346
+   "seconds": 4346,
+   "group": "7LM15kMdKV1ZD0tg6HUOU4"
   },
   {
    "id": "1oQef7548sivCtMQwK8Wgo",
@@ -3119,7 +3296,8 @@
    "songs": [
     "Rapper's Delight - Single Version"
    ],
-   "seconds": 4265
+   "seconds": 4265,
+   "group": "1oQef7548sivCtMQwK8Wgo"
   },
   {
    "id": "23vvbZr2ZDlJNZftFAkCqO",
@@ -3133,7 +3311,8 @@
    "songs": [
     "Paper Planes"
    ],
-   "seconds": 2650
+   "seconds": 2650,
+   "group": "23vvbZr2ZDlJNZftFAkCqO"
   },
   {
    "id": "4lIYlrkQAGs8PtFP9TNUuA",
@@ -3147,7 +3326,8 @@
    "songs": [
     "Alármala de Tos"
    ],
-   "seconds": 4354
+   "seconds": 4354,
+   "group": "4lIYlrkQAGs8PtFP9TNUuA"
   },
   {
    "id": "1WrK98KVZxkTgMD3a9Kpnl",
@@ -3161,7 +3341,8 @@
    "songs": [
     "No Dejes Que..."
    ],
-   "seconds": 3485
+   "seconds": 3485,
+   "group": "1WrK98KVZxkTgMD3a9Kpnl"
   },
   {
    "id": "4AEC0I9jBUcU2DQh3a2dvB",
@@ -3175,7 +3356,8 @@
    "songs": [
     "Díganle Que Estoy Bien (En Vivo)"
    ],
-   "seconds": 3100
+   "seconds": 3100,
+   "group": "4AEC0I9jBUcU2DQh3a2dvB"
   },
   {
    "id": "6gP43nc1TERrt82D2IgUfK",
@@ -3189,7 +3371,8 @@
    "songs": [
     "Playa Maguadel"
    ],
-   "seconds": 3078
+   "seconds": 3078,
+   "group": "6gP43nc1TERrt82D2IgUfK"
   },
   {
    "id": "7CHqMkB9aYw8oM0FSkf2pX",
@@ -3204,7 +3387,8 @@
     "Hasta Que el Amor Nos Deje Descansar",
     "Isabel"
    ],
-   "seconds": 2660
+   "seconds": 2660,
+   "group": "7CHqMkB9aYw8oM0FSkf2pX"
   },
   {
    "id": "6yClcORh3xiP9Gg1aqbvZ9",
@@ -3216,11 +3400,13 @@
    "image": "https://i.scdn.co/image/ab67616d0000b2738c32bf008fb343633d07f23a",
    "url": "https://open.spotify.com/album/6yClcORh3xiP9Gg1aqbvZ9",
    "songs": [
+    "Desencuentro",
     "Guerra",
     "Apocalíptico",
     "Hijos del Cañaveral"
    ],
-   "seconds": 3256
+   "seconds": 3256,
+   "group": "6yClcORh3xiP9Gg1aqbvZ9"
   },
   {
    "id": "4cJ2Up81K2vyvPHFQ62iw1",
@@ -3232,9 +3418,16 @@
    "image": "https://i.scdn.co/image/ab67616d0000b2737c90791d13a5cbaf96728bbd",
    "url": "https://open.spotify.com/album/4cJ2Up81K2vyvPHFQ62iw1",
    "songs": [
-    "Under The Gun"
+    "Under The Gun",
+    "Sam's Town - Live From Abbey Road / 2006",
+    "Who Let You Go?",
+    "Where The White Boys Dance",
+    "Move Away",
+    "Leave The Bourbon On The Shelf",
+    "Romeo And Juliet"
    ],
-   "seconds": 4846
+   "seconds": 4846,
+   "group": "4cJ2Up81K2vyvPHFQ62iw1"
   },
   {
    "id": "0KcRX7YkMZ4mwOkEiCb9zw",
@@ -3247,9 +3440,11 @@
    "url": "https://open.spotify.com/album/0KcRX7YkMZ4mwOkEiCb9zw",
    "songs": [
     "Ain't No Rest For The Wicked - Original Version",
-    "In One Ear"
+    "In One Ear",
+    "Lotus"
    ],
-   "seconds": 2272
+   "seconds": 2272,
+   "group": "0KcRX7YkMZ4mwOkEiCb9zw"
   },
   {
    "id": "0nW0w37lrQ87k7PLZvC4qJ",
@@ -3264,7 +3459,8 @@
     "Sweetie Little Jean",
     "Too Late To Say Goodbye"
    ],
-   "seconds": 2298
+   "seconds": 2298,
+   "group": "0nW0w37lrQ87k7PLZvC4qJ"
   },
   {
    "id": "22MrOvzmcn6WeE4v6Ua6dj",
@@ -3278,7 +3474,8 @@
    "songs": [
     "I'm Yours - Live on HSN Live"
    ],
-   "seconds": 1924
+   "seconds": 1924,
+   "group": "22MrOvzmcn6WeE4v6Ua6dj"
   },
   {
    "id": "1zCNrbPpz5OLSr6mSpPdKm",
@@ -3292,7 +3489,8 @@
    "songs": [
     "Everlong - Acoustic Version"
    ],
-   "seconds": 3821
+   "seconds": 3821,
+   "group": "1zCNrbPpz5OLSr6mSpPdKm"
   },
   {
    "id": "1Fexc96V24RL17Ko9VXUOM",
@@ -3311,7 +3509,8 @@
     "A Car, a Torch, a Death",
     "Taxi Cab"
    ],
-   "seconds": 3723
+   "seconds": 3723,
+   "group": "1Fexc96V24RL17Ko9VXUOM"
   },
   {
    "id": "2hDiTEsKePTnDcvKEuLizk",
@@ -3325,7 +3524,8 @@
    "songs": [
     "Island In The Sun"
    ],
-   "seconds": 1714
+   "seconds": 1714,
+   "group": "2hDiTEsKePTnDcvKEuLizk"
   },
   {
    "id": "4EK8gtQfdVsmDTji7gBFlz",
@@ -3338,23 +3538,12 @@
    "url": "https://open.spotify.com/album/4EK8gtQfdVsmDTji7gBFlz",
    "songs": [
     "Hypocrite",
-    "Spiderhead"
+    "Spiderhead",
+    "Cigarette Daydreams",
+    "Telescope"
    ],
-   "seconds": 2248
-  },
-  {
-   "id": "2vs5faN4o8NCNXAGLh3HJf",
-   "name": "Cage The Elephant",
-   "artists": [
-    "Cage The Elephant"
-   ],
-   "year": "2009",
-   "image": "https://i.scdn.co/image/ab67616d0000b27373a791d2e07cdd53ba932f6e",
-   "url": "https://open.spotify.com/album/2vs5faN4o8NCNXAGLh3HJf",
-   "songs": [
-    "Lotus"
-   ],
-   "seconds": 2272
+   "seconds": 2248,
+   "group": "4EK8gtQfdVsmDTji7gBFlz"
   },
   {
    "id": "1m3pbwuYJS9OsXyM2jOSXE",
@@ -3366,9 +3555,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b273e9b49d2d238d2b6282740bb0",
    "url": "https://open.spotify.com/album/1m3pbwuYJS9OsXyM2jOSXE",
    "songs": [
-    "Just Another Girl"
+    "Just Another Girl",
+    "Mr. Brightside - Original Demo"
    ],
-   "seconds": 4584
+   "seconds": 4584,
+   "group": "1m3pbwuYJS9OsXyM2jOSXE"
   },
   {
    "id": "4PgleR09JVnm3zY1fW3XBA",
@@ -3382,7 +3573,8 @@
    "songs": [
     "That's What I Like"
    ],
-   "seconds": 2012
+   "seconds": 2012,
+   "group": "4PgleR09JVnm3zY1fW3XBA"
   },
   {
    "id": "7jfF8MMGc6d8jIoq4blJmU",
@@ -3396,7 +3588,8 @@
    "songs": [
     "Cualquier Otra Parte"
    ],
-   "seconds": 3241
+   "seconds": 3241,
+   "group": "7jfF8MMGc6d8jIoq4blJmU"
   },
   {
    "id": "2uh03RWTrpLJzfrrqeEIZs",
@@ -3410,7 +3603,8 @@
    "songs": [
     "Gwan Big up Urself"
    ],
-   "seconds": 2161
+   "seconds": 2161,
+   "group": "2uh03RWTrpLJzfrrqeEIZs"
   },
   {
    "id": "0NvirtaDCaZU5PAW1O5FDE",
@@ -3425,7 +3619,8 @@
     "Saturnz Barz (feat. Popcaan)",
     "Let Me Out (feat. Mavis Staples & Pusha T)"
    ],
-   "seconds": 4151
+   "seconds": 4151,
+   "group": "0NvirtaDCaZU5PAW1O5FDE"
   },
   {
    "id": "5jJGGsAztgUEXUHHZ2zrah",
@@ -3439,7 +3634,8 @@
    "songs": [
     "Revolving Doors"
    ],
-   "seconds": 2607
+   "seconds": 2607,
+   "group": "5jJGGsAztgUEXUHHZ2zrah"
   },
   {
    "id": "0PPhuZ2MvbSXqmmFPmYUoN",
@@ -3453,7 +3649,8 @@
    "songs": [
     "Maria"
    ],
-   "seconds": 3143
+   "seconds": 3143,
+   "group": "0PPhuZ2MvbSXqmmFPmYUoN"
   },
   {
    "id": "5fl6q7SKOuaO2tHXeTaZeV",
@@ -3467,7 +3664,8 @@
    "songs": [
     "Veneno - En Vivo"
    ],
-   "seconds": 3891
+   "seconds": 3891,
+   "group": "5fl6q7SKOuaO2tHXeTaZeV"
   },
   {
    "id": "7J0uECwRkAFLiZljgYFq1w",
@@ -3484,7 +3682,8 @@
     "White Iverson",
     "I Fall Apart"
    ],
-   "seconds": 3047
+   "seconds": 3047,
+   "group": "7J0uECwRkAFLiZljgYFq1w"
   },
   {
    "id": "0ixYgnczD7ao9weSDlPFnI",
@@ -3498,7 +3697,8 @@
    "songs": [
     "When I'm Down"
    ],
-   "seconds": 3265
+   "seconds": 3265,
+   "group": "0ixYgnczD7ao9weSDlPFnI"
   },
   {
    "id": "0HMBhqRyXcGC6JQ4W6c5eu",
@@ -3513,7 +3713,8 @@
     "Nearly Forgot My Broken Heart",
     "Before We Disappear"
    ],
-   "seconds": 3999
+   "seconds": 3999,
+   "group": "0HMBhqRyXcGC6JQ4W6c5eu"
   },
   {
    "id": "2uEf3r9i2bnxwJQsxQ0xQ7",
@@ -3530,7 +3731,8 @@
     "In Bloom",
     "Lithium"
    ],
-   "seconds": 8829
+   "seconds": 8829,
+   "group": "2uEf3r9i2bnxwJQsxQ0xQ7"
   },
   {
    "id": "7sxKTBQ32NQxpdbYecBmU0",
@@ -3544,7 +3746,8 @@
    "songs": [
     "Billie Jean"
    ],
-   "seconds": 3476
+   "seconds": 3476,
+   "group": "7sxKTBQ32NQxpdbYecBmU0"
   },
   {
    "id": "5n15QbYKbO4pzAV2Iy1VVG",
@@ -3556,9 +3759,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b27399616c97aa8c411c94b7ba92",
    "url": "https://open.spotify.com/album/5n15QbYKbO4pzAV2Iy1VVG",
    "songs": [
-    "Say It Ain't So"
+    "Say It Ain't So",
+    "Hash Pipe"
    ],
-   "seconds": 2478
+   "seconds": 2478,
+   "group": "5n15QbYKbO4pzAV2Iy1VVG"
   },
   {
    "id": "0rRNLpdA8nA8Sm8Fk490b9",
@@ -3572,7 +3777,8 @@
    "songs": [
     "Seven Nation Army"
    ],
-   "seconds": 2994
+   "seconds": 2994,
+   "group": "0rRNLpdA8nA8Sm8Fk490b9"
   },
   {
    "id": "0vi5ePiEHrGZJF7QhnDW2z",
@@ -3586,7 +3792,8 @@
    "songs": [
     "Take Me Out"
    ],
-   "seconds": 2333
+   "seconds": 2333,
+   "group": "0vi5ePiEHrGZJF7QhnDW2z"
   },
   {
    "id": "1XkGORuUX2QGOEIL4EbJKm",
@@ -3601,7 +3808,8 @@
     "Fluorescent Adolescent",
     "505"
    ],
-   "seconds": 2285
+   "seconds": 2285,
+   "group": "1XkGORuUX2QGOEIL4EbJKm"
   },
   {
    "id": "1Xsprdt1q9rOzTic7b9zYM",
@@ -3613,11 +3821,15 @@
    "image": "https://i.scdn.co/image/ab67616d0000b273ac9fea717d5b78e73cbd89f6",
    "url": "https://open.spotify.com/album/1Xsprdt1q9rOzTic7b9zYM",
    "songs": [
+    "Gravity - Live at the Nokia Theatre, Los Angeles, CA - December 2007",
+    "Belief - Live at the Nokia Theatre, Los Angeles, CA - December 2007",
+    "Slow Dancing in a Burning Room - Live at the Nokia Theatre, Los Angeles, CA - December 2007",
     "Stop This Train",
     "Slow Dancing in a Burning Room",
     "Gravity"
    ],
-   "seconds": 2998
+   "seconds": 2998,
+   "group": "1Xsprdt1q9rOzTic7b9zYM"
   },
   {
    "id": "3GoSlKTNcVOp1ZxE5OOXeN",
@@ -3631,7 +3843,8 @@
    "songs": [
     "De Música Ligera - Remasterizado 2007"
    ],
-   "seconds": 2483
+   "seconds": 2483,
+   "group": "3GoSlKTNcVOp1ZxE5OOXeN"
   },
   {
    "id": "4B5qYXMrvylc3S8obiE8mA",
@@ -3645,7 +3858,8 @@
    "songs": [
     "Caballo Místico"
    ],
-   "seconds": 2657
+   "seconds": 2657,
+   "group": "4B5qYXMrvylc3S8obiE8mA"
   },
   {
    "id": "5pGKourRchGRrTKZxgpNCD",
@@ -3659,7 +3873,8 @@
    "songs": [
     "Unthought Known"
    ],
-   "seconds": 2196
+   "seconds": 2196,
+   "group": "5pGKourRchGRrTKZxgpNCD"
   },
   {
    "id": "2NAAHuo84AYKBn4yG8uDR7",
@@ -3673,7 +3888,8 @@
    "songs": [
     "Amores Lejanos"
    ],
-   "seconds": 3247
+   "seconds": 3247,
+   "group": "2NAAHuo84AYKBn4yG8uDR7"
   },
   {
    "id": "6N0JGrQJEaJoDQxhgYCIK9",
@@ -3685,9 +3901,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b2734c296b09c417fff2e66d23f2",
    "url": "https://open.spotify.com/album/6N0JGrQJEaJoDQxhgYCIK9",
    "songs": [
-    "Lagunas Metales"
+    "Lagunas Metales",
+    "Oleré Y Oleré Y Oleré El UHU"
    ],
-   "seconds": 2012
+   "seconds": 2012,
+   "group": "6N0JGrQJEaJoDQxhgYCIK9"
   },
   {
    "id": "0uALwb1JRie4nQV68WWGvL",
@@ -3701,7 +3919,8 @@
    "songs": [
     "Dibi Dibi Rek"
    ],
-   "seconds": 4048
+   "seconds": 4048,
+   "group": "0uALwb1JRie4nQV68WWGvL"
   },
   {
    "id": "6TbkWAqqY4nhQnYim61IU8",
@@ -3715,7 +3934,8 @@
    "songs": [
     "Left Hand Free"
    ],
-   "seconds": 3334
+   "seconds": 3334,
+   "group": "6TbkWAqqY4nhQnYim61IU8"
   },
   {
    "id": "2b0uGoloqFon3MOn5xCfb7",
@@ -3729,7 +3949,8 @@
    "songs": [
     "¿Dónde Están Corazón?"
    ],
-   "seconds": 3458
+   "seconds": 3458,
+   "group": "2b0uGoloqFon3MOn5xCfb7"
   },
   {
    "id": "2wPnKggTK3QhYAKL7Q0vvr",
@@ -3743,7 +3964,8 @@
    "songs": [
     "SING"
    ],
-   "seconds": 3245
+   "seconds": 3245,
+   "group": "2wPnKggTK3QhYAKL7Q0vvr"
   },
   {
    "id": "3bbn9OMKVu7qQcpXAK3nk7",
@@ -3757,7 +3979,8 @@
    "songs": [
     "Telescope"
    ],
-   "seconds": 2528
+   "seconds": 2528,
+   "group": "3bbn9OMKVu7qQcpXAK3nk7"
   },
   {
    "id": "2ztHw9dejh6RIsHOrnBt2p",
@@ -3772,7 +3995,8 @@
     "Playa Girón",
     "Sueño de Una Noche de Verano"
    ],
-   "seconds": 3535
+   "seconds": 3535,
+   "group": "2ztHw9dejh6RIsHOrnBt2p"
   },
   {
    "id": "24Y4s36jGsk2qVkeK7aDEd",
@@ -3790,7 +4014,8 @@
     "No News",
     "Mad Within Reason"
    ],
-   "seconds": 1897
+   "seconds": 1897,
+   "group": "24Y4s36jGsk2qVkeK7aDEd"
   },
   {
    "id": "1ytMQrxm3N6aQyqx66jukS",
@@ -3804,7 +4029,8 @@
    "songs": [
     "Hailstorms"
    ],
-   "seconds": 2350
+   "seconds": 2350,
+   "group": "1ytMQrxm3N6aQyqx66jukS"
   },
   {
    "id": "7KkiEooAVT3EyqQMOl6Iah",
@@ -3819,7 +4045,8 @@
     "Little Lion Man",
     "The Cave"
    ],
-   "seconds": 2907
+   "seconds": 2907,
+   "group": "7KkiEooAVT3EyqQMOl6Iah"
   },
   {
    "id": "3VbJEJFDrbvb34ZN1KngSj",
@@ -3833,7 +4060,8 @@
    "songs": [
     "Gotten (feat. Adam Levine)"
    ],
-   "seconds": 4477
+   "seconds": 4477,
+   "group": "5PmI6apXuMeGZuv9ninvl6"
   },
   {
    "id": "1Kl3T9sWqxP9wiLYUYK7Jp",
@@ -3847,7 +4075,8 @@
    "songs": [
     "Porque Yo en el Amor Soy un Idiota"
    ],
-   "seconds": 2441
+   "seconds": 2441,
+   "group": "1Kl3T9sWqxP9wiLYUYK7Jp"
   },
   {
    "id": "6PmuEq2op3EMw1ZhCjjucB",
@@ -3862,7 +4091,8 @@
     "Bad Decisions",
     "Are We Ready? (Wreck)"
    ],
-   "seconds": 3934
+   "seconds": 3934,
+   "group": "6PmuEq2op3EMw1ZhCjjucB"
   },
   {
    "id": "4V1rQRHuuOWs8fXRl16OMY",
@@ -3874,9 +4104,13 @@
    "image": "https://i.scdn.co/image/ab67616d0000b273ed32602d9145d51e00a2df72",
    "url": "https://open.spotify.com/album/4V1rQRHuuOWs8fXRl16OMY",
    "songs": [
-    "Undercover Martyn"
+    "Undercover Martyn",
+    "I Can Talk",
+    "Cigarettes In The Theatre",
+    "What You Know - Live At Brixton"
    ],
-   "seconds": 1944
+   "seconds": 1944,
+   "group": "4V1rQRHuuOWs8fXRl16OMY"
   },
   {
    "id": "2FUsvD1bw53HGOjAg56vRD",
@@ -3890,7 +4124,8 @@
    "songs": [
     "A LIGHT THAT NEVER COMES"
    ],
-   "seconds": 4128
+   "seconds": 4128,
+   "group": "2FUsvD1bw53HGOjAg56vRD"
   },
   {
    "id": "5Eevxp2BCbWq25ZdiXRwYd",
@@ -3904,7 +4139,8 @@
    "songs": [
     "One More Light"
    ],
-   "seconds": 2123
+   "seconds": 2123,
+   "group": "5Eevxp2BCbWq25ZdiXRwYd"
   },
   {
    "id": "7e5yvbpBSAQ9CZ6cORngM1",
@@ -3919,7 +4155,8 @@
     "Take What I Can Get",
     "Heart in Wire (Clean Edit)"
    ],
-   "seconds": 2832
+   "seconds": 2832,
+   "group": "7e5yvbpBSAQ9CZ6cORngM1"
   },
   {
    "id": "0ntXTGF1tGttAv0Tr077DH",
@@ -3934,7 +4171,8 @@
     "Comes And Goes (In Waves)",
     "Days Go On"
    ],
-   "seconds": 2532
+   "seconds": 2532,
+   "group": "0ntXTGF1tGttAv0Tr077DH"
   },
   {
    "id": "7j8lfKDdL7vE8OAM4cA3W3",
@@ -3948,7 +4186,8 @@
    "songs": [
     "The Predatory Wasp of The Palisades Is Out To Get Us"
    ],
-   "seconds": 4453
+   "seconds": 4453,
+   "group": "7j8lfKDdL7vE8OAM4cA3W3"
   },
   {
    "id": "5lNzygOpCmzRx4N301icBB",
@@ -3962,7 +4201,8 @@
    "songs": [
     "One Tribe"
    ],
-   "seconds": 4160
+   "seconds": 4160,
+   "group": "3lng6RAtdksQ2q02Fk5jaB"
   },
   {
    "id": "4Rc3wOCoh4jpWkNzum6dDA",
@@ -3977,7 +4217,8 @@
     "Déjenme Llorar",
     "Hasta La Piel"
    ],
-   "seconds": 3597
+   "seconds": 3597,
+   "group": "4Rc3wOCoh4jpWkNzum6dDA"
   },
   {
    "id": "1bNyYpkDRovmErm4QeDrpJ",
@@ -3991,7 +4232,8 @@
    "songs": [
     "Where Is The Love?"
    ],
-   "seconds": 3564
+   "seconds": 3564,
+   "group": "1bNyYpkDRovmErm4QeDrpJ"
   },
   {
    "id": "6NrLpQCPYrNS3kVWxDgIlg",
@@ -4006,7 +4248,8 @@
     "Are You Gonna Be My Girl",
     "Look What You've Done"
    ],
-   "seconds": 2919
+   "seconds": 2919,
+   "group": "6NrLpQCPYrNS3kVWxDgIlg"
   },
   {
    "id": "0cRJKK0y1sfZEqWub4dK9v",
@@ -4023,7 +4266,8 @@
     "Rock City",
     "Tonight"
    ],
-   "seconds": 3052
+   "seconds": 3052,
+   "group": "0cRJKK0y1sfZEqWub4dK9v"
   },
   {
    "id": "3DGm8wEXMaNk8SPmWtXg2a",
@@ -4037,7 +4281,8 @@
    "songs": [
     "Nómadas"
    ],
-   "seconds": 1786
+   "seconds": 1786,
+   "group": "3DGm8wEXMaNk8SPmWtXg2a"
   },
   {
    "id": "27B1VxY1FN5zUfp7hPR2Dc",
@@ -4051,7 +4296,8 @@
    "songs": [
     "Quién Fuera"
    ],
-   "seconds": 2731
+   "seconds": 2731,
+   "group": "27B1VxY1FN5zUfp7hPR2Dc"
   },
   {
    "id": "5uc1F7ZXMeGxgvfp9z7W8G",
@@ -4065,7 +4311,8 @@
    "songs": [
     "Cantares - En Directo"
    ],
-   "seconds": 5728
+   "seconds": 5728,
+   "group": "5uc1F7ZXMeGxgvfp9z7W8G"
   },
   {
    "id": "2GknfWNukaXr5gTMRrkfL8",
@@ -4080,7 +4327,8 @@
    "songs": [
     "Con la Frente Marchita - En el Luna Park - Argentina"
    ],
-   "seconds": 4711
+   "seconds": 4711,
+   "group": "2GknfWNukaXr5gTMRrkfL8"
   },
   {
    "id": "6BZPpEDHkZkyxIZarybq4V",
@@ -4095,7 +4343,8 @@
     "Que Lloro (with Carla Morrison)",
     "Confieso (with Natalia Lafourcade)"
    ],
-   "seconds": 2816
+   "seconds": 2816,
+   "group": "6BZPpEDHkZkyxIZarybq4V"
   },
   {
    "id": "3TdBztL3zrCPNaAHP7WKDg",
@@ -4109,7 +4358,8 @@
    "songs": [
     "Quisiera Volver"
    ],
-   "seconds": 2375
+   "seconds": 2375,
+   "group": "3TdBztL3zrCPNaAHP7WKDg"
   },
   {
    "id": "1OZeDqa64PvbEHTBeKgF1k",
@@ -4123,7 +4373,8 @@
    "songs": [
     "Bendita Tu Luz"
    ],
-   "seconds": 9177
+   "seconds": 9177,
+   "group": "1OZeDqa64PvbEHTBeKgF1k"
   },
   {
    "id": "19pg66px6uJtviN8vIHBqJ",
@@ -4137,7 +4388,8 @@
    "songs": [
     "Dime ven - Live"
    ],
-   "seconds": 2570
+   "seconds": 2570,
+   "group": "19pg66px6uJtviN8vIHBqJ"
   },
   {
    "id": "7DIyUvlaJ0bsxLbenDLm73",
@@ -4149,9 +4401,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b273a1f3d1bb9473eb66a7b426cd",
    "url": "https://open.spotify.com/album/7DIyUvlaJ0bsxLbenDLm73",
    "songs": [
+    "Sirena",
     "Entra en Mi Vida"
    ],
-   "seconds": 2409
+   "seconds": 2409,
+   "group": "7DIyUvlaJ0bsxLbenDLm73"
   },
   {
    "id": "1DqezzIzunjysnTKPtxB98",
@@ -4165,24 +4419,8 @@
    "songs": [
     "Espacio sideral"
    ],
-   "seconds": 2635
-  },
-  {
-   "id": "68NlXKRuJ1YqrhIbwe864y",
-   "name": "Sawdust",
-   "artists": [
-    "The Killers"
-   ],
-   "year": "2007",
-   "image": "https://i.scdn.co/image/ab67616d0000b27397f2000a0de7f42267bc77e2",
-   "url": "https://open.spotify.com/album/68NlXKRuJ1YqrhIbwe864y",
-   "songs": [
-    "Sam's Town - Live From Abbey Road / 2006",
-    "Who Let You Go?",
-    "Where The White Boys Dance",
-    "Move Away"
-   ],
-   "seconds": 4221
+   "seconds": 2635,
+   "group": "1DqezzIzunjysnTKPtxB98"
   },
   {
    "id": "4ENxWWkPImVwAle9cpJ12I",
@@ -4198,7 +4436,8 @@
     "Exit Music (For a Film) - Remastered",
     "Man of War"
    ],
-   "seconds": 5557
+   "seconds": 5557,
+   "group": "4ENxWWkPImVwAle9cpJ12I"
   },
   {
    "id": "2X17BMIMWhZDWHL0UR1LBS",
@@ -4210,9 +4449,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b273ec2e96b6a618b3c2eb6a14e0",
    "url": "https://open.spotify.com/album/2X17BMIMWhZDWHL0UR1LBS",
    "songs": [
-    "Yo Quisiera"
+    "Yo Quisiera",
+    "Que Vida la Mía - En Vivo"
    ],
-   "seconds": 2235
+   "seconds": 2235,
+   "group": "2X17BMIMWhZDWHL0UR1LBS"
   },
   {
    "id": "5GlPAy2PRJW06GVFhKwGTl",
@@ -4224,9 +4465,12 @@
    "image": "https://i.scdn.co/image/ab67616d0000b2737956bd9a3d7a15e4c2e37cc6",
    "url": "https://open.spotify.com/album/5GlPAy2PRJW06GVFhKwGTl",
    "songs": [
+    "Believer",
+    "Whatever It Takes - Live/Acoustic",
     "Rise Up"
    ],
-   "seconds": 2357
+   "seconds": 2357,
+   "group": "5GlPAy2PRJW06GVFhKwGTl"
   },
   {
    "id": "7A8fZ2jjiu5heq7wNCutKN",
@@ -4240,7 +4484,8 @@
    "songs": [
     "Fear"
    ],
-   "seconds": 2862
+   "seconds": 2862,
+   "group": "7A8fZ2jjiu5heq7wNCutKN"
   },
   {
    "id": "7MrTihEsPqwgcj3dlFaZ3j",
@@ -4253,9 +4498,11 @@
    "url": "https://open.spotify.com/album/7MrTihEsPqwgcj3dlFaZ3j",
    "songs": [
     "Tyson vs Douglas",
-    "Some Kind Of Love"
+    "Some Kind Of Love",
+    "The Man"
    ],
-   "seconds": 2586
+   "seconds": 2586,
+   "group": "7MrTihEsPqwgcj3dlFaZ3j"
   },
   {
    "id": "4eTuKFwpZj9A4RfJ6HeMep",
@@ -4269,7 +4516,8 @@
    "songs": [
     "Canon"
    ],
-   "seconds": 3360
+   "seconds": 3360,
+   "group": "4eTuKFwpZj9A4RfJ6HeMep"
   },
   {
    "id": "0WpXPY7DeTBrcQeR57omzb",
@@ -4283,21 +4531,8 @@
    "songs": [
     "Muñeca"
    ],
-   "seconds": 2417
-  },
-  {
-   "id": "1ujPmNlTMp41h4EG6OOBGR",
-   "name": "Hot Fuss",
-   "artists": [
-    "The Killers"
-   ],
-   "year": "2004",
-   "image": "https://i.scdn.co/image/ab67616d0000b27348f15b8233e77462047a6e99",
-   "url": "https://open.spotify.com/album/1ujPmNlTMp41h4EG6OOBGR",
-   "songs": [
-    "Glamorous Indie Rock And Roll - Sawdust Version"
-   ],
-   "seconds": 2992
+   "seconds": 2417,
+   "group": "0WpXPY7DeTBrcQeR57omzb"
   },
   {
    "id": "72qA6s4fjF8Y2VX1UDMfp2",
@@ -4309,9 +4544,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b2732e94b668c60b06deb1c3a05c",
    "url": "https://open.spotify.com/album/72qA6s4fjF8Y2VX1UDMfp2",
    "songs": [
+    "Glorious (feat. Skylar Grey)",
     "Ain't Gonna Die Tonight (feat. Eric Nally)"
    ],
-   "seconds": 3618
+   "seconds": 3618,
+   "group": "72qA6s4fjF8Y2VX1UDMfp2"
   },
   {
    "id": "7dTSfhp5okEjaYXp38LwVf",
@@ -4325,7 +4562,8 @@
    "songs": [
     "Nanga Ti Feo"
    ],
-   "seconds": 3089
+   "seconds": 3089,
+   "group": "7dTSfhp5okEjaYXp38LwVf"
   },
   {
    "id": "1vAEF8F0HoRFGiYOEeJXHW",
@@ -4339,7 +4577,8 @@
    "songs": [
     "Nothing Left To Say / Rocks - Medley"
    ],
-   "seconds": 4666
+   "seconds": 4666,
+   "group": "6nxDQi0FeEwccEPJeNySoS"
   },
   {
    "id": "6E76aabodIl5DW5BTEZPHG",
@@ -4353,7 +4592,8 @@
    "songs": [
     "Youth"
    ],
-   "seconds": 2740
+   "seconds": 2740,
+   "group": "6E76aabodIl5DW5BTEZPHG"
   },
   {
    "id": "5fKL7vMTXvhR9tov8Kqt3u",
@@ -4367,7 +4607,8 @@
    "songs": [
     "How You Remind Me"
    ],
-   "seconds": 2351
+   "seconds": 2351,
+   "group": "5fKL7vMTXvhR9tov8Kqt3u"
   },
   {
    "id": "252to0gj446XAnuyQ53OOt",
@@ -4379,23 +4620,14 @@
    "image": "https://i.scdn.co/image/ab67616d0000b273de56d92bea2582045a9d5139",
    "url": "https://open.spotify.com/album/252to0gj446XAnuyQ53OOt",
    "songs": [
-    "La musica non c'è"
+    "La musica non c'è",
+    "Le luci della città",
+    "Ciao",
+    "E yo mamma",
+    "Faccio un casino"
    ],
-   "seconds": 2438
-  },
-  {
-   "id": "6JlhIoegCcjtdbTQbypS8R",
-   "name": "Viva La Vida (Prospekt's March Edition)",
-   "artists": [
-    "Coldplay"
-   ],
-   "year": "2008",
-   "image": "https://i.scdn.co/image/ab67616d0000b273a1ca3abcdee3085bdbcf5224",
-   "url": "https://open.spotify.com/album/6JlhIoegCcjtdbTQbypS8R",
-   "songs": [
-    "Strawberry Swing"
-   ],
-   "seconds": 4401
+   "seconds": 2438,
+   "group": "252to0gj446XAnuyQ53OOt"
   },
   {
    "id": "4trTvSZSfcCSzeH8kJeCbD",
@@ -4408,37 +4640,11 @@
    "url": "https://open.spotify.com/album/4trTvSZSfcCSzeH8kJeCbD",
    "songs": [
     "Tompkins Square Park",
+    "Monster",
     "Hot Gates"
    ],
-   "seconds": 2923
-  },
-  {
-   "id": "7GiLJfRPHARQrRJf01P2Tt",
-   "name": "Sigh No More",
-   "artists": [
-    "Mumford & Sons"
-   ],
-   "year": "2009",
-   "image": "https://i.scdn.co/image/ab67616d0000b273acd4ab152d1776fdabe8450d",
-   "url": "https://open.spotify.com/album/7GiLJfRPHARQrRJf01P2Tt",
-   "songs": [
-    "Little Lion Man"
-   ],
-   "seconds": 2921
-  },
-  {
-   "id": "6OA97YC9HbLfdREQKnsH2R",
-   "name": "Wilder Mind",
-   "artists": [
-    "Mumford & Sons"
-   ],
-   "year": "2015",
-   "image": "https://i.scdn.co/image/ab67616d0000b27358521248ad3600625b70ec4b",
-   "url": "https://open.spotify.com/album/6OA97YC9HbLfdREQKnsH2R",
-   "songs": [
-    "Monster"
-   ],
-   "seconds": 2923
+   "seconds": 2923,
+   "group": "4trTvSZSfcCSzeH8kJeCbD"
   },
   {
    "id": "7rlmzEQPP4b6T6OhlnTdRn",
@@ -4450,9 +4656,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b273d359cdfeb62e597abff9c907",
    "url": "https://open.spotify.com/album/7rlmzEQPP4b6T6OhlnTdRn",
    "songs": [
+    "I Will Wait",
     "Broken Crown"
    ],
-   "seconds": 3136
+   "seconds": 3136,
+   "group": "7rlmzEQPP4b6T6OhlnTdRn"
   },
   {
    "id": "1ueojQqs9eBYzStz2uM5Dr",
@@ -4466,7 +4674,8 @@
    "songs": [
     "Help Is On The Way"
    ],
-   "seconds": 2766
+   "seconds": 2766,
+   "group": "1ueojQqs9eBYzStz2uM5Dr"
   },
   {
    "id": "1AHZd3C3S8m8fFrhFxyk79",
@@ -4480,7 +4689,8 @@
    "songs": [
     "21 Guns"
    ],
-   "seconds": 4154
+   "seconds": 4154,
+   "group": "1AHZd3C3S8m8fFrhFxyk79"
   },
   {
    "id": "6RDgz01L7K6gG7hPs3Vszi",
@@ -4494,7 +4704,8 @@
    "songs": [
     "Monster"
    ],
-   "seconds": 3952
+   "seconds": 3952,
+   "group": "4trTvSZSfcCSzeH8kJeCbD"
   },
   {
    "id": "6ljSzS5HmvqIZhtNme3KUc",
@@ -4508,7 +4719,8 @@
    "songs": [
     "Umbrella"
    ],
-   "seconds": 2766
+   "seconds": 2766,
+   "group": "6fCk4dWzSKBJeIC3RKSxF7"
   },
   {
    "id": "6CPwf8Yo8a4cgBDVeShL5C",
@@ -4522,24 +4734,11 @@
    "songs": [
     "Sun",
     "Next Year",
+    "Next Year - RAC Remix",
     "Someday"
    ],
-   "seconds": 2672
-  },
-  {
-   "id": "0gyRFAfY08NFv7N8RTFg9M",
-   "name": "Tourist History",
-   "artists": [
-    "Two Door Cinema Club"
-   ],
-   "year": "2010",
-   "image": "https://i.scdn.co/image/ab67616d0000b273cba7eaf46111c54eaf2faeb9",
-   "url": "https://open.spotify.com/album/0gyRFAfY08NFv7N8RTFg9M",
-   "songs": [
-    "I Can Talk",
-    "Cigarettes In The Theatre"
-   ],
-   "seconds": 1955
+   "seconds": 2672,
+   "group": "6CPwf8Yo8a4cgBDVeShL5C"
   },
   {
    "id": "5uJSN8HOFJvSrh8AHvdRTA",
@@ -4553,7 +4752,8 @@
    "songs": [
     "Chasing Cars"
    ],
-   "seconds": 3684
+   "seconds": 3684,
+   "group": "5nN8QtnbdlwMXVFgp60r9Z"
   },
   {
    "id": "3Mdzwty8ag5QyAYLxThypm",
@@ -4567,7 +4767,8 @@
    "songs": [
     "The World Is Watching"
    ],
-   "seconds": 5643
+   "seconds": 5643,
+   "group": "3Mdzwty8ag5QyAYLxThypm"
   },
   {
    "id": "2x3RmoJMCnirFKl6iTODhp",
@@ -4582,7 +4783,8 @@
     "Lo Niego Todo",
     "Por Delicadeza (with Leiva)"
    ],
-   "seconds": 2970
+   "seconds": 2970,
+   "group": "2x3RmoJMCnirFKl6iTODhp"
   },
   {
    "id": "3DuiGV3J09SUhvp8gqNx8h",
@@ -4596,7 +4798,8 @@
    "songs": [
     "Helena"
    ],
-   "seconds": 2374
+   "seconds": 2374,
+   "group": "3DuiGV3J09SUhvp8gqNx8h"
   },
   {
    "id": "31enDFeQNT9ibH6dpWwwNV",
@@ -4610,7 +4813,8 @@
    "songs": [
     "La Inspiración"
    ],
-   "seconds": 3159
+   "seconds": 3159,
+   "group": "31enDFeQNT9ibH6dpWwwNV"
   },
   {
    "id": "7IgQpnD9mU5X4smaboZ7DV",
@@ -4624,7 +4828,8 @@
    "songs": [
     "I'm Picky"
    ],
-   "seconds": 3167
+   "seconds": 3167,
+   "group": "7IgQpnD9mU5X4smaboZ7DV"
   },
   {
    "id": "53bo9cdpmSY8t0oFdip2TR",
@@ -4638,7 +4843,8 @@
    "songs": [
     "Lady (Hear Me Tonight)"
    ],
-   "seconds": 4459
+   "seconds": 4459,
+   "group": "53bo9cdpmSY8t0oFdip2TR"
   },
   {
    "id": "0vwDxngkhZuwNbcxzebCXI",
@@ -4653,7 +4859,8 @@
     "Lady - Acoustic Version",
     "Lady - Hear Me Tonight"
    ],
-   "seconds": 3108
+   "seconds": 3108,
+   "group": "0vwDxngkhZuwNbcxzebCXI"
   },
   {
    "id": "1ZH5g1RDq3GY1OvyD0w0s2",
@@ -4667,7 +4874,8 @@
    "songs": [
     "Should I Stay or Should I Go - Remastered"
    ],
-   "seconds": 2778
+   "seconds": 2778,
+   "group": "1ZH5g1RDq3GY1OvyD0w0s2"
   },
   {
    "id": "6YYhMNDgi37WNGtCDis6PT",
@@ -4679,23 +4887,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b27379fe00e63c4e2f7e5558dbef",
    "url": "https://open.spotify.com/album/6YYhMNDgi37WNGtCDis6PT",
    "songs": [
-    "Chelsea Dagger"
+    "Chelsea Dagger",
+    "Whistle For The Choir"
    ],
-   "seconds": 2662
-  },
-  {
-   "id": "2OBSz5Nlto0Q5CtYPzPY7c",
-   "name": "Weezer",
-   "artists": [
-    "Weezer"
-   ],
-   "year": "2001",
-   "image": "https://i.scdn.co/image/ab67616d0000b2731e0dc5baaabda304b0ad1815",
-   "url": "https://open.spotify.com/album/2OBSz5Nlto0Q5CtYPzPY7c",
-   "songs": [
-    "Hash Pipe"
-   ],
-   "seconds": 1714
+   "seconds": 2662,
+   "group": "6YYhMNDgi37WNGtCDis6PT"
   },
   {
    "id": "7356ztInCyuUn4iQVdJxGy",
@@ -4709,7 +4905,8 @@
    "songs": [
     "Dancing With Myself - 2001 Digital Remaster"
    ],
-   "seconds": 2509
+   "seconds": 2509,
+   "group": "7356ztInCyuUn4iQVdJxGy"
   },
   {
    "id": "3mNoFlD1wsoXfkljfFzExT",
@@ -4723,7 +4920,8 @@
    "songs": [
     "Shut Up and Dance"
    ],
-   "seconds": 2596
+   "seconds": 2596,
+   "group": "3mNoFlD1wsoXfkljfFzExT"
   },
   {
    "id": "2i6nd4FV6y7K9fln6eelmR",
@@ -4737,7 +4935,8 @@
    "songs": [
     "Pardon Me"
    ],
-   "seconds": 2890
+   "seconds": 2890,
+   "group": "2i6nd4FV6y7K9fln6eelmR"
   },
   {
    "id": "58HZZpS0wxJKwGjoerg0mk",
@@ -4751,7 +4950,8 @@
    "songs": [
     "No One Knows"
    ],
-   "seconds": 3659
+   "seconds": 3659,
+   "group": "58HZZpS0wxJKwGjoerg0mk"
   },
   {
    "id": "7GQzUp6R1CtA9CmsVZg090",
@@ -4765,7 +4965,8 @@
    "songs": [
     "To My Love"
    ],
-   "seconds": 2452
+   "seconds": 2452,
+   "group": "7GQzUp6R1CtA9CmsVZg090"
   },
   {
    "id": "7jo5KFYHLHpbVX0glLHiIA",
@@ -4779,7 +4980,8 @@
    "songs": [
     "To My Love - Tainy Remix"
    ],
-   "seconds": 2675
+   "seconds": 2675,
+   "group": "7jo5KFYHLHpbVX0glLHiIA"
   },
   {
    "id": "5ZpcMkCLkFVTka2FKtN2bV",
@@ -4793,7 +4995,8 @@
    "songs": [
     "Дорога"
    ],
-   "seconds": 3259
+   "seconds": 3259,
+   "group": "5ZpcMkCLkFVTka2FKtN2bV"
   },
   {
    "id": "633YqTzw4kncLmIwFfsP0K",
@@ -4807,24 +5010,8 @@
    "songs": [
     "Le parole più grandi"
    ],
-   "seconds": 2191
-  },
-  {
-   "id": "3aKazjcDl544T21siS8lDp",
-   "name": "Faccio un casino",
-   "artists": [
-    "Coez"
-   ],
-   "year": "2017",
-   "image": "https://i.scdn.co/image/ab67616d0000b27387f01b35a5806d46277a4316",
-   "url": "https://open.spotify.com/album/3aKazjcDl544T21siS8lDp",
-   "songs": [
-    "Le luci della città",
-    "Ciao",
-    "E yo mamma",
-    "Faccio un casino"
-   ],
-   "seconds": 2438
+   "seconds": 2191,
+   "group": "633YqTzw4kncLmIwFfsP0K"
   },
   {
    "id": "5tF2lAa2rh2kU2xIiBzWia",
@@ -4838,7 +5025,8 @@
    "songs": [
     "Budapest"
    ],
-   "seconds": 4065
+   "seconds": 4065,
+   "group": "5tF2lAa2rh2kU2xIiBzWia"
   },
   {
    "id": "170XOV18b6h1V6oWMsUHgL",
@@ -4852,7 +5040,8 @@
    "songs": [
     "Best Day Ever"
    ],
-   "seconds": 3085
+   "seconds": 3085,
+   "group": "170XOV18b6h1V6oWMsUHgL"
   },
   {
    "id": "718KJ6VFOdcqCFCWykJKoG",
@@ -4866,7 +5055,8 @@
    "songs": [
     "Where Is My Mind?"
    ],
-   "seconds": 2862
+   "seconds": 2862,
+   "group": "718KJ6VFOdcqCFCWykJKoG"
   },
   {
    "id": "0xSJL5638GcxxOV2q7f51B",
@@ -4880,7 +5070,8 @@
    "songs": [
     "You Rascal You"
    ],
-   "seconds": 2079
+   "seconds": 2079,
+   "group": "0xSJL5638GcxxOV2q7f51B"
   },
   {
    "id": "5pmuwmV2OcuiTX7kNczQ16",
@@ -4894,7 +5085,8 @@
    "songs": [
     "Atrévete-Te-Te"
    ],
-   "seconds": 3412
+   "seconds": 3412,
+   "group": "5pmuwmV2OcuiTX7kNczQ16"
   },
   {
    "id": "41zrsgMOc6DhPzFV9OUKDi",
@@ -4908,7 +5100,8 @@
    "songs": [
     "Re-tratamento"
    ],
-   "seconds": 2803
+   "seconds": 2803,
+   "group": "41zrsgMOc6DhPzFV9OUKDi"
   },
   {
    "id": "5cFaR7mbE5aFqmHGHm0uok",
@@ -4920,9 +5113,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b27368e8dc5a20c34364020c3c83",
    "url": "https://open.spotify.com/album/5cFaR7mbE5aFqmHGHm0uok",
    "songs": [
-    "Chissà dove sarai"
+    "Chissà dove sarai",
+    "La nostra ultima canzone"
    ],
-   "seconds": 1981
+   "seconds": 1981,
+   "group": "5cFaR7mbE5aFqmHGHm0uok"
   },
   {
    "id": "18iFxjZugvKhuNNMbLjZJF",
@@ -4936,7 +5131,8 @@
    "songs": [
     "Daddy Issues"
    ],
-   "seconds": 2723
+   "seconds": 2723,
+   "group": "18iFxjZugvKhuNNMbLjZJF"
   },
   {
    "id": "3LsMHrpcvea3tvd3zl16DX",
@@ -4950,7 +5146,8 @@
    "songs": [
     "Que no Llevan a Roma (with Dani Martin, Pastora & Nach)"
    ],
-   "seconds": 2603
+   "seconds": 2603,
+   "group": "3LsMHrpcvea3tvd3zl16DX"
   },
   {
    "id": "4nxO3mJT2fwuMmQXNi2FpS",
@@ -4964,7 +5161,8 @@
    "songs": [
     "La chica de Ipanema"
    ],
-   "seconds": 3798
+   "seconds": 3798,
+   "group": "4nxO3mJT2fwuMmQXNi2FpS"
   },
   {
    "id": "5hKHbnTcIY0q7T3TqdwKJx",
@@ -4976,9 +5174,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b273865afdfe61bfa44840372d26",
    "url": "https://open.spotify.com/album/5hKHbnTcIY0q7T3TqdwKJx",
    "songs": [
-    "Robarle tiempo al tiempo"
+    "Robarle tiempo al tiempo",
+    "Robarle tiempo al tiempo - En directo"
    ],
-   "seconds": 2626
+   "seconds": 2626,
+   "group": "5hKHbnTcIY0q7T3TqdwKJx"
   },
   {
    "id": "59euB5Ns7yGbS06OYHwxRN",
@@ -4992,7 +5192,8 @@
    "songs": [
     "Low Rider"
    ],
-   "seconds": 2673
+   "seconds": 2673,
+   "group": "59euB5Ns7yGbS06OYHwxRN"
   },
   {
    "id": "1BayCxyyUYlm3x0Ys1z4Fl",
@@ -5006,7 +5207,8 @@
    "songs": [
     "Camel Blu (feat. Giorgio Poi)"
    ],
-   "seconds": 2992
+   "seconds": 2992,
+   "group": "1BayCxyyUYlm3x0Ys1z4Fl"
   },
   {
    "id": "1lzXpjoeiViNubwrLq5nDC",
@@ -5021,7 +5223,8 @@
    "songs": [
     "Cantares - En El Luna Park - Argentina"
    ],
-   "seconds": 3956
+   "seconds": 3956,
+   "group": "1lzXpjoeiViNubwrLq5nDC"
   },
   {
    "id": "7vH5NPvG5BHV387GBNQSJ1",
@@ -5039,7 +5242,8 @@
     "Estrella del Rock - En Directo",
     "Lo Noto (with Hombres G) - En Directo"
    ],
-   "seconds": 4701
+   "seconds": 4701,
+   "group": "7vH5NPvG5BHV387GBNQSJ1"
   },
   {
    "id": "3nFMhhRvntmafaNnxJqcYX",
@@ -5054,7 +5258,8 @@
     "Que Vida la Mía - En Vivo",
     "Inolvidable - En Vivo"
    ],
-   "seconds": 5574
+   "seconds": 5574,
+   "group": "3nFMhhRvntmafaNnxJqcYX"
   },
   {
    "id": "6f6tko6NWoH00cyFOl4VYQ",
@@ -5068,7 +5273,8 @@
    "songs": [
     "Dang! (feat. Anderson .Paak)"
    ],
-   "seconds": 3157
+   "seconds": 3157,
+   "group": "6f6tko6NWoH00cyFOl4VYQ"
   },
   {
    "id": "5wtE5aLX5r7jOosmPhJhhk",
@@ -5084,21 +5290,8 @@
     "Wings",
     "Ladders"
    ],
-   "seconds": 3519
-  },
-  {
-   "id": "68K5LJ1pOR3KcuVP8hw3RP",
-   "name": "Cave Rave",
-   "artists": [
-    "Crystal Fighters"
-   ],
-   "year": "2013",
-   "image": "https://i.scdn.co/image/ab67616d0000b2736a3ec63ec957c595ce7c135f",
-   "url": "https://open.spotify.com/album/68K5LJ1pOR3KcuVP8hw3RP",
-   "songs": [
-    "Bridge of Bones"
-   ],
-   "seconds": 2266
+   "seconds": 3519,
+   "group": "5wtE5aLX5r7jOosmPhJhhk"
   },
   {
    "id": "1fK1XSbmTDH2UDBTXqj5bE",
@@ -5112,7 +5305,8 @@
    "songs": [
     "Triste canción - Live"
    ],
-   "seconds": 3566
+   "seconds": 3566,
+   "group": "1fK1XSbmTDH2UDBTXqj5bE"
   },
   {
    "id": "3hN1foYpUUwk9iBGajaq5E",
@@ -5126,7 +5320,8 @@
    "songs": [
     "Robarle tiempo al tiempo - En directo"
    ],
-   "seconds": 5400
+   "seconds": 5400,
+   "group": "3hN1foYpUUwk9iBGajaq5E"
   },
   {
    "id": "3y9cYm531Ep362lZZtCNxw",
@@ -5140,7 +5335,8 @@
    "songs": [
     "Desde Brasil"
    ],
-   "seconds": 2858
+   "seconds": 2858,
+   "group": "3y9cYm531Ep362lZZtCNxw"
   },
   {
    "id": "6zGGjiyCeY36tgNrxsFrK9",
@@ -5154,7 +5350,8 @@
    "songs": [
     "Luz De Dia - En Vivo"
    ],
-   "seconds": 4588
+   "seconds": 4588,
+   "group": "6zGGjiyCeY36tgNrxsFrK9"
   },
   {
    "id": "1BFNK4fNaipH6hFszOHTI4",
@@ -5169,7 +5366,8 @@
    "songs": [
     "Luz De Dia"
    ],
-   "seconds": 2340
+   "seconds": 2340,
+   "group": "1BFNK4fNaipH6hFszOHTI4"
   },
   {
    "id": "6xNFuLOko8gjxi5kUAyGyM",
@@ -5183,7 +5381,8 @@
    "songs": [
     "Come Down"
    ],
-   "seconds": 3670
+   "seconds": 3670,
+   "group": "6xNFuLOko8gjxi5kUAyGyM"
   },
   {
    "id": "2w4tLG1JH25BysuILfkI0x",
@@ -5197,7 +5396,8 @@
    "songs": [
     "Stop the Dams"
    ],
-   "seconds": 7434
+   "seconds": 7434,
+   "group": "0pdYY0CHFRVFLBZEPEKTMZ"
   },
   {
    "id": "4Ay02WMMtEKaySj1mtPTga",
@@ -5211,7 +5411,8 @@
    "songs": [
     "Mi lista negra"
    ],
-   "seconds": 2758
+   "seconds": 2758,
+   "group": "4Ay02WMMtEKaySj1mtPTga"
   },
   {
    "id": "6trNtQUgC8cgbWcqoMYkOR",
@@ -5223,24 +5424,12 @@
    "image": "https://i.scdn.co/image/ab67616d0000b273b1c4b76e23414c9f20242268",
    "url": "https://open.spotify.com/album/6trNtQUgC8cgbWcqoMYkOR",
    "songs": [
+    "Psycho (feat. Ty Dolla $ign)",
     "Better Now",
     "Stay"
    ],
-   "seconds": 3854
-  },
-  {
-   "id": "72ZfMxLCPG8mlWC0TXfZQi",
-   "name": "Wonderful Wonderful",
-   "artists": [
-    "The Killers"
-   ],
-   "year": "2017",
-   "image": "https://i.scdn.co/image/ab67616d0000b273f65523eab3152dcca83b6fca",
-   "url": "https://open.spotify.com/album/72ZfMxLCPG8mlWC0TXfZQi",
-   "songs": [
-    "The Man"
-   ],
-   "seconds": 2586
+   "seconds": 3854,
+   "group": "6trNtQUgC8cgbWcqoMYkOR"
   },
   {
    "id": "5OZgDtx180ZZPMpm36J2zC",
@@ -5252,13 +5441,16 @@
    "image": "https://i.scdn.co/image/ab67616d0000b2734cb163c1d111f77307c842b6",
    "url": "https://open.spotify.com/album/5OZgDtx180ZZPMpm36J2zC",
    "songs": [
+    "Dig Down",
+    "Something Human",
     "Thought Contagion (Live)",
     "Something Human (Acoustic)",
     "Thought Contagion",
     "Get up and Fight",
     "Dig Down (Acoustic Gospel Version)"
    ],
-   "seconds": 4745
+   "seconds": 4745,
+   "group": "5OZgDtx180ZZPMpm36J2zC"
   },
   {
    "id": "68buUXBzuIPvarXFWLvAzO",
@@ -5272,7 +5464,8 @@
    "songs": [
     "When We're High"
    ],
-   "seconds": 3745
+   "seconds": 3745,
+   "group": "68buUXBzuIPvarXFWLvAzO"
   },
   {
    "id": "0Wmnkh4lzGy5rgkUPOjYbg",
@@ -5286,21 +5479,8 @@
    "songs": [
     "If I Say"
    ],
-   "seconds": 3715
-  },
-  {
-   "id": "1sAt8XDVQbndid4MxNgTJD",
-   "name": "Cuba Classics 1: Silvio Rodriguez",
-   "artists": [
-    "Silvio Rodríguez"
-   ],
-   "year": "2007",
-   "image": "https://i.scdn.co/image/ab67616d0000b273a750600d0ed898b99cf2c74e",
-   "url": "https://open.spotify.com/album/1sAt8XDVQbndid4MxNgTJD",
-   "songs": [
-    "Sueño de Una Noche de Verano"
-   ],
-   "seconds": 3535
+   "seconds": 3715,
+   "group": "0Wmnkh4lzGy5rgkUPOjYbg"
   },
   {
    "id": "3yQQUyIA3vRIRnB4rqtThe",
@@ -5314,7 +5494,8 @@
    "songs": [
     "Dónde Están Los Ladrones - En Vivo"
    ],
-   "seconds": 3012
+   "seconds": 3012,
+   "group": "3yQQUyIA3vRIRnB4rqtThe"
   },
   {
    "id": "3cQO7jp5S9qLBoIVtbkSM1",
@@ -5327,12 +5508,13 @@
    "url": "https://open.spotify.com/album/3cQO7jp5S9qLBoIVtbkSM1",
    "songs": [
     "We Don't Believe What's on TV",
-    "Not Today",
     "Tear in My Heart",
+    "Not Today",
     "Message Man",
     "Hometown"
    ],
-   "seconds": 3143
+   "seconds": 3143,
+   "group": "3cQO7jp5S9qLBoIVtbkSM1"
   },
   {
    "id": "621cXqrTSSJi1WqDMSLmbL",
@@ -5345,9 +5527,11 @@
    "url": "https://open.spotify.com/album/621cXqrTSSJi1WqDMSLmbL",
    "songs": [
     "Nico and the Niners",
-    "Chlorine"
+    "Chlorine",
+    "Chlorine (Mexico City)"
    ],
-   "seconds": 3370
+   "seconds": 3370,
+   "group": "621cXqrTSSJi1WqDMSLmbL"
   },
   {
    "id": "1Xv9aoCKbnUD3S2OYAjbo8",
@@ -5361,7 +5545,8 @@
    "songs": [
     "Figlio Di Un Re"
    ],
-   "seconds": 3204
+   "seconds": 3204,
+   "group": "1Xv9aoCKbnUD3S2OYAjbo8"
   },
   {
    "id": "76FXHQhTuT4QMIxfL09gX8",
@@ -5377,7 +5562,8 @@
    "songs": [
     "Same Love (feat. Mary Lambert)"
    ],
-   "seconds": 3847
+   "seconds": 3847,
+   "group": "76FXHQhTuT4QMIxfL09gX8"
   },
   {
    "id": "5FRwCkZFmFBfXvGQ3sVEWq",
@@ -5391,7 +5577,8 @@
    "songs": [
     "No puedo vivir sin ti (feat. Anni B Sweet)"
    ],
-   "seconds": 2670
+   "seconds": 2670,
+   "group": "5FRwCkZFmFBfXvGQ3sVEWq"
   },
   {
    "id": "1To7kv722A8SpZF789MZy7",
@@ -5405,7 +5592,8 @@
    "songs": [
     "All Apologies - Live"
    ],
-   "seconds": 3236
+   "seconds": 3236,
+   "group": "1To7kv722A8SpZF789MZy7"
   },
   {
    "id": "6GWKx06gvqMvKrDECSuYx4",
@@ -5419,7 +5607,8 @@
    "songs": [
     "Llueve Sobre La Ciudad"
    ],
-   "seconds": 2551
+   "seconds": 2551,
+   "group": "6GWKx06gvqMvKrDECSuYx4"
   },
   {
    "id": "5s0rmjP8XOPhP6HhqOhuyC",
@@ -5433,7 +5622,8 @@
    "songs": [
     "Feeling Whitney"
    ],
-   "seconds": 4103
+   "seconds": 4103,
+   "group": "5s0rmjP8XOPhP6HhqOhuyC"
   },
   {
    "id": "5hcKSTqKOLuzJgYIQileAe",
@@ -5445,10 +5635,12 @@
    "image": "https://i.scdn.co/image/ab67616d0000b273bfcff1dd252b22bba16a2a5d",
    "url": "https://open.spotify.com/album/5hcKSTqKOLuzJgYIQileAe",
    "songs": [
+    "Dónde Están Los Ladrones - En Vivo",
     "Dónde Están los Ladrones",
     "Inevitable"
    ],
-   "seconds": 2474
+   "seconds": 2474,
+   "group": "5hcKSTqKOLuzJgYIQileAe"
   },
   {
    "id": "0Gx6K4nFJlqmBXIRgoKLBb",
@@ -5462,7 +5654,8 @@
    "songs": [
     "Contando Lunares (feat. Cruz Cafuné)"
    ],
-   "seconds": 3235
+   "seconds": 3235,
+   "group": "0Gx6K4nFJlqmBXIRgoKLBb"
   },
   {
    "id": "3ccUQA3LcKnQN28rHI597A",
@@ -5476,7 +5669,8 @@
    "songs": [
     "No Puedo Vivir Sin Ti"
    ],
-   "seconds": 2205
+   "seconds": 2205,
+   "group": "3ccUQA3LcKnQN28rHI597A"
   },
   {
    "id": "2ATnlNdhTGBHX9SYn3UoL0",
@@ -5488,10 +5682,12 @@
    "image": "https://i.scdn.co/image/ab67616d0000b2732de85aa8d595887c58ca2775",
    "url": "https://open.spotify.com/album/2ATnlNdhTGBHX9SYn3UoL0",
    "songs": [
+    "Todo Cuenta - En Vivo Auditorio Nacional",
     "Todo Cuenta",
     "Viernes"
    ],
-   "seconds": 2774
+   "seconds": 2774,
+   "group": "2ATnlNdhTGBHX9SYn3UoL0"
   },
   {
    "id": "19dQrn6azmvPG24TZLGoHP",
@@ -5507,7 +5703,8 @@
     "Reencuentro",
     "Estaré"
    ],
-   "seconds": 2538
+   "seconds": 2538,
+   "group": "19dQrn6azmvPG24TZLGoHP"
   },
   {
    "id": "103zw9Qm9BRCdlb3mYsBOl",
@@ -5522,7 +5719,8 @@
     "Mi Vida",
     "Y Quién Puede Ser?"
    ],
-   "seconds": 8305
+   "seconds": 8305,
+   "group": "103zw9Qm9BRCdlb3mYsBOl"
   },
   {
    "id": "7EbN6JchMeCXUT1u0QV4qZ",
@@ -5536,7 +5734,8 @@
    "songs": [
     "Todo Cambia"
    ],
-   "seconds": 2526
+   "seconds": 2526,
+   "group": "7EbN6JchMeCXUT1u0QV4qZ"
   },
   {
    "id": "3sE2cw64lJ7L5jqbBkDcBA",
@@ -5551,7 +5750,8 @@
     "Hoy Ten Miedo De Mi",
     "Julieta"
    ],
-   "seconds": 2237
+   "seconds": 2237,
+   "group": "3sE2cw64lJ7L5jqbBkDcBA"
   },
   {
    "id": "4ZIg4y7DVpIBYJAOHKXsx0",
@@ -5566,7 +5766,8 @@
     "Ángel Para Un Final",
     "Santiago De Chile"
    ],
-   "seconds": 2507
+   "seconds": 2507,
+   "group": "4ZIg4y7DVpIBYJAOHKXsx0"
   },
   {
    "id": "0S0KGZnfBGSIssfF54WSJh",
@@ -5583,7 +5784,8 @@
     "xanny",
     "8"
    ],
-   "seconds": 2575
+   "seconds": 2575,
+   "group": "0S0KGZnfBGSIssfF54WSJh"
   },
   {
    "id": "6OI3xUm2zNMlhsngGiyTOX",
@@ -5597,7 +5799,8 @@
    "songs": [
     "Bonita"
    ],
-   "seconds": 2699
+   "seconds": 2699,
+   "group": "6OI3xUm2zNMlhsngGiyTOX"
   },
   {
    "id": "2N7qb2uMZLrGRVWnFDwXj8",
@@ -5614,7 +5817,8 @@
     "El niño sin amor",
     "Cuando tú no estás"
    ],
-   "seconds": 4291
+   "seconds": 4291,
+   "group": "2N7qb2uMZLrGRVWnFDwXj8"
   },
   {
    "id": "3oylWMc9TTC6Nx4I6U3axc",
@@ -5629,7 +5833,8 @@
     "Tongue Tied",
     "Colours"
    ],
-   "seconds": 2800
+   "seconds": 2800,
+   "group": "3oylWMc9TTC6Nx4I6U3axc"
   },
   {
    "id": "2Ti79nwTsont5ZHfdxIzAm",
@@ -5643,7 +5848,8 @@
    "songs": [
     "the remedy for a broken heart (why am I so in love)"
    ],
-   "seconds": 2256
+   "seconds": 2256,
+   "group": "2Ti79nwTsont5ZHfdxIzAm"
   },
   {
    "id": "53H9AYzn3j647Tr3JnGI71",
@@ -5658,7 +5864,8 @@
     "Película",
     "Los Enamorados"
    ],
-   "seconds": 1547
+   "seconds": 1547,
+   "group": "53H9AYzn3j647Tr3JnGI71"
   },
   {
    "id": "14qhWZrJJqIvMxOvDtn0ds",
@@ -5673,7 +5880,8 @@
     "Vaquerer?",
     "Sab Hop"
    ],
-   "seconds": 2473
+   "seconds": 2473,
+   "group": "14qhWZrJJqIvMxOvDtn0ds"
   },
   {
    "id": "2wDKBKgco7u3V1IWEK5V8l",
@@ -5687,7 +5895,8 @@
    "songs": [
     "The Joke"
    ],
-   "seconds": 2605
+   "seconds": 2605,
+   "group": "2wDKBKgco7u3V1IWEK5V8l"
   },
   {
    "id": "7veKXYhZXIb5glMwXSVvWr",
@@ -5701,7 +5910,8 @@
    "songs": [
     "No Sabes Mentir"
    ],
-   "seconds": 1683
+   "seconds": 1683,
+   "group": "7veKXYhZXIb5glMwXSVvWr"
   },
   {
    "id": "5OCg9OWnL1PY4tW2ON8ssj",
@@ -5716,7 +5926,8 @@
     "Short Skirt / Long Jacket",
     "Arco Arena - Instrumental"
    ],
-   "seconds": 2216
+   "seconds": 2216,
+   "group": "5OCg9OWnL1PY4tW2ON8ssj"
   },
   {
    "id": "1vbpW28Od2ATmVyAZ0QZ3j",
@@ -5730,7 +5941,8 @@
    "songs": [
     "Never There"
    ],
-   "seconds": 2793
+   "seconds": 2793,
+   "group": "1vbpW28Od2ATmVyAZ0QZ3j"
   },
   {
    "id": "42LVi0IkAbBbM9ae9fKebZ",
@@ -5744,22 +5956,8 @@
    "songs": [
     "Belerofón"
    ],
-   "seconds": 2042
-  },
-  {
-   "id": "0H6DSMuGSRC25Ka7PE4O4q",
-   "name": "Melophobia",
-   "artists": [
-    "Cage The Elephant"
-   ],
-   "year": "2013",
-   "image": "https://i.scdn.co/image/ab67616d0000b2739166a9093ea242eed64d21c6",
-   "url": "https://open.spotify.com/album/0H6DSMuGSRC25Ka7PE4O4q",
-   "songs": [
-    "Cigarette Daydreams",
-    "Telescope"
-   ],
-   "seconds": 2248
+   "seconds": 2042,
+   "group": "42LVi0IkAbBbM9ae9fKebZ"
   },
   {
    "id": "5SzhltQSSi1HUMi5cveZIZ",
@@ -5773,7 +5971,8 @@
    "songs": [
     "The Selfish Giant"
    ],
-   "seconds": 2802
+   "seconds": 2802,
+   "group": "5SzhltQSSi1HUMi5cveZIZ"
   },
   {
    "id": "6MYqpAbjxmm65kiqYolbfY",
@@ -5785,9 +5984,12 @@
    "image": "https://i.scdn.co/image/ab67616d0000b27376e4317df55d27f07905c939",
    "url": "https://open.spotify.com/album/6MYqpAbjxmm65kiqYolbfY",
    "songs": [
-    "Stand By Me"
+    "Stand By Me",
+    "Stand By Me - Remastered",
+    "Don't Go Away"
    ],
-   "seconds": 4296
+   "seconds": 4296,
+   "group": "6MYqpAbjxmm65kiqYolbfY"
   },
   {
    "id": "4zpN41aGAYPWX3dzE19rH7",
@@ -5802,7 +6004,8 @@
     "Right Before My Eyes - Unpeeled",
     "Rubber Ball - Unpeeled"
    ],
-   "seconds": 4816
+   "seconds": 4816,
+   "group": "4zpN41aGAYPWX3dzE19rH7"
   },
   {
    "id": "2jVxhH1xg6EIc87rGM1Ogt",
@@ -5816,7 +6019,8 @@
    "songs": [
     "Right Before My Eyes"
    ],
-   "seconds": 2683
+   "seconds": 2683,
+   "group": "2jVxhH1xg6EIc87rGM1Ogt"
   },
   {
    "id": "0vBxqUHwetFn5jCwAKX7Uk",
@@ -5830,7 +6034,8 @@
    "songs": [
     "If I Get High"
    ],
-   "seconds": 4856
+   "seconds": 4856,
+   "group": "0vBxqUHwetFn5jCwAKX7Uk"
   },
   {
    "id": "0Oj8WUcWlQCS6CSJEAjaob",
@@ -5846,7 +6051,8 @@
     "Miedo",
     "Mi Credo"
    ],
-   "seconds": 4209
+   "seconds": 4209,
+   "group": "0Oj8WUcWlQCS6CSJEAjaob"
   },
   {
    "id": "4YfBlW4L2iqbqq7masWr9V",
@@ -5860,7 +6066,8 @@
    "songs": [
     "La Dosis Perfecta (feat. Denise Gutiérrez) - En Vivo"
    ],
-   "seconds": 5544
+   "seconds": 5544,
+   "group": "4YfBlW4L2iqbqq7masWr9V"
   },
   {
    "id": "5dN7F9DV0Qg1XRdIgW8rke",
@@ -5873,9 +6080,11 @@
    "url": "https://open.spotify.com/album/5dN7F9DV0Qg1XRdIgW8rke",
    "songs": [
     "Wake Me up When September Ends",
+    "Extraordinary Girl / Letterbomb",
     "Jesus of Suburbia"
    ],
-   "seconds": 3444
+   "seconds": 3444,
+   "group": "5dN7F9DV0Qg1XRdIgW8rke"
   },
   {
    "id": "5Qhn2FpGWmTjCuntF09j7g",
@@ -5889,7 +6098,8 @@
    "songs": [
     "Extraordinary Girl / Letterbomb"
    ],
-   "seconds": 3913
+   "seconds": 3913,
+   "group": "5dN7F9DV0Qg1XRdIgW8rke"
   },
   {
    "id": "7tbY2Xnpnkv0GyiHagGdkQ",
@@ -5903,7 +6113,8 @@
    "songs": [
     "Running Away"
    ],
-   "seconds": 2835
+   "seconds": 2835,
+   "group": "7tbY2Xnpnkv0GyiHagGdkQ"
   },
   {
    "id": "0SqnwTypGiqyepYqmtXjPD",
@@ -5917,7 +6128,8 @@
    "songs": [
     "Loco"
    ],
-   "seconds": 2340
+   "seconds": 2340,
+   "group": "0SqnwTypGiqyepYqmtXjPD"
   },
   {
    "id": "4ApLmAxyvhQi7GGK5CMOgG",
@@ -5931,9 +6143,11 @@
    "songs": [
     "El Baile",
     "Pequeña Gran Revolución",
+    "Copacabana",
     "Tambores de Guerra"
    ],
-   "seconds": 2770
+   "seconds": 2770,
+   "group": "4ApLmAxyvhQi7GGK5CMOgG"
   },
   {
    "id": "7hf4Do8ywyKVJiwQqIexc2",
@@ -5949,7 +6163,8 @@
     "Santa Paz",
     "La Increíble Historia del Hombre Que Podía Volar Pero No Sabía Cómo"
    ],
-   "seconds": 2507
+   "seconds": 2507,
+   "group": "7hf4Do8ywyKVJiwQqIexc2"
   },
   {
    "id": "6mm1Skz3JE6AXneya9Nyiv",
@@ -5963,7 +6178,8 @@
    "songs": [
     "Time to Pretend"
    ],
-   "seconds": 2421
+   "seconds": 2421,
+   "group": "6mm1Skz3JE6AXneya9Nyiv"
   },
   {
    "id": "4I5zzKYd2SKDgZ9DRf5LVk",
@@ -5977,7 +6193,8 @@
    "songs": [
     "\"Heroes\" - 2017 Remaster"
    ],
-   "seconds": 2445
+   "seconds": 2445,
+   "group": "4I5zzKYd2SKDgZ9DRf5LVk"
   },
   {
    "id": "4Un0tRvWIlK2di1nx6W1i4",
@@ -5991,7 +6208,8 @@
    "songs": [
     "Oh Mandy"
    ],
-   "seconds": 1864
+   "seconds": 1864,
+   "group": "4Un0tRvWIlK2di1nx6W1i4"
   },
   {
    "id": "0z8nA21wNnuISLwaja0fhd",
@@ -6005,21 +6223,8 @@
    "songs": [
     "No Llora Mi Pez"
    ],
-   "seconds": 3720
-  },
-  {
-   "id": "3T5bbO2BOnnjun6jKhJdjV",
-   "name": "Direct Hits",
-   "artists": [
-    "The Killers"
-   ],
-   "year": "2013",
-   "image": "https://i.scdn.co/image/ab67616d0000b27348488c2eee5727efc30bf657",
-   "url": "https://open.spotify.com/album/3T5bbO2BOnnjun6jKhJdjV",
-   "songs": [
-    "Mr. Brightside - Original Demo"
-   ],
-   "seconds": 4584
+   "seconds": 3720,
+   "group": "0z8nA21wNnuISLwaja0fhd"
   },
   {
    "id": "6IEZVnQ1GS0oxEiIOMzJrX",
@@ -6033,7 +6238,8 @@
    "songs": [
     "You're My Waterloo"
    ],
-   "seconds": 3536
+   "seconds": 3536,
+   "group": "4SlldHebG28ZuPKd2NYQVd"
   },
   {
    "id": "4fDaiqpXlswOza10LvoZHb",
@@ -6047,7 +6253,8 @@
    "songs": [
     "Together"
    ],
-   "seconds": 2023
+   "seconds": 2023,
+   "group": "4fDaiqpXlswOza10LvoZHb"
   },
   {
    "id": "7pHR5BTXW3JfBPUBjtjRKX",
@@ -6061,7 +6268,8 @@
    "songs": [
     "Carolina Drama"
    ],
-   "seconds": 3333
+   "seconds": 3333,
+   "group": "7pHR5BTXW3JfBPUBjtjRKX"
   },
   {
    "id": "5OurYubx5BSRTng9KbqWyK",
@@ -6075,7 +6283,8 @@
    "songs": [
     "Malidor"
    ],
-   "seconds": 2401
+   "seconds": 2401,
+   "group": "5OurYubx5BSRTng9KbqWyK"
   },
   {
    "id": "2xkZV2Hl1Omi8rk2D7t5lN",
@@ -6095,7 +6304,8 @@
     "Brooklyn Bridge To Chorus",
     "Ode To The Mets"
    ],
-   "seconds": 2711
+   "seconds": 2711,
+   "group": "2xkZV2Hl1Omi8rk2D7t5lN"
   },
   {
    "id": "1zQ6F8gMagKcPL4SoA80cx",
@@ -6107,9 +6317,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b273bfff163b0602156a983fa079",
    "url": "https://open.spotify.com/album/1zQ6F8gMagKcPL4SoA80cx",
    "songs": [
-    "Times Like These"
+    "Times Like These",
+    "Times Like These - Live at the Pantages Theatre, Los Angeles, CA - August 2006"
    ],
-   "seconds": 4697
+   "seconds": 4697,
+   "group": "1zQ6F8gMagKcPL4SoA80cx"
   },
   {
    "id": "3zhOW5DedpxAxddYJ18qiI",
@@ -6124,7 +6336,8 @@
     "Jenny Jenny",
     "Vielleicht Vielleicht"
    ],
-   "seconds": 3205
+   "seconds": 3205,
+   "group": "3zhOW5DedpxAxddYJ18qiI"
   },
   {
    "id": "2Cq6fg3YX4wYCDLjAVG7ZO",
@@ -6138,7 +6351,8 @@
    "songs": [
     "Es geht mir gut"
    ],
-   "seconds": 2431
+   "seconds": 2431,
+   "group": "2Cq6fg3YX4wYCDLjAVG7ZO"
   },
   {
    "id": "4IBQvwIbtDluogvDe2qpaB",
@@ -6152,7 +6366,8 @@
    "songs": [
     "Times Like These - Live at the Pantages Theatre, Los Angeles, CA - August 2006"
    ],
-   "seconds": 4392
+   "seconds": 4392,
+   "group": "4IBQvwIbtDluogvDe2qpaB"
   },
   {
    "id": "7xV2TzoaVc0ycW7fwBwAml",
@@ -6166,7 +6381,8 @@
    "songs": [
     "Watermelon Sugar"
    ],
-   "seconds": 2803
+   "seconds": 2803,
+   "group": "7xV2TzoaVc0ycW7fwBwAml"
   },
   {
    "id": "6V9YnBmFjWmXCBaUVRCVXP",
@@ -6180,7 +6396,8 @@
    "songs": [
     "Life In a Glasshouse"
    ],
-   "seconds": 2637
+   "seconds": 2637,
+   "group": "6V9YnBmFjWmXCBaUVRCVXP"
   },
   {
    "id": "7oSZcpIqBMS86O9C4m82lk",
@@ -6194,7 +6411,8 @@
    "songs": [
     "Tu Falta De Querer - En Vivo"
    ],
-   "seconds": 4486
+   "seconds": 4486,
+   "group": "7oSZcpIqBMS86O9C4m82lk"
   },
   {
    "id": "5I9K0u8r52jp4Y2bF8mOaz",
@@ -6212,7 +6430,8 @@
     "Aries (feat. Peter Hook and Georgia)",
     "Désolé (feat. Fatoumata Diawara) - Extended Version"
    ],
-   "seconds": 3907
+   "seconds": 3907,
+   "group": "5I9K0u8r52jp4Y2bF8mOaz"
   },
   {
    "id": "1IPg7NZ0YLxARNx5Qs4936",
@@ -6229,7 +6448,8 @@
     "Narcisista por Excelencia",
     "Procedimientos para Llegar a un Común Acuerdo"
    ],
-   "seconds": 2442
+   "seconds": 2442,
+   "group": "1IPg7NZ0YLxARNx5Qs4936"
   },
   {
    "id": "7AihR949bXqDLbDfg5EZfG",
@@ -6243,36 +6463,8 @@
    "songs": [
     "Bailando Solo"
    ],
-   "seconds": 2627
-  },
-  {
-   "id": "4o3RJndRhHxkieQzQGhmbw",
-   "name": "Sam's Town",
-   "artists": [
-    "The Killers"
-   ],
-   "year": "2006",
-   "image": "https://i.scdn.co/image/ab67616d0000b2734f87f14089217e3f70a5f39e",
-   "url": "https://open.spotify.com/album/4o3RJndRhHxkieQzQGhmbw",
-   "songs": [
-    "Read My Mind"
-   ],
-   "seconds": 2654
-  },
-  {
-   "id": "4NtamseeVOGesCm8W9oHSz",
-   "name": "Sawdust",
-   "artists": [
-    "The Killers"
-   ],
-   "year": "2007",
-   "image": "https://i.scdn.co/image/ab67616d0000b273c535aaba615ccebdf91f9192",
-   "url": "https://open.spotify.com/album/4NtamseeVOGesCm8W9oHSz",
-   "songs": [
-    "Leave The Bourbon On The Shelf",
-    "Romeo And Juliet"
-   ],
-   "seconds": 4221
+   "seconds": 2627,
+   "group": "7AihR949bXqDLbDfg5EZfG"
   },
   {
    "id": "3HFbH1loOUbqCyPsLuHLLh",
@@ -6289,7 +6481,8 @@
     "The End Has No End",
     "Automatic Stop"
    ],
-   "seconds": 1985
+   "seconds": 1985,
+   "group": "3HFbH1loOUbqCyPsLuHLLh"
   },
   {
    "id": "0pdYY0CHFRVFLBZEPEKTMZ",
@@ -6301,9 +6494,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b273efb135bbd7001e8ad73c7f72",
    "url": "https://open.spotify.com/album/0pdYY0CHFRVFLBZEPEKTMZ",
    "songs": [
+    "Stop the Dams",
     "Hong Kong"
    ],
-   "seconds": 7038
+   "seconds": 7038,
+   "group": "0pdYY0CHFRVFLBZEPEKTMZ"
   },
   {
    "id": "50j4Wm1b9hLpSpPIA39Vp9",
@@ -6317,7 +6512,8 @@
    "songs": [
     "Where Is My Mind? - 2007 Remaster"
    ],
-   "seconds": 2023
+   "seconds": 2023,
+   "group": "50j4Wm1b9hLpSpPIA39Vp9"
   },
   {
    "id": "10qyDIB3pverR0MvhOFDVy",
@@ -6329,9 +6525,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b2737e05a226a97cdbdcab2c5a21",
    "url": "https://open.spotify.com/album/10qyDIB3pverR0MvhOFDVy",
    "songs": [
+    "È sempre bello",
     "Gratis"
    ],
-   "seconds": 1972
+   "seconds": 1972,
+   "group": "10qyDIB3pverR0MvhOFDVy"
   },
   {
    "id": "52QyC9nSbgtHFXyQRHsXJ9",
@@ -6352,7 +6550,8 @@
     "Hong Kong",
     "Nunca Estoy"
    ],
-   "seconds": 2558
+   "seconds": 2558,
+   "group": "52QyC9nSbgtHFXyQRHsXJ9"
   },
   {
    "id": "1yfJqxKKXG320vhqLfUEeC",
@@ -6366,7 +6565,8 @@
    "songs": [
     "Ocean Man"
    ],
-   "seconds": 2639
+   "seconds": 2639,
+   "group": "1yfJqxKKXG320vhqLfUEeC"
   },
   {
    "id": "4VeKLLYPySVFaf6qzkfOYW",
@@ -6379,9 +6579,11 @@
    "url": "https://open.spotify.com/album/4VeKLLYPySVFaf6qzkfOYW",
    "songs": [
     "Fuentes de Ortiz",
-    "Acurrucar"
+    "Acurrucar",
+    "acurrucar - En Vivo"
    ],
-   "seconds": 1944
+   "seconds": 1944,
+   "group": "4VeKLLYPySVFaf6qzkfOYW"
   },
   {
    "id": "0n25eeakMD41p1JUUlUinE",
@@ -6395,7 +6597,8 @@
    "songs": [
     "De Mí"
    ],
-   "seconds": 1597
+   "seconds": 1597,
+   "group": "0n25eeakMD41p1JUUlUinE"
   },
   {
    "id": "0DQyTVcDhK9wm0f6RaErWO",
@@ -6410,7 +6613,8 @@
     "Hey",
     "Here Comes Your Man"
    ],
-   "seconds": 2318
+   "seconds": 2318,
+   "group": "0DQyTVcDhK9wm0f6RaErWO"
   },
   {
    "id": "0nSzBICzQHea8grwfqa5Gb",
@@ -6424,7 +6628,8 @@
    "songs": [
     "Ghost Ship"
    ],
-   "seconds": 3113
+   "seconds": 3113,
+   "group": "0nSzBICzQHea8grwfqa5Gb"
   },
   {
    "id": "6kqOHnshP4RMTUWKrhm6Sy",
@@ -6438,7 +6643,8 @@
    "songs": [
     "Sweet Emotion"
    ],
-   "seconds": 2388
+   "seconds": 2388,
+   "group": "6kqOHnshP4RMTUWKrhm6Sy"
   },
   {
    "id": "03JPFQvZRnHHysSZrSFmKY",
@@ -6453,7 +6659,8 @@
     "Naive",
     "She Moves In Her Own Way"
    ],
-   "seconds": 2458
+   "seconds": 2458,
+   "group": "03JPFQvZRnHHysSZrSFmKY"
   },
   {
    "id": "2RNTBrSO8U8XjjEj9RVvZ5",
@@ -6468,7 +6675,8 @@
     "The Kids Aren't Alright",
     "Why Don't You Get A Job"
    ],
-   "seconds": 2554
+   "seconds": 2554,
+   "group": "2RNTBrSO8U8XjjEj9RVvZ5"
   },
   {
    "id": "0HQhToIjonHnJRRPN4jeJU",
@@ -6482,23 +6690,8 @@
    "songs": [
     "Be Yourself"
    ],
-   "seconds": 3217
-  },
-  {
-   "id": "6jb1VsNC9eH2A1PnHUZJkC",
-   "name": "First Impressions Of Earth",
-   "artists": [
-    "The Strokes"
-   ],
-   "year": "2006",
-   "image": "https://i.scdn.co/image/ab67616d0000b273fe77a5beb8fbf3cb88367fd3",
-   "url": "https://open.spotify.com/album/6jb1VsNC9eH2A1PnHUZJkC",
-   "songs": [
-    "Ize of the World",
-    "15 Minutes",
-    "Fear of Sleep"
-   ],
-   "seconds": 3123
+   "seconds": 3217,
+   "group": "0HQhToIjonHnJRRPN4jeJU"
   },
   {
    "id": "6uSnHSIBGKUiW1uKQLYZ7w",
@@ -6513,7 +6706,8 @@
     "Highway Tune",
     "Black Smoke Rising"
    ],
-   "seconds": 1931
+   "seconds": 1931,
+   "group": "6uSnHSIBGKUiW1uKQLYZ7w"
   },
   {
    "id": "0lw68yx3MhKflWFqCsGkIs",
@@ -6525,9 +6719,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b27328933b808bfb4cbbd0385400",
    "url": "https://open.spotify.com/album/0lw68yx3MhKflWFqCsGkIs",
    "songs": [
+    "Starlight - Live at Rome Olympic Stadium",
     "Starlight"
    ],
-   "seconds": 3016
+   "seconds": 3016,
+   "group": "0lw68yx3MhKflWFqCsGkIs"
   },
   {
    "id": "5sY6UIQ32GqwMLAfSNEaXb",
@@ -6544,7 +6740,8 @@
     "Hand Me Downs",
     "That's On Me"
    ],
-   "seconds": 2925
+   "seconds": 2925,
+   "group": "5sY6UIQ32GqwMLAfSNEaXb"
   },
   {
    "id": "0WzOtZBpXvWdNdH7hCJ4qo",
@@ -6556,9 +6753,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b27350570144b4a9a459406f9a3d",
    "url": "https://open.spotify.com/album/0WzOtZBpXvWdNdH7hCJ4qo",
    "songs": [
-    "The Spins"
+    "The Spins",
+    "Knock Knock"
    ],
-   "seconds": 2828
+   "seconds": 2828,
+   "group": "0WzOtZBpXvWdNdH7hCJ4qo"
   },
   {
    "id": "4WnkQO4xD9ljQooB3VIxCV",
@@ -6573,7 +6772,8 @@
     "Chances",
     "Slow Animals"
    ],
-   "seconds": 2395
+   "seconds": 2395,
+   "group": "4WnkQO4xD9ljQooB3VIxCV"
   },
   {
    "id": "7vXiklrUeffx5o2F8VYwm3",
@@ -6587,7 +6787,8 @@
    "songs": [
     "It's Called: Freefall"
    ],
-   "seconds": 2192
+   "seconds": 2192,
+   "group": "7vXiklrUeffx5o2F8VYwm3"
   },
   {
    "id": "0oPKygNJATeXkPWre0R0Nr",
@@ -6601,7 +6802,8 @@
    "songs": [
     "BDE (Best Day Ever) (Live)"
    ],
-   "seconds": 3707
+   "seconds": 3707,
+   "group": "0oPKygNJATeXkPWre0R0Nr"
   },
   {
    "id": "1UgfO8ixyCL019F9Fo1gaf",
@@ -6614,9 +6816,11 @@
    "url": "https://open.spotify.com/album/1UgfO8ixyCL019F9Fo1gaf",
    "songs": [
     "a mis amigos",
-    "siempreestoypati"
+    "siempreestoypati",
+    "siempreestoypati - En Vivo"
    ],
-   "seconds": 1146
+   "seconds": 1146,
+   "group": "1UgfO8ixyCL019F9Fo1gaf"
   },
   {
    "id": "44a7Wk3Jh2JGVhjcFYWozj",
@@ -6631,7 +6835,8 @@
     "Torna a casa",
     "L'altra dimensione"
    ],
-   "seconds": 2057
+   "seconds": 2057,
+   "group": "44a7Wk3Jh2JGVhjcFYWozj"
   },
   {
    "id": "7F82fBlo73zEKEauNfNQLP",
@@ -6645,7 +6850,8 @@
    "songs": [
     "La Magia"
    ],
-   "seconds": 2802
+   "seconds": 2802,
+   "group": "7F82fBlo73zEKEauNfNQLP"
   },
   {
    "id": "7KF1Ain9mYYlg5M46g0i4A",
@@ -6660,7 +6866,8 @@
     "CORALINE",
     "VENT'ANNI"
    ],
-   "seconds": 1748
+   "seconds": 1748,
+   "group": "7KF1Ain9mYYlg5M46g0i4A"
   },
   {
    "id": "2xjQOixp5YLkhVDcAh8MY0",
@@ -6674,7 +6881,8 @@
    "songs": [
     "You'll Never Walk Alone - Mono; 2002 Remaster"
    ],
-   "seconds": 17864
+   "seconds": 17864,
+   "group": "2xjQOixp5YLkhVDcAh8MY0"
   },
   {
    "id": "1YZ3k65Mqw3G8FzYlW1mmp",
@@ -6688,7 +6896,8 @@
    "songs": [
     "Right"
    ],
-   "seconds": 3467
+   "seconds": 3467,
+   "group": "1YZ3k65Mqw3G8FzYlW1mmp"
   },
   {
    "id": "5ARI6MI0J9CnAqT9vfhd4n",
@@ -6702,7 +6911,8 @@
    "songs": [
     "Soldadito marinero"
    ],
-   "seconds": 2871
+   "seconds": 2871,
+   "group": "5ARI6MI0J9CnAqT9vfhd4n"
   },
   {
    "id": "5iW5yzlJsGBIfsemMr8v8y",
@@ -6716,7 +6926,8 @@
    "songs": [
     "Me equivocaría otra vez"
    ],
-   "seconds": 3301
+   "seconds": 3301,
+   "group": "5iW5yzlJsGBIfsemMr8v8y"
   },
   {
    "id": "0fuY5UnmF59L4xKeRSZFbm",
@@ -6731,7 +6942,8 @@
     "De la Noche a la Mañana",
     "La Que Se Fue"
    ],
-   "seconds": 3119
+   "seconds": 3119,
+   "group": "0fuY5UnmF59L4xKeRSZFbm"
   },
   {
    "id": "42Fc71rqB9qZAb84q0Hs3U",
@@ -6745,7 +6957,8 @@
    "songs": [
     "Durmiendo con la Luna"
    ],
-   "seconds": 3444
+   "seconds": 3444,
+   "group": "42Fc71rqB9qZAb84q0Hs3U"
   },
   {
    "id": "2NBVxjZcbH5H1N1Ab2ExDH",
@@ -6758,9 +6971,11 @@
    "url": "https://open.spotify.com/album/2NBVxjZcbH5H1N1Ab2ExDH",
    "songs": [
     "Never Enough",
-    "4 Seasons"
+    "4 Seasons",
+    "Apricot Princess"
    ],
-   "seconds": 2375
+   "seconds": 2375,
+   "group": "2NBVxjZcbH5H1N1Ab2ExDH"
   },
   {
    "id": "716fnrS2qXChPC3J2X73pK",
@@ -6774,22 +6989,8 @@
    "songs": [
     "The Look"
    ],
-   "seconds": 2707
-  },
-  {
-   "id": "5vkqYmiPBYLaalcmjujWxK",
-   "name": "In Rainbows",
-   "artists": [
-    "Radiohead"
-   ],
-   "year": "2007",
-   "image": "https://i.scdn.co/image/ab67616d0000b273de3c04b5fc750b68899b20a9",
-   "url": "https://open.spotify.com/album/5vkqYmiPBYLaalcmjujWxK",
-   "songs": [
-    "House Of Cards",
-    "Weird Fishes / Arpeggi"
-   ],
-   "seconds": 2559
+   "seconds": 2707,
+   "group": "716fnrS2qXChPC3J2X73pK"
   },
   {
    "id": "0Tp6yhqsb5UekzoUSBtxZK",
@@ -6803,7 +7004,8 @@
    "songs": [
     "Orgullo Banderillero"
    ],
-   "seconds": 4415
+   "seconds": 4415,
+   "group": "5IdhhEZQbdOlmWrjQhWoPJ"
   },
   {
    "id": "6hIAy4WsqxwWnGvZYdjnHO",
@@ -6817,7 +7019,8 @@
    "songs": [
     "Perdu (with Damon Albarn)"
    ],
-   "seconds": 3769
+   "seconds": 3769,
+   "group": "6hIAy4WsqxwWnGvZYdjnHO"
   },
   {
    "id": "7BiMMjtvTX0OiB8Yi7CFB1",
@@ -6832,7 +7035,8 @@
     "The Universal - 2012 Remaster",
     "Country House - 2012 Remaster"
    ],
-   "seconds": 7770
+   "seconds": 7770,
+   "group": "3rXnMAuqzR6UQl6gBlJrDL"
   },
   {
    "id": "5IEoiwkThhRmSMBANhpxl2",
@@ -6847,7 +7051,8 @@
     "Cornerstone",
     "Crying Lightning"
    ],
-   "seconds": 2360
+   "seconds": 2360,
+   "group": "5IEoiwkThhRmSMBANhpxl2"
   },
   {
    "id": "2HfdqVaLccOvzfsHej9A8g",
@@ -6861,7 +7066,8 @@
    "songs": [
     "Taking Pictures Of You"
    ],
-   "seconds": 2156
+   "seconds": 2156,
+   "group": "2HfdqVaLccOvzfsHej9A8g"
   },
   {
    "id": "18y3DE8cX1ptDjRVwgnmfb",
@@ -6875,7 +7081,8 @@
    "songs": [
     "Heavy Wave"
    ],
-   "seconds": 1836
+   "seconds": 1836,
+   "group": "18y3DE8cX1ptDjRVwgnmfb"
   },
   {
    "id": "5YuZ4DjvtZBywtIbHIqtGJ",
@@ -6889,7 +7096,8 @@
    "songs": [
     "Tender"
    ],
-   "seconds": 4015
+   "seconds": 4015,
+   "group": "5YuZ4DjvtZBywtIbHIqtGJ"
   },
   {
    "id": "7d8ZXzEcGuiFOJSpLsfcTB",
@@ -6903,7 +7111,8 @@
    "songs": [
     "Vía Láctea"
    ],
-   "seconds": 3236
+   "seconds": 3236,
+   "group": "7d8ZXzEcGuiFOJSpLsfcTB"
   },
   {
    "id": "45fpjQkEMNvYJn5SGPcCSX",
@@ -6915,9 +7124,12 @@
    "image": "https://i.scdn.co/image/ab67616d0000b273ae18ed3e8c0b2f82d0eaf08c",
    "url": "https://open.spotify.com/album/45fpjQkEMNvYJn5SGPcCSX",
    "songs": [
+    "Soñé",
+    "Veneno - En Vivo",
     "Love"
    ],
-   "seconds": 2877
+   "seconds": 2877,
+   "group": "45fpjQkEMNvYJn5SGPcCSX"
   },
   {
    "id": "5SKnXCvB4fcGSZu32o3LRY",
@@ -6931,7 +7143,8 @@
    "songs": [
     "Inside Outside"
    ],
-   "seconds": 5470
+   "seconds": 5470,
+   "group": "5SKnXCvB4fcGSZu32o3LRY"
   },
   {
    "id": "1sIhNlunCcOptsSOL72WLg",
@@ -6945,7 +7158,8 @@
    "songs": [
     "Sgt. Major"
    ],
-   "seconds": 5314
+   "seconds": 5314,
+   "group": "1sIhNlunCcOptsSOL72WLg"
   },
   {
    "id": "74EGiaC1gDTyIi9jwz6Wce",
@@ -6959,7 +7173,8 @@
    "songs": [
     "Time"
    ],
-   "seconds": 2600
+   "seconds": 2600,
+   "group": "74EGiaC1gDTyIi9jwz6Wce"
   },
   {
    "id": "6SRo0LgsrC4MV3nONDtr4c",
@@ -6973,7 +7188,8 @@
    "songs": [
     "Surfing The Warm Industry"
    ],
-   "seconds": 3713
+   "seconds": 3713,
+   "group": "6SRo0LgsrC4MV3nONDtr4c"
   },
   {
    "id": "4mCBsPZHyqKbEhXkRr45p9",
@@ -6987,7 +7203,8 @@
    "songs": [
     "Liberté Convictionnelle"
    ],
-   "seconds": 1397
+   "seconds": 1397,
+   "group": "4mCBsPZHyqKbEhXkRr45p9"
   },
   {
    "id": "1UTpvroWrhmgpntarWj1OO",
@@ -6999,9 +7216,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b2737ffa007124cc61a27c9ade2f",
    "url": "https://open.spotify.com/album/1UTpvroWrhmgpntarWj1OO",
    "songs": [
-    "Mentía"
+    "Mentía",
+    "Mentía - En Vivo"
    ],
-   "seconds": 2102
+   "seconds": 2102,
+   "group": "1UTpvroWrhmgpntarWj1OO"
   },
   {
    "id": "28VjwDx4sL5GJRBUgOlJ7v",
@@ -7015,7 +7234,8 @@
    "songs": [
     "Nada Nuevo Bajo El Sol"
    ],
-   "seconds": 3177
+   "seconds": 3177,
+   "group": "28VjwDx4sL5GJRBUgOlJ7v"
   },
   {
    "id": "1suQaaQtIUflWRknH5CnLt",
@@ -7029,7 +7249,8 @@
    "songs": [
     "Mentía - En Vivo"
    ],
-   "seconds": 3838
+   "seconds": 3838,
+   "group": "1suQaaQtIUflWRknH5CnLt"
   },
   {
    "id": "13946ZavIWsXcoTcXJEOWQ",
@@ -7043,7 +7264,8 @@
    "songs": [
     "Coming Home Soon"
    ],
-   "seconds": 4552
+   "seconds": 4552,
+   "group": "13946ZavIWsXcoTcXJEOWQ"
   },
   {
    "id": "4g1ZRSobMefqF6nelkgibi",
@@ -7057,7 +7279,8 @@
    "songs": [
     "Circles"
    ],
-   "seconds": 3064
+   "seconds": 3064,
+   "group": "4g1ZRSobMefqF6nelkgibi"
   },
   {
    "id": "5YTdmuYJ5zWbiS9Kw0Rt7u",
@@ -7071,7 +7294,8 @@
    "songs": [
     "Perfecta"
    ],
-   "seconds": 4666
+   "seconds": 4666,
+   "group": "5YTdmuYJ5zWbiS9Kw0Rt7u"
   },
   {
    "id": "6fy3LWXw3XR58cpTHPBCjG",
@@ -7087,7 +7311,8 @@
     "Wild Season (feat. Florence Welch)",
     "Anything But Words"
    ],
-   "seconds": 3320
+   "seconds": 3320,
+   "group": "6fy3LWXw3XR58cpTHPBCjG"
   },
   {
    "id": "5SH9zH7m4u4p2gURDZ73Lj",
@@ -7101,7 +7326,8 @@
    "songs": [
     "Hoy Tengo Miedo"
    ],
-   "seconds": 4347
+   "seconds": 4347,
+   "group": "5SH9zH7m4u4p2gURDZ73Lj"
   },
   {
    "id": "7s2lDvm4FwnWE5RXEoY8Gi",
@@ -7115,7 +7341,8 @@
    "songs": [
     "Persiana Americana - Remasterizado 2007"
    ],
-   "seconds": 2451
+   "seconds": 2451,
+   "group": "7s2lDvm4FwnWE5RXEoY8Gi"
   },
   {
    "id": "2J3tzhwNm2jhGATxQmawOt",
@@ -7132,7 +7359,8 @@
     "Palos de Ciego",
     "Asuntos Delicados"
    ],
-   "seconds": 2730
+   "seconds": 2730,
+   "group": "2J3tzhwNm2jhGATxQmawOt"
   },
   {
    "id": "3KuXEGcqLcnEYWnn3OEGy0",
@@ -7144,9 +7372,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b273fc192c54d1823a04ffb6c8c9",
    "url": "https://open.spotify.com/album/3KuXEGcqLcnEYWnn3OEGy0",
    "songs": [
+    "Madness - Live at Rome Olympic Stadium",
     "Madness"
    ],
-   "seconds": 3216
+   "seconds": 3216,
+   "group": "3KuXEGcqLcnEYWnn3OEGy0"
   },
   {
    "id": "2CzEfrbLrguAabRb9wvjEf",
@@ -7160,21 +7390,8 @@
    "songs": [
     "What You Know - Live At Brixton"
    ],
-   "seconds": 6143
-  },
-  {
-   "id": "12ED49CzOuEydEFVUytEvm",
-   "name": "Eternamiente",
-   "artists": [
-    "Molotov"
-   ],
-   "year": "2007",
-   "image": "https://i.scdn.co/image/ab67616d0000b27369ef00d26cab9b55ffe11060",
-   "url": "https://open.spotify.com/album/12ED49CzOuEydEFVUytEvm",
-   "songs": [
-    "Blame Me"
-   ],
-   "seconds": 3444
+   "seconds": 6143,
+   "group": "2CzEfrbLrguAabRb9wvjEf"
   },
   {
    "id": "7ozOQXEfKskKDTtDpmTnuh",
@@ -7187,10 +7404,12 @@
    "url": "https://open.spotify.com/album/7ozOQXEfKskKDTtDpmTnuh",
    "songs": [
     "Copenhague",
+    "Copenhague - En Directo",
     "Autocrítica",
     "Valiente"
    ],
-   "seconds": 2931
+   "seconds": 2931,
+   "group": "7ozOQXEfKskKDTtDpmTnuh"
   },
   {
    "id": "6FTYxFxqIxkCJVwaT8nV8x",
@@ -7205,7 +7424,8 @@
    "songs": [
     "Copenhague - En Directo"
    ],
-   "seconds": 4184
+   "seconds": 4184,
+   "group": "6FTYxFxqIxkCJVwaT8nV8x"
   },
   {
    "id": "0rdtx9JOcYikLL8zKRnvYd",
@@ -7220,7 +7440,8 @@
     "Copenhague - En Directo",
     "Baldosas Amarillas - En Directo"
    ],
-   "seconds": 6806
+   "seconds": 6806,
+   "group": "0rdtx9JOcYikLL8zKRnvYd"
   },
   {
    "id": "19CvkGjYpifkdwgVJSbog2",
@@ -7234,7 +7455,8 @@
    "songs": [
     "De Música Ligera - Live in Buenos Aires"
    ],
-   "seconds": 6867
+   "seconds": 6867,
+   "group": "19CvkGjYpifkdwgVJSbog2"
   },
   {
    "id": "50Zz8CkIhATKUlQMbHO3k1",
@@ -7252,7 +7474,8 @@
     "From The Ritz To The Rubble",
     "When The Sun Goes Down"
    ],
-   "seconds": 2470
+   "seconds": 2470,
+   "group": "50Zz8CkIhATKUlQMbHO3k1"
   },
   {
    "id": "26HijWnwwDe2n6PsI49e6q",
@@ -7266,7 +7489,8 @@
    "songs": [
     "Arena y Romero"
    ],
-   "seconds": 2409
+   "seconds": 2409,
+   "group": "26HijWnwwDe2n6PsI49e6q"
   },
   {
    "id": "3BDwyojdwMAmBEsXZlyQjW",
@@ -7285,7 +7509,8 @@
     "Antes de que quieras olvidar",
     "A carta cabal"
    ],
-   "seconds": 2445
+   "seconds": 2445,
+   "group": "3BDwyojdwMAmBEsXZlyQjW"
   },
   {
    "id": "4XBCWqCXqCdN72K9SklIjy",
@@ -7300,7 +7525,8 @@
     "Stand By Me - Remastered",
     "I Hope, I Think, I Know - Remastered"
    ],
-   "seconds": 13059
+   "seconds": 13059,
+   "group": "6MYqpAbjxmm65kiqYolbfY"
   },
   {
    "id": "6tOe4eAF8xNhEkl9WyvsE4",
@@ -7318,21 +7544,8 @@
     "Roll With It - Remastered",
     "Talk Tonight - Remastered"
    ],
-   "seconds": 10141
-  },
-  {
-   "id": "5WsCU95SaumguegxnC87TV",
-   "name": "Be Here Now",
-   "artists": [
-    "Oasis"
-   ],
-   "year": "1997",
-   "image": "https://i.scdn.co/image/ab67616d0000b273ecaed060a7fd28be92069778",
-   "url": "https://open.spotify.com/album/5WsCU95SaumguegxnC87TV",
-   "songs": [
-    "Don't Go Away"
-   ],
-   "seconds": 4293
+   "seconds": 10141,
+   "group": "0PTVq4kaAAuROnfvfA7bHG"
   },
   {
    "id": "3AMHMM2aNG6k3d7ybcQ5bY",
@@ -7346,7 +7559,8 @@
    "songs": [
     "Whatever - Remastered"
    ],
-   "seconds": 12263
+   "seconds": 12263,
+   "group": "3AMHMM2aNG6k3d7ybcQ5bY"
   },
   {
    "id": "2QqSztK4paNUPiS0kZLUKL",
@@ -7360,7 +7574,8 @@
    "songs": [
     "Un Vicio Caro Es El Amor"
    ],
-   "seconds": 3690
+   "seconds": 3690,
+   "group": "2QqSztK4paNUPiS0kZLUKL"
   },
   {
    "id": "0YAtJCLY8ogFUjdopdHsyS",
@@ -7374,7 +7589,8 @@
    "songs": [
     "All the Rage Back Home"
    ],
-   "seconds": 2396
+   "seconds": 2396,
+   "group": "0YAtJCLY8ogFUjdopdHsyS"
   },
   {
    "id": "2y3Rm0cT1xbf2NoTQwKv99",
@@ -7388,7 +7604,8 @@
    "songs": [
     "Calm Like You"
    ],
-   "seconds": 2113
+   "seconds": 2113,
+   "group": "2y3Rm0cT1xbf2NoTQwKv99"
   },
   {
    "id": "4hBTxv4QRPePXCFcEI7Vjp",
@@ -7402,7 +7619,8 @@
    "songs": [
     "I Miss You"
    ],
-   "seconds": 3187
+   "seconds": 3187,
+   "group": "4hBTxv4QRPePXCFcEI7Vjp"
   },
   {
    "id": "2WdHl1k6TfiQ7UUT4HSsPP",
@@ -7416,7 +7634,8 @@
    "songs": [
     "Únicos"
    ],
-   "seconds": 2557
+   "seconds": 2557,
+   "group": "2WdHl1k6TfiQ7UUT4HSsPP"
   },
   {
    "id": "4XFeZO8Do9fdappVKRzbcH",
@@ -7430,7 +7649,8 @@
    "songs": [
     "Buscándote (Cap. 7)"
    ],
-   "seconds": 2150
+   "seconds": 2150,
+   "group": "4XFeZO8Do9fdappVKRzbcH"
   },
   {
    "id": "2moBxHaNwve3djNlfNrtO2",
@@ -7444,7 +7664,8 @@
    "songs": [
     "Ella Estrella"
    ],
-   "seconds": 2110
+   "seconds": 2110,
+   "group": "2moBxHaNwve3djNlfNrtO2"
   },
   {
    "id": "4W4H5IVKDyccOR8PFOblRb",
@@ -7460,7 +7681,8 @@
     "acurrucar - En Vivo",
     "vete ya - En Vivo"
    ],
-   "seconds": 3865
+   "seconds": 3865,
+   "group": "4W4H5IVKDyccOR8PFOblRb"
   },
   {
    "id": "0hdOk76DmEMYI6QV92mIin",
@@ -7474,7 +7696,8 @@
    "songs": [
     "Butterfly"
    ],
-   "seconds": 2831
+   "seconds": 2831,
+   "group": "0hdOk76DmEMYI6QV92mIin"
   },
   {
    "id": "0AP5O47kJWlaKVnnybKvQI",
@@ -7489,7 +7712,8 @@
     "Dreams",
     "Linger"
    ],
-   "seconds": 2459
+   "seconds": 2459,
+   "group": "0AP5O47kJWlaKVnnybKvQI"
   },
   {
    "id": "4pIYJsJ8GkYWM1rvqy45ug",
@@ -7503,7 +7727,8 @@
    "songs": [
     "Maria"
    ],
-   "seconds": 4073
+   "seconds": 4073,
+   "group": "4pIYJsJ8GkYWM1rvqy45ug"
   },
   {
    "id": "02Rv3vQffqlXEUeaUjd7T1",
@@ -7519,7 +7744,8 @@
     "Artificial Screens",
     "I Know That Much"
    ],
-   "seconds": 4479
+   "seconds": 4479,
+   "group": "2r8yXie5ySfYgRuxmceSmf"
   },
   {
    "id": "2r8yXie5ySfYgRuxmceSmf",
@@ -7531,11 +7757,16 @@
    "image": "https://i.scdn.co/image/ab67616d0000b2732e12e23f6b6adbbb26411328",
    "url": "https://open.spotify.com/album/2r8yXie5ySfYgRuxmceSmf",
    "songs": [
+    "Fight On",
+    "Artificial Screens",
+    "I See Your Ghost",
     "The Great Escape",
     "I'll Get By",
+    "I Know That Much",
     "Oh My Love"
    ],
-   "seconds": 2335
+   "seconds": 2335,
+   "group": "2r8yXie5ySfYgRuxmceSmf"
   },
   {
    "id": "0MYpaG2Kjp6ss5g0IgKrE4",
@@ -7549,7 +7780,8 @@
    "songs": [
     "Histéricos"
    ],
-   "seconds": 3174
+   "seconds": 3174,
+   "group": "0MYpaG2Kjp6ss5g0IgKrE4"
   },
   {
    "id": "43lcnoRo7YBAYHEztiDRrG",
@@ -7563,7 +7795,8 @@
    "songs": [
     "El Niágra En Bicicleta - Live - Estadio Olímpico De República Dominicana/2012"
    ],
-   "seconds": 3265
+   "seconds": 3265,
+   "group": "43lcnoRo7YBAYHEztiDRrG"
   },
   {
    "id": "3x2uer6Xh0d5rF8toWpRDA",
@@ -7577,7 +7810,8 @@
    "songs": [
     "Good Riddance (Time of Your Life)"
    ],
-   "seconds": 2946
+   "seconds": 2946,
+   "group": "3x2uer6Xh0d5rF8toWpRDA"
   },
   {
    "id": "5ZPDl7OMRFK0TwV3syXaGA",
@@ -7592,7 +7826,8 @@
     "Primavera",
     "Imán"
    ],
-   "seconds": 2387
+   "seconds": 2387,
+   "group": "5ZPDl7OMRFK0TwV3syXaGA"
   },
   {
    "id": "4WEu5ZKJLZ9bOEav4ELwpd",
@@ -7607,7 +7842,8 @@
     "Ojalá",
     "Al Final de Este Viaje en la Vida"
    ],
-   "seconds": 2076
+   "seconds": 2076,
+   "group": "4WEu5ZKJLZ9bOEav4ELwpd"
   },
   {
    "id": "2TVvPbLNPTCZS8lPHs1rZW",
@@ -7623,7 +7859,8 @@
     "1901",
     "Lisztomania"
    ],
-   "seconds": 2187
+   "seconds": 2187,
+   "group": "2TVvPbLNPTCZS8lPHs1rZW"
   },
   {
    "id": "1VpqO2dBJdAS3YAimXlhEM",
@@ -7637,7 +7874,8 @@
    "songs": [
     "Banquet"
    ],
-   "seconds": 3538
+   "seconds": 3538,
+   "group": "1VpqO2dBJdAS3YAimXlhEM"
   },
   {
    "id": "3FIGa6lppxHrUDkxztW2CO",
@@ -7651,7 +7889,8 @@
    "songs": [
     "Bipolaridad"
    ],
-   "seconds": 2330
+   "seconds": 2330,
+   "group": "3FIGa6lppxHrUDkxztW2CO"
   },
   {
    "id": "75l5Bqvc0BH45UhJrS04Xj",
@@ -7665,7 +7904,8 @@
    "songs": [
     "Let's Dance to Joy Division"
    ],
-   "seconds": 2546
+   "seconds": 2546,
+   "group": "75l5Bqvc0BH45UhJrS04Xj"
   },
   {
    "id": "4xqm8AbqzESFwCZlEPdYjr",
@@ -7679,7 +7919,8 @@
    "songs": [
     "Cuarteles de Invierno"
    ],
-   "seconds": 2715
+   "seconds": 2715,
+   "group": "4xqm8AbqzESFwCZlEPdYjr"
   },
   {
    "id": "1HeNYlqvbUDkP97DJ33Kjl",
@@ -7692,9 +7933,14 @@
    "url": "https://open.spotify.com/album/1HeNYlqvbUDkP97DJ33Kjl",
    "songs": [
     "TIERRA ZANTA",
-    "DANCE CRIP"
+    "DANCE CRIP",
+    "DANCE CRIP - Live At NPR's Tiny Desk",
+    "BIEN O MAL - Live At NPR's Tiny Desk",
+    "ARGENTINA - Live At NPR's Tiny Desk",
+    "TIERRA ZANTA - Live At NPR's Tiny Desk"
    ],
-   "seconds": 2680
+   "seconds": 2680,
+   "group": "1HeNYlqvbUDkP97DJ33Kjl"
   },
   {
    "id": "1X7NlROjvvMICSei8xcFJh",
@@ -7708,7 +7954,8 @@
    "songs": [
     "Un Montón De Estrellas"
    ],
-   "seconds": 3425
+   "seconds": 3425,
+   "group": "1X7NlROjvvMICSei8xcFJh"
   },
   {
    "id": "3RQQmkQEvNCY4prGKE6oc5",
@@ -7723,7 +7970,8 @@
     "Tití Me Preguntó",
     "Ojitos Lindos"
    ],
-   "seconds": 4911
+   "seconds": 4911,
+   "group": "3RQQmkQEvNCY4prGKE6oc5"
   },
   {
    "id": "1xBoZOfcOsqd77V6AENKYC",
@@ -7737,7 +7985,8 @@
    "songs": [
     "Sangría - con WOS"
    ],
-   "seconds": 1819
+   "seconds": 1819,
+   "group": "1xBoZOfcOsqd77V6AENKYC"
   },
   {
    "id": "4dmb8dXKTk6GSh7zsBnF0r",
@@ -7751,7 +8000,8 @@
    "songs": [
     "Chocolatito"
    ],
-   "seconds": 2505
+   "seconds": 2505,
+   "group": "4dmb8dXKTk6GSh7zsBnF0r"
   },
   {
    "id": "7L6gLnSJBTU0tOneX0Ol91",
@@ -7764,10 +8014,12 @@
    "url": "https://open.spotify.com/album/7L6gLnSJBTU0tOneX0Ol91",
    "songs": [
     "FRESCO",
+    "FRESCO - Live Set",
     "CANGURO",
     "LUZ DELITO"
    ],
-   "seconds": 1195
+   "seconds": 1195,
+   "group": "7L6gLnSJBTU0tOneX0Ol91"
   },
   {
    "id": "54cQyzboXGgzxcSav5KKhd",
@@ -7781,7 +8033,8 @@
    "songs": [
     "Le luci della città"
    ],
-   "seconds": 1304
+   "seconds": 1304,
+   "group": "54cQyzboXGgzxcSav5KKhd"
   },
   {
    "id": "0fYhjxeRFdXp6s8R9hUXKt",
@@ -7803,7 +8056,8 @@
     "CONVOY JARANA",
     "BUITRES"
    ],
-   "seconds": 2343
+   "seconds": 2343,
+   "group": "0fYhjxeRFdXp6s8R9hUXKt"
   },
   {
    "id": "0Q5XBpCYFgUWiG9DUWyAmJ",
@@ -7818,7 +8072,8 @@
     "Shy Away",
     "Never Take It"
    ],
-   "seconds": 2263
+   "seconds": 2263,
+   "group": "0Q5XBpCYFgUWiG9DUWyAmJ"
   },
   {
    "id": "0NAHsxTJDSwjwetzFTJnJz",
@@ -7832,7 +8087,8 @@
    "songs": [
     "Mi Segunda Vida"
    ],
-   "seconds": 2717
+   "seconds": 2717,
+   "group": "0NAHsxTJDSwjwetzFTJnJz"
   },
   {
    "id": "7vDEFYg7ptetrcB5C3l9tj",
@@ -7846,7 +8102,8 @@
    "songs": [
     "Pienso en Ti"
    ],
-   "seconds": 2116
+   "seconds": 2116,
+   "group": "7vDEFYg7ptetrcB5C3l9tj"
   },
   {
    "id": "5CNckxfLf4TCoMOoxgAU8l",
@@ -7860,21 +8117,8 @@
    "songs": [
     "It's Not The Same Anymore"
    ],
-   "seconds": 2036
-  },
-  {
-   "id": "4DxNdQzm6cBYuSn4dCimmT",
-   "name": "Apricot Princess",
-   "artists": [
-    "Rex Orange County"
-   ],
-   "year": "2017",
-   "image": "https://i.scdn.co/image/ab67616d0000b2731bd6d088d3d81972af4cb81d",
-   "url": "https://open.spotify.com/album/4DxNdQzm6cBYuSn4dCimmT",
-   "songs": [
-    "Apricot Princess"
-   ],
-   "seconds": 2375
+   "seconds": 2036,
+   "group": "5CNckxfLf4TCoMOoxgAU8l"
   },
   {
    "id": "5I20nnpF2Jj6GjUFsk9EG1",
@@ -7888,7 +8132,8 @@
    "songs": [
     "San Lucas"
    ],
-   "seconds": 1409
+   "seconds": 1409,
+   "group": "5I20nnpF2Jj6GjUFsk9EG1"
   },
   {
    "id": "3ifIxGNsG1XmLdoanRRIWB",
@@ -7902,21 +8147,8 @@
    "songs": [
     "Macy's Day Parade"
    ],
-   "seconds": 2469
-  },
-  {
-   "id": "5QCO0g9UY5H9pmyZGD8I2P",
-   "name": "Agua Maldita",
-   "artists": [
-    "Molotov"
-   ],
-   "year": "2014",
-   "image": "https://i.scdn.co/image/ab67616d0000b2734088617e750f6f13d036a70b",
-   "url": "https://open.spotify.com/album/5QCO0g9UY5H9pmyZGD8I2P",
-   "songs": [
-    "Oleré Y Oleré Y Oleré El UHU"
-   ],
-   "seconds": 2012
+   "seconds": 2469,
+   "group": "3ifIxGNsG1XmLdoanRRIWB"
   },
   {
    "id": "1ezTrrYQHb4QAsjw7uHZwG",
@@ -7931,7 +8163,8 @@
     "Antes Que al Mío",
     "Sexo, Pudor y Lágrimas"
    ],
-   "seconds": 2241
+   "seconds": 2241,
+   "group": "1ezTrrYQHb4QAsjw7uHZwG"
   },
   {
    "id": "7Hr8FOf7NQIe7UhLcllXq9",
@@ -7945,7 +8178,8 @@
    "songs": [
     "Ya No Te Hago Falta"
    ],
-   "seconds": 2563
+   "seconds": 2563,
+   "group": "7Hr8FOf7NQIe7UhLcllXq9"
   },
   {
    "id": "0cYaWyKgFJQRM8LV6RdNeB",
@@ -7959,23 +8193,8 @@
    "songs": [
     "Te Encontre"
    ],
-   "seconds": 1932
-  },
-  {
-   "id": "35UJLpClj5EDrhpNIi4DFg",
-   "name": "The Bends",
-   "artists": [
-    "Radiohead"
-   ],
-   "year": "1995",
-   "image": "https://i.scdn.co/image/ab67616d0000b2739293c743fa542094336c5e12",
-   "url": "https://open.spotify.com/album/35UJLpClj5EDrhpNIi4DFg",
-   "songs": [
-    "Bullet Proof ... I Wish I Was",
-    "Black Star",
-    "(Nice Dream)"
-   ],
-   "seconds": 2920
+   "seconds": 1932,
+   "group": "0cYaWyKgFJQRM8LV6RdNeB"
   },
   {
    "id": "01hp4DvayKlnqUQrmk0vvz",
@@ -7989,7 +8208,8 @@
    "songs": [
     "I Write Sins Not Tragedies"
    ],
-   "seconds": 2391
+   "seconds": 2391,
+   "group": "01hp4DvayKlnqUQrmk0vvz"
   },
   {
    "id": "6TFvbSAqnlvjOSkuryxUKe",
@@ -8003,7 +8223,8 @@
    "songs": [
     "Princesas"
    ],
-   "seconds": 2532
+   "seconds": 2532,
+   "group": "6TFvbSAqnlvjOSkuryxUKe"
   },
   {
    "id": "51y3USTITdNJmipX4kQEDS",
@@ -8017,7 +8238,8 @@
    "songs": [
     "Burbujas de Amor"
    ],
-   "seconds": 2593
+   "seconds": 2593,
+   "group": "51y3USTITdNJmipX4kQEDS"
   },
   {
    "id": "5r36AJ6VOJtp00oxSkBZ5h",
@@ -8029,13 +8251,15 @@
    "image": "https://i.scdn.co/image/ab67616d0000b27382ce362511fb3d9dda6578ee",
    "url": "https://open.spotify.com/album/5r36AJ6VOJtp00oxSkBZ5h",
    "songs": [
+    "As It Was",
     "Music For a Sushi Restaurant",
     "Daylight",
     "Matilda",
     "Satellite",
     "Boyfriends"
    ],
-   "seconds": 2520
+   "seconds": 2520,
+   "group": "5r36AJ6VOJtp00oxSkBZ5h"
   },
   {
    "id": "1rfWo44UYWqM3a99Vknlc3",
@@ -8049,7 +8273,8 @@
    "songs": [
     "A las Nueve"
    ],
-   "seconds": 2757
+   "seconds": 2757,
+   "group": "1rfWo44UYWqM3a99Vknlc3"
   },
   {
    "id": "1H0Kzu6QdUAuUDMGOIe271",
@@ -8064,7 +8289,8 @@
     "La Mujer de Verde",
     "Magia y Efectos Especiales"
    ],
-   "seconds": 2810
+   "seconds": 2810,
+   "group": "1H0Kzu6QdUAuUDMGOIe271"
   },
   {
    "id": "5sHvTCk793vr9EkSKcD7IT",
@@ -8078,7 +8304,8 @@
    "songs": [
     "The Kill"
    ],
-   "seconds": 2683
+   "seconds": 2683,
+   "group": "5sHvTCk793vr9EkSKcD7IT"
   },
   {
    "id": "5NUna7cH8t5yLMgBxmW4NL",
@@ -8092,7 +8319,8 @@
    "songs": [
     "Evil"
    ],
-   "seconds": 2499
+   "seconds": 2499,
+   "group": "5NUna7cH8t5yLMgBxmW4NL"
   },
   {
    "id": "6OlCoydaNFUU7v1Xo5ZJPx",
@@ -8104,9 +8332,11 @@
    "image": "https://i.scdn.co/image/ab67616d0000b27364219d797874eecfd69f2458",
    "url": "https://open.spotify.com/album/6OlCoydaNFUU7v1Xo5ZJPx",
    "songs": [
+    "Alibi",
     "This Is War"
    ],
-   "seconds": 3644
+   "seconds": 3644,
+   "group": "6OlCoydaNFUU7v1Xo5ZJPx"
   },
   {
    "id": "67v63ubEsvDUQkYMzI7A9t",
@@ -8120,7 +8350,8 @@
    "songs": [
     "You're Gonna Go Far, Kid"
    ],
-   "seconds": 2626
+   "seconds": 2626,
+   "group": "67v63ubEsvDUQkYMzI7A9t"
   },
   {
    "id": "0H4ELcHequ3OligrjWfrZP",
@@ -8134,35 +8365,8 @@
    "songs": [
     "Dear Maria, Count Me In"
    ],
-   "seconds": 2418
-  },
-  {
-   "id": "6dVIqQ8qmQ5GBnJ9shOYGE",
-   "name": "OK Computer",
-   "artists": [
-    "Radiohead"
-   ],
-   "year": "1997",
-   "image": "https://i.scdn.co/image/ab67616d0000b273c8b444df094279e70d0ed856",
-   "url": "https://open.spotify.com/album/6dVIqQ8qmQ5GBnJ9shOYGE",
-   "songs": [
-    "Let Down"
-   ],
-   "seconds": 3221
-  },
-  {
-   "id": "7avNT7QnpWXl1Khqnsguaw",
-   "name": "Costello Music",
-   "artists": [
-    "The Fratellis"
-   ],
-   "year": "2006",
-   "image": "https://i.scdn.co/image/ab67616d0000b273adba877024420660db2f124e",
-   "url": "https://open.spotify.com/album/7avNT7QnpWXl1Khqnsguaw",
-   "songs": [
-    "Whistle For The Choir"
-   ],
-   "seconds": 2662
+   "seconds": 2418,
+   "group": "0H4ELcHequ3OligrjWfrZP"
   },
   {
    "id": "4wtZQMNTC1O79kDxMBsEan",
@@ -8174,10 +8378,14 @@
    "image": "https://i.scdn.co/image/ab67616d0000b27319707804f73dc50f7a29cd86",
    "url": "https://open.spotify.com/album/4wtZQMNTC1O79kDxMBsEan",
    "songs": [
+    "Silent Running (feat. Adeleye Omotayo)",
+    "Skinny Ape",
+    "Baby Queen",
     "Tormenta (feat. Bad Bunny)",
     "New Gold (feat. Tame Impala and Bootie Brown)"
    ],
-   "seconds": 2249
+   "seconds": 2249,
+   "group": "4wtZQMNTC1O79kDxMBsEan"
   },
   {
    "id": "54TlMZIfSNfXKWNEfBLKZF",
@@ -8191,7 +8399,8 @@
    "songs": [
     "I Què?"
    ],
-   "seconds": 1876
+   "seconds": 1876,
+   "group": "54TlMZIfSNfXKWNEfBLKZF"
   },
   {
    "id": "4iY5ndG0MkayVdJoN5iapM",
@@ -8206,7 +8415,8 @@
     "La Gent Que Estimo",
     "Elefants"
    ],
-   "seconds": 1969
+   "seconds": 1969,
+   "group": "4iY5ndG0MkayVdJoN5iapM"
   },
   {
    "id": "6EwTLRHMROD853Kv1lAMex",
@@ -8218,11 +8428,13 @@
    "image": "https://i.scdn.co/image/ab67616d0000b2736af3a93773dcb59a67ab2953",
    "url": "https://open.spotify.com/album/6EwTLRHMROD853Kv1lAMex",
    "songs": [
+    "L’enfer",
     "Invaincu",
     "La solassitude",
     "Mon amour"
    ],
-   "seconds": 2334
+   "seconds": 2334,
+   "group": "6EwTLRHMROD853Kv1lAMex"
   },
   {
    "id": "1yWcGPURkhfMdKUrnfhoBn",
@@ -8236,7 +8448,8 @@
    "songs": [
     "Los Ojos Cerrados"
    ],
-   "seconds": 3269
+   "seconds": 3269,
+   "group": "1yWcGPURkhfMdKUrnfhoBn"
   },
   {
    "id": "4oySPuW0Zu1TT4CEWxPMDz",
@@ -8251,7 +8464,8 @@
    "songs": [
     "Más Contigo"
    ],
-   "seconds": 996
+   "seconds": 996,
+   "group": "4oySPuW0Zu1TT4CEWxPMDz"
   },
   {
    "id": "1zk2ISa5B4TfnIo3HWxdUj",
@@ -8265,7 +8479,8 @@
    "songs": [
     "La Primera Persona del Plural"
    ],
-   "seconds": 3021
+   "seconds": 3021,
+   "group": "1zk2ISa5B4TfnIo3HWxdUj"
   },
   {
    "id": "2kqn09pydzvKvB3xWbAxY4",
@@ -8284,7 +8499,8 @@
     "Light Tunnels (feat. Mike Slap)",
     "Downtown (feat. Melle Mel, Grandmaster Caz, Kool Moe Dee & Eric Nally)"
    ],
-   "seconds": 3468
+   "seconds": 3468,
+   "group": "2kqn09pydzvKvB3xWbAxY4"
   },
   {
    "id": "2oYnnhPvpDYsSawWYV65OP",
@@ -8298,7 +8514,8 @@
    "songs": [
     "De qué me sirve amar?"
    ],
-   "seconds": 2441
+   "seconds": 2441,
+   "group": "2oYnnhPvpDYsSawWYV65OP"
   },
   {
    "id": "1BubKJqf6Uc4fNae5kLJJ7",
@@ -8312,7 +8529,8 @@
    "songs": [
     "10x Stronger"
    ],
-   "seconds": 2065
+   "seconds": 2065,
+   "group": "1BubKJqf6Uc4fNae5kLJJ7"
   },
   {
    "id": "06cAMlpu3U7dLgVoeF6202",
@@ -8326,7 +8544,8 @@
    "songs": [
     "Límite"
    ],
-   "seconds": 3582
+   "seconds": 3582,
+   "group": "06cAMlpu3U7dLgVoeF6202"
   },
   {
    "id": "5iwpXxPIQS2wGBhUZpbwTY",
@@ -8340,7 +8559,8 @@
    "songs": [
     "Cafeliko"
    ],
-   "seconds": 1659
+   "seconds": 1659,
+   "group": "5iwpXxPIQS2wGBhUZpbwTY"
   },
   {
    "id": "75OD1SnBNNFYHoMuwc3WYV",
@@ -8355,7 +8575,8 @@
     "Al mar!",
     "Ai, Dolors"
    ],
-   "seconds": 2822
+   "seconds": 2822,
+   "group": "75OD1SnBNNFYHoMuwc3WYV"
   },
   {
    "id": "0HANqWtJABVpAWVrQzE2XM",
@@ -8369,7 +8590,8 @@
    "songs": [
     "Se Amerita"
    ],
-   "seconds": 2824
+   "seconds": 2824,
+   "group": "0HANqWtJABVpAWVrQzE2XM"
   },
   {
    "id": "5GFoVD5F2cXQqn8MwHPkzu",
@@ -8383,7 +8605,8 @@
    "songs": [
     "Cul"
    ],
-   "seconds": 2148
+   "seconds": 2148,
+   "group": "5GFoVD5F2cXQqn8MwHPkzu"
   },
   {
    "id": "4tLVVo1gXMizHYINYC3FB7",
@@ -8397,7 +8620,8 @@
    "songs": [
     "AYER TE VI (feat. Zoe Gotusso)"
    ],
-   "seconds": 2122
+   "seconds": 2122,
+   "group": "4tLVVo1gXMizHYINYC3FB7"
   },
   {
    "id": "5rxwZGneztgCRPaxipkOvf",
@@ -8411,7 +8635,8 @@
    "songs": [
     "Avui l’únic que vull"
    ],
-   "seconds": 4351
+   "seconds": 4351,
+   "group": "5rxwZGneztgCRPaxipkOvf"
   },
   {
    "id": "2XiBbHgNjlt3JLz8j2S61k",
@@ -8425,7 +8650,8 @@
    "songs": [
     "Australia Street"
    ],
-   "seconds": 2360
+   "seconds": 2360,
+   "group": "2XiBbHgNjlt3JLz8j2S61k"
   },
   {
    "id": "2BqBFdAwEmtqQjzpWGCfCz",
@@ -8442,7 +8668,8 @@
     "23 de Junio (feat. Aliboria & El Naán) - Directo Estadio Metropolitano",
     "Cuarteles de Invierno - Directo Estadio Metropolitano"
    ],
-   "seconds": 7750
+   "seconds": 7750,
+   "group": "2BqBFdAwEmtqQjzpWGCfCz"
   },
   {
    "id": "44D07i1Lk0zFtWHRARMih6",
@@ -8456,7 +8683,8 @@
    "songs": [
     "Flaca"
    ],
-   "seconds": 3302
+   "seconds": 3302,
+   "group": "44D07i1Lk0zFtWHRARMih6"
   },
   {
    "id": "5VdyJkLe3yvOs0l4xXbWp0",
@@ -8470,7 +8698,8 @@
    "songs": [
     "Revenge"
    ],
-   "seconds": 1320
+   "seconds": 1320,
+   "group": "5VdyJkLe3yvOs0l4xXbWp0"
   },
   {
    "id": "1AckkxSo39144vOBrJ1GkS",
@@ -8484,7 +8713,8 @@
    "songs": [
     "Tribute"
    ],
-   "seconds": 3045
+   "seconds": 3045,
+   "group": "1AckkxSo39144vOBrJ1GkS"
   },
   {
    "id": "1msFprmU8cqzLu66TOX4rf",
@@ -8498,7 +8728,8 @@
    "songs": [
     "Nada Fue Un Error"
    ],
-   "seconds": 2766
+   "seconds": 2766,
+   "group": "1msFprmU8cqzLu66TOX4rf"
   },
   {
    "id": "0aiLwoe2jZ7TWjbspnBn8K",
@@ -8514,21 +8745,8 @@
     "Peces de Ciudad",
     "Eclipse de Mar"
    ],
-   "seconds": 7277
-  },
-  {
-   "id": "2ym2jcqckXqWeTDoxz3Kst",
-   "name": "Suck It and See",
-   "artists": [
-    "Arctic Monkeys"
-   ],
-   "year": "2011",
-   "image": "https://i.scdn.co/image/ab67616d0000b273cb44038b22f3d8a5e4e62d5a",
-   "url": "https://open.spotify.com/album/2ym2jcqckXqWeTDoxz3Kst",
-   "songs": [
-    "She's Thunderstorms"
-   ],
-   "seconds": 2411
+   "seconds": 7277,
+   "group": "0aiLwoe2jZ7TWjbspnBn8K"
   },
   {
    "id": "355bjCHzRJztCzaG5Za4gq",
@@ -8542,7 +8760,8 @@
    "songs": [
     "PIENSO EN TU MIRÁ - Cap.3: Celos"
    ],
-   "seconds": 1818
+   "seconds": 1818,
+   "group": "355bjCHzRJztCzaG5Za4gq"
   },
   {
    "id": "7FYLw9fTOiYnJFbFk2Mntn",
@@ -8554,9 +8773,13 @@
    "image": "https://i.scdn.co/image/ab67616d0000b2734febc01367fbd2d1ec9f1d60",
    "url": "https://open.spotify.com/album/7FYLw9fTOiYnJFbFk2Mntn",
    "songs": [
-    "Irresponsables"
+    "Irresponsables",
+    "Pistero",
+    "Estertor",
+    "Putita"
    ],
-   "seconds": 2619
+   "seconds": 2619,
+   "group": "7FYLw9fTOiYnJFbFk2Mntn"
   },
   {
    "id": "2bUpIi2WqqXxrLjwxqmURm",
@@ -8570,7 +8793,8 @@
    "songs": [
     "11 Y 6"
    ],
-   "seconds": 1832
+   "seconds": 1832,
+   "group": "2bUpIi2WqqXxrLjwxqmURm"
   },
   {
    "id": "0DGCwJASSVCD2lJGyu0t9w",
@@ -8584,23 +8808,8 @@
    "songs": [
     "Mil Horas"
    ],
-   "seconds": 5924
-  },
-  {
-   "id": "5chAuifdjaRoIqlnG4Lbun",
-   "name": "Infame",
-   "artists": [
-    "Babasonicos"
-   ],
-   "year": "2003",
-   "image": "https://i.scdn.co/image/ab67616d0000b273d4fa1c14516db6f30007a663",
-   "url": "https://open.spotify.com/album/5chAuifdjaRoIqlnG4Lbun",
-   "songs": [
-    "Pistero",
-    "Estertor",
-    "Putita"
-   ],
-   "seconds": 2671
+   "seconds": 5924,
+   "group": "0DGCwJASSVCD2lJGyu0t9w"
   },
   {
    "id": "1nDTw13U4zW8YuelhilKW5",
@@ -8614,7 +8823,8 @@
    "songs": [
     "Brillante sobre el mic"
    ],
-   "seconds": 3732
+   "seconds": 3732,
+   "group": "1nDTw13U4zW8YuelhilKW5"
   },
   {
    "id": "7xdsaV2y15dItFMlsoWTqu",
@@ -8628,7 +8838,8 @@
    "songs": [
     "Un Pacto - Live In Buenos Aires / 2001"
    ],
-   "seconds": 4369
+   "seconds": 4369,
+   "group": "7xdsaV2y15dItFMlsoWTqu"
   },
   {
    "id": "0FIpAJ1ypjj4nzIHq6XLF4",
@@ -8642,7 +8853,8 @@
    "songs": [
     "nana triste"
    ],
-   "seconds": 1221
+   "seconds": 1221,
+   "group": "0FIpAJ1ypjj4nzIHq6XLF4"
   },
   {
    "id": "5eTnO99fDE0hr87EMSTi8w",
@@ -8656,7 +8868,8 @@
    "songs": [
     "El Perdedor"
    ],
-   "seconds": 3610
+   "seconds": 3610,
+   "group": "5eTnO99fDE0hr87EMSTi8w"
   },
   {
    "id": "2rIdWbXPjcq8K7BCccBhhC",
@@ -8671,7 +8884,8 @@
     "Tabú",
     "Puente"
    ],
-   "seconds": 4246
+   "seconds": 4246,
+   "group": "2rIdWbXPjcq8K7BCccBhhC"
   },
   {
    "id": "51wepZm3YvZfvFxiu7D5F8",
@@ -8685,7 +8899,8 @@
    "songs": [
     "Deja Vu"
    ],
-   "seconds": 3378
+   "seconds": 3378,
+   "group": "51wepZm3YvZfvFxiu7D5F8"
   },
   {
    "id": "5snQakFpbHsJmrAvhgeuHX",
@@ -8699,7 +8914,8 @@
    "songs": [
     "Torn"
    ],
-   "seconds": 3412
+   "seconds": 3412,
+   "group": "5snQakFpbHsJmrAvhgeuHX"
   },
   {
    "id": "650sLMsoWUJ6AsjW2YvhCz",
@@ -8713,7 +8929,8 @@
    "songs": [
     "Me Maten - Live at NPR's Tiny Desk"
    ],
-   "seconds": 4406
+   "seconds": 4406,
+   "group": "650sLMsoWUJ6AsjW2YvhCz"
   },
   {
    "id": "5qK8S5JRF8au6adIVtBsmk",
@@ -8727,7 +8944,8 @@
    "songs": [
     "You Make Me Feel Like It’s Halloween"
    ],
-   "seconds": 2260
+   "seconds": 2260,
+   "group": "5qK8S5JRF8au6adIVtBsmk"
   },
   {
    "id": "43otFXrY0bgaq5fB3GrZj6",
@@ -8741,7 +8959,8 @@
    "songs": [
     "Dark Necessities"
    ],
-   "seconds": 3227
+   "seconds": 3227,
+   "group": "43otFXrY0bgaq5fB3GrZj6"
   },
   {
    "id": "44tyZ9zUs78EJPDlcqLmh1",
@@ -8755,7 +8974,8 @@
    "songs": [
     "Ya No Se Que Hacer Conmigo"
    ],
-   "seconds": 2720
+   "seconds": 2720,
+   "group": "44tyZ9zUs78EJPDlcqLmh1"
   },
   {
    "id": "5RzCjkJkUgW8DYlF9ZsueI",
@@ -8769,7 +8989,8 @@
    "songs": [
     "Una y Mil Veces - Rumba"
    ],
-   "seconds": 2537
+   "seconds": 2537,
+   "group": "5RzCjkJkUgW8DYlF9ZsueI"
   },
   {
    "id": "0qJkFmVwwNXP6fvSemDZqn",
@@ -8784,7 +9005,8 @@
     "Forever Alone",
     "Homerun (Intro)"
    ],
-   "seconds": 3737
+   "seconds": 3737,
+   "group": "0qJkFmVwwNXP6fvSemDZqn"
   }
  ]
 }

@@ -29,9 +29,10 @@ Used on a phone, outdoors or at the door, often one-handed, just before a run; p
 ## Capabilities and Constraints
 
 - Confirmed: read the playlist, group its tracks by album, compute each album's full running time, and match albums to the run duration the user enters.
+- Confirmed (2026-10-26): a song from a special release (single, deluxe, live, compilation, remaster) also brings in the studio album it first came out on; both versions are candidates, never twice the same record, and singles/EPs never are. The app proposes only one edition of a record per result set. Nothing is removed when songs leave the playlist; originals not found are set by hand by the owner. Workflow in `diseno/ESTADO.md`.
 - Open decision: **mood**. The user will specify how mood is defined later. Spotify audio features are not available to new apps, so mood cannot come from the API's valence/energy.
 - Open decision: **random factor**. Planned, to be designed later.
-- About 800 albums: read once; a re-read only measures albums the data file does not have yet and resumes if Spotify cuts the quota.
+- About 1,200 albums with the originals: read once; a re-read only handles new songs and albums (catalog in `data/catalog.json`) and resumes if Spotify cuts the quota.
 
 ## Evidence on Hand
 
