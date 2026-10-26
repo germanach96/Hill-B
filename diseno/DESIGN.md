@@ -70,6 +70,13 @@ typography:
     fontWeight: 700
     lineHeight: 1.5
     letterSpacing: "-0.005em"
+  brand:
+    fontFamily: "Archivo, system-ui, -apple-system, Segoe UI, sans-serif"
+    fontSize: "20px"
+    fontWeight: 800
+    lineHeight: 1.5
+    letterSpacing: "-0.01em"
+    fontVariation: "'wdth' 75"
 rounded:
   pill: "999px"
   card: "24px"
@@ -170,10 +177,10 @@ Rechazos confirmados por el propietario y por la dirección: no parecerse a Spot
 
 ## Colors
 
-Paleta de alto contraste casi acromática con un único acento eléctrico; el resto del color lo ponen las portadas.
+Paleta de alto contraste: **el voltio (#d7ff1f) es el color principal de Hill-B y, con el negro de la tinta, es su pareja de marca** (decisión del propietario). Logo, icono, bienvenida y acción principal salen de esa pareja; el blanco es suelo y el resto del color lo ponen las portadas.
 
 ### Primary
-- **Voltio** (volt): fondo de la acción principal ("Buscar discos") y campo completo de la pantalla de conexión, donde la página entera pasa a voltio y el botón es de tinta. Sus estados hover (volt-hover) y pulsado (volt-press) son el mismo tono ligeramente más oscuro. Con tinta encima siempre, nunca blanco.
+- **Voltio** (volt): el color principal y de marca: campo del icono y del logo,  fondo de la acción principal ("Buscar discos") y campo completo de la pantalla de conexión, donde la página entera pasa a voltio y el botón es de tinta. Sus estados hover (volt-hover) y pulsado (volt-press) son el mismo tono ligeramente más oscuro. Con tinta encima siempre, nunca blanco.
 
 ### Neutral
 - **Tinta** (ink): texto, iconos, estados seleccionados (pastilla del segmentado, preset activo), botón secundario, anillo de foco, relleno de las barras de progreso. Hover y pulsado en ink-hover / ink-press.
@@ -186,6 +193,8 @@ Paleta de alto contraste casi acromática con un único acento eléctrico; el re
 Cada tarjeta de disco recibe `--card-bg` y `--card-ink` calculados de su portada: se agrupan los píxeles en doce familias de tono más grises, gana la familia con más área viva, y su color se aleja de la luminosidad de la portada (−0.10 si es clara, +0.12 si es oscura), limitado a luminosidad HSL 0.36–0.70 y saturación ≤ 0.90. La tinta de la tarjeta es `#111111` o `#ffffff`, la de mayor contraste. Sin muestra (portada sin CORS), la tarjeta queda en superficie.
 
 ### Named Rules
+**The Brand Pair Rule.** La identidad es voltio y tinta, nada más: ningún otro color de marca, ningún voltio sobre blanco sin tinta al lado, ningún texto en voltio sobre blanco.
+
 **The One Volt Rule.** El voltio marca la única acción principal de la pantalla, o es el campo completo de la bienvenida. Los estados seleccionados son tinta, nunca voltio.
 
 **The Cover Field Rule.** El color de una tarjeta sale de su propia portada, nunca de una paleta inventada; la página que la rodea sigue blanca.
@@ -215,6 +224,18 @@ Cada tarjeta de disco recibe `--card-bg` y `--card-ink` calculados de su portada
 **The Two Voices Rule.** Estrecha (62%), 900 y mayúsculas para cifras, títulos de vista y títulos de disco; ancho normal para todo lo demás. No hay pesos ni anchos intermedios en la voz de pantalla.
 
 **The Tabular Rule.** Toda cifra de tiempo, distancia o recuento usa `font-variant-numeric: tabular-nums` para que no baile al cambiar.
+
+## Logo
+
+La marca son **dos colinas sobre el suelo**, sacadas de una B acostada. Se parte de la B de Archivo a peso 700 y ancho 75, girada 90° a la izquierda: su lomo queda abajo como suelo y sus dos panzas son las colinas. La colina de la derecha (la panza de abajo de la B) sale de una B más fina ampliada 1.4×, así que es visiblemente más grande con el mismo trazo, y la barra entre los huecos conserva su grosor. Su hueco se reduce al 85% dentro del mismo contorno (el suelo no cambia y la cima engorda, así que la colina grande se ve más llena) y se desplaza a la derecha la mitad del camino hacia el centro de su colina tal como se ve ya inclinada (centros del hueco y de la silueta de la colina medidos después de la inclinación; elección del propietario entre tres opciones). Por último, la marca acostada se inclina 35° hacia delante, como una cursiva aplicada ya en horizontal: las colinas se inclinan, el suelo sigue plano. La genera `tools/logo.py` desde `public/fonts/archivo-latin.woff2` (los PNG, `node tools/logo-png.mjs`).
+
+- **Marca sola:** `diseno/logo/hill-b-marca.svg`. Tinta sobre voltio o sobre blanco; voltio sobre tinta solo en piezas fuera de la app.
+- **Logo horizontal:** `diseno/logo/hill-b-logo.svg` (y `hill-b-logo-volt.svg` sobre campo voltio). La marca comparte la línea base con "HILL-B" (800, ancho 75, recta), su colina mayor sube a la altura de las mayúsculas más un 1.5% para que lo redondo parezca tan alto como lo plano, y se separa de la palabra 0.4em (los 8px de la barra).
+- **Icono de la app:** campo voltio con la marca en tinta al 70% del ancho, desplazada 7/512 arriba y 9/512 a la izquierda porque la base plana y la colina grande cargan el peso abajo a la derecha (`public/icon.svg`). La versión enmascarable la deja al 59% para que quepa en el círculo seguro del 80% (`public/icon-maskable.svg`).
+- **Favicon:** la misma marca al 88% de un cuadro de esquinas más cerradas (`public/favicon.svg` y `icons/favicon-32.png`), para que sus huecos sigan abiertos a 16-32px.
+- **En la barra:** la misma proporción que el logo horizontal: 0.698em de alto, 1.28em de ancho, 8px antes de la palabra.
+
+**The Two Hills Rule.** La colina pequeña a la izquierda, la grande a la derecha, ambas inclinadas hacia delante sobre un suelo plano; nunca de pie, boca abajo ni en espejo. No lleva contorno, sombra ni degradado, y solo va en tinta y voltio (blanco como suelo cuando hace falta).
 
 ## Layout
 
@@ -266,7 +287,7 @@ Grandes, llenos y para el pulgar.
 - **Focus:** subrayado de tinta de 4px a 10px del texto, en lugar del anillo.
 
 ### Navigation
-- **Barra:** marca a la izquierda (icono de colina de 28px + "Hill-B"), "Salir" en gris de apoyo a la derecha (600, 15px, 44px de zona táctil).
+- **Barra:** marca a la izquierda (la B acostada a la altura de las mayúsculas + "Hill-B"), "Salir" en gris de apoyo a la derecha (600, 15px, 44px de zona táctil).
 - **Atrás:** círculo de 44px con flecha de 20px.
 - **Otros 5:** píldora de 44px en la cabecera de resultados, a la derecha del título: icono de barajar de 18px + "Otros 5" (700, 16px), mismo gris translúcido que Atrás, `scale(0.95)` al pulsar. Por debajo de 360px queda en círculo de 44px solo con el icono (el texto sigue para lectores de pantalla). Saca otros cinco discos con la entrada escalonada de siempre; se oculta si la biblioteca no tiene más discos.
 - **Subtítulo de resultados:** el rango del que salen los discos, "5 discos de 40 a 50 min"; crece cuando la búsqueda se agranda. Se anuncia con `aria-live`.

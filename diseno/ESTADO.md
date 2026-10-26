@@ -14,6 +14,8 @@ Hill-B: app web móvil (PWA estática) que responde "¿qué disco entero me conv
 - Sin inicio de sesión en la app y sin página de carga. La app solo lee `public/data/albums.json`; Spotify solo sirve para cargar datos y para el botón "Abrir en Spotify".
 - Los datos los carga Claude: el usuario dice la playlist y Claude lee, guarda y abre PR. Son ~800 discos; se leen una vez y a veces se releen (solo se miden los nuevos).
 - Estilo Nike Run Club, paleta clara, viva y sencilla, mucha animación, 5 discos que se deslizan. Diseño documentado en `diseno/DESIGN.md` y producto en `diseno/PRODUCT.md`.
+- Color principal: el voltio `#d7ff1f`; con el negro (`#111111`) es la pareja de marca.
+- Logo: dos colinas de una B acostada (Archivo 700, girada a la izquierda, la colina derecha 1.4× más grande con su hueco al 85% y desplazado a medias hacia su centro, inclinada 35° ya en horizontal). Archivos en `diseno/logo/`, reglas en `diseno/DESIGN.md` § Logo.
 - Cuenta de Spotify Premium. Client ID `6b13ef05e42d4331a1fbbbc839bc1092`.
 - Claude le manda al usuario el catálogo en Excel (`python3 tools/excel.py <archivo.xlsx>`): pestaña Canciones (con caso y álbum original) y pestaña Discos.
 
@@ -52,6 +54,7 @@ Si el contenedor es nuevo, la sesión de Spotify (`.sync/`, fuera de git) se per
 - Detalles extra de cada disco además de portada, artista y duración.
 
 ## Notas técnicas
+- Logo e iconos: `python3 tools/logo.py` (necesita `pip install fonttools brotli`) y después `node tools/logo-png.mjs`.
 - Pruebas: `npm test` (lógica) y `npm run e2e` (Playwright con datos inventados; capturas en `.impeccable/review/`).
 - El MCP de Playwright no arranca en el contenedor cloud (busca Google Chrome); se usa la librería de Playwright (`require('playwright')`). Figma MCP sin autenticar.
 - Spotify 2026: `GET /playlists/{id}/items` solo para playlists propias; sin `GET /albums` por lotes (un disco por llamada); modo desarrollo con cuota compartida.

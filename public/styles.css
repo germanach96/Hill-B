@@ -23,7 +23,7 @@
   --surface-press: #e4e4df;
   --ink: #111111;
   --muted: #55554f;        /* 7.4:1 on white */
-  --volt: #d7ff1f;         /* the one accent: primary action and the connect field */
+  --volt: #d7ff1f;         /* the brand colour, paired with ink: primary action and the connect field */
   --page: var(--ground);
 
   --font: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -128,7 +128,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   letter-spacing: -0.01em;
   text-transform: uppercase;
 }
-.brand-mark { width: 28px; height: 28px; color: var(--ink); }
+/* The mark stands as tall as the wordmark's caps (Archivo cap height 0.688em), plus the
+   1.5% overshoot that makes its round tops look as tall as the flat caps. */
+.brand-mark { width: 1.28em; height: 0.698em; color: var(--ink); }
 
 .view {
   flex: 1;
