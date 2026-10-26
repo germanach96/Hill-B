@@ -344,8 +344,8 @@ function albumCard({ album, duration }, i, target, count) {
         <p class="card-meta">${escapeHtml(artists)}${album.year ? ` <span>${album.year}</span>` : ''}</p>
       </div>
       <div class="card-run">
-        <p class="card-fig"><span class="card-time" data-seconds="${duration}">${formatDuration(duration)}</span><span class="sr-only"> de disco</span></p>
-        <p class="card-fig"><span class="card-km" data-km="${km}">${formatKmValue(km)}</span><span class="card-unit">km</span><span class="sr-only"> a ${formatPace(prefs.pace)} el kilómetro</span></p>
+        <p class="card-fig"><span class="card-time" data-seconds="${duration}" aria-hidden="true">0:00</span><span class="sr-only">${formatDuration(duration)} de disco</span></p>
+        <p class="card-fig"><span class="card-km" data-km="${km}" aria-hidden="true">0</span><span class="card-unit" aria-hidden="true">km</span><span class="sr-only">${formatKmValue(km)} km a ${formatPace(prefs.pace)} el kilómetro</span></p>
       </div>
       ${tags ? `<ul class="card-tags" aria-label="Etiquetas del disco y del artista">${tags}</ul>` : ''}
       <a class="sr-only" href="${escapeAttr(album.url)}" target="_blank" rel="noopener">Abrir ${escapeHtml(album.name)} en Spotify</a>
@@ -379,17 +379,21 @@ function setActive(index) {
   cards.forEach((c, i) => c.classList.toggle('is-active', i === index));
 }
 
-/** The running time and the kilometres count up, and each tag's bar grows from the left, row after
- *  row, once the card has landed, not while it glides: the eye follows one motion at a time. */
+/** The running time and the kilometres count up from zero, and each tag's bar grows from empty,
+ *  row after row, once the card has landed, not while it glides: the eye follows one motion at a
+ *  time. Until then the card shows 0:00, 0 km and empty bars, so landing never looks like a reset. */
 function arrive(index) {
   const card = $('deck').children[index];
   if (!card || card.classList.contains('is-skeleton') || card.classList.contains('is-seen')) return;
+  card.classList.add('is-seen');
   countUp(card);
   card.querySelectorAll('.tag-fill').forEach((fill, row) => fill.animate(
-    [{ clipPath: 'inset(0 100% 0 0 round 6px)' }, { clipPath: getComputedStyle(fill).clipPath }],
+    [{ clipPath: 'inset(0 100% 0 0 round 6px)' }, { clipPath: tagClip(fill.style.getPropertyValue('--level')) }],
     { duration: 520, delay: 120 + row * 50, easing: 'cubic-bezier(0.23, 1, 0.32, 1)', fill: 'backwards' }));
-  card.classList.add('is-seen');
 }
+
+/** The same cut as `.card.is-seen .tag-fill` in styles.css: the shortest bar is a full 10px round end. */
+const tagClip = (level) => `inset(0 calc((1 - ${Number(level) || 1}) * (100% - 10px)) 0 0 round 6px)`;
 
 /**
  * Lifting a card opens the album in the Spotify app (spotify: link). If the app did not take over

@@ -572,9 +572,10 @@ html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden
 
 /* Run block: the album's running time (display voice) and the kilometres it lasts at the chosen
    pace (figure voice, the slanted stopwatch numbers of the wheels: they are the runner's numbers),
-   side by side and the same size. "45:56" is about 2.7 em wide in the display face, "1:02:03" 3.6 em. */
-.card { --fig: max(2.5rem, min(12cqh, calc((100cqi - 46px) / 5.5))); }
-.card.is-long { --fig: max(2.25rem, min(12cqh, calc((100cqi - 46px) / 7.3))); }
+   side by side and the same size, as big as half the card allows: "45:56" is about 2.15 em wide in
+   the display face and "10,4 KM" about 2.2 em in the figures, "1:02:03" about 2.85 em. */
+.card { --fig: max(2.5rem, min(13cqh, calc((100cqi - 46px) / 4.3))); }
+.card.is-long { --fig: max(2.25rem, min(13cqh, calc((100cqi - 46px) / 5.4))); }
 .card-run {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -639,8 +640,10 @@ html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden
   inset: 0;
   border-radius: 6px;
   background: currentColor;
-  clip-path: inset(0 calc((1 - var(--level, 1)) * 100%) 0 0 round 6px);
+  clip-path: inset(0 100% 0 0 round 6px); /* empty until the card lands (app.js arrive) */
 }
+/* At 6% the bar is a full 10px round end, never a sliver; near 1 it reaches the end of the track. */
+.card.is-seen .tag-fill { clip-path: inset(0 calc((1 - var(--level, 1)) * (100% - 10px)) 0 0 round 6px); }
 
 /* Short screens (a small phone, landscape) give up tags before the cover gets too small. */
 @container card (max-height: 600px) { .card-tags li:nth-child(n+6) { display: none; } }
