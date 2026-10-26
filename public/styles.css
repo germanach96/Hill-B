@@ -83,8 +83,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 
 /* Display voice: Archivo at its narrowest and heaviest, the Nike goal-screen register. */
-.display,
-.connect-title,
 .results-title,
 .wheel-y .wheel-item,
 .picker-sep,

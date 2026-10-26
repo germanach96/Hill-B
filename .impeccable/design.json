@@ -1,150 +1,293 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-25T22:10:00Z",
+  "generatedAt": "2026-10-26T12:00:00Z",
   "title": "Design System: Hill-B",
   "extensions": {
     "colorMeta": {
-      "volt": { "role": "primary", "displayName": "Voltio (color principal de marca)", "canonical": "oklch(93.9% 0.219 120.7)", "tonalRamp": ["oklch(25% 0.06 121)", "oklch(37% 0.10 121)", "oklch(50% 0.14 121)", "oklch(63% 0.17 121)", "oklch(76% 0.20 121)", "oklch(89% 0.213 121)", "oklch(93.9% 0.219 120.7)", "oklch(97% 0.09 121)"] },
-      "volt-hover": { "role": "primary", "displayName": "Voltio hover", "canonical": "oklch(91.4% 0.218 121.4)" },
-      "volt-press": { "role": "primary", "displayName": "Voltio pulsado", "canonical": "oklch(89.1% 0.213 121.4)" },
-      "ink": { "role": "neutral", "displayName": "Tinta", "canonical": "oklch(17.8% 0 0)", "tonalRamp": ["oklch(15% 0 0)", "oklch(17.8% 0 0)", "oklch(24% 0 0)", "oklch(35% 0 0)", "oklch(50% 0 0)", "oklch(65% 0 0)", "oklch(80% 0 0)", "oklch(95% 0 0)"] },
-      "ink-hover": { "role": "neutral", "displayName": "Tinta hover" },
-      "ink-press": { "role": "neutral", "displayName": "Tinta pulsada" },
-      "ground": { "role": "neutral", "displayName": "Suelo", "canonical": "oklch(100% 0 0)" },
-      "surface": { "role": "neutral", "displayName": "Superficie", "canonical": "oklch(95.7% 0.004 106.5)", "tonalRamp": ["oklch(20% 0.004 107)", "oklch(32% 0.006 107)", "oklch(44.8% 0.01 107)", "oklch(58% 0.009 107)", "oklch(72% 0.008 107)", "oklch(84% 0.007 107)", "oklch(91.7% 0.007 106.5)", "oklch(95.7% 0.004 106.5)"] },
-      "surface-press": { "role": "neutral", "displayName": "Superficie pulsada", "canonical": "oklch(91.7% 0.007 106.5)" },
-      "muted": { "role": "neutral", "displayName": "Gris de apoyo", "canonical": "oklch(44.8% 0.01 106.8)" }
+      "volt": {
+        "role": "primary",
+        "displayName": "Voltio (color de marca)",
+        "canonical": "oklch(93.9% 0.219 120.7)",
+        "tonalRamp": [
+          "oklch(25% 0.06 121)",
+          "oklch(37% 0.10 121)",
+          "oklch(42.2% 0.087 119.6)",
+          "oklch(63% 0.17 121)",
+          "oklch(82.7% 0.191 120.1)",
+          "oklch(87.9% 0.205 120.7)",
+          "oklch(93.9% 0.219 120.7)",
+          "oklch(97% 0.09 121)"
+        ]
+      },
+      "ground": {
+        "role": "neutral",
+        "displayName": "Suelo (voltio)",
+        "canonical": "oklch(93.9% 0.219 120.7)"
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Tinta",
+        "canonical": "oklch(17.8% 0 0)",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(17.8% 0 0)",
+          "oklch(26.9% 0 0)",
+          "oklch(28.5% 0 0)",
+          "oklch(50% 0 0)",
+          "oklch(65% 0 0)",
+          "oklch(80% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "ink-hover": {
+        "role": "neutral",
+        "displayName": "Tinta hover",
+        "canonical": "oklch(26.9% 0 0)"
+      },
+      "ink-press": {
+        "role": "neutral",
+        "displayName": "Tinta pulsada",
+        "canonical": "oklch(28.5% 0 0)"
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Superficie (tinta al 9% sobre voltio)",
+        "canonical": "oklch(87.9% 0.205 120.7)"
+      },
+      "surface-press": {
+        "role": "neutral",
+        "displayName": "Superficie pulsada (tinta al 16% sobre voltio)",
+        "canonical": "oklch(82.7% 0.191 120.1)"
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Tinta de apoyo (tinta al 72% sobre voltio)",
+        "canonical": "oklch(42.2% 0.087 119.6)"
+      }
     },
     "typographyMeta": {
-      "display": { "displayName": "Display", "purpose": "La cifra editable de la sesión; una por pantalla." },
-      "display-welcome": { "displayName": "Display de bienvenida", "purpose": "Titular de la pantalla de conexión." },
-      "figure": { "displayName": "Figure", "purpose": "Duración del disco en la tarjeta; cuenta hacia arriba al llegar." },
-      "headline": { "displayName": "Headline", "purpose": "Títulos de vista y título del disco." },
-      "title": { "displayName": "Title", "purpose": "Valores numéricos dentro de un panel (ritmo)." },
-      "lede": { "displayName": "Lede", "purpose": "Frase de bienvenida, máx. 30ch." },
-      "body": { "displayName": "Body", "purpose": "Texto general y canciones de la tarjeta." },
-      "label": { "displayName": "Label", "purpose": "Textos secundarios, leyendas del medidor, avisos." },
-      "action": { "displayName": "Action", "purpose": "Texto de los botones grandes." }
+      "wheel": {
+        "displayName": "Wheel",
+        "purpose": "Cifras de las ruedas y su separador; 0.9 × la fila."
+      },
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "Duración del disco en la tarjeta; cuenta hacia arriba al llegar."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Título de resultados y título del disco."
+      },
+      "start": {
+        "displayName": "Start",
+        "purpose": "La palabra START del botón principal."
+      },
+      "pace": {
+        "displayName": "Pace",
+        "purpose": "Píldoras de la tira de intensidad."
+      },
+      "action": {
+        "displayName": "Action",
+        "purpose": "Texto de los botones grandes de texto; unidad bajo las ruedas."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Texto general y canciones de la tarjeta."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Textos secundarios, leyendas del medidor, avisos."
+      },
+      "brand": {
+        "displayName": "Marca",
+        "purpose": "Solo el logotipo de la barra."
+      }
     },
     "shadows": [],
     "motion": [
-      { "name": "ease-out", "value": "cubic-bezier(0.23, 1, 0.32, 1)", "purpose": "Respuesta al pulsar (140ms), entrada de tarjetas (460ms, escalonado 60ms), relleno del medidor y cuenta de la duración (600ms), empuje de la cifra (180ms)." },
-      { "name": "ease-in-out", "value": "cubic-bezier(0.77, 0, 0.175, 1)", "purpose": "Pastilla del segmentado (260ms)." },
-      { "name": "ease-drawer", "value": "cubic-bezier(0.32, 0.72, 0, 1)", "purpose": "Cambio de vista con View Transitions (280ms, desplazamiento del 18% en la dirección del flujo)." },
-      { "name": "page-tone", "value": "background-color 450ms ease", "purpose": "Cambio de --page entre voltio y blanco." },
-      { "name": "reduced-motion", "value": "prefers-reduced-motion: reduce", "purpose": "Transiciones a 0ms, entradas y cambios de vista como fundido de 160ms, sin escala de carrusel, sin cuenta ni relleno animado." }
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "purpose": "Respuesta al pulsar (140ms), filas de las ruedas y píldoras de intensidad (160ms), entrada de la intensidad (220ms, 60ms de retraso), entrada de tarjetas (460ms, escalonado 60ms), relleno del medidor y cuenta de la duración (600ms)."
+      },
+      {
+        "name": "ease-in-out",
+        "value": "cubic-bezier(0.77, 0, 0.175, 1)",
+        "purpose": "Pastilla del interruptor y FLIP de las ruedas al cambiar de modo (260ms)."
+      },
+      {
+        "name": "ease-drawer",
+        "value": "cubic-bezier(0.32, 0.72, 0, 1)",
+        "purpose": "Cambio de vista con View Transitions (280ms, desplazamiento del 18% en la dirección del flujo)."
+      },
+      {
+        "name": "wheel-snap",
+        "value": "scroll-snap-type: y mandatory / x mandatory",
+        "purpose": "Ruedas y tira con el scroll nativo del teléfono; los movimientos por teclado se deslizan si son de hasta tres filas."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "prefers-reduced-motion: reduce",
+        "purpose": "Transiciones a 0ms, ruedas sin deslizamiento ni FLIP, entradas y cambios de vista como fundido de 160ms, sin escala de carrusel, sin cuenta ni relleno animado."
+      }
     ],
     "breakpoints": [
-      { "name": "column", "value": "480px" },
-      { "name": "deck-mask", "value": "520px" }
+      {
+        "name": "narrow",
+        "value": "359px"
+      },
+      {
+        "name": "column",
+        "value": "480px"
+      },
+      {
+        "name": "deck-mask",
+        "value": "520px"
+      }
     ]
   },
   "components": [
     {
-      "name": "Botón voltio",
+      "name": "Botón START",
       "kind": "button",
-      "refersTo": "button-volt",
-      "description": "La única acción principal de la vista, anclada en el dock inferior.",
-      "html": "<button class=\"ds-btn ds-btn-volt\">Buscar discos</button>",
-      "css": ".ds-btn { width: 100%; min-height: 60px; border: 0; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-family: Archivo, system-ui, sans-serif; font-size: 18px; font-weight: 700; letter-spacing: -0.005em; cursor: pointer; transition: transform 140ms cubic-bezier(0.23, 1, 0.32, 1), background-color 140ms ease; } .ds-btn-volt { background: #d7ff1f; color: #111111; } .ds-btn-volt:hover { background: #cdf713; } .ds-btn-volt:active { background: #c6ef0a; transform: scale(0.97); } .ds-btn:focus-visible { outline: 3px solid #111111; outline-offset: 3px; }"
+      "refersTo": "button-start",
+      "description": "La única acción principal de la sesión, en el dock: tinta con START en voltio.",
+      "html": "<div class=\"ds-ground\"><button class=\"ds-btn ds-btn-start\">Start</button></div>",
+      "css": ":host { --volt: #d7ff1f; --ink: #111111; --surface: #c5ea1e; --surface-press: #b7d71d; --muted: #485415; } .ds-ground { background: #d7ff1f; padding: 16px; width: 360px; } .ds-btn { width: 100%; border: 0; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; font-family: Archivo, system-ui, sans-serif; cursor: pointer; transition: transform 140ms cubic-bezier(0.23, 1, 0.32, 1), background-color 140ms ease; } .ds-btn-start { min-height: 64px; background: #111111; color: #d7ff1f; font-stretch: 62%; font-weight: 900; text-transform: uppercase; font-variant-numeric: tabular-nums; font-size: 2rem; letter-spacing: 0.02em; } .ds-btn-start:hover { background: #262626; } .ds-btn-start:active { background: #2a2a2a; transform: scale(0.97); } .ds-btn:focus-visible { outline: 3px solid #111111; outline-offset: 3px; }"
     },
     {
       "name": "Botón tinta",
       "kind": "button",
       "refersTo": "button-ink",
-      "description": "Acción principal sobre el campo voltio de bienvenida, y reintentos.",
-      "html": "<button class=\"ds-btn-ink\">Conectar con Spotify</button>",
-      "css": ".ds-btn-ink { width: 100%; min-height: 60px; border: 0; border-radius: 999px; background: #111111; color: #ffffff; font-family: Archivo, system-ui, sans-serif; font-size: 18px; font-weight: 700; letter-spacing: -0.005em; cursor: pointer; transition: transform 140ms cubic-bezier(0.23, 1, 0.32, 1), background-color 140ms ease; } .ds-btn-ink:hover { background: #262626; } .ds-btn-ink:active { background: #2a2a2a; transform: scale(0.97); } .ds-btn-ink:focus-visible { outline: 3px solid #111111; outline-offset: 3px; }"
+      "description": "Reintentos: tinta con texto voltio en Action.",
+      "html": "<div class=\"ds-ground\"><button class=\"ds-btn-ink\">Reintentar</button></div>",
+      "css": ".ds-ground { background: #d7ff1f; padding: 16px; width: 360px; } .ds-btn-ink { width: 100%; min-height: 60px; border: 0; border-radius: 999px; background: #111111; color: #d7ff1f; font-family: Archivo, system-ui, sans-serif; font-size: 18px; font-weight: 700; letter-spacing: -0.005em; cursor: pointer; transition: transform 140ms cubic-bezier(0.23, 1, 0.32, 1), background-color 140ms ease; } .ds-btn-ink:hover { background: #262626; } .ds-btn-ink:active { background: #2a2a2a; transform: scale(0.97); } .ds-btn-ink:focus-visible { outline: 3px solid #111111; outline-offset: 3px; }"
     },
     {
-      "name": "Paso − / +",
-      "kind": "button",
-      "refersTo": "stepper",
-      "description": "Círculo de superficie a cada lado de la cifra.",
-      "html": "<button class=\"ds-step\" aria-label=\"Más\"><svg viewBox=\"0 0 256 256\" width=\"22\" height=\"22\"><path fill=\"currentColor\" d=\"M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z\"/></svg></button>",
-      "css": ".ds-step { width: 56px; height: 56px; border: 0; border-radius: 50%; display: grid; place-items: center; background: #f1f1ee; color: #111111; cursor: pointer; transition: transform 140ms cubic-bezier(0.23, 1, 0.32, 1), background-color 140ms ease; } .ds-step:hover { background: #e4e4df; } .ds-step:active { transform: scale(0.92); background: #e4e4df; } .ds-step:focus-visible { outline: 3px solid #111111; outline-offset: 3px; }"
-    },
-    {
-      "name": "Segmentado Tiempo / Distancia",
+      "name": "Interruptor Tiempo / Distancia",
       "kind": "custom",
       "refersTo": "segmented",
-      "description": "Pista de superficie con una pastilla de tinta que se desliza a la opción activa.",
-      "html": "<div class=\"ds-seg\" role=\"radiogroup\"><span class=\"ds-seg-thumb\"></span><button class=\"ds-seg-opt is-on\" role=\"radio\" aria-checked=\"true\">Tiempo</button><button class=\"ds-seg-opt\" role=\"radio\" aria-checked=\"false\">Distancia</button></div>",
-      "css": ".ds-seg { position: relative; display: grid; grid-template-columns: 1fr 1fr; padding: 4px; border-radius: 999px; background: #f1f1ee; width: 320px; } .ds-seg-thumb { position: absolute; inset: 4px auto 4px 4px; width: calc(50% - 4px); border-radius: 999px; background: #111111; transition: transform 260ms cubic-bezier(0.77, 0, 0.175, 1); } .ds-seg:has(.ds-seg-opt:last-of-type:hover) .ds-seg-thumb { transform: translateX(100%); } .ds-seg-opt { position: relative; min-height: 48px; border: 0; background: none; border-radius: 999px; font-family: Archivo, system-ui, sans-serif; font-size: 16px; font-weight: 700; color: #111111; cursor: pointer; transition: color 200ms ease; } .ds-seg-opt.is-on { color: #ffffff; } .ds-seg-opt:focus-visible { outline: 3px solid #111111; outline-offset: 3px; }"
+      "description": "Pista de superficie con una pastilla de tinta que se desliza a la opción activa; texto activo en voltio.",
+      "html": "<div class=\"ds-ground\"><div class=\"ds-seg\" role=\"radiogroup\"><span class=\"ds-seg-thumb\"></span><button class=\"ds-seg-opt is-on\" role=\"radio\" aria-checked=\"true\">Tiempo</button><button class=\"ds-seg-opt\" role=\"radio\" aria-checked=\"false\">Distancia</button></div></div>",
+      "css": ".ds-ground { background: #d7ff1f; padding: 16px; width: 360px; } .ds-seg { position: relative; display: grid; grid-template-columns: 1fr 1fr; padding: 4px; border-radius: 999px; background: #c5ea1e; } .ds-seg-thumb { position: absolute; inset: 4px auto 4px 4px; width: calc(50% - 4px); border-radius: 999px; background: #111111; transition: transform 260ms cubic-bezier(0.77, 0, 0.175, 1); } .ds-seg:has(.ds-seg-opt:last-of-type:hover) .ds-seg-thumb { transform: translateX(100%); } .ds-seg-opt { position: relative; min-height: 48px; border: 0; background: none; border-radius: 999px; font-family: Archivo, system-ui, sans-serif; font-size: 16px; font-weight: 700; color: #111111; cursor: pointer; transition: color 200ms ease; } .ds-seg-opt.is-on { color: #d7ff1f; } .ds-seg-opt:focus-visible { outline: 3px solid #111111; outline-offset: 3px; }"
     },
     {
-      "name": "Preset",
+      "name": "Ruedas de la sesión",
+      "kind": "custom",
+      "refersTo": "picker-band",
+      "description": "Dos ruedas verticales con scroll y snap nativos; el valor en la banda central de superficie, las vecinas a 0.6 y 0.45.",
+      "html": "<div class=\"ds-ground\"><div class=\"ds-picker\"><div class=\"ds-wheel ds-major\" tabindex=\"0\" role=\"spinbutton\" aria-label=\"Horas\"><div class=\"ds-row\">0</div><div class=\"ds-row is-sel\">1</div><div class=\"ds-row\">2</div></div><span class=\"ds-sep\">:</span><div class=\"ds-wheel ds-minor\" tabindex=\"0\" role=\"spinbutton\" aria-label=\"Minutos\"><div class=\"ds-row\">04</div><div class=\"ds-row is-sel\">05</div><div class=\"ds-row\">06</div></div></div><p class=\"ds-unit\">horas y minutos</p></div>",
+      "css": ".ds-ground { background: #d7ff1f; padding: 16px; width: 360px; color: #111111; font-family: Archivo, system-ui, sans-serif; } .ds-picker { --item: 96px; position: relative; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: calc(var(--item) * 3); } .ds-picker::before { content: \"\"; position: absolute; inset: var(--item) 0; border-radius: 24px; background: #c5ea1e; } .ds-wheel { position: relative; height: 100%; outline: none; } .ds-wheel:focus-visible { outline: 3px solid #111111; outline-offset: -3px; border-radius: 24px; } .ds-row, .ds-sep { font-stretch: 62%; font-weight: 900; text-transform: uppercase; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; font-size: calc(var(--item) * 0.9); line-height: 1; } .ds-row { display: flex; align-items: center; height: var(--item); padding-inline: 10px; opacity: 0.45; transform: scale(0.6); transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), opacity 160ms ease; } .ds-major .ds-row { justify-content: flex-end; transform-origin: right center; } .ds-minor .ds-row { justify-content: flex-start; transform-origin: left center; } .ds-row.is-sel { opacity: 1; transform: none; } .ds-sep { position: relative; } .ds-unit { margin: 10px 0 0; text-align: center; font-size: 18px; font-weight: 700; color: #485415; }"
+    },
+    {
+      "name": "Tira de intensidad",
       "kind": "chip",
-      "refersTo": "chip-preset",
-      "description": "Sesiones habituales; la seleccionada en tinta.",
-      "html": "<div style=\"display:flex;gap:8px\"><button class=\"ds-chip\">5 km</button><button class=\"ds-chip ds-chip-on\" aria-pressed=\"true\">10 km</button></div>",
-      "css": ".ds-chip { min-width: 64px; min-height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #f1f1ee; color: #111111; font-family: Archivo, system-ui, sans-serif; font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; cursor: pointer; transition: transform 140ms cubic-bezier(0.23, 1, 0.32, 1), background-color 140ms ease, color 140ms ease; } .ds-chip:hover { background: #e4e4df; } .ds-chip:active { transform: scale(0.95); } .ds-chip-on, .ds-chip-on:hover { background: #111111; color: #ffffff; } .ds-chip:focus-visible { outline: 3px solid #111111; outline-offset: 3px; }"
+      "refersTo": "pace-pill",
+      "description": "El ritmo como tira que se desliza de lado; el elegido es una píldora de tinta con texto voltio.",
+      "html": "<div class=\"ds-ground\"><div class=\"ds-int-head\"><span class=\"ds-int-label\">Intensidad<span class=\"ds-int-unit\">min/km</span></span><span class=\"ds-int-total\">54:45 de carrera</span></div><div class=\"ds-strip\" tabindex=\"0\" role=\"spinbutton\" aria-label=\"Intensidad\"><span class=\"ds-pill\">5:20</span><span class=\"ds-pill\">5:25</span><span class=\"ds-pill is-sel\">5:30</span><span class=\"ds-pill\">5:35</span><span class=\"ds-pill\">5:40</span></div></div>",
+      "css": ".ds-ground { background: #d7ff1f; padding: 16px; width: 360px; color: #111111; font-family: Archivo, system-ui, sans-serif; } .ds-int-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-size: 16px; } .ds-int-label { font-weight: 700; } .ds-int-unit { margin-left: 4px; font-weight: 500; color: #485415; } .ds-int-total { color: #485415; font-variant-numeric: tabular-nums; } .ds-strip { display: flex; justify-content: center; align-items: center; height: 64px; margin-top: 10px; overflow: hidden; outline: none; } .ds-strip:focus-visible { outline: 3px solid #111111; outline-offset: -3px; border-radius: 24px; } .ds-pill { flex: 0 0 84px; display: grid; place-items: center; height: 52px; border-radius: 999px; font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums; opacity: 0.45; transform: scale(0.82); transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), opacity 160ms ease, background-color 160ms ease, color 160ms ease; } .ds-pill:hover { opacity: 0.7; } .ds-pill.is-sel { background: #111111; color: #d7ff1f; opacity: 1; transform: none; }"
     },
     {
-      "name": "Cifra de la sesión",
-      "kind": "input",
-      "refersTo": "display",
-      "description": "Campo numérico sin caja en la voz Display; foco como subrayado de tinta.",
-      "html": "<div class=\"ds-dial\"><input class=\"ds-amount\" inputmode=\"numeric\" value=\"45\" aria-label=\"Minutos\"><span class=\"ds-unit\">minutos</span></div>",
-      "css": ".ds-dial { display: flex; flex-direction: column; align-items: center; } .ds-amount { width: 100%; border: 0; padding: 0; background: transparent; color: #111111; text-align: center; font-family: Archivo, system-ui, sans-serif; font-stretch: 62%; font-weight: 900; text-transform: uppercase; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; font-size: 9.5rem; line-height: 0.86; outline: none; } .ds-amount:focus-visible { text-decoration: underline 4px #111111; text-underline-offset: 10px; } .ds-unit { margin-top: 6px; font-family: Archivo, system-ui, sans-serif; font-size: 18px; font-weight: 700; color: #55554f; }"
+      "name": "Cabecera de resultados",
+      "kind": "nav",
+      "refersTo": "icon-button",
+      "description": "Atrás en círculo de superficie, título y rango, y Otros 5 en píldora de superficie.",
+      "html": "<div class=\"ds-ground\"><div class=\"ds-head\"><button class=\"ds-back\" aria-label=\"Cambiar la sesión\"><svg viewBox=\"0 0 256 256\" width=\"20\" height=\"20\"><path fill=\"currentColor\" d=\"M228,128a12,12,0,0,1-12,12H69l51.52,51.51a12,12,0,0,1-17,17l-72-72a12,12,0,0,1,0-17l72-72a12,12,0,0,1,17,17L69,116H216A12,12,0,0,1,228,128Z\"/></svg></button><div><h1 class=\"ds-title\">Para 45 min</h1><p class=\"ds-sub\">5 discos de 40 a 50 min</p></div><button class=\"ds-reroll\"><svg viewBox=\"0 0 256 256\" width=\"18\" height=\"18\"><path fill=\"currentColor\" d=\"M240.49,175.51a12,12,0,0,1,0,17l-24,24a12,12,0,0,1-17-17L203,196h-2.09a76.17,76.17,0,0,1-61.85-31.83L97.38,105.78A52.1,52.1,0,0,0,55.06,84H32a12,12,0,0,1,0-24H55.06a76.17,76.17,0,0,1,61.85,31.83l41.71,58.39A52.1,52.1,0,0,0,200.94,172H203l-3.52-3.51a12,12,0,0,1,17-17Z\"/></svg>Otros 5</button></div></div>",
+      "css": ".ds-ground { background: #d7ff1f; padding: 16px; width: 400px; color: #111111; font-family: Archivo, system-ui, sans-serif; } .ds-head { display: grid; grid-template-columns: 44px 1fr auto; align-items: center; gap: 12px; } .ds-back, .ds-reroll { border: 0; background: #c5ea1e; color: #111111; cursor: pointer; transition: transform 140ms cubic-bezier(0.23, 1, 0.32, 1), background-color 140ms ease; } .ds-back { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; } .ds-back:active { transform: scale(0.92); } .ds-reroll { height: 44px; padding: 0 16px 0 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px; font-family: Archivo, system-ui, sans-serif; font-size: 16px; font-weight: 700; white-space: nowrap; } .ds-reroll:active { transform: scale(0.95); background: #b7d71d; } .ds-back:hover, .ds-reroll:hover { background: #b7d71d; } .ds-back:focus-visible, .ds-reroll:focus-visible { outline: 3px solid #111111; outline-offset: 3px; } .ds-title { margin: 0; font-stretch: 62%; font-weight: 900; text-transform: uppercase; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; font-size: 2rem; line-height: 1; } .ds-sub { margin: 2px 0 0; font-size: 15px; color: #485415; }"
     },
     {
       "name": "Barra superior",
       "kind": "nav",
-      "description": "Marca a la izquierda, Salir a la derecha.",
-      "html": "<header class=\"ds-bar\"><span class=\"ds-brand\"><svg viewBox=\"0 0 32 17.4\" width=\"25.7\" height=\"14\"><path fill=\"currentColor\" d=\"M23.1 17.4H0L5.4 9.7Q6.5 8.1 7.9 6.9Q9.2 5.8 10.7 5.1Q12.2 4.5 13.6 4.5Q14.8 4.5 15.4 4.9Q16.1 5.3 16.2 5.9Q16.4 6.6 16.2 7.4H16.3Q19.4 3.2 20.9 2.2Q22.4 1.2 24.1 0.6Q25.8 0 27.8 0Q30.5 0 31.4 1Q32.4 2 31.8 3.9Q31.2 5.8 29.3 8.5ZM22.4 13.6 25.7 8.9Q26.9 7 26.6 6.2Q26.3 5.3 24.4 5.3Q23.2 5.3 22.1 5.7Q21 6 20.1 6.8Q19.1 7.6 18.2 8.9L14.9 13.6ZM10.6 13.6 12.8 10.5Q13.3 9.8 13.3 9.3Q13.3 8.8 12.9 8.6Q12.5 8.4 11.7 8.4Q10.7 8.4 9.7 8.9Q8.7 9.4 8.1 10.4L5.9 13.6Z\"/></svg>Hill-B</span><button class=\"ds-bar-action\">Salir</button></header>",
-      "css": ".ds-bar { display: flex; align-items: center; justify-content: space-between; height: 56px; width: 440px; } .ds-brand { display: inline-flex; align-items: center; gap: 8px; font-family: Archivo, system-ui, sans-serif; font-weight: 800; font-stretch: 75%; font-size: 20px; letter-spacing: -0.01em; text-transform: uppercase; color: #111111; } .ds-bar-action { min-height: 44px; padding: 0 4px; border: 0; background: none; font-family: Archivo, system-ui, sans-serif; font-size: 15px; font-weight: 600; color: #55554f; cursor: pointer; } .ds-bar-action:hover { color: #111111; } .ds-bar-action:focus-visible { outline: 3px solid #111111; outline-offset: 3px; border-radius: 12px; }"
-    },
-    {
-      "name": "Panel de ritmo",
-      "kind": "card",
-      "refersTo": "panel",
-      "description": "Contenedor de superficie con pasos pequeños en blanco.",
-      "html": "<div class=\"ds-pace\"><span class=\"ds-pace-label\">Ritmo</span><span class=\"ds-pace-value\">5:30<small> /km</small></span><span class=\"ds-pace-total\">55:00 de carrera</span></div>",
-      "css": ".ds-pace { display: grid; grid-template-columns: 1fr auto; align-items: center; row-gap: 4px; padding: 14px 14px 14px 20px; border-radius: 20px; background: #f1f1ee; width: 360px; font-family: Archivo, system-ui, sans-serif; color: #111111; } .ds-pace-label { font-size: 16px; font-weight: 700; } .ds-pace-value { font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums; } .ds-pace-value small { font-size: 14px; font-weight: 600; color: #55554f; } .ds-pace-total { grid-column: 1 / -1; font-size: 15px; color: #55554f; font-variant-numeric: tabular-nums; }"
+      "description": "Solo la marca, en tinta sobre voltio.",
+      "html": "<header class=\"ds-bar\"><span class=\"ds-brand\"><svg viewBox=\"0 0 32 17.4\" width=\"25.7\" height=\"14\"><path fill=\"currentColor\" d=\"M23.1 17.4H0L5.4 9.7Q6.5 8.1 7.9 6.9Q9.2 5.8 10.7 5.1Q12.2 4.5 13.6 4.5Q14.8 4.5 15.4 4.9Q16.1 5.3 16.2 5.9Q16.4 6.6 16.2 7.4H16.3Q19.4 3.2 20.9 2.2Q22.4 1.2 24.1 0.6Q25.8 0 27.8 0Q30.5 0 31.4 1Q32.4 2 31.8 3.9Q31.2 5.8 29.3 8.5ZM22.4 13.6 25.7 8.9Q26.9 7 26.6 6.2Q26.3 5.3 24.4 5.3Q23.2 5.3 22.1 5.7Q21 6 20.1 6.8Q19.1 7.6 18.2 8.9L14.9 13.6ZM10.6 13.6 12.8 10.5Q13.3 9.8 13.3 9.3Q13.3 8.8 12.9 8.6Q12.5 8.4 11.7 8.4Q10.7 8.4 9.7 8.9Q8.7 9.4 8.1 10.4L5.9 13.6Z\"/></svg>Hill-B</span></header>",
+      "css": ".ds-bar { display: flex; align-items: center; height: 56px; width: 400px; padding: 0 20px; background: #d7ff1f; } .ds-brand { display: inline-flex; align-items: center; gap: 8px; font-family: Archivo, system-ui, sans-serif; font-weight: 800; font-stretch: 75%; font-size: 20px; letter-spacing: -0.01em; text-transform: uppercase; color: #111111; }"
     },
     {
       "name": "Tarjeta de disco",
       "kind": "card",
       "refersTo": "album-card",
-      "description": "Campo del color de su portada; la duración medida a escala contra la salida.",
-      "html": "<article class=\"ds-card\" style=\"--card-bg:#f0862a;--card-ink:#111111;--album:1;--run:0.98\"><div class=\"ds-cover\"></div><h3 class=\"ds-card-title\">Título del disco</h3><p class=\"ds-card-meta\">Artista <span>2002</span></p><div class=\"ds-time-row\"><span class=\"ds-card-time\">45:55</span><span class=\"ds-delta\">Sobran 0:55</span></div><div class=\"ds-meter\"><span class=\"ds-meter-fill\"></span><span class=\"ds-meter-run\"></span></div><button class=\"ds-card-btn\">Abrir en Spotify</button></article>",
-      "css": ".ds-card { width: 320px; padding: 16px 16px 18px; border-radius: 24px; background: var(--card-bg, #f1f1ee); color: var(--card-ink, #111111); font-family: Archivo, system-ui, sans-serif; } .ds-cover { aspect-ratio: 1; border-radius: 8px; background: rgb(0 0 0 / 0.08); } .ds-card-title, .ds-card-time { font-stretch: 62%; font-weight: 900; text-transform: uppercase; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; } .ds-card-title { margin: 16px 0 0; font-size: 2rem; line-height: 0.95; } .ds-card-meta { margin: 6px 0 0; font-size: 16px; font-weight: 600; } .ds-card-meta span { opacity: 0.78; font-weight: 500; } .ds-time-row { display: flex; align-items: baseline; justify-content: space-between; margin-top: 18px; } .ds-card-time { font-size: 3.25rem; line-height: 0.9; } .ds-delta { font-size: 15px; font-weight: 700; } .ds-meter { position: relative; height: 12px; margin-top: 12px; border-radius: 6px; background: color-mix(in srgb, currentColor 18%, transparent); } .ds-meter-fill { position: absolute; inset: 0; border-radius: 6px; background: currentColor; transform-origin: left; transform: scaleX(var(--album)); transition: transform 600ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-card:hover .ds-meter-fill { transform: scaleX(0.6); } .ds-meter-run { position: absolute; top: -5px; bottom: -5px; left: calc(var(--run) * 100%); width: 3px; margin-left: -1.5px; border-radius: 2px; background: currentColor; outline: 2px solid var(--card-bg); } .ds-card-btn { width: 100%; min-height: 52px; margin-top: 18px; border: 0; border-radius: 999px; background: var(--card-ink); color: var(--card-bg); font: inherit; font-size: 17px; font-weight: 700; cursor: pointer; transition: transform 140ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-card-btn:active { transform: scale(0.97); } .ds-card-btn:focus-visible { outline: 3px solid #111111; outline-offset: 3px; }"
+      "description": "Campo del color de su portada; la duración medida a escala contra la salida. En portada oscura, la tinta clara es el voltio.",
+      "html": "<div class=\"ds-ground\"><article class=\"ds-card\" style=\"--card-bg:#2a4f8f;--card-ink:#d7ff1f;--album:1;--run:0.98\"><div class=\"ds-cover\"></div><h3 class=\"ds-card-title\">Título del disco</h3><p class=\"ds-card-meta\">Artista <span>2002</span></p><div class=\"ds-time-row\"><span class=\"ds-card-time\">45:55</span><span class=\"ds-delta\">Sobran 0:55</span></div><div class=\"ds-meter\"><span class=\"ds-meter-fill\"></span><span class=\"ds-meter-run\"></span></div><button class=\"ds-card-btn\">Abrir en Spotify</button></article></div>",
+      "css": ".ds-ground { background: #d7ff1f; padding: 16px; width: 352px; } .ds-card { padding: 16px 16px 18px; border-radius: 24px; background: var(--card-bg, #c5ea1e); color: var(--card-ink, #111111); font-family: Archivo, system-ui, sans-serif; } .ds-cover { aspect-ratio: 1; border-radius: 8px; background: rgb(0 0 0 / 0.08); } .ds-card-title, .ds-card-time { font-stretch: 62%; font-weight: 900; text-transform: uppercase; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; } .ds-card-title { margin: 16px 0 0; font-size: 2rem; line-height: 0.95; } .ds-card-meta { margin: 6px 0 0; font-size: 16px; font-weight: 600; } .ds-card-meta span { opacity: 0.78; font-weight: 500; } .ds-time-row { display: flex; align-items: baseline; justify-content: space-between; margin-top: 18px; } .ds-card-time { font-size: 3.25rem; line-height: 0.9; } .ds-delta { font-size: 15px; font-weight: 700; } .ds-meter { position: relative; height: 12px; margin-top: 12px; border-radius: 6px; background: color-mix(in srgb, currentColor 18%, transparent); } .ds-meter-fill { position: absolute; inset: 0; border-radius: 6px; background: currentColor; transform-origin: left; transform: scaleX(var(--album)); transition: transform 600ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-card:hover .ds-meter-fill { transform: scaleX(0.6); } .ds-meter-run { position: absolute; top: -5px; bottom: -5px; left: calc(var(--run) * 100%); width: 3px; margin-left: -1.5px; border-radius: 2px; background: currentColor; outline: 2px solid var(--card-bg); } .ds-card-btn { width: 100%; min-height: 52px; margin-top: 18px; border: 0; border-radius: 999px; background: var(--card-ink); color: var(--card-bg); font: inherit; font-size: 17px; font-weight: 700; cursor: pointer; transition: transform 140ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-card-btn:active { transform: scale(0.97); } .ds-card-btn:focus-visible { outline: 3px solid #111111; outline-offset: 3px; }"
     }
   ],
   "narrative": {
     "northStar": "La pantalla de objetivo",
-    "overview": "Hill-B habla el registro de Nike Run Club puesto en serio: suelo blanco, tinta casi negra, un único voltio, y números enormes en Archivo estrecho y negro que ocupan la pantalla como el objetivo de una carrera. La duración de la salida es la protagonista; todo lo demás (controles, textos, discos) se mide contra ella. Es una app de un solo pulgar, en la puerta de casa: pocos elementos por pantalla, controles grandes en píldora, y una sola acción principal anclada abajo.\n\nLa profundidad no existe: superficies planas que se separan del blanco por un paso tonal, nunca por sombras ni bordes. El color vivo llega de dos sitios y de ninguno más: el voltio en la acción principal (y como campo completo en la pantalla de bienvenida) y la portada de cada disco, que tiñe su tarjeta entera. El movimiento es abundante pero funcional: cada cambio de vista se desliza en la dirección del flujo, los números empujan al cambiar, y la barra del disco se llena a escala contra la salida.\n\nRechazos confirmados por el propietario y por la dirección: no parecerse a Spotify (suelo oscuro, rejilla de portadas pequeñas, acento verde) ni a un panel de fitness (tarjetas de estadísticas, anillos).",
+    "overview": "Hill-B habla el registro de Nike Run Club puesto en serio, sobre el color de su propia marca: toda la app se apoya en el voltio, con la tinta casi negra como único contraste, y números enormes en Archivo estrecho y negro que ocupan la pantalla como el objetivo de una carrera. La duración de la salida es la protagonista: dos ruedas de cifras gigantes que se deslizan con el pulgar, y todo lo demás (interruptor, intensidad, discos) se mide contra ella. Es una app de un solo pulgar, en la puerta de casa: pocos elementos por pantalla, controles grandes en píldora y una sola acción principal, START, anclada abajo.\n\nLa profundidad no existe: superficies planas que se separan del voltio por un paso tonal de tinta mezclada, nunca por sombras ni bordes. El blanco no aparece. Lo que destaca es tinta (selección, START, reintento) con el texto en voltio; el otro color vivo es la portada de cada disco, que tiñe su tarjeta entera. El movimiento es abundante pero funcional: las ruedas giran con el scroll nativo del teléfono, cambian de sitio con un FLIP al cambiar de modo, cada cambio de vista se desliza en la dirección del flujo, y la barra del disco se llena a escala contra la salida.\n\nRechazos confirmados por el propietario y por la dirección: no parecerse a Spotify (suelo oscuro, rejilla de portadas pequeñas, acento verde) ni a un panel de fitness (tarjetas de estadísticas, anillos).",
     "keyCharacteristics": [
-      "Solo modo claro (`color-scheme: light`); el suelo blanco es parte de la identidad.",
-      "Un acento, el voltio, reservado a la acción principal y al campo de bienvenida.",
-      "Una sola familia, Archivo variable: estrecha, negra y en mayúsculas para cifras y títulos; ancho normal para el texto.",
+      "Solo modo claro (`color-scheme: light`); el suelo voltio es la identidad, en toda la app.",
+      "Dos colores: voltio y tinta. Sin blanco; los tonos secundarios son tinta mezclada sobre voltio, no grises.",
+      "Una sola familia, Archivo variable: estrecha, negra y en mayúsculas para cifras, START y títulos; ancho normal para el texto.",
+      "Ruedas de selección con scroll y snap nativos en lugar de botones − / + o atajos.",
       "Controles en píldora, tarjetas de 24px, sin sombras ni bordes.",
       "Cifras tabulares en todo lo que cuenta tiempo o distancia.",
       "Movimiento con curvas de salida fuertes y respeto completo a `prefers-reduced-motion`."
     ],
     "rules": [
-      { "name": "The One Volt Rule", "body": "El voltio marca la única acción principal de la pantalla, o es el campo completo de la bienvenida. Los estados seleccionados son tinta, nunca voltio.", "section": "colors" },
-      { "name": "The Cover Field Rule", "body": "El color de una tarjeta sale de su propia portada, nunca de una paleta inventada; la página que la rodea sigue blanca.", "section": "colors" },
-      { "name": "The Page Tone Rule", "body": "`--page` es el color de la vista (voltio en conexión, blanco en el resto) y lo comparten `html`, `body`, el dock inferior y `theme-color`, con una transición de 450ms al cambiar.", "section": "colors" },
-      { "name": "The Two Voices Rule", "body": "Estrecha (62%), 900 y mayúsculas para cifras, títulos de vista y títulos de disco; ancho normal para todo lo demás. No hay pesos ni anchos intermedios en la voz de pantalla.", "section": "typography" },
-      { "name": "The Tabular Rule", "body": "Toda cifra de tiempo, distancia o recuento usa `font-variant-numeric: tabular-nums` para que no baile al cambiar.", "section": "typography" },
-      { "name": "The Flat Field Rule", "body": "Ninguna superficie lleva sombra ni borde; se separa del suelo por tono o por color de portada.", "section": "elevation" }
+      {
+        "name": "The Brand Pair Rule",
+        "body": "La identidad es voltio y tinta, nada más: ningún otro color de marca, ningún blanco. Los tonos secundarios se hacen mezclando tinta sobre voltio, nunca con grises.",
+        "section": "colors"
+      },
+      {
+        "name": "The Ink Accent Rule",
+        "body": "Lo que destaca es tinta con texto en voltio: la acción principal, la opción elegida, el valor elegido. El voltio como texto solo existe sobre tinta (o sobre el color oscuro de una tarjeta).",
+        "section": "colors"
+      },
+      {
+        "name": "The Cover Field Rule",
+        "body": "El color de una tarjeta sale de su propia portada, nunca de una paleta inventada; la página que la rodea sigue en voltio.",
+        "section": "colors"
+      },
+      {
+        "name": "The Page Tone Rule",
+        "body": "`--page` es el color de la vista y lo comparten `html`, `body`, el dock inferior y `theme-color`, para que el contenido pase bajo el dock sin corte. Hoy vale voltio en todas las vistas.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Voices Rule",
+        "body": "Estrecha (62%), 900 y mayúsculas para cifras de las ruedas, START, títulos de vista y títulos de disco; ancho normal para todo lo demás. No hay pesos ni anchos intermedios en la voz de pantalla.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Rule",
+        "body": "Toda cifra de tiempo, distancia, ritmo o recuento usa `font-variant-numeric: tabular-nums` para que no baile al cambiar ni al girar la rueda.",
+        "section": "typography"
+      },
+      {
+        "name": "The Two Hills Rule",
+        "body": "La colina pequeña a la izquierda, la grande a la derecha, ambas inclinadas hacia delante sobre un suelo plano; nunca de pie, boca abajo ni en espejo. No lleva contorno, sombra ni degradado, y solo va en tinta y voltio (blanco como suelo cuando hace falta, fuera de la app).",
+        "section": "logo"
+      },
+      {
+        "name": "The Flat Field Rule",
+        "body": "Ninguna superficie lleva sombra ni borde; se separa del suelo por tono o por color de portada.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Step Back Rule",
+        "body": "Lo que rodea al valor elegido sigue visible pero retrocede (escala y opacidad ≥ 0.45, legible al sol): dice que la rueda gira sin competir con el valor.",
+        "section": "elevation"
+      }
     ],
     "dos": [
-      "Do reservar el voltio (#d7ff1f) para la única acción principal de la vista o para el campo de bienvenida, siempre con tinta encima.",
-      "Do marcar la selección con tinta (#111111) y texto blanco.",
-      "Do separar contenedores del suelo con superficie (#f1f1ee) y responder al pulsar con superficie pulsada (#e4e4df) o escala (0.92–0.97, 140ms).",
-      "Do poner cifras y títulos en Archivo a 62%, 900 y mayúsculas, con cifras tabulares.",
-      "Do teñir cada tarjeta con el color de su propia portada dentro de los límites de luminosidad 0.36–0.70 y elegir su tinta por contraste.",
+      "Do usar el voltio (#d7ff1f) como suelo de toda vista y la tinta (#111111) como su único contraste.",
+      "Do marcar la selección y la acción principal con tinta y texto voltio.",
+      "Do separar contenedores del suelo con superficie (#c5ea1e) y responder al pulsar con superficie pulsada (#b7d71d) o escala (0.92–0.97, 140ms).",
+      "Do escribir el texto secundario en tinta de apoyo (#485415), tinta mezclada sobre voltio.",
+      "Do poner cifras, START y títulos en Archivo a 62%, 900 y mayúsculas, con cifras tabulares.",
+      "Do elegir valores con ruedas de scroll y snap nativos, accesibles con teclado como `spinbutton`.",
+      "Do teñir cada tarjeta con el color de su propia portada dentro de los límites de luminosidad 0.36–0.70 y elegir su tinta (tinta o voltio) por contraste.",
       "Do anclar la acción principal en el dock inferior, a ancho completo, por encima del área segura.",
       "Do dar a cada animación su alternativa con `prefers-reduced-motion` (fundido o nada)."
     ],
     "donts": [
+      "Don't usar blanco: ni suelo, ni texto, ni tinta de tarjeta.",
+      "Don't hacer tonos secundarios con grises; se mezcla tinta sobre voltio.",
       "Don't usar suelo oscuro, rejilla de portadas pequeñas ni acento verde: no debe parecer Spotify.",
       "Don't usar tarjetas de estadísticas ni anillos de progreso de panel de fitness.",
       "Don't añadir sombras ni bordes a superficies o controles.",
-      "Don't usar el voltio para estados seleccionados, texto o decoración.",
+      "Don't volver a botones − / + ni a atajos de sesión: el valor se elige girando la rueda.",
       "Don't usar una segunda familia tipográfica ni pesos intermedios en la voz de pantalla.",
       "Don't animar esqueletos con brillo; son la maqueta plana de la tarjeta final."
     ]
