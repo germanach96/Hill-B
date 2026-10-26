@@ -50,7 +50,7 @@ function show(view, dir = 1, then) {
 }
 
 function setThemeColor() {
-  const value = getComputedStyle(root).getPropertyValue('--page').trim() || '#ffffff';
+  const value = getComputedStyle(root).getPropertyValue('--page').trim() || '#d7ff1f';
   document.querySelector('meta[name="theme-color"]').setAttribute('content', value);
 }
 
@@ -131,8 +131,21 @@ for (const b of document.querySelectorAll('.segment')) {
     if (prefs.mode === b.dataset.mode) return;
     prefs.mode = b.dataset.mode;
     store.set(PREFS_KEY, prefs);
+    // The intensity strip comes and goes below the wheels, so they slide to their new place
+    // from where they were (FLIP) instead of jumping, and the new numbers fade in as they go.
+    const picker = $('picker');
+    const before = picker.getBoundingClientRect().top;
     renderSession();
     renderWheels();
+    const dy = before - picker.getBoundingClientRect().top;
+    if (!reducedMotion.matches) {
+      picker.animate([{ transform: `translateY(${dy}px)`, opacity: 0.4 }, { transform: 'none', opacity: 1 }],
+        { duration: 260, easing: 'cubic-bezier(0.77, 0, 0.175, 1)' });
+      if (prefs.mode === 'distance') {
+        $('intensity').animate([{ transform: 'translateY(12px)', opacity: 0 }, { transform: 'none', opacity: 1 }],
+          { duration: 220, delay: 60, easing: 'cubic-bezier(0.23, 1, 0.32, 1)', fill: 'backwards' });
+      }
+    }
   });
 }
 document.querySelector('.segmented').addEventListener('keydown', (e) => {
@@ -415,7 +428,8 @@ function sampleColor(img) {
     l = Math.min(0.7, Math.max(0.36, l)); // lively, never muddy, never washed out
     s = Math.min(0.9, s);
     const bg = hslToHex(h, s, l);
-    const ink = contrast(bg, '#111111') >= contrast(bg, '#ffffff') ? '#111111' : '#ffffff';
+    // The light ink is the brand yellow, not white: the app keeps to its two colours.
+    const ink = contrast(bg, '#111111') >= contrast(bg, '#d7ff1f') ? '#111111' : '#d7ff1f';
     return { bg, ink };
   } catch {
     return null; // a cover without CORS headers keeps the neutral card

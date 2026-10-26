@@ -68,7 +68,9 @@ export function createWheel(el, { axis = 'y', label, onChange }) {
   });
 
   el.addEventListener('keydown', (e) => {
-    const step = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1, PageDown: 5, PageUp: -5 }[e.key];
+    // Spinbutton keys: up and right raise the value (what VoiceOver's increment sends). On the
+    // vertical wheel the next value is the row below, so it rolls up the way a swipe up does.
+    const step = { ArrowUp: 1, ArrowRight: 1, ArrowDown: -1, ArrowLeft: -1, PageUp: 5, PageDown: -5 }[e.key];
     const target = e.key === 'Home' ? 0 : e.key === 'End' ? values.length - 1 : step != null ? index + step : null;
     if (target == null) return;
     e.preventDefault();

@@ -192,6 +192,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: 4px;
+  margin-bottom: clamp(12px, 3svh, 32px);
   border-radius: 999px;
   background: var(--surface);
 }
@@ -223,7 +224,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   height: calc(var(--item) * 3);
-  margin-top: clamp(12px, 3svh, 32px);
+  /* The spare height splits above and below the wheels (the dock takes the other half): the
+     value sits at mid-screen, within the thumb's reach, instead of high under the toggle. */
+  margin-top: auto;
 }
 .picker::before {
   content: "";
@@ -255,7 +258,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   scroll-snap-align: center;
   font-size: calc(var(--item) * 0.9);
   line-height: 1;
-  opacity: 0.3;
+  opacity: 0.45; /* still there in outdoor sun: the rows around say the wheel turns */
   transform: scale(0.6);
   transition: transform 160ms var(--ease-out), opacity 160ms ease;
 }
@@ -286,6 +289,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   font-size: 16px;
 }
 .intensity-label { font-weight: 700; }
+.intensity-unit { margin-left: 4px; font-weight: 500; color: var(--muted); }
 .intensity-total { color: var(--muted); font-variant-numeric: tabular-nums; }
 .wheel-x {
   --pitem: 84px;
@@ -323,6 +327,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   font-size: 15px;
   color: var(--muted);
   text-align: center;
+  text-wrap: balance;
   font-variant-numeric: tabular-nums;
 }
 .library a,
@@ -540,7 +545,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   min-height: 52px;
   font-size: 17px;
   background: var(--card-ink, var(--ink));
-  color: var(--card-bg, #fff);
+  color: var(--card-bg, var(--volt));
 }
 .card-open .btn-icon { width: 20px; height: 20px; }
 

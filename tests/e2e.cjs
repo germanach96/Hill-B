@@ -112,7 +112,7 @@ async function run() {
       await page.keyboard.press('Home');
       await page.waitForTimeout(600);
       assert.equal(await valueOf(page, '#wheel-minor'), '05');
-      for (let i = 0; i < 40; i++) await page.keyboard.press('ArrowDown');
+      for (let i = 0; i < 40; i++) await page.keyboard.press('ArrowUp');
       await page.waitForTimeout(800);
       assert.equal(await valueOf(page, '#wheel-minor'), '45');
 
@@ -174,7 +174,7 @@ async function run() {
       assert.equal(await page.locator('#intensity-total').textContent(), '54:10 de carrera');
       // Hundreds of metres on the second wheel: 10,5 km.
       await page.locator('#wheel-minor').focus();
-      for (let i = 0; i < 5; i++) await page.keyboard.press('ArrowDown');
+      for (let i = 0; i < 5; i++) await page.keyboard.press('ArrowUp');
       await page.waitForTimeout(800);
       assert.equal(await valueOf(page, '#wheel-minor'), '5');
       await page.locator('#pace-wheel').focus();
