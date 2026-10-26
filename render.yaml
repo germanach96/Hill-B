@@ -2,7 +2,7 @@ services:
   - type: web
     name: hill-b
     runtime: static
-    buildCommand: ""
+    buildCommand: echo "Sitio estático, sin build"
     staticPublishPath: ./public
     headers:
       - path: /*
