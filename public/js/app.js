@@ -27,7 +27,7 @@ prefs.km = Math.min(LIMITS.distance.maxKm + 0.9, Math.max(LIMITS.distance.min, M
 prefs.pace = Math.min(PACE.max, Math.max(PACE.min, Math.round(prefs.pace / PACE.step) * PACE.step));
 
 // library.status: loading | ready | empty | error
-const library = { status: 'loading', name: 'The Magic Bus', albums: [], syncedAt: null };
+const library = { status: 'loading', name: 'The Magic Bus', albums: [] };
 const colors = store.get(COLORS_KEY) ?? {};
 
 /* ---------- Views ---------- */
@@ -71,7 +71,7 @@ const two = (n) => String(n).padStart(2, '0');
 
 const major = createWheel($('wheel-major'), { label: 'Horas', onChange: onWheel });
 const minor = createWheel($('wheel-minor'), { label: 'Minutos', onChange: onWheel });
-const paceWheel = createWheel($('pace-wheel'), { axis: 'x', label: 'Intensidad, minutos por kilómetro', onChange: onPace });
+const paceWheel = createWheel($('pace-wheel'), { axis: 'x', label: 'Ritmo, minutos por kilómetro', onChange: onPace });
 
 /** Fills both wheels for the current mode and centres them on the saved value. */
 function renderWheels() {
@@ -121,7 +121,7 @@ function renderSession() {
   seg.dataset.mode = prefs.mode;
   for (const b of seg.querySelectorAll('.segment')) b.setAttribute('aria-checked', String(b.dataset.mode === prefs.mode));
   $('picker-sep').textContent = isTime ? ':' : ',';
-  $('picker-unit').textContent = isTime ? 'horas y minutos' : 'kilómetros';
+  $('picker-unit').textContent = isTime ? 'horas y minutos' : 'KM';
   $('intensity').hidden = isTime;
   $('intensity-total').textContent = `${formatDuration(sessionSeconds(prefs))} de carrera`;
 }
@@ -164,14 +164,11 @@ $('find').addEventListener('click', () => {
 
 /* ---------- Library: the albums shipped with the app ---------- */
 
-const dateFormat = new Intl.DateTimeFormat('es', { day: 'numeric', month: 'long' });
-
 function renderLibrary() {
   const el = $('library');
   switch (library.status) {
     case 'ready':
-      el.textContent = `${library.name}: ${library.albums.length.toLocaleString('es')} discos enteros`
-        + (library.syncedAt ? `, leídos el ${dateFormat.format(new Date(library.syncedAt))}` : '');
+      el.textContent = ''; // nothing to say when the albums are there: the line only speaks up when they are not
       break;
     case 'empty':
       el.textContent = 'Todavía no hay discos cargados.';
@@ -196,7 +193,6 @@ async function loadLibrary() {
     const data = await res.json();
     library.name = data.playlist?.name || library.name;
     library.albums = data.albums ?? [];
-    library.syncedAt = data.syncedAt ?? null;
     library.status = library.albums.length ? 'ready' : 'empty';
   } catch {
     library.status = 'error';

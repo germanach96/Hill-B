@@ -91,9 +91,9 @@ async function run() {
     {
       const { page, errors, context, spotifyCalls } = await newPage(browser, PHONE);
       await page.goto(BASE);
-      await page.locator('#library', { hasText: 'discos enteros' }).waitFor();
-      const libraryText = await page.locator('#library').textContent();
-      assert.match(libraryText, /The Magic Bus: 10 discos enteros, leídos el 25 de octubre/);
+      await page.locator('#find:not([disabled])').waitFor();
+      // With the albums in, nothing is said about them: the screen is the wheels and START.
+      assert.equal(await page.locator('#library').isVisible(), false);
       await settle(page);
       assert.equal(await page.locator('h1:visible').count(), 1);
       await page.screenshot({ path: `${OUT}/mobile.png` });
@@ -163,6 +163,8 @@ async function run() {
       assert.equal(await valueOf(page, '#wheel-major'), '10');
       assert.equal(await valueOf(page, '#wheel-minor'), '0');
       assert.equal(await page.locator('#intensity-total').textContent(), '55:00 de carrera');
+      assert.equal(await page.locator('#picker-unit').textContent(), 'KM');
+      assert.equal(await page.locator('#intensity-label').textContent(), 'Ritmomin/km');
       // Intensity is swiped sideways; then set exactly with the keyboard.
       await swipe(page, '#pace-wheel', { x: -200 });
       assert.notEqual(await valueOf(page, '#pace-wheel'), '5:30', 'a sideways swipe changes the intensity');
@@ -198,7 +200,7 @@ async function run() {
     {
       const { page, errors, context } = await newPage(browser, DESKTOP);
       await page.goto(BASE);
-      await page.locator('#library', { hasText: 'discos enteros' }).waitFor();
+      await page.locator('#find:not([disabled])').waitFor();
       await settle(page);
       await page.screenshot({ path: `${OUT}/desktop.png` });
       await page.getByRole('button', { name: 'Start' }).click();
@@ -211,7 +213,7 @@ async function run() {
     {
       const { page, errors, context } = await newPage(browser, PHONE, { scheme: 'dark', reduced: 'reduce' });
       await page.goto(BASE);
-      await page.locator('#library', { hasText: 'discos enteros' }).waitFor();
+      await page.locator('#find:not([disabled])').waitFor();
       await settle(page);
       await page.screenshot({ path: `${OUT}/mobile-dark-pref.png` });
       await page.getByRole('button', { name: 'Start' }).click();

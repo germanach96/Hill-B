@@ -20,7 +20,7 @@ typography:
     fontFeature: "'tnum'"
   wheel:
     fontFamily: "Hill-B Figures, Archivo, system-ui, sans-serif"
-    fontSize: "clamp(120px, min(24svh, calc((100vw - 2 * 20px) / 1.8)), 240px)"
+    fontSize: "clamp(120px, min(24svh, calc((100vw - 2 * 20px) / 2.1)), 240px)"
     fontWeight: 800
     lineHeight: 1
     letterSpacing: "0.05em"
@@ -129,7 +129,7 @@ components:
     textColor: "{colors.ink}"
     typography: "{typography.wheel}"
     rounded: "{rounded.card}"
-    height: "calc(clamp(120px, min(24svh, calc((100vw - 2 * 20px) / 1.8)), 240px) * 0.84)"
+    height: "calc(clamp(120px, min(24svh, calc((100vw - 2 * 20px) / 2.1)), 240px) * 0.84)"
   pace-pill:
     backgroundColor: "{colors.ink}"
     textColor: "{colors.volt}"
@@ -162,7 +162,7 @@ components:
 
 **Creative North Star: "La pantalla de objetivo"**
 
-Hill-B habla el registro de Nike Run Club puesto en serio, sobre el color de su propia marca: toda la app se apoya en el voltio, con la tinta casi negra como único contraste, y números enormes, largos e inclinados como los de un cronómetro, que ocupan la pantalla como el objetivo de una carrera. La duración de la salida es la protagonista: dos ruedas de cifras gigantes que se deslizan con el pulgar, y todo lo demás (interruptor, intensidad, discos) se mide contra ella. Es una app de un solo pulgar, en la puerta de casa: pocos elementos por pantalla, controles grandes en píldora y una sola acción principal, START, anclada abajo.
+Hill-B habla el registro de Nike Run Club puesto en serio, sobre el color de su propia marca: toda la app se apoya en el voltio, con la tinta casi negra como único contraste, y números enormes, largos e inclinados como los de un cronómetro, que ocupan la pantalla como el objetivo de una carrera. La duración de la salida es la protagonista: dos ruedas de cifras gigantes que se deslizan con el pulgar, y todo lo demás (interruptor, ritmo, discos) se mide contra ella. Es una app de un solo pulgar, en la puerta de casa: pocos elementos por pantalla, controles grandes en píldora y una sola acción principal, START, anclada abajo.
 
 La profundidad no existe: superficies planas que se separan del voltio por un paso tonal de tinta mezclada, nunca por sombras ni bordes. El blanco no aparece. Lo que destaca es tinta (selección, START, reintento) con el texto en voltio; el otro color vivo es la portada de cada disco, que tiñe su tarjeta entera. El movimiento es abundante pero funcional: las ruedas giran con el scroll nativo del teléfono, cambian de sitio con un FLIP al cambiar de modo, cada cambio de vista se desliza en la dirección del flujo, y la barra del disco se llena a escala contra la salida.
 
@@ -171,7 +171,7 @@ Rechazos confirmados por el propietario y por la dirección: no parecerse a Spot
 **Key Characteristics:**
 - Solo modo claro (`color-scheme: light`); el suelo voltio es la identidad, en toda la app.
 - Dos colores: voltio y tinta. Sin blanco; los tonos secundarios son tinta mezclada sobre voltio, no grises.
-- Tres voces: Archivo a ancho normal para el texto; Archivo estrecha, negra y en mayúsculas para START, títulos y la duración del disco; y Hill-B Figures (Roboto Flex fijada estrecha e inclinada) para las cifras de las ruedas y la intensidad.
+- Tres voces: Archivo a ancho normal para el texto; Archivo estrecha, negra y en mayúsculas para START, títulos y la duración del disco; y Hill-B Figures (Roboto Flex fijada estrecha e inclinada) para las cifras de las ruedas y del ritmo.
 - Ruedas de selección con scroll y snap nativos en lugar de botones − / + o atajos.
 - Controles en píldora, tarjetas de 24px, sin sombras ni bordes.
 - Cifras tabulares en todo lo que cuenta tiempo o distancia.
@@ -188,7 +188,7 @@ Paleta de dos colores: **el voltio es el color principal de Hill-B y, con el neg
 - **Tinta** (ink): texto, iconos, estados seleccionados (pastilla del interruptor, ritmo elegido), botón START y botón de reintento, anillo de foco, relleno de la barra de biblioteca y del segmento de posición activo. Hover y pulsado en ink-hover / ink-press.
 - **Superficie** (surface): tinta al 9% sobre voltio. Todo contenedor o control en reposo: pista del interruptor, botón atrás y "Otros 5", paneles de estado, tarjeta sin color y esqueletos, pista de la barra de biblioteca.
 - **Superficie pulsada** (surface-press): tinta al 16% sobre voltio. Respuesta al pulsar o pasar por encima de un control de superficie; bloques del esqueleto; segmentos de posición inactivos.
-- **Tinta de apoyo** (muted): tinta al 72% sobre voltio. Texto secundario: unidad bajo las ruedas, "min/km", total de carrera, subtítulo de resultados, recuento de biblioteca. 7.1:1 sobre voltio, 5.9:1 sobre superficie.
+- **Tinta de apoyo** (muted): tinta al 72% sobre voltio. Texto secundario: unidad bajo las ruedas, "min/km", total de carrera, subtítulo de resultados, avisos de biblioteca (sin discos, error). 7.1:1 sobre voltio, 5.9:1 sobre superficie.
 
 ### Color de portada (dinámico)
 Cada tarjeta de disco recibe `--card-bg` y `--card-ink` calculados de su portada: se agrupan los píxeles en doce familias de tono más grises, gana la familia con más área viva, y su color se aleja de la luminosidad de la portada (−0.10 si es clara, +0.12 si es oscura), limitado a luminosidad HSL 0.36–0.70 y saturación ≤ 0.90. La tinta de la tarjeta es `#111111` o el voltio `#d7ff1f`, la de mayor contraste; nunca blanco. Sin muestra (portada sin CORS), la tarjeta queda en superficie con tinta.
@@ -213,13 +213,13 @@ Valores fuera de la paleta, intencionados: el `#000` dentro de la `mask-image` d
 **Character:** Tres voces. La voz de texto es Archivo a ancho normal, tranquila y legible a un brazo de distancia. La voz de pantalla es Archivo en su ancho mínimo y peso máximo, en mayúsculas: la de la pantalla de objetivo de Nike. La voz de cifras es Hill-B Figures: las cifras más largas, afiladas y rápidas de un muestrario de diez fuentes, elegidas por el propietario (2026-10-26). La inclinación va dentro de la fuente (sin `font-style: italic`), con `font-synthesis: none`, cifras tabulares, `letter-spacing: 0.05em` (las cifras inclinadas van sobre avances estrechos: un pelo entre el 4 y el 5) y `line-height: 1`.
 
 ### Hierarchy
-- **Wheel** (Hill-B Figures 800, `--fig`, 1): las cifras de las dos ruedas y su separador ":" o ","; `--fig` vale `clamp(120px, min(24svh, calc((100vw - 2 * var(--pad)) / 1.8)), 240px)`: "60,9" con sus márgenes ocupa unas 1.8 em, así que la cifra llena el ancho y la altura la frena. La fila mide 0.84 × `--fig` (las cifras miden 0.72 em de alto).
+- **Wheel** (Hill-B Figures 800, `--fig`, 1): las cifras de las dos ruedas y su separador ":" o ","; `--fig` vale `clamp(120px, min(24svh, calc((100vw - 2 * var(--pad)) / 2.1)), 240px)`: "60,9" con sus márgenes ocupa unas 2 em (medido), más un poco de holgura, así que la cifra llena el ancho sin que el navegador encoja una rueda, y la altura la frena. El separador lleva `0.07em` de margen a cada lado para que un 0 inclinado nunca pise los dos puntos. La fila mide 0.84 × `--fig` (las cifras miden 0.72 em de alto).
 - **Figure** (900, 3.25rem, 0.9): duración del disco en la tarjeta; cuenta hacia arriba al llegar.
 - **Headline** (900, 2rem, 1): título de resultados ("Para 45 min") y título del disco (0.95, máximo dos líneas).
 - **Start** (900, 2rem, +0.02em): la palabra START del botón principal, más abierta que el resto de la voz de pantalla para leerse como una orden.
-- **Pace** (Hill-B Figures 800, 3rem): el ritmo dentro de la píldora de intensidad.
+- **Pace** (Hill-B Figures 800, 3rem): el ritmo dentro de su píldora.
 - **Action** (700, 18px, −0.005em): texto de los botones grandes de texto (reintento), y la unidad bajo las ruedas en tinta de apoyo.
-- **Body** (400, 16px, 1.5): texto general, canciones de la tarjeta (1.4, dos líneas); 700 en el interruptor, la etiqueta "Intensidad" y "Otros 5".
+- **Body** (400, 16px, 1.5): texto general, canciones de la tarjeta (1.4, dos líneas); 700 en el interruptor, la etiqueta "Ritmo" y "Otros 5".
 - **Label** (600, 15px): textos secundarios, leyendas del medidor, diferencia frente a la salida, subtítulo de resultados, avisos.
 - **Marca** (800, 20px, `font-stretch: 75%`, mayúsculas): solo el logotipo de la barra.
 
@@ -246,20 +246,20 @@ La marca son **dos colinas sobre el suelo**, sacadas de una B acostada. Se parte
 
 Una columna de teléfono: `max-width: 480px`, centrada, con 20px de margen lateral (pad) y altura mínima `100dvh`. La barra superior mide 56px más el área segura y solo lleva la marca. Cada vista es una columna flexible con un dock pegado abajo (16px arriba, 16px más el área segura abajo, fondo `--page`) que lleva la acción principal a ancho completo, al alcance del pulgar.
 
-El ritmo de espaciado es 4 / 8 / 12 / 16 / 20 / 24px. Las separaciones verticales de la vista de sesión respiran con la altura de pantalla: bajo el interruptor `clamp(12px, 3svh, 32px)`, sobre la intensidad `clamp(16px, 3.5svh, 36px)`.
+El ritmo de espaciado es 4 / 8 / 12 / 16 / 20 / 24px. Las separaciones verticales de la vista de sesión respiran con la altura de pantalla: bajo el interruptor `clamp(12px, 3svh, 32px)`, sobre el ritmo `clamp(16px, 3.5svh, 36px)`.
 
-**Sesión:** interruptor arriba; las ruedas en una rejilla `auto auto auto` centrada (`justify-content: center`: el valor se centra como un solo grupo y cada rueda mide lo que su valor más ancho, "60", "59") de una fila de alto más un margen táctil invisible arriba y abajo (`--reach`, `clamp(24px, 5svh, 48px)`), empujadas con `margin-top: auto` para que la altura sobrante se reparta arriba y abajo y el valor quede a media pantalla, al alcance del pulgar. Las dos cifras se pegan al separador (la de la izquierda alineada a la derecha y al revés) para leerse como un solo valor: 1:05, 10,5. Margen lateral en em: la rueda mayor `0.1em 0.05em` y la menor `0.05em 0.1em`, más holgura por fuera para la bandera del 1 y la punta de la inclinación, justa contra el separador. La unidad va 10px por debajo, centrada. La tira de intensidad sangra hasta el borde del viewport: todo su ancho se desliza, pero solo se pinta la píldora del centro.
+**Sesión:** interruptor arriba; las ruedas en una rejilla `auto auto auto` centrada (`justify-content: center`: el valor se centra como un solo grupo y cada rueda mide lo que su valor más ancho, "60", "59") de una fila de alto más un margen táctil invisible arriba y abajo (`--reach`, `clamp(24px, 5svh, 48px)`), empujadas con `margin-top: auto` para que la altura sobrante se reparta arriba y abajo y el valor quede a media pantalla, al alcance del pulgar. Las dos cifras se pegan al separador (la de la izquierda alineada a la derecha y al revés) para leerse como un solo valor: 1:05, 10,5. Margen lateral en em: la rueda mayor `0.1em 0.05em` y la menor `0.05em 0.1em`, más holgura por fuera para la bandera del 1 y la punta de la inclinación, justa contra el separador. La unidad va 10px por debajo, centrada: "horas y minutos" o "KM". No hay línea de biblioteca cuando los discos están cargados (la pantalla es solo ruedas y START); solo aparece para decir que no hay discos o que no se pudieron abrir. La tira del ritmo sangra hasta el borde del viewport: todo su ancho se desliza, pero solo se pinta la píldora del centro.
 
 **Resultados:** cabecera en rejilla `44px 1fr auto` (atrás, título y subtítulo, "Otros 5"); cinco segmentos de posición de 4px; y un carrusel horizontal con snap obligatorio: tarjeta de `min(78vw, 376px)`, separación de 12px, centrada y con ambas vecinas asomando; el carril sangra hasta el borde del viewport. A partir de 520px, el carril se desvanece con una máscara de 32px en los bordes de la columna.
 
 ## Elevation & Depth
 
-Plano por completo: no hay ni una `box-shadow` en el sistema. La profundidad se transmite con pasos tonales de tinta sobre voltio (suelo, superficie, superficie pulsada) y con el campo de color de cada tarjeta. Lo que no está elegido no se ve o retrocede, nunca con sombra: las ruedas y la intensidad no enseñan valores vecinos (una máscara pinta solo la ventana), y las tarjetas vecinas del carrusel quedan a 0.95 y 0.8 (dirigidas por el scroll).
+Plano por completo: no hay ni una `box-shadow` en el sistema. La profundidad se transmite con pasos tonales de tinta sobre voltio (suelo, superficie, superficie pulsada) y con el campo de color de cada tarjeta. Lo que no está elegido no se ve o retrocede, nunca con sombra: las ruedas y el ritmo no enseñan valores vecinos (una máscara pinta solo la ventana), y las tarjetas vecinas del carrusel quedan a 0.95 y 0.8 (dirigidas por el scroll).
 
 ### Named Rules
 **The Flat Field Rule.** Ninguna superficie lleva sombra ni borde; se separa del suelo por tono o por color de portada.
 
-**The One Value Rule.** Las ruedas y la intensidad enseñan solo el valor actual, grande e inclinado, dentro de su ventana (decisión del dueño, 2026-10-26). Al deslizar, el valor siguiente entra por el borde de la ventana; antes no se ve. En las ruedas la ventana es invisible: el valor va directo sobre el voltio, sin banda detrás; en la intensidad la ventana es la píldora de tinta.
+**The One Value Rule.** Las ruedas y el ritmo enseñan solo el valor actual, grande e inclinado, dentro de su ventana (decisión del dueño, 2026-10-26). Al deslizar, el valor siguiente entra por el borde de la ventana; antes no se ve. En las ruedas la ventana es invisible: el valor va directo sobre el voltio, sin banda detrás; en el ritmo la ventana es la píldora de tinta.
 
 ## Shapes
 
@@ -277,7 +277,7 @@ Grandes, llenos y para el pulgar. Todos de tinta con texto voltio.
 ### Segmented control (Tiempo / Distancia)
 - **Style:** pista de superficie en píldora con 4px de holgura; dos opciones de 48px, 700, 16px.
 - **State:** una pastilla de tinta se desliza bajo la opción activa (`translateX`, 260ms `--ease-in-out`); el texto activo pasa a voltio en 200ms. Flechas izquierda y derecha cambian de modo.
-- **Al cambiar de modo:** las ruedas se deslizan a su nuevo sitio con un FLIP (`translateY` desde donde estaban y opacidad de 0.4 a 1, 260ms `cubic-bezier(0.77, 0, 0.175, 1)`); en distancia la intensidad entra 12px desde abajo en 220ms con `--ease-out` y 60ms de retraso.
+- **Al cambiar de modo:** las ruedas se deslizan a su nuevo sitio con un FLIP (`translateY` desde donde estaban y opacidad de 0.4 a 1, 260ms `cubic-bezier(0.77, 0, 0.175, 1)`); en distancia el ritmo entra 12px desde abajo en 220ms con `--ease-out` y 60ms de retraso.
 
 ### Picker wheels (signature)
 Dos columnas de cifras gigantes con scroll y snap nativos: el impulso y el rebote del propio teléfono, una cifra por fila, y la fila central es el valor. Horas : minutos (0:05 a 5:59) o km , cientos de metros (1,0 a 60,9).
@@ -286,9 +286,9 @@ Dos columnas de cifras gigantes con scroll y snap nativos: el impulso y el rebot
 - **Accesibilidad:** cada rueda es un `spinbutton` con valor y texto; flechas, Re Pág/Av Pág (±5), Inicio y Fin. Un salto de más de tres filas llega sin deslizarse.
 - **Foco de teclado:** la máscara cortaría un anillo en la rueda, así que el anillo (3px de tinta, radio de 24px) rodea todo el valor (`.picker:has(.wheel-y:focus-visible)`, separación `calc(var(--reach) * -1 + 6px)`) y la rueda que no tiene las teclas retrocede a opacidad 0.45, para que se vea qué número mueven las flechas.
 
-### Intensity strip
+### Pace strip (Ritmo)
 El ritmo (3:00 a 9:00 /km, de 5 en 5 s) como una tira que se desliza de lado; solo en distancia.
-- **Cabecera:** "Intensidad" (700, 16px) con "min/km" en tinta de apoyo (500), y a la derecha el total de carrera en tinta de apoyo con cifras tabulares.
+- **Cabecera:** "Ritmo" (700, 16px) con "min/km" en tinta de apoyo (500), y a la derecha el total de carrera en tinta de apoyo con cifras tabulares.
 - **Style:** una píldora fija de tinta de 144 × 64px en el centro; los ritmos, en voltio y en la voz Pace (Hill-B Figures, 3rem), pasan por ella con snap al centro (paso de 144px).
 - **State:** `mask-image` pinta solo la píldora; el resto de la tira es invisible pero se desliza con el pulgar. El foco de teclado rodea la píldora.
 

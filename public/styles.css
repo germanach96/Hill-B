@@ -236,8 +236,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
    through an invisible window; the values around it are never shown. The wheel reaches past the
    window (--reach) so the whole block takes the thumb, but only the window is painted. */
 .picker {
-  /* The figure fills the width: "60,9" is about 1.8 em wide with its margins, and the height keeps it in check. */
-  --fig: clamp(120px, min(24svh, calc((100vw - 2 * var(--pad)) / 1.8)), 240px);
+  /* The figure fills the width: "60,9" is about 2 em wide with its margins (measured), plus a little slack, and the height keeps it in check. */
+  --fig: clamp(120px, min(24svh, calc((100vw - 2 * var(--pad)) / 2.1)), 240px);
   --item: calc(var(--fig) * 0.84); /* the digits stand 0.72 em tall */
   --reach: clamp(24px, 5svh, 48px);
   position: relative;
@@ -285,6 +285,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .picker-sep {
   position: relative;
   font-size: var(--fig);
+  /* Its own room on both sides, so a slanted 0 never bites the ":" whatever the browser does with
+     the tracking after the last figure. */
+  padding-inline: 0.07em;
 }
 .picker-unit {
   margin: 10px 0 0;
@@ -356,6 +359,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   text-wrap: balance;
   font-variant-numeric: tabular-nums;
 }
+.library:empty { display: none; } /* with the albums in, the screen is the wheels and START only */
 .library a,
 .link {
   color: var(--ink);

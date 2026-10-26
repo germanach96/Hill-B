@@ -72,7 +72,7 @@
       },
       "wheel": {
         "displayName": "Wheel",
-        "purpose": "Cifras de las dos ruedas y su separador \":\" o \",\" en Hill-B Figures a --fig = clamp(120px, min(24svh, calc((100vw - 2 * var(--pad)) / 1.8)), 240px); la fila mide 0.84 × --fig."
+        "purpose": "Cifras de las dos ruedas y su separador \":\" o \",\" en Hill-B Figures a --fig = clamp(120px, min(24svh, calc((100vw - 2 * var(--pad)) / 2.1)), 240px); la fila mide 0.84 × --fig."
       },
       "figure": {
         "displayName": "Figure",
@@ -88,7 +88,7 @@
       },
       "pace": {
         "displayName": "Pace",
-        "purpose": "El ritmo dentro de la píldora de intensidad, en Hill-B Figures a 3rem, voltio sobre tinta."
+        "purpose": "El ritmo dentro de su píldora, en Hill-B Figures a 3rem, voltio sobre tinta."
       },
       "action": {
         "displayName": "Action",
@@ -112,7 +112,7 @@
       {
         "name": "ease-out",
         "value": "cubic-bezier(0.23, 1, 0.32, 1)",
-        "purpose": "Respuesta al pulsar (140ms), entrada de la intensidad (220ms, 60ms de retraso), entrada de tarjetas (460ms, escalonado 60ms), relleno del medidor y cuenta de la duración (600ms)."
+        "purpose": "Respuesta al pulsar (140ms), entrada del ritmo (220ms, 60ms de retraso), entrada de tarjetas (460ms, escalonado 60ms), relleno del medidor y cuenta de la duración (600ms)."
       },
       {
         "name": "ease-in-out",
@@ -184,11 +184,11 @@
       "css": ".ds-ground { background: #d7ff1f; padding: 16px; width: 360px; color: #111111; font-family: Archivo, system-ui, sans-serif; } .ds-picker { --fig: 160px; --item: calc(var(--fig) * 0.84); --reach: 32px; position: relative; display: grid; grid-template-columns: auto auto auto; justify-content: center; align-items: center; height: calc(var(--item) + var(--reach) * 2); } .ds-wheel { position: relative; height: 100%; overflow: hidden; padding-block: var(--reach); box-sizing: border-box; outline: none; mask-image: linear-gradient(to bottom, transparent var(--reach), #000 var(--reach), #000 calc(100% - var(--reach)), transparent calc(100% - var(--reach))); } .ds-picker:has(.ds-wheel:focus-visible) { outline: 3px solid #111111; outline-offset: calc(var(--reach) * -1 + 6px); border-radius: 24px; } .ds-picker:has(.ds-wheel:focus-visible) .ds-wheel:not(:focus-visible) { opacity: 0.45; } .ds-track { transform: translateY(calc(var(--item) * -1)); transition: transform 260ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-wheel:hover .ds-track { transform: translateY(calc(var(--item) * -2)); } .ds-row, .ds-sep { font-family: \"Hill-B Figures\", Archivo, system-ui, sans-serif; font-weight: 800; font-synthesis: none; font-variant-numeric: tabular-nums; letter-spacing: 0.05em; font-size: var(--fig); line-height: 1; } .ds-row { display: flex; align-items: center; height: var(--item); } .ds-major .ds-row { justify-content: flex-end; padding-inline: 0.1em 0.05em; } .ds-minor .ds-row { justify-content: flex-start; padding-inline: 0.05em 0.1em; } .ds-sep { position: relative; } .ds-unit { margin: 10px 0 0; text-align: center; font-size: 18px; font-weight: 700; color: #485415; } @media (prefers-reduced-motion: reduce) { .ds-track { transition: none; } }"
     },
     {
-      "name": "Tira de intensidad",
+      "name": "Tira del ritmo",
       "kind": "chip",
       "refersTo": "pace-pill",
       "description": "El ritmo (3:00 a 9:00 /km, de 5 en 5 s) como una tira que se desliza de lado; solo en distancia. Una píldora fija de tinta de 144 × 64px en el centro; los ritmos, en voltio y en la voz Pace (Hill-B Figures, 3rem), pasan por ella con snap al centro (paso de 144px). `mask-image` pinta solo la píldora; el resto de la tira es invisible pero se desliza con el pulgar.",
-      "html": "<div class=\"ds-ground\"><div class=\"ds-int-head\"><span class=\"ds-int-label\">Intensidad<span class=\"ds-int-unit\">min/km</span></span><span class=\"ds-int-total\">54:45 de carrera</span></div><div class=\"ds-frame\"><div class=\"ds-strip\" tabindex=\"0\" role=\"spinbutton\" aria-label=\"Intensidad\" aria-valuetext=\"5:30 min/km\"><div class=\"ds-strip-track\"><span class=\"ds-pace\">5:25</span><span class=\"ds-pace\">5:30</span><span class=\"ds-pace\">5:35</span></div></div></div></div>",
+      "html": "<div class=\"ds-ground\"><div class=\"ds-int-head\"><span class=\"ds-int-label\">Ritmo<span class=\"ds-int-unit\">min/km</span></span><span class=\"ds-int-total\">54:45 de carrera</span></div><div class=\"ds-frame\"><div class=\"ds-strip\" tabindex=\"0\" role=\"spinbutton\" aria-label=\"Ritmo\" aria-valuetext=\"5:30 min/km\"><div class=\"ds-strip-track\"><span class=\"ds-pace\">5:25</span><span class=\"ds-pace\">5:30</span><span class=\"ds-pace\">5:35</span></div></div></div></div>",
       "css": ".ds-ground { background: #d7ff1f; padding: 16px; width: 360px; color: #111111; font-family: Archivo, system-ui, sans-serif; } .ds-int-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-size: 16px; } .ds-int-label { font-weight: 700; } .ds-int-unit { margin-left: 4px; font-weight: 500; color: #485415; } .ds-int-total { color: #485415; font-variant-numeric: tabular-nums; } .ds-frame { --pitem: 144px; position: relative; margin-top: 10px; } .ds-frame::before { content: \"\"; position: absolute; top: 6px; bottom: 6px; left: calc(50% - var(--pitem) / 2); width: var(--pitem); border-radius: 999px; background: #111111; } .ds-frame:has(.ds-strip:focus-visible)::before { outline: 3px solid #111111; outline-offset: 3px; } .ds-strip { position: relative; height: 76px; overflow: hidden; outline: none; mask-image: linear-gradient(to right, transparent calc(50% - var(--pitem) / 2), #000 calc(50% - var(--pitem) / 2), #000 calc(50% + var(--pitem) / 2), transparent calc(50% + var(--pitem) / 2)); } .ds-strip-track { display: flex; height: 100%; padding-inline: calc(50% - var(--pitem) / 2); transform: translateX(calc(var(--pitem) * -1)); transition: transform 260ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-strip:hover .ds-strip-track { transform: translateX(calc(var(--pitem) * -2)); } .ds-pace { flex: 0 0 var(--pitem); display: grid; place-items: center; font-family: \"Hill-B Figures\", Archivo, system-ui, sans-serif; font-weight: 800; font-synthesis: none; font-variant-numeric: tabular-nums; letter-spacing: 0.05em; line-height: 1; font-size: 3rem; color: #d7ff1f; } @media (prefers-reduced-motion: reduce) { .ds-strip-track { transition: none; } }"
     },
     {
@@ -217,11 +217,11 @@
   ],
   "narrative": {
     "northStar": "La pantalla de objetivo",
-    "overview": "Hill-B habla el registro de Nike Run Club puesto en serio, sobre el color de su propia marca: toda la app se apoya en el voltio, con la tinta casi negra como único contraste, y números enormes, largos e inclinados como los de un cronómetro, que ocupan la pantalla como el objetivo de una carrera. La duración de la salida es la protagonista: dos ruedas de cifras gigantes que se deslizan con el pulgar, y todo lo demás (interruptor, intensidad, discos) se mide contra ella. Es una app de un solo pulgar, en la puerta de casa: pocos elementos por pantalla, controles grandes en píldora y una sola acción principal, START, anclada abajo.\n\nLa profundidad no existe: superficies planas que se separan del voltio por un paso tonal de tinta mezclada, nunca por sombras ni bordes. El blanco no aparece. Lo que destaca es tinta (selección, START, reintento) con el texto en voltio; el otro color vivo es la portada de cada disco, que tiñe su tarjeta entera. El movimiento es abundante pero funcional: las ruedas giran con el scroll nativo del teléfono, cambian de sitio con un FLIP al cambiar de modo, cada cambio de vista se desliza en la dirección del flujo, y la barra del disco se llena a escala contra la salida.\n\nRechazos confirmados por el propietario y por la dirección: no parecerse a Spotify (suelo oscuro, rejilla de portadas pequeñas, acento verde) ni a un panel de fitness (tarjetas de estadísticas, anillos).",
+    "overview": "Hill-B habla el registro de Nike Run Club puesto en serio, sobre el color de su propia marca: toda la app se apoya en el voltio, con la tinta casi negra como único contraste, y números enormes, largos e inclinados como los de un cronómetro, que ocupan la pantalla como el objetivo de una carrera. La duración de la salida es la protagonista: dos ruedas de cifras gigantes que se deslizan con el pulgar, y todo lo demás (interruptor, ritmo, discos) se mide contra ella. Es una app de un solo pulgar, en la puerta de casa: pocos elementos por pantalla, controles grandes en píldora y una sola acción principal, START, anclada abajo.\n\nLa profundidad no existe: superficies planas que se separan del voltio por un paso tonal de tinta mezclada, nunca por sombras ni bordes. El blanco no aparece. Lo que destaca es tinta (selección, START, reintento) con el texto en voltio; el otro color vivo es la portada de cada disco, que tiñe su tarjeta entera. El movimiento es abundante pero funcional: las ruedas giran con el scroll nativo del teléfono, cambian de sitio con un FLIP al cambiar de modo, cada cambio de vista se desliza en la dirección del flujo, y la barra del disco se llena a escala contra la salida.\n\nRechazos confirmados por el propietario y por la dirección: no parecerse a Spotify (suelo oscuro, rejilla de portadas pequeñas, acento verde) ni a un panel de fitness (tarjetas de estadísticas, anillos).",
     "keyCharacteristics": [
       "Solo modo claro (`color-scheme: light`); el suelo voltio es la identidad, en toda la app.",
       "Dos colores: voltio y tinta. Sin blanco; los tonos secundarios son tinta mezclada sobre voltio, no grises.",
-      "Tres voces: Archivo a ancho normal para el texto; Archivo estrecha, negra y en mayúsculas para START, títulos y la duración del disco; y Hill-B Figures (Roboto Flex fijada estrecha e inclinada) para las cifras de las ruedas y la intensidad.",
+      "Tres voces: Archivo a ancho normal para el texto; Archivo estrecha, negra y en mayúsculas para START, títulos y la duración del disco; y Hill-B Figures (Roboto Flex fijada estrecha e inclinada) para las cifras de las ruedas y del ritmo.",
       "Ruedas de selección con scroll y snap nativos en lugar de botones − / + o atajos.",
       "Controles en píldora, tarjetas de 24px, sin sombras ni bordes.",
       "Cifras tabulares en todo lo que cuenta tiempo o distancia.",
@@ -270,7 +270,7 @@
       },
       {
         "name": "The One Value Rule",
-        "body": "Las ruedas y la intensidad enseñan solo el valor actual, grande e inclinado, dentro de su ventana (decisión del dueño, 2026-10-26). Al deslizar, el valor siguiente entra por el borde de la ventana; antes no se ve. En las ruedas la ventana es invisible: el valor va directo sobre el voltio, sin banda detrás; en la intensidad la ventana es la píldora de tinta.",
+        "body": "Las ruedas y el ritmo enseñan solo el valor actual, grande e inclinado, dentro de su ventana (decisión del dueño, 2026-10-26). Al deslizar, el valor siguiente entra por el borde de la ventana; antes no se ve. En las ruedas la ventana es invisible: el valor va directo sobre el voltio, sin banda detrás; en el ritmo la ventana es la píldora de tinta.",
         "section": "elevation"
       }
     ],
