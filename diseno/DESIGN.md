@@ -70,6 +70,13 @@ typography:
     fontWeight: 700
     lineHeight: 1.5
     letterSpacing: "-0.005em"
+  brand:
+    fontFamily: "Archivo, system-ui, -apple-system, Segoe UI, sans-serif"
+    fontSize: "20px"
+    fontWeight: 800
+    lineHeight: 1.5
+    letterSpacing: "-0.01em"
+    fontVariation: "'wdth' 75"
 rounded:
   pill: "999px"
   card: "24px"
@@ -216,6 +223,17 @@ Cada tarjeta de disco recibe `--card-bg` y `--card-ink` calculados de su portada
 
 **The Tabular Rule.** Toda cifra de tiempo, distancia o recuento usa `font-variant-numeric: tabular-nums` para que no baile al cambiar.
 
+## Logo
+
+La marca es la **B acostada**: la B de Archivo a peso 900 y ancho 75, girada 90° a la izquierda. Su lomo queda abajo como suelo y sus dos panzas se vuelven dos colinas, la de la derecha algo más alta. Es a la vez la inicial y la "Hill" del nombre. Es la letra tal cual, sin redibujar, y la genera `tools/logo.py` desde `public/fonts/archivo-latin.woff2` (los PNG, `node tools/logo-png.mjs`).
+
+- **Marca sola:** `diseno/logo/hill-b-marca.svg`. Tinta sobre blanco o sobre voltio; voltio sobre tinta solo en piezas fuera de la app.
+- **Logo horizontal:** `diseno/logo/hill-b-logo.svg` (y `hill-b-logo-volt.svg` sobre campo voltio). La marca mide lo mismo que las mayúsculas de "HILL-B" (800, ancho 75) y se separa de ellas 0.4 de esa altura.
+- **Icono de la app:** campo voltio con la marca en tinta al 64% del ancho, bajada 6/512 para compensar las curvas de arriba (`public/icon.svg`). La versión enmascarable la deja al 53% para que quepa en el círculo seguro del 80% (`public/icon-maskable.svg`).
+- **En la barra:** la marca a la altura de las mayúsculas de la palabra (0.688em de alto, 0.906em de ancho) y 8px antes de ella.
+
+**The Lying B Rule.** La B se tumba siempre hacia la izquierda, con las colinas hacia arriba; nunca de pie, nunca boca abajo, nunca en espejo. No lleva contorno, sombra ni degradado, y no se recoloca: tinta, voltio o blanco.
+
 ## Layout
 
 Una columna de teléfono: `max-width: 480px`, centrada, con 20px de margen lateral (pad) y altura mínima `100dvh`. La barra superior mide 56px más el área segura. Cada vista es una columna flexible con un dock pegado abajo (16px arriba, 16px más el área segura abajo) que lleva la acción principal a ancho completo, al alcance del pulgar.
@@ -266,7 +284,7 @@ Grandes, llenos y para el pulgar.
 - **Focus:** subrayado de tinta de 4px a 10px del texto, en lugar del anillo.
 
 ### Navigation
-- **Barra:** marca a la izquierda (icono de colina de 28px + "Hill-B"), "Salir" en gris de apoyo a la derecha (600, 15px, 44px de zona táctil).
+- **Barra:** marca a la izquierda (la B acostada a la altura de las mayúsculas + "Hill-B"), "Salir" en gris de apoyo a la derecha (600, 15px, 44px de zona táctil).
 - **Atrás:** círculo de 44px con flecha de 20px.
 - **Entre vistas:** View Transitions de 280ms con `--ease-drawer`; la vista nueva entra 18% desde la derecha al avanzar y desde la izquierda al volver.
 
