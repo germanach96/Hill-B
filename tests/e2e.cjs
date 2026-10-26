@@ -156,9 +156,11 @@ async function run() {
       // difference in the same place under its running time.
       const peek = await page.evaluate(() => innerWidth - document.querySelectorAll('.card')[1].getBoundingClientRect().left);
       assert.ok(peek >= 8, `the next card shows only ${peek}px`);
+      // Measured in the card's own pixels: the neighbours are drawn at 95%.
       const deltaGaps = await page.evaluate(() => [...document.querySelectorAll('.card')].map((c) =>
-        Math.round(c.querySelector('.card-delta').getBoundingClientRect().top - c.querySelector('.card-time').getBoundingClientRect().bottom)));
-      assert.equal(new Set(deltaGaps).size, 1, `the difference moves between cards: ${deltaGaps}`);
+        Math.round((c.querySelector('.card-delta').getBoundingClientRect().top - c.querySelector('.card-time').getBoundingClientRect().bottom)
+          / (c.getBoundingClientRect().width / c.offsetWidth))));
+      assert.ok(Math.max(...deltaGaps) - Math.min(...deltaGaps) <= 1, `the difference moves between cards: ${deltaGaps}`);
       await page.screenshot({ path: `${OUT}/mobile-results.png` });
       await snapshot(page, 'results');
 

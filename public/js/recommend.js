@@ -65,6 +65,65 @@ function shuffle(list, random) {
   return out;
 }
 
+/** Kilometres the album lasts at a pace in seconds per km. */
+export function albumKm(seconds, pace) {
+  return pace > 0 ? seconds / pace : 0;
+}
+
+/** "8,8": one decimal, Spanish comma; whole numbers without it. */
+export function formatKmValue(km) {
+  const tenths = Math.round(km * 10) / 10;
+  return Number.isInteger(tenths) ? String(tenths) : tenths.toFixed(1).replace('.', ',');
+}
+
+// Tags that say nothing about the sound: personal lists, formats, awards. Tags with digits
+// (years, decades, "s2", "chill906") and one-off tags (weight under 10) go too.
+const TAG_NOISE = new Set(['favourite', 'favourites', 'favorite', 'favorites', 'favourite albums', 'favorite albums',
+  'albums i own', 'seen live', 'vinyl', 'cd', 'album', 'all', 'this is music', 'fucking great', 'male vocalists',
+  'female vocalists', 'male vocalist', 'female vocalist', 'canciones que me gustan mucho', 'musica del recuerdo', 'rock del bueno', 'under 2000 listeners']);
+const tagKey = (name) => name.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase().replace(/[-_/]+/g, ' ').replace(/\s+/g, ' ').trim();
+
+/**
+ * The few Last.fm tags worth showing on a card: the album's own and its artist's ([name, weight]
+ * pairs), noise out, the artist's and the album's names out, one per spelling ("hip-hop" = "hip hop"), and a broad tag
+ * left out when a more precise one that contains it scores at least half as much ("rock" under
+ * "alternative rock"), whose place and strength the precise one takes. An album tag counts in full, an artist tag at 70%, both at once get a bonus.
+ */
+export function relevantTags(album, count = 5) {
+  // The artist's name and the album's own name are not tags ("zucchero", "la sesion cubana").
+  const own = new Set([...(album.artists ?? []), album.name ?? '', (album.name ?? '').replace(/\s*[([].*?[)\]]/g, '')]
+    .map(tagKey).filter(Boolean));
+  const scored = new Map();
+  const add = (tags = [], factor) => {
+    for (const [name, weight] of tags) {
+      const key = tagKey(name);
+      if (weight < 10 || /\d/.test(key) || TAG_NOISE.has(key) || /grammy/.test(key) || own.has(key)) continue;
+      if ([...own].some((a) => a && key.includes(a))) continue;
+      const prev = scored.get(key);
+      const score = weight * factor;
+      scored.set(key, prev
+        ? { name: prev.name, score: Math.max(prev.score, score) + 20 }
+        : { name: name.trim(), score });
+    }
+  };
+  add(album.tags, 1);
+  add(album.artistTags, 0.7);
+  // "chile" and "chilean", "cuba" and "cuban": one word and the same word with an ending are one tag.
+  const sameWord = (a, b) => !a.includes(' ') && !b.includes(' ') && a !== b
+    && (a.startsWith(b) || b.startsWith(a)) && Math.abs(a.length - b.length) <= 3;
+  const list = [];
+  for (const entry of [...scored].sort((x, y) => y[1].score - x[1].score)) {
+    if (!list.some(([key]) => sameWord(key, entry[0]))) list.push(entry);
+  }
+  const within = (broad, precise) => precise !== broad && ` ${precise} `.includes(` ${broad} `);
+  // A precise tag takes the place, and the strength, of the broad one it stands for.
+  const kept = list.filter(([key, t]) => !list.some(([other, o]) => within(key, other) && o.score >= t.score * 0.5));
+  for (const [key, t] of kept) {
+    for (const [broad, b] of list) if (within(broad, key) && !kept.some(([k]) => k === broad)) t.score = Math.max(t.score, b.score);
+  }
+  return kept.sort((x, y) => y[1].score - x[1].score).slice(0, count).map(([, t]) => t.name);
+}
+
 /** "🚌 The Magic Bus @germanch96" reads as "The Magic Bus": emoji and @handle stay in Spotify. */
 export function displayName(name = '') {
   return name.replace(/\p{Extended_Pictographic}\uFE0F?/gu, '').replace(/@\S+/g, '').trim() || 'tu playlist';

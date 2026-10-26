@@ -570,72 +570,136 @@ html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden
 }
 .card-meta span { opacity: 0.78; font-weight: 500; }
 
-/* The running time is as big as the card allows on both axes: "45:56" is about 2.7 em wide in this
-   face, "1:02:03" about 3.6 em; the height share keeps it from eating the cover on a short phone. */
+/* Run block: the album's running time (display voice) and the kilometres it lasts at the chosen
+   pace (figure voice, the slanted stopwatch numbers of the wheels: they are the runner's numbers).
+   "45:56" is about 2.7 em wide in the display face, "1:02:03" about 3.6 em. */
 .card-run { margin-top: 14px; }
+.card-fig { margin: 0; }
 .card-time {
-  display: block;
-  font-size: max(3.25rem, min(17cqh, calc((100cqi - 32px) / 2.75)));
+  display: inline-block;
+  font-size: var(--fig);
   line-height: 0.85;
 }
-.card.is-long .card-time { font-size: max(3rem, min(17cqh, calc((100cqi - 32px) / 3.65))); }
-/* The difference always has its own line under the time: the same place on every card. */
-.card-delta { display: block; margin-top: 6px; font-size: 15px; font-weight: 700; white-space: nowrap; }
-
-/* The signature: the album's running time drawn to scale against the run. */
-.meter {
-  position: relative;
-  height: 12px;
-  margin-top: 12px;
-  border-radius: 6px;
-  background: color-mix(in srgb, currentColor 18%, transparent);
-}
-.meter-fill {
-  position: absolute;
-  inset: 0;
-  border-radius: 6px;
-  background: currentColor;
-  transform-origin: left;
-  transform: scaleX(0);
-}
-.card.is-seen .meter-fill {
-  transform: scaleX(var(--album, 0));
-  transition: transform 600ms var(--ease-out);
-}
-.meter-run {
-  position: absolute;
-  top: -5px;
-  bottom: -5px;
-  left: calc(var(--run, 1) * 100%);
-  width: 3px;
-  margin-left: -1.5px;
-  border-radius: 2px;
-  background: currentColor;
-  outline: 2px solid var(--card-bg, var(--surface));
-}
-.meter-legend {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 8px;
-  font-size: 15px;
-  font-weight: 600;
+.card-km {
+  font-family: "Hill-B Figures", "Archivo", system-ui, sans-serif;
+  font-weight: 800;
+  font-synthesis: none;
   font-variant-numeric: tabular-nums;
+  font-size: var(--fig-km, var(--fig));
+  line-height: 0.85;
+}
+.card-unit {
+  margin-left: 0.12em;
+  font-size: calc(var(--fig-km, var(--fig)) * 0.36);
+  font-stretch: var(--display-stretch);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+.card-label { display: block; margin-top: 6px; font-size: 15px; font-weight: 700; white-space: nowrap; }
+.card-delta { display: block; margin-top: 8px; font-size: 15px; font-weight: 700; white-space: nowrap; }
+/* The tags keep their room: on a short phone the cover gives up height, not the tags. */
+.card-tags { flex: none; list-style: none; margin: 14px 0 0; padding: 0; }
+
+/* Proposal 1, "Dos cifras": the album's time and its kilometres side by side, equal weight; the
+   tags as filled pills in the card's own ink, two rows at most. */
+:root[data-card="1"] .card { --fig: max(2.5rem, min(12cqh, calc((100cqi - 46px) / 5.5))); }
+:root[data-card="1"] .card.is-long { --fig: max(2.25rem, min(12cqh, calc((100cqi - 46px) / 7.3))); }
+:root[data-card="1"] .card-run {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 14px;
+  align-items: end;
+}
+:root[data-card="1"] .card-delta { grid-column: 1 / -1; }
+:root[data-card="1"] .card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-height: calc(32px * 2 + 6px);
+  overflow: hidden;
+}
+:root[data-card="1"] .card-tags li {
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, currentColor 14%, transparent);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 32px;
+  white-space: nowrap;
 }
 
-.card-songs {
-  margin: 14px 0 0;
-  font-size: 16px;
-  line-height: 1.4;
+/* Proposal 2, "Cifra y línea": the running time stays the hero, the kilometres follow on one line,
+   and the tags read like a gig poster's line-up: condensed capitals split by slashes. */
+:root[data-card="2"] .card { --fig: max(3.25rem, min(17cqh, calc((100cqi - 32px) / 2.75))); --fig-km: clamp(2rem, 6.5cqh, 2.75rem); }
+:root[data-card="2"] .card.is-long { --fig: max(3rem, min(17cqh, calc((100cqi - 32px) / 3.65))); }
+:root[data-card="2"] .card-fig-time .card-label { display: none; }
+:root[data-card="2"] .card-fig-km { display: flex; align-items: baseline; margin-top: 10px; }
+:root[data-card="2"] .card-fig-km .card-label { margin: 0 0 0 10px; }
+:root[data-card="2"] .card-delta { margin-top: 6px; }
+:root[data-card="2"] .card-tags {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  font-size: clamp(1.15rem, 3.4cqh, 1.6rem);
+  font-stretch: var(--display-stretch);
+  font-weight: 900;
+  line-height: 1.1;
+  text-transform: uppercase;
 }
-.card-songs strong { font-weight: 700; }
+:root[data-card="2"] .card-tags li { display: inline; white-space: nowrap; } /* a tag never breaks across lines */
+:root[data-card="2"] .card-tags li:not(:last-child)::after { content: "/"; margin: 0 0.12em 0 0.25em; font-weight: 500; } /* the slash ends a line, never opens one */
+
+/* Proposal 3, "Ficha": a smaller cover with the two numbers stacked beside it, the name under both,
+   and the tags as a stack of words that shrink by relevance, the first one loudest. */
+:root[data-card="3"] .card { --fig: max(2.25rem, calc((100cqi - 46px) * 0.4 / 2.75)); }
+:root[data-card="3"] .card.is-long { --fig: max(2rem, calc((100cqi - 46px) * 0.4 / 3.65)); }
+:root[data-card="3"] .card-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 60fr) minmax(0, 40fr);
+  grid-template-rows: auto auto auto;
+  grid-template-areas: "cover run" "head head" "tags tags";
+  align-content: space-between;
+  column-gap: 14px;
+}
+:root[data-card="3"] .cover-box { grid-area: cover; }
+:root[data-card="3"] .card-run {
+  grid-area: run;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 14px;
+  margin: 0;
+}
+:root[data-card="3"] .card-label { font-size: 14px; }
+:root[data-card="3"] .card-delta { margin: 0; font-size: 14px; white-space: normal; }
+:root[data-card="3"] .card-head { grid-area: head; margin-top: 16px; }
+:root[data-card="3"] .card-title { font-size: clamp(2.25rem, 7.5cqh, 4.25rem); }
+:root[data-card="3"] .card-tags {
+  /* The loudest tag is as big as the card's height allows, each next one 80% of the one before
+     (--s), and no tag is wider than the card (--len: its letters, about 0.45 em each). */
+  --tag-max: min(11cqh, 19cqi);
+  grid-area: tags;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 14px;
+}
+:root[data-card="3"] .card-tags li {
+  line-height: 0.95;
+  font-size: max(1.05rem, min(calc(var(--tag-max) * var(--s, 1)), calc((100cqi - 32px) / (var(--len, 10) * 0.45))));
+  font-stretch: var(--display-stretch);
+  font-weight: 900;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 /* Short screens (a small phone, landscape) give up words before the cover gets too small. */
-@container card (max-height: 560px) { .card-songs { display: none; } }
-@container card (max-height: 440px) { .meter-legend, .card-meta { display: none; } .card-title { -webkit-line-clamp: 1; } }
+@container card (max-height: 540px) { .card-tags li:nth-child(n+4) { display: none; } }
+@container card (max-height: 440px) { .card-tags, .card-meta, .card-label { display: none; } .card-title { -webkit-line-clamp: 1; } }
 
 /* The swipes as buttons, for keyboards: invisible until focused, then an ink pill over the deck. */
 .focus-show:focus-visible {
@@ -666,7 +730,7 @@ html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden
 .sk-title { height: 30px; width: 80%; margin-top: 16px; }
 .sk-meta { height: 16px; width: 55%; margin-top: 10px; }
 .sk-time { height: 40px; width: 40%; margin-top: 18px; }
-.sk-meter { height: 12px; width: 100%; margin-top: 12px; }
+.sk-tags { height: 32px; width: 72%; border-radius: 999px; }
 
 .state {
   margin: 4px 0 0;

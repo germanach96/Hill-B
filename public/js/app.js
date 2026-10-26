@@ -4,7 +4,9 @@ import { store } from './store.js';
 import { createWheel } from './wheel.js';
 import { createPager } from './pager.js';
 import { playSplash } from './splash.js';
-import { sessionSeconds, pickAlbums, formatDuration, describeDelta, formatPace } from './recommend.js';
+import {
+  sessionSeconds, pickAlbums, formatDuration, describeDelta, formatPace, albumKm, formatKmValue, relevantTags,
+} from './recommend.js';
 
 const $ = (id) => document.getElementById(id);
 const root = document.documentElement;
@@ -30,6 +32,12 @@ prefs.pace = Math.min(PACE.max, Math.max(PACE.min, Math.round(prefs.pace / PACE.
 // library.status: loading | ready | empty | error
 const library = { status: 'loading', name: 'The Magic Bus', albums: [] };
 const colors = store.get(COLORS_KEY) ?? {};
+
+// Card proposals under review: ?tarjeta=1, 2 or 3 picks one, and this phone remembers it.
+const CARD_KEY = 'hillb.card';
+const askedCard = new URLSearchParams(location.search).get('tarjeta');
+if (['1', '2', '3'].includes(askedCard)) store.set(CARD_KEY, askedCard);
+root.dataset.card = ['1', '2', '3'].includes(store.get(CARD_KEY)) ? store.get(CARD_KEY) : '1';
 
 /* ---------- Views ---------- */
 
@@ -123,8 +131,11 @@ function renderSession() {
   for (const b of seg.querySelectorAll('.segment')) b.setAttribute('aria-checked', String(b.dataset.mode === prefs.mode));
   $('picker-sep').textContent = isTime ? ':' : ',';
   $('picker-unit').textContent = isTime ? 'horas y minutos' : 'KM';
-  $('intensity').hidden = isTime;
-  $('intensity-total').textContent = `${formatDuration(sessionSeconds(prefs))} de carrera`;
+  // The pace is asked in both modes: by time it turns the run into kilometres, by distance into time,
+  // and the cards give each album in both.
+  $('intensity-total').textContent = isTime
+    ? `≈ ${formatKmValue(albumKm(prefs.minutes * 60, prefs.pace))} km`
+    : `${formatDuration(sessionSeconds(prefs))} de carrera`;
 }
 
 for (const b of document.querySelectorAll('.segment')) {
@@ -132,8 +143,8 @@ for (const b of document.querySelectorAll('.segment')) {
     if (prefs.mode === b.dataset.mode) return;
     prefs.mode = b.dataset.mode;
     store.set(PREFS_KEY, prefs);
-    // The intensity strip comes and goes below the wheels, so they slide to their new place
-    // from where they were (FLIP) instead of jumping, and the new numbers fade in as they go.
+    // The wheels slide to their new place from where they were (FLIP) instead of jumping, and the
+    // new numbers fade in as they go.
     const picker = $('picker');
     const before = picker.getBoundingClientRect().top;
     renderSession();
@@ -142,10 +153,6 @@ for (const b of document.querySelectorAll('.segment')) {
     {
       picker.animate([{ transform: `translateY(${dy}px)`, opacity: 0.4 }, { transform: 'none', opacity: 1 }],
         { duration: 260, easing: 'cubic-bezier(0.77, 0, 0.175, 1)' });
-      if (prefs.mode === 'distance') {
-        $('intensity').animate([{ transform: 'translateY(12px)', opacity: 0 }, { transform: 'none', opacity: 1 }],
-          { duration: 220, delay: 60, easing: 'cubic-bezier(0.23, 1, 0.32, 1)', fill: 'backwards' });
-      }
     }
   });
 }
@@ -312,24 +319,23 @@ function skeletonCard(i) {
   li.setAttribute('aria-hidden', 'true');
   li.innerHTML = `<div class="card-inner"><div class="cover-box"><span class="sk sk-cover"></span></div>
     <div class="card-head"><span class="sk sk-title"></span><span class="sk sk-meta"></span></div>
-    <div class="card-run"><span class="sk sk-time"></span><span class="sk sk-meter"></span></div></div>`;
+    <div class="card-run"><span class="sk sk-time"></span></div><div class="card-tags"><span class="sk sk-tags"></span></div></div>`;
   return li;
 }
 
 function albumCard({ album, duration, delta }, i, target, count) {
-  const scale = Math.max(duration, target);
   const li = document.createElement('li');
   li.className = duration >= 3600 ? 'card is-long' : 'card';
   li.style.setProperty('--i', i);
-  li.style.setProperty('--album', (duration / scale).toFixed(4));
-  li.style.setProperty('--run', (target / scale).toFixed(4));
   li.dataset.album = album.id;
   li.setAttribute('aria-label', `${i + 1} de ${count}: ${album.name}`);
   applyColor(li, colors[album.id]);
 
-  const songs = album.songs.slice(0, 3).map(escapeHtml);
-  const more = album.songs.length > 3 ? ` y ${album.songs.length - 3} más` : '';
   const artists = album.artists.join(', ');
+  const km = albumKm(duration, prefs.pace);
+  const tags = relevantTags(album)
+    .map((t, rank) => `<li style="--s:${(0.8 ** rank).toFixed(3)};--len:${t.length}">${escapeHtml(t)}</li>`)
+    .join(' '); // the space lets a line of tags break between two tags
 
   li.innerHTML = `
     <div class="card-inner">
@@ -342,14 +348,11 @@ function albumCard({ album, duration, delta }, i, target, count) {
         <p class="card-meta">${escapeHtml(artists)}${album.year ? ` <span>${album.year}</span>` : ''}</p>
       </div>
       <div class="card-run">
-        <span class="card-time" data-seconds="${duration}">${formatDuration(duration)}</span>
+        <p class="card-fig card-fig-time"><span class="card-time" data-seconds="${duration}">${formatDuration(duration)}</span><span class="card-label">Disco</span></p>
+        <p class="card-fig card-fig-km"><span class="card-km" data-km="${km}">${formatKmValue(km)}</span><span class="card-unit">km</span><span class="card-label">a ${formatPace(prefs.pace)} /km</span></p>
         <span class="card-delta">${describeDelta(delta)}</span>
-        <div class="meter" role="img" aria-label="El disco dura ${formatDuration(duration)}; tu salida, ${formatDuration(target)}">
-          <span class="meter-fill"></span><span class="meter-run"></span>
-        </div>
-        <div class="meter-legend"><span>Disco</span><span>Tu salida ${formatDuration(target)}</span></div>
       </div>
-      <p class="card-songs">En ${escapeHtml(library.name)}: <strong>${songs.join(', ')}</strong>${more}</p>
+      ${tags ? `<ul class="card-tags" aria-label="Etiquetas del disco y del artista">${tags}</ul>` : ''}
       <a class="sr-only" href="${escapeAttr(album.url)}" target="_blank" rel="noopener">Abrir ${escapeHtml(album.name)} en Spotify</a>
     </div>`;
 
@@ -381,12 +384,15 @@ function setActive(index) {
   cards.forEach((c, i) => c.classList.toggle('is-active', i === index));
 }
 
-/** The running time counts up and the meter fills once the card has landed, not while it glides:
- *  the eye follows one motion at a time, and the main thread stays free for the glide. */
+/** The running time and the kilometres count up, and the tags rise in one after another, once the
+ *  card has landed, not while it glides: the eye follows one motion at a time. */
 function arrive(index) {
   const card = $('deck').children[index];
   if (!card || card.classList.contains('is-skeleton') || card.classList.contains('is-seen')) return;
   countUp(card);
+  card.querySelectorAll('.card-tags li').forEach((li, i) => li.animate(
+    [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }],
+    { duration: 280, delay: 120 + i * 45, easing: 'cubic-bezier(0.23, 1, 0.32, 1)', fill: 'backwards' }));
   card.classList.add('is-seen');
 }
 
@@ -422,16 +428,19 @@ function openInSpotify(album) {
   location.href = uri;
 }
 
-/** The running time counts up while the meter fills: same 600 ms, same strong ease-out. */
+/** The running time and the kilometres count up together: 600 ms, strong ease-out. */
 function countUp(card) {
-  const el = card.querySelector('.card-time');
-  const total = Number(el?.dataset.seconds);
-  if (!el || !total) return;
+  const time = card.querySelector('.card-time');
+  const dist = card.querySelector('.card-km');
+  const total = Number(time?.dataset.seconds);
+  const km = Number(dist?.dataset.km);
+  if (!time || !total) return;
   const start = performance.now();
   const ease = (t) => 1 - (1 - t) ** 4; // close to cubic-bezier(0.23, 1, 0.32, 1)
   const frame = (now) => {
     const t = Math.min(1, (now - start) / 600);
-    el.textContent = formatDuration(total * ease(t));
+    time.textContent = formatDuration(total * ease(t));
+    if (dist && km) dist.textContent = formatKmValue(km * ease(t));
     if (t < 1) requestAnimationFrame(frame);
   };
   requestAnimationFrame(frame);
