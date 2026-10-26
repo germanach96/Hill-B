@@ -10,15 +10,20 @@
 //   1. its album comes with the song; if the catalog has it, the song only joins it;
 //   2. if that album is a special version, search the studio original (same recording by ISRC,
 //      then title and artist) and add it too, unless it is already there;
-//   3. measure every full album still without its running time (GET /albums/{id}, one per call).
+//   3. measure every full album still without its running time (GET /albums/{id}, one per call);
+//   4. with LASTFM_API_KEY set, tag the albums and artists still without Last.fm tags.
 // Originals set by hand go in data/manual.json. Each step saves as it goes: when Spotify's quota
 // runs out, run `read` again later and it carries on where it stopped.
+//
+//   LASTFM_API_KEY=… node tools/sync.mjs tags  only step 4, without Spotify, and rewrites albums.json
+// The Last.fm key is read from the environment and never written to any file.
 import { createHash, randomBytes } from 'node:crypto';
 import { mkdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { displayName } from '../public/js/recommend.js';
 import {
   emptyCatalog, addEntries, songsWithoutOriginal, pickOriginal, slimTrack, baseTitle, setOriginal,
-  applyManual, albumsToMeasure, setMeasured, buildLibrary,
+  applyManual, albumsToMeasure, setMeasured, buildLibrary, baseAlbum, albumsToTag, artistsToTag, setAlbumTags,
+  setArtistTags,
 } from './catalog.mjs';
 
 const CLIENT_ID = '6b13ef05e42d4331a1fbbbc839bc1092';
@@ -166,15 +171,81 @@ async function read(redirectUrl, playlistArg) {
   await Promise.all([worker(), worker(), worker()]);
   save();
 
-  const lib = buildLibrary(catalog, { playlist });
-  mkdirSync(`${ROOT}public/data`, { recursive: true });
-  writeJson(DATA, lib);
-  console.log(`\n${lib.albums.length} discos enteros de ${lib.songCount} canciones → public/data/albums.json`);
+  if (process.env.LASTFM_API_KEY) await tagAll(catalog, save);
+  else console.log('\nSin LASTFM_API_KEY: los discos nuevos quedan sin etiquetas de Last.fm.');
+
+  const lib = writeLibrary(catalog, playlist);
   const left = { search: songsWithoutOriginal(catalog).length, measure: albumsToMeasure(catalog).length };
   if (left.search || left.measure) {
     console.log(`Spotify limitó las consultas: faltan ${left.search} canciones por buscar y ${left.measure} discos por medir. Vuelve a correr \`read\` más tarde.`);
     process.exitCode = 2;
   }
+}
+
+function writeLibrary(catalog, playlist, syncedAt) {
+  const lib = buildLibrary(catalog, { playlist, ...(syncedAt ? { syncedAt } : {}) });
+  mkdirSync(`${ROOT}public/data`, { recursive: true });
+  writeJson(DATA, lib);
+  console.log(`\n${lib.albums.length} discos enteros de ${lib.songCount} canciones → public/data/albums.json`);
+  return lib;
+}
+
+async function lastfm(method, params, attempt = 0) {
+  const qs = new URLSearchParams({ method, api_key: process.env.LASTFM_API_KEY, format: 'json', autocorrect: '1', ...params });
+  const res = await fetch(`https://ws.audioscrobbler.com/2.0/?${qs}`, { headers: { 'User-Agent': 'Hill-B' } });
+  const body = await res.json().catch(() => ({ error: -1, message: `HTTP ${res.status}` }));
+  // 29: too many requests; 8, 11, 16: temporary errors on Last.fm's side.
+  if ([29, 8, 11, 16, -1].includes(body.error) && attempt < 4) {
+    await sleep(2000 * (attempt + 1));
+    return lastfm(method, params, attempt + 1);
+  }
+  if (body.error === 6) return null; // not on Last.fm
+  if (body.error) throw new Error(`Last.fm ${method}: ${body.error} ${body.message}`);
+  return body;
+}
+
+/**
+ * Last.fm tags for every album and main artist that has none yet. An edition ("Night Visions (Deluxe)")
+ * is also asked by its plain name, and keeps whichever of the two has more tags.
+ */
+async function tagAll(catalog, save) {
+  const albums = albumsToTag(catalog);
+  const artists = artistsToTag(catalog);
+  console.log(`\nEtiquetas de Last.fm: ${albums.length} discos y ${artists.length} artistas por etiquetar`);
+  const jobs = [
+    ...albums.map((id) => async () => {
+      const a = catalog.albums[id];
+      const ask = async (album) => (await lastfm('album.gettoptags', { artist: a.artists[0], album }))?.toptags?.tag ?? [];
+      let tags = await ask(a.name);
+      const plain = baseAlbum(a.name);
+      if (plain !== a.name) {
+        const more = await ask(plain);
+        if ([].concat(more).length > [].concat(tags).length) tags = more;
+      }
+      setAlbumTags(catalog, id, tags);
+    }),
+    ...artists.map((name) => async () => {
+      setArtistTags(catalog, name, (await lastfm('artist.gettoptags', { artist: name }))?.toptags?.tag ?? []);
+    }),
+  ];
+  let done = 0;
+  const worker = async () => {
+    while (jobs.length) {
+      await jobs.shift()();
+      await sleep(150);
+      if (++done % 25 === 0) { save(); process.stdout.write(`\rEtiquetados: ${done}`); }
+    }
+  };
+  await Promise.all([worker(), worker()]);
+  save();
+}
+
+async function tags() {
+  if (!process.env.LASTFM_API_KEY) throw new Error('Falta LASTFM_API_KEY en el entorno.');
+  const catalog = readJson(CATALOG);
+  const lib = readJson(DATA);
+  await tagAll(catalog, () => writeJson(CATALOG, catalog));
+  writeLibrary(catalog, lib.playlist, lib.syncedAt); // tagging is not a new read of the playlist
 }
 
 /** Searches the studio original of a song from a special version: same recording, then title and artist. */
@@ -210,4 +281,5 @@ const [cmd, arg] = process.argv.slice(2).filter((x, i, all) => x !== '--playlist
 const playlistArg = process.argv.includes('--playlist') ? process.argv[process.argv.indexOf('--playlist') + 1] : undefined;
 if (cmd === 'login') login();
 else if (cmd === 'read') await read(arg, playlistArg);
-else console.log('Uso: node tools/sync.mjs login | read ["<redirect URL>"] [--playlist <id>]');
+else if (cmd === 'tags') await tags();
+else console.log('Uso: node tools/sync.mjs login | read ["<redirect URL>"] [--playlist <id>] | tags');

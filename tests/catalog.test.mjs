@@ -2,7 +2,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   emptyCatalog, caseOf, addEntries, songsWithoutOriginal, pickOriginal, setOriginal, applyManual,
-  albumsToMeasure, setMeasured, buildLibrary, baseTitle, baseAlbum,
+  albumsToMeasure, setMeasured, buildLibrary, baseTitle, baseAlbum, normalizeTags, albumsToTag, artistsToTag,
+  setAlbumTags, setArtistTags,
 } from '../tools/catalog.mjs';
 
 // Invented albums and artists.
@@ -157,4 +158,39 @@ test('titles and album names without their edition notes', () => {
   assert.equal(baseTitle('Faro - Live at Luna Park'), 'faro');
   assert.equal(baseTitle('Canción Única'), 'cancion unica');
   assert.equal(baseAlbum('Norte (Deluxe Edition)'), 'Norte');
+});
+
+test('Last.fm tags become [name, weight] pairs: lower case, one per name, heaviest first, no zero weights', () => {
+  const lastfm = [{ name: 'Stoner Rock', count: 100 }, { name: ' alternative  rock', count: '68' }, { name: 'stoner rock', count: 3 },
+    { name: 'seen live', count: 0 }, { name: '', count: 5 }];
+  assert.deepEqual(normalizeTags(lastfm), [['stoner rock', 100], ['alternative rock', 68]]);
+  assert.deepEqual(normalizeTags({ name: 'Trova', count: 100 }), [['trova', 100]], 'a single tag comes as an object');
+  assert.deepEqual(normalizeTags(undefined), []);
+});
+
+test('albums and artists are tagged once, and the app data carries both lists', () => {
+  const c = emptyCatalog('p');
+  addEntries(c, [entry('s1', 'Uno', norte), entry('s2', 'Dos', sencillo)]);
+  setMeasured(c, 'norte', norte, 2700);
+  assert.deepEqual(albumsToTag(c), ['norte'], 'singles are never tagged');
+  assert.deepEqual(artistsToTag(c), ['Los Faros']);
+
+  setAlbumTags(c, 'norte', [{ name: 'Rock', count: 100 }, { name: 'chill', count: 40 }]);
+  setArtistTags(c, 'Los Faros', [{ name: 'rock chileno', count: 100 }]);
+  assert.deepEqual(albumsToTag(c), []);
+  assert.deepEqual(artistsToTag(c), []);
+
+  const [a] = buildLibrary(c, { playlist: { id: 'p', name: 'x' } }).albums;
+  assert.deepEqual(a.tags, [['rock', 100], ['chill', 40]]);
+  assert.deepEqual(a.artistTags, [['rock chileno', 100]]);
+});
+
+test('an album Last.fm does not know keeps an empty list and is not asked again', () => {
+  const c = emptyCatalog('p');
+  addEntries(c, [entry('s1', 'Uno', norte)]);
+  setMeasured(c, 'norte', norte, 2700);
+  setAlbumTags(c, 'norte', []);
+  assert.deepEqual(albumsToTag(c), []);
+  assert.deepEqual(buildLibrary(c, { playlist: { id: 'p', name: 'x' } }).albums[0].tags, []);
+  assert.deepEqual(buildLibrary(c, { playlist: { id: 'p', name: 'x' } }).albums[0].artistTags, [], 'artist not asked yet');
 });

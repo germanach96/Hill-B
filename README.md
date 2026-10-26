@@ -10,6 +10,7 @@ Web estática instalable en el móvil (PWA), sin inicio de sesión: los discos v
 node tools/sync.mjs login                    # enlace de inicio de sesión de Spotify, una vez
 node tools/sync.mjs read "<URL de vuelta>"   # termina el login y escribe public/data/albums.json
 node tools/sync.mjs read                     # relee con la sesión guardada en .sync/
+LASTFM_API_KEY=… node tools/sync.mjs tags    # etiquetas de Last.fm de cada disco y artista (la clave solo del entorno)
 ```
 
 La Redirect URI `http://127.0.0.1:5173/callback` tiene que estar en la app del dashboard de Spotify.

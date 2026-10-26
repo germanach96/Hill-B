@@ -214,6 +214,44 @@ export function setMeasured(catalog, id, apiAlbum, seconds) {
   catalog.albums[id] = { ...prev, ...albumFields(apiAlbum), seconds };
 }
 
+/**
+ * Last.fm tags ({ name, count }, count 0–100 relative to the top tag) as [name, weight] pairs:
+ * lower case, trimmed, one per name, heaviest first. Weight 0 is dropped.
+ */
+export function normalizeTags(tags = []) {
+  const out = new Map();
+  for (const t of [].concat(tags)) {
+    const name = String(t?.name ?? '').trim().toLowerCase().replace(/\s+/g, ' ');
+    const weight = Number(t?.count) || 0;
+    if (name && weight > 0 && !(out.get(name) >= weight)) out.set(name, weight);
+  }
+  return [...out].sort((x, y) => y[1] - x[1]);
+}
+
+/** Full albums in use that have a name and artist but no tags yet (an empty list means Last.fm has none). */
+export function albumsToTag(catalog) {
+  return Object.entries(catalog.albums)
+    .filter(([id, a]) => FULL_ALBUM_TYPES.has(a.type) && a.name && a.artists?.length && !a.tags && inUse(catalog, id))
+    .map(([id]) => id);
+}
+
+/** Main artists of the albums in use whose tags were not asked yet. */
+export function artistsToTag(catalog) {
+  const known = catalog.artistTags ?? {};
+  const names = Object.entries(catalog.albums)
+    .filter(([id, a]) => FULL_ALBUM_TYPES.has(a.type) && a.artists?.length && inUse(catalog, id))
+    .map(([, a]) => a.artists[0]);
+  return [...new Set(names)].filter((n) => !known[n]);
+}
+
+export function setAlbumTags(catalog, id, tags) {
+  catalog.albums[id] = { ...catalog.albums[id], tags: normalizeTags(tags) };
+}
+
+export function setArtistTags(catalog, name, tags) {
+  catalog.artistTags = { ...catalog.artistTags, [name]: normalizeTags(tags) };
+}
+
 /** "Norte (Deluxe Edition)" is an edition of "Norte"; a deluxe whose song first came out on another record is not. */
 const sameRecord = (edition, original) =>
   !!edition && !!original && !!original.name && albumKey(edition.name).startsWith(albumKey(original.name));
@@ -221,6 +259,7 @@ const sameRecord = (edition, original) =>
 /**
  * The data file the app ships with: every measured full album of the catalog, with the playlist songs
  * it holds or is the original of. Two editions of the same record share a `group`, so the app proposes one.
+ * `tags` and `artistTags` are Last.fm's tags of the album and of its main artist, as [name, weight] pairs.
  */
 export function buildLibrary(catalog, { playlist, syncedAt = new Date().toISOString() }) {
   const songsOf = new Map();
@@ -238,6 +277,7 @@ export function buildLibrary(catalog, { playlist, syncedAt = new Date().toISOStr
     .map(([id, a]) => ({
       id, name: a.name, artists: a.artists, year: (a.release || '').slice(0, 4), image: a.image, url: a.url,
       songs: songsOf.get(id), seconds: a.seconds, group: groupOf.get(id) ?? id,
+      tags: a.tags ?? [], artistTags: catalog.artistTags?.[a.artists[0]] ?? [],
     }));
   return {
     playlist: { id: playlist.id, name: playlist.name, snapshot: playlist.snapshot },

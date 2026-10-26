@@ -16,6 +16,7 @@ from openpyxl.utils import get_column_letter
 ROOT = Path(__file__).resolve().parent.parent
 catalog = json.loads((ROOT / 'data' / 'catalog.json').read_text())
 songs, albums = catalog['songs'], catalog['albums']
+artist_tags = catalog.get('artistTags', {})
 
 TYPES = {'album': 'Álbum', 'compilation': 'Recopilatorio', 'single': 'Sencillo o EP'}
 CASES = {'direct': 'Directa', 'single': 'Sencillo', 'edition': 'Deluxe o edición especial',
@@ -70,6 +71,13 @@ def sheet(ws, columns, rows, blue=()):
     ws.auto_filter.ref = f'A1:{get_column_letter(len(columns))}{ws.max_row}'
 
 
+def tag_line(tags):
+    """[["stoner rock", 100], …] → "stoner rock 100 · …"; None when Last.fm was not asked yet."""
+    if tags is None:
+        return ''
+    return ' · '.join(f'{name} {weight}' for name, weight in tags) or '(ninguna)'
+
+
 def links(ws, col, label):
     for r in range(2, ws.max_row + 1):
         cell = ws[f'{col}{r}']
@@ -120,7 +128,8 @@ for i, (aid, a) in enumerate(albums.items(), start=2):
     status = 'Fuera: sencillo o EP' if a['type'] == 'single' else 'En la app' if (a['seconds'] or 0) > 0 else 'Por medir'
     rows.append([a['name'], ', '.join(a['artists']) or artists_of.get(aid, ''), TYPES.get(a['type'], a['type']), a['release'],
                  a['totalTracks'], f'=COUNTIF(Canciones!$V$2:$V${n + 1},K{i})', a['seconds'], f'=IF(G{i}="","",G{i}/86400)',
-                 status, a['image'] or '', aid, a['url'], SOURCES[a['source']], f'=COUNTIF(Canciones!$W$2:$W${n + 1},K{i})'])
+                 status, a['image'] or '', aid, a['url'], SOURCES[a['source']], f'=COUNTIF(Canciones!$W$2:$W${n + 1},K{i})',
+                 tag_line(a.get('tags')), tag_line(artist_tags.get(a['artists'][0])) if a['artists'] else ''])
 sheet(wa, [
     ('Disco', 36, None), ('Artistas', 30, 'En los originales aún sin medir va el artista principal de la canción.'),
     ('Tipo', 15, None), ('Lanzamiento', 12, None), ('Pistas del disco', 14, None),
@@ -132,6 +141,9 @@ sheet(wa, [
     ('Origen', 20, 'En la playlist: disco del que viene alguna canción. Original encontrado: álbum de estudio original de una '
                    'canción de un sencillo, deluxe, en vivo o recopilatorio. Puesto a mano: original que encontró el dueño.'),
     ('Canciones que tienen este disco como original', 18, 'Canciones cuyo Álbum original es este disco (incluye las directas).'),
+    ('Etiquetas del disco (Last.fm)', 50, 'Etiquetas que la gente pone al disco en Last.fm, con su peso de 0 a 100 relativo a la más '
+                                        'votada. (ninguna): Last.fm no tiene. Vacía: aún sin consultar.'),
+    ('Etiquetas del artista (Last.fm)', 50, 'Etiquetas del artista principal en Last.fm, con el mismo peso de 0 a 100.'),
 ], rows, blue='MN')
 for r in range(2, wa.max_row + 1):
     wa[f'H{r}'].number_format = '[h]:mm:ss'

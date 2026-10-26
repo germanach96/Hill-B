@@ -61,8 +61,17 @@ Con un solo `node tools/sync.mjs read` se busca, se mide y se regenera `albums.j
 
 Si el contenedor es nuevo, la sesión de Spotify (`.sync/`, fuera de git) se perdió: `node tools/sync.mjs login`, el usuario abre el enlace y pega la URL de vuelta, y luego `node tools/sync.mjs read "<URL>"`. La Redirect URI ya está en el dashboard.
 
+## Etiquetas de Last.fm (decidido por el usuario, 2026-10-26)
+Para el futuro paso de *mood*. Spotify ya no da energía, tempo ni *valence* a apps nuevas; Last.fm sí da etiquetas de la gente (género, época, lugar y algo de mood).
+- Solo interesan las etiquetas **del disco y del artista**, no las de cada canción (casi ninguna canción tiene).
+- `LASTFM_API_KEY=… node tools/sync.mjs tags` etiqueta los discos y artistas que aún no tienen (reanuda si se corta). `read` también lo hace al final si la clave está en el entorno.
+- **La clave no se publica**: solo se lee del entorno, nunca va a un archivo ni a git. Si el contenedor es nuevo, pedir al usuario que la guarde en el entorno como `LASTFM_API_KEY` (no en el chat).
+- Se guardan en `data/catalog.json` (`tags` en cada disco, `artistTags` por artista) y en `public/data/albums.json` (`tags` y `artistTags` de cada disco, pares `[nombre, peso]`, peso 0–100 relativo a la más votada, hasta 10). Lista vacía: Last.fm no tiene.
+- Una edición ("Night Visions (Deluxe)") se pregunta también por su nombre simple y se queda con la que tiene más etiquetas.
+- La app todavía no las usa. En el Excel salen en la pestaña Discos.
+
 ## Pendiente de definir por el usuario
-- Paso de *mood* (va después de elegir tiempo/km). No está construido.
+- Paso de *mood* (va después de elegir tiempo/km). No está construido. Base posible: las etiquetas de Last.fm.
 - Detalles extra de cada disco además de portada, artista y duración.
 
 ## Notas técnicas
