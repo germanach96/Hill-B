@@ -419,7 +419,7 @@ html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden
 }
 
 /* What letting go will do, revealed by the pull: back past the first card, five others past the
-   last, Spotify under a lifted card. Ink circles with the icon in volt. */
+   last, Spotify under a lifted card. Surface circles with an ink icon, inked (volt icon) once letting go acts. */
 .pull {
   position: absolute;
   z-index: 0;

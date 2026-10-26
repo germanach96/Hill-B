@@ -27,17 +27,17 @@ typography:
     fontFeature: "'tnum'"
   figure:
     fontFamily: "Archivo, system-ui, -apple-system, Segoe UI, sans-serif"
-    fontSize: "3.25rem"
+    fontSize: "clamp(3.25rem, 15cqh, 8rem)"
     fontWeight: 900
-    lineHeight: 0.9
+    lineHeight: 0.85
     letterSpacing: "-0.01em"
     fontVariation: "'wdth' 62"
     fontFeature: "'tnum'"
   headline:
     fontFamily: "Archivo, system-ui, -apple-system, Segoe UI, sans-serif"
-    fontSize: "2rem"
+    fontSize: "clamp(2rem, 5.5cqh, 3rem)"
     fontWeight: 900
-    lineHeight: 1
+    lineHeight: 0.95
     letterSpacing: "-0.01em"
     fontVariation: "'wdth' 62"
   start:
@@ -88,6 +88,7 @@ rounded:
 spacing:
   xxs: "4px"
   xs: "8px"
+  peek: "10px"
   sm: "12px"
   md: "16px"
   pad: "20px"
@@ -137,13 +138,21 @@ components:
     rounded: "{rounded.pill}"
     width: "144px"
     height: "64px"
-  icon-button:
+  pull-hint:
     backgroundColor: "{colors.surface}"
     textColor: "{colors.ink}"
     rounded: "{rounded.pill}"
-    size: "44px"
-  icon-button-active:
-    backgroundColor: "{colors.surface-press}"
+    size: "48px"
+  pull-hint-armed:
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.volt}"
+  focus-pill:
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.volt}"
+    typography: "{typography.body}"
+    rounded: "{rounded.pill}"
+    height: "44px"
+    padding: "0 18px"
   panel:
     backgroundColor: "{colors.surface}"
     rounded: "{rounded.panel}"
@@ -153,7 +162,8 @@ components:
     textColor: "{colors.ink}"
     rounded: "{rounded.card}"
     padding: "16px 16px 18px"
-    width: "min(78vw, 376px)"
+    width: "calc(100cqw - 2 * 20px)"
+    height: "100%"
 ---
 
 # Design System: Hill-B
@@ -164,7 +174,7 @@ components:
 
 Hill-B habla el registro de Nike Run Club puesto en serio, sobre el color de su propia marca: toda la app se apoya en el voltio, con la tinta casi negra como único contraste, y números enormes, largos e inclinados como los de un cronómetro, que ocupan la pantalla como el objetivo de una carrera. La duración de la salida es la protagonista: dos ruedas de cifras gigantes que se deslizan con el pulgar, y todo lo demás (interruptor, ritmo, discos) se mide contra ella. Es una app de un solo pulgar, en la puerta de casa: pocos elementos por pantalla, controles grandes en píldora y una sola acción principal, START, anclada abajo.
 
-La profundidad no existe: superficies planas que se separan del voltio por un paso tonal de tinta mezclada, nunca por sombras ni bordes. El blanco no aparece. Lo que destaca es tinta (selección, START, reintento) con el texto en voltio; el otro color vivo es la portada de cada disco, que tiñe su tarjeta entera. El movimiento es abundante pero funcional: las ruedas giran con el scroll nativo del teléfono, cambian de sitio con un FLIP al cambiar de modo, cada cambio de vista se desliza en la dirección del flujo, y la barra del disco se llena a escala contra la salida.
+La profundidad no existe: superficies planas que se separan del voltio por un paso tonal de tinta mezclada, nunca por sombras ni bordes. El blanco no aparece. Lo que destaca es tinta (selección, START, reintento) con el texto en voltio; el otro color vivo es la portada de cada disco, que tiñe su tarjeta entera. El movimiento es abundante pero funcional: las ruedas giran con el scroll nativo del teléfono, cambian de sitio con un FLIP al cambiar de modo, cada cambio de vista se desliza en la dirección del flujo, y la barra del disco se llena a escala contra la salida. En resultados no hay botones a la vista: la pantalla es la marca y los discos, y todo se hace con el dedo sobre la baraja (pasar de disco, tirar más allá del primero para volver, más allá del último para otros cinco, levantar un disco para abrirlo en Spotify), con un círculo que aparece con el tirón y avisa de lo que hará al soltar.
 
 Rechazos confirmados por el propietario y por la dirección: no parecerse a Spotify (suelo oscuro, rejilla de portadas pequeñas, acento verde) ni a un panel de fitness (tarjetas de estadísticas, anillos).
 
@@ -173,6 +183,7 @@ Rechazos confirmados por el propietario y por la dirección: no parecerse a Spot
 - Dos colores: voltio y tinta. Sin blanco; los tonos secundarios son tinta mezclada sobre voltio, no grises.
 - Tres voces: Archivo a ancho normal para el texto; Archivo estrecha, negra y en mayúsculas para START, títulos y la duración del disco; y Hill-B Figures (Roboto Flex fijada estrecha e inclinada) para las cifras de las ruedas y del ritmo.
 - Ruedas de selección con scroll y snap nativos en lugar de botones − / + o atajos.
+- Resultados sin botones visibles: cada disco ocupa una pantalla de teléfono y las acciones son gestos con banda elástica y un círculo de aviso.
 - Controles en píldora, tarjetas de 24px, sin sombras ni bordes.
 - Cifras tabulares en todo lo que cuenta tiempo o distancia.
 - Movimiento con curvas de salida fuertes y respeto completo a `prefers-reduced-motion`.
@@ -182,18 +193,18 @@ Rechazos confirmados por el propietario y por la dirección: no parecerse a Spot
 Paleta de dos colores: **el voltio es el color principal de Hill-B y, con el negro de la tinta, es su pareja de marca** (decisión del propietario, 2026-10-26). El voltio es el suelo de toda la app; la tinta, el único contraste. El resto del color lo ponen las portadas.
 
 ### Primary
-- **Voltio** (volt): el color de marca y el suelo de cada vista (`--ground` y `--page` apuntan a él): página, dock inferior, `theme-color`. Sobre tinta es el texto de la selección: pastilla del interruptor, ritmo elegido, START, reintento, selección de texto. También es la tinta clara de una tarjeta de disco oscura.
+- **Voltio** (volt): el color de marca y el suelo de cada vista (`--ground` y `--page` apuntan a él): página, dock inferior, `theme-color`. Sobre tinta es el texto de la selección: pastilla del interruptor, ritmo elegido, START, reintento, icono del círculo de tirón armado, píldoras de foco de resultados, selección de texto. También es la tinta clara de una tarjeta de disco oscura.
 
 ### Neutral
-- **Tinta** (ink): texto, iconos, estados seleccionados (pastilla del interruptor, ritmo elegido), botón START y botón de reintento, anillo de foco, relleno de la barra de biblioteca y del segmento de posición activo. Hover y pulsado en ink-hover / ink-press.
-- **Superficie** (surface): tinta al 9% sobre voltio. Todo contenedor o control en reposo: pista del interruptor, botón atrás y "Otros 5", paneles de estado, tarjeta sin color y esqueletos, pista de la barra de biblioteca.
-- **Superficie pulsada** (surface-press): tinta al 16% sobre voltio. Respuesta al pulsar o pasar por encima de un control de superficie; bloques del esqueleto; segmentos de posición inactivos.
-- **Tinta de apoyo** (muted): tinta al 72% sobre voltio. Texto secundario: unidad bajo las ruedas, "min/km", total de carrera, subtítulo de resultados, avisos de biblioteca (sin discos, error). 7.1:1 sobre voltio, 5.9:1 sobre superficie.
+- **Tinta** (ink): texto, iconos, estados seleccionados (pastilla del interruptor, ritmo elegido), botón START y botón de reintento, círculo de tirón armado, píldoras de foco de resultados, anillo de foco, relleno de la barra de biblioteca. Hover y pulsado en ink-hover / ink-press.
+- **Superficie** (surface): tinta al 9% sobre voltio. Todo contenedor o control en reposo: pista del interruptor, círculos de tirón antes de armarse, paneles de estado, tarjeta sin color y esqueletos, pista de la barra de biblioteca.
+- **Superficie pulsada** (surface-press): tinta al 16% sobre voltio. Respuesta al pulsar o pasar por encima de un control de superficie; bloques del esqueleto.
+- **Tinta de apoyo** (muted): tinta al 72% sobre voltio. Texto secundario: unidad bajo las ruedas, "min/km", total de carrera, segunda línea de los paneles de estado, avisos de biblioteca (sin discos, error). 7.1:1 sobre voltio, 5.9:1 sobre superficie.
 
 ### Color de portada (dinámico)
 Cada tarjeta de disco recibe `--card-bg` y `--card-ink` calculados de su portada: se agrupan los píxeles en doce familias de tono más grises, gana la familia con más área viva, y su color se aleja de la luminosidad de la portada (−0.10 si es clara, +0.12 si es oscura), limitado a luminosidad HSL 0.36–0.70 y saturación ≤ 0.90. La tinta de la tarjeta es `#111111` o el voltio `#d7ff1f`, la de mayor contraste; nunca blanco. Sin muestra (portada sin CORS), la tarjeta queda en superficie con tinta.
 
-Valores fuera de la paleta, intencionados: el `#000` dentro de la `mask-image` del carrusel (es una máscara alfa, no un color que se vea) y el velo `rgb(0 0 0 / 0.08)` del hueco de la portada mientras carga, que oscurece el color de la tarjeta sea cual sea.
+Valores fuera de la paleta, intencionados: el `#000` dentro de la `mask-image` de las ruedas y de la tira del ritmo (es una máscara alfa, no un color que se vea) y el velo `rgb(0 0 0 / 0.08)` del hueco de la portada mientras carga, que oscurece el color de la tarjeta sea cual sea (aviso conocido del detector, intencionado).
 
 ### Named Rules
 **The Brand Pair Rule.** La identidad es voltio y tinta, nada más: ningún otro color de marca, ningún blanco. Los tonos secundarios se hacen mezclando tinta sobre voltio, nunca con grises.
@@ -214,19 +225,17 @@ Valores fuera de la paleta, intencionados: el `#000` dentro de la `mask-image` d
 
 ### Hierarchy
 - **Wheel** (Hill-B Figures 800, `--fig`, 1): las cifras de las dos ruedas y su separador ":" o ","; `--fig` vale `clamp(120px, min(24svh, calc((100vw - 2 * var(--pad)) / 2.1)), 240px)`: "60,9" con sus márgenes ocupa unas 2 em (medido), más un poco de holgura, así que la cifra llena el ancho sin que el navegador encoja una rueda, y la altura la frena. El separador lleva `0.07em` de margen a cada lado para que un 0 inclinado nunca pise los dos puntos. La fila mide 0.84 × `--fig` (las cifras miden 0.72 em de alto).
-- **Figure** (900, 3.25rem, 0.9): duración del disco en la tarjeta; cuenta hacia arriba al llegar.
-- **Headline** (900, 2rem, 1): título de resultados ("Para 45 min") y título del disco (0.95, máximo dos líneas).
+- **Figure** (900, `clamp(3.25rem, 15cqh, 8rem)`, 0.85): duración del disco en la tarjeta, que crece con la altura de la tarjeta (la tarjeta es un contenedor de tamaño); cuenta hacia arriba al llegar. El extremo de 8rem es intencionado: en un teléfono alto la altura sobrante va a la duración en vez de dejar un hueco bajo la portada (aviso conocido del detector).
+- **Headline** (900, `clamp(2rem, 5.5cqh, 3rem)`, 0.95): título del disco, máximo dos líneas (una en tarjetas de menos de 440px); crece con la tarjeta como la duración. No hay título de vista visible.
 - **Start** (900, 2rem, +0.02em): la palabra START del botón principal, más abierta que el resto de la voz de pantalla para leerse como una orden.
 - **Pace** (Hill-B Figures 800, 3rem): el ritmo dentro de su píldora.
 - **Action** (700, 18px, −0.005em): texto de los botones grandes de texto (reintento), y la unidad bajo las ruedas en tinta de apoyo.
-- **Body** (400, 16px, 1.5): texto general, canciones de la tarjeta (1.4, dos líneas); 700 en el interruptor, la etiqueta "Ritmo" y "Otros 5".
-- **Label** (600, 15px): textos secundarios, leyendas del medidor, diferencia frente a la salida, subtítulo de resultados, avisos.
+- **Body** (400, 16px, 1.5): texto general, canciones de la tarjeta (1.4, dos líneas); 600 en artista y año de la tarjeta; 700 en el interruptor, la etiqueta "Ritmo" y las píldoras de foco de resultados.
+- **Label** (600, 15px): textos secundarios, leyendas del medidor, avisos; la diferencia frente a la salida ("Sobran 0:56") en 700.
 - **Marca** (800, 20px, `font-stretch: 75%`, mayúsculas): solo el logotipo de la barra.
 
-El botón "Abrir en Spotify" de la tarjeta usa 17px, un punto por debajo de Action, para caber en la tarjeta de 52px de alto; es intencionado.
-
 ### Named Rules
-**The Three Voices Rule.** Texto en Archivo a ancho normal; pantalla en Archivo estrecha (62%), 900 y mayúsculas para START, títulos de vista, títulos de disco y la duración del disco; cifras en Hill-B Figures (800, inclinación de la fuente) solo para las ruedas, su separador y el ritmo. No hay pesos ni anchos intermedios en la voz de pantalla, ni itálica sintetizada en ninguna voz.
+**The Three Voices Rule.** Texto en Archivo a ancho normal; pantalla en Archivo estrecha (62%), 900 y mayúsculas para START, títulos de disco y la duración del disco; cifras en Hill-B Figures (800, inclinación de la fuente) solo para las ruedas, su separador y el ritmo. No hay pesos ni anchos intermedios en la voz de pantalla, ni itálica sintetizada en ninguna voz.
 
 **The Tabular Rule.** Toda cifra de tiempo, distancia, ritmo o recuento usa `font-variant-numeric: tabular-nums` para que no baile al cambiar ni al girar la rueda.
 
@@ -244,17 +253,17 @@ La marca son **dos colinas sobre el suelo**, sacadas de una B acostada. Se parte
 
 ## Layout
 
-Una columna de teléfono: `max-width: 480px`, centrada, con 20px de margen lateral (pad) y altura mínima `100dvh`. La barra superior mide 56px más el área segura y solo lleva la marca. Cada vista es una columna flexible con un dock pegado abajo (16px arriba, 16px más el área segura abajo, fondo `--page`) que lleva la acción principal a ancho completo, al alcance del pulgar.
+Una columna de teléfono: `max-width: 480px`, centrada, con 20px de margen lateral (pad) y altura mínima `100dvh`. La barra superior mide 56px más el área segura y solo lleva la marca. Cada vista es una columna flexible. La sesión lleva un dock pegado abajo (16px arriba, 16px más el área segura abajo, fondo `--page`) con la acción principal a ancho completo, al alcance del pulgar; resultados no tiene dock.
 
-El ritmo de espaciado es 4 / 8 / 12 / 16 / 20 / 24px. Las separaciones verticales de la vista de sesión respiran con la altura de pantalla: bajo el interruptor `clamp(12px, 3svh, 32px)`, sobre el ritmo `clamp(16px, 3.5svh, 36px)`.
+El ritmo de espaciado es 4 / 8 / 12 / 16 / 20 / 24px, con 10px para lo que asoma o cuelga de un valor (unidad bajo las ruedas, tira del ritmo, separación entre tarjetas). Las separaciones verticales de la vista de sesión respiran con la altura de pantalla: bajo el interruptor `clamp(12px, 3svh, 32px)`, sobre el ritmo `clamp(16px, 3.5svh, 36px)`.
 
 **Sesión:** interruptor arriba; las ruedas en una rejilla `auto auto auto` centrada (`justify-content: center`: el valor se centra como un solo grupo y cada rueda mide lo que su valor más ancho, "60", "59") de una fila de alto más un margen táctil invisible arriba y abajo (`--reach`, `clamp(24px, 5svh, 48px)`), empujadas con `margin-top: auto` para que la altura sobrante se reparta arriba y abajo y el valor quede a media pantalla, al alcance del pulgar. Las dos cifras se pegan al separador (la de la izquierda alineada a la derecha y al revés) para leerse como un solo valor: 1:05, 10,5. Margen lateral en em: la rueda mayor `0.1em 0.05em` y la menor `0.05em 0.1em`, más holgura por fuera para la bandera del 1 y la punta de la inclinación, justa contra el separador. La unidad va 10px por debajo, centrada: "horas y minutos" o "KM". No hay línea de biblioteca cuando los discos están cargados (la pantalla es solo ruedas y START); solo aparece para decir que no hay discos o que no se pudieron abrir. La tira del ritmo sangra hasta el borde del viewport: todo su ancho se desliza, pero solo se pinta la píldora del centro.
 
-**Resultados:** cabecera en rejilla `44px 1fr auto` (atrás, título y subtítulo, "Otros 5"); cinco segmentos de posición de 4px; y un carrusel horizontal con snap obligatorio: tarjeta de `min(78vw, 376px)`, separación de 12px, centrada y con ambas vecinas asomando; el carril sangra hasta el borde del viewport. A partir de 520px, el carril se desvanece con una máscara de 32px en los bordes de la columna.
+**Resultados:** solo la barra de la marca y las tarjetas, siempre una pantalla de teléfono: la vista mide `100dvh` sin scroll de página. El título ("Discos para 45 min") y la ayuda de los gestos existen solo para lectores de pantalla. La baraja (pager) sangra hasta el borde de la columna y ocupa toda la altura que queda (4px arriba; abajo, pad más el área segura). Cada tarjeta mide el ancho de la baraja menos dos pads y toda su altura; la separación es de 10px, así que las vecinas asoman 10px por cada lado, lo justo para decir "hay más". La tarjeta es un contenedor de tamaño: sus medidas responden a su propia altura, no a la del viewport (ver Album card).
 
 ## Elevation & Depth
 
-Plano por completo: no hay ni una `box-shadow` en el sistema. La profundidad se transmite con pasos tonales de tinta sobre voltio (suelo, superficie, superficie pulsada) y con el campo de color de cada tarjeta. Lo que no está elegido no se ve o retrocede, nunca con sombra: las ruedas y el ritmo no enseñan valores vecinos (una máscara pinta solo la ventana), y las tarjetas vecinas del carrusel quedan a 0.95 y 0.8 (dirigidas por el scroll).
+Plano por completo: no hay ni una `box-shadow` en el sistema. La profundidad se transmite con pasos tonales de tinta sobre voltio (suelo, superficie, superficie pulsada) y con el campo de color de cada tarjeta. Lo que no está elegido no se ve o retrocede, nunca con sombra: las ruedas y el ritmo no enseñan valores vecinos (una máscara pinta solo la ventana), y las tarjetas que no están al frente quedan a `scale(0.95)` y opacidad 0.8, y vuelven a tamaño completo en 420ms con `--ease-drawer` al pasar al frente.
 
 ### Named Rules
 **The Flat Field Rule.** Ninguna superficie lleva sombra ni borde; se separa del suelo por tono o por color de portada.
@@ -263,7 +272,7 @@ Plano por completo: no hay ni una `box-shadow` en el sistema. La profundidad se 
 
 ## Shapes
 
-Formas blandas y llenas. Todo control es una píldora (999px) o un círculo (atrás, "Otros 5" estrecho, 44px). Las tarjetas de disco usan 24px; los paneles de estado 20px; la portada 8px, casi cuadrada como la entrega Spotify; las barras del medidor y los bloques del esqueleto 6px y las marcas finas 2px. El anillo de foco es de 3px en tinta, separado 3px, con radio de 12px; en las ruedas rodea el valor entero (`.picker`), metido hacia dentro `--reach` menos 6px, con el radio de 24px. No hay bordes ni divisores: las barras de progreso y la marca de la salida en el medidor son rellenos, no líneas de estructura.
+Formas blandas y llenas. Todo control es una píldora (999px) o un círculo (los círculos de tirón, 48px). Las tarjetas de disco usan 24px; los paneles de estado 20px; la portada 8px, casi cuadrada como la entrega Spotify; las barras del medidor y los bloques del esqueleto 6px y las marcas finas 2px. El anillo de foco es de 3px en tinta, separado 3px, con radio de 12px; en las ruedas rodea el valor entero (`.picker`), metido hacia dentro `--reach` menos 6px, con el radio de 24px; en resultados, con la baraja enfocada, el anillo rodea la tarjeta del frente siguiendo su radio de 24px. No hay bordes ni divisores: las barras de progreso y la marca de la salida en el medidor son rellenos, no líneas de estructura.
 
 ## Components
 
@@ -272,7 +281,7 @@ Grandes, llenos y para el pulgar. Todos de tinta con texto voltio.
 - **START (principal):** píldora de tinta a ancho completo, 64px de alto como mínimo, "Start" en la voz Start (estrecha, 900, 2rem, mayúsculas) en voltio. Única acción principal de la sesión, en el dock.
 - **Ink:** píldora de tinta con texto voltio en Action, 60px (52px dentro de paneles de estado); reintentos.
 - **Hover / Active:** hover solo en punteros finos (ink-hover); al pulsar, `scale(0.97)` en 140ms con `--ease-out` y ink-press. Deshabilitado a opacidad 0.45 sin escala.
-- **En tarjeta ("Abrir en Spotify"):** invierte los colores de la tarjeta (fondo `--card-ink`, texto `--card-bg`), 52px, 17px, icono de 20px.
+- **Píldoras de foco (resultados):** "Volver a elegir la salida" y "Otros 5 discos" son botones solo para lectores de pantalla; con el foco del teclado aparecen como una píldora de tinta con texto voltio (44px de alto, 0 18px, 700, 16px) fija arriba a la derecha, sobre la baraja. Sin foco no se ven.
 
 ### Segmented control (Tiempo / Distancia)
 - **Style:** pista de superficie en píldora con 4px de holgura; dos opciones de 48px, 700, 16px.
@@ -287,15 +296,23 @@ Dos columnas de cifras gigantes con scroll y snap nativos: el impulso y el rebot
 - **Foco de teclado:** la máscara cortaría un anillo en la rueda, así que el anillo (3px de tinta, radio de 24px) rodea todo el valor (`.picker:has(.wheel-y:focus-visible)`, separación `calc(var(--reach) * -1 + 6px)`) y la rueda que no tiene las teclas retrocede a opacidad 0.45, para que se vea qué número mueven las flechas.
 
 ### Pace strip (Ritmo)
-El ritmo (3:00 a 9:00 /km, de 5 en 5 s) como una tira que se desliza de lado; solo en distancia.
+El ritmo (3:00 a 9:00 /km, de 15 en 15 s) como una tira que se desliza de lado; solo en distancia.
+- **Valores:** de 3:00 a 9:00 /km de 15 en 15 s (25 valores).
 - **Cabecera:** "Ritmo" (700, 16px) con "min/km" en tinta de apoyo (500), y a la derecha el total de carrera en tinta de apoyo con cifras tabulares.
 - **Style:** una píldora fija de tinta de 144 × 64px en el centro; los ritmos, en voltio y en la voz Pace (Hill-B Figures, 3rem), pasan por ella con snap al centro (paso de 144px).
 - **State:** `mask-image` pinta solo la píldora; el resto de la tira es invisible pero se desliza con el pulgar. El foco de teclado rodea la píldora.
 
-### Icon buttons (atrás, "Otros 5")
-- **Atrás:** círculo de superficie de 44px con flecha de 20px; `scale(0.92)` al pulsar.
-- **Otros 5:** píldora de superficie de 44px a la derecha del título: icono de barajar de 18px + "Otros 5" (700, 16px), `scale(0.95)` y superficie pulsada al pulsar. Por debajo de 360px queda en círculo de 44px solo con el icono (el texto sigue para lectores de pantalla). Se oculta si la biblioteca no tiene más discos.
-- **Hover:** superficie pulsada, solo en punteros finos.
+### Album pager (signature)
+La baraja de resultados la mueve el dedo, no el scroll nativo (el scroll no distingue un tirón más allá de la primera o la última tarjeta, y esos tirones son acciones). Eventos de puntero con `touch-action: none`; el gesto elige su eje tras 8px.
+- **De lado:** una tarjeta por gesto, si se arrastra más del 22% de una tarjeta o con un golpe rápido (0.45 px/ms). Al soltar, la baraja se asienta en 420ms con `--ease-drawer`; se puede agarrar a media carrera.
+- **Más allá de los extremos:** banda elástica con la fórmula de Apple (`c = 0.55`): cuanto más se tira, menos sigue la tarjeta. Tirar a la derecha más allá de la primera vuelve a la sesión; tirar a la izquierda más allá de la última trae otros cinco discos (solo si la biblioteca tiene más), que entran desde la derecha.
+- **Hacia arriba:** levantar la tarjeta abre el disco en Spotify (en táctil, la app con `spotify:album:ID`, y la web si la página no se oculta en 1.5 s; en escritorio, una pestaña nueva). Hacia abajo solo resiste, al 30%.
+- **Teclado:** la baraja es enfocable; las flechas pasan de disco y más allá de los extremos actúan como los tirones; flecha arriba o Intro abren el disco; Escape vuelve; Inicio y Fin van a la primera y la última.
+
+### Pull hints (círculos de tirón)
+Lo que hará soltar, revelado por el tirón: flecha atrás a la izquierda en el centro vertical, barajar a la derecha en el centro, la marca de Spotify abajo en el centro.
+- **Style:** círculo de superficie de 48px con icono de 22px en tinta, bajo la baraja; invisible en reposo.
+- **State:** crece con el tirón desde `scale(0.8)` y opacidad 0; al llegar al punto en que soltar actúa (armado) pasa a tinta con icono voltio, con una vibración de 8ms. Al soltar se apaga en 200ms.
 
 ### Cards / Containers
 - **Panel de estado:** superficie, radio de 20px, 20px de relleno, sin borde; su segunda línea en tinta de apoyo, 15px.
@@ -303,14 +320,16 @@ El ritmo (3:00 a 9:00 /km, de 5 en 5 s) como una tira que se desliza de lado; so
 
 ### Navigation
 - **Barra:** solo la marca a la izquierda (la B acostada a la altura de las mayúsculas + "Hill-B"). No hay sesión que cerrar.
-- **Subtítulo de resultados:** el rango del que salen los discos, "5 discos de 40 a 50 min"; crece cuando la búsqueda se agranda. Se anuncia con `aria-live`.
-- **Segmentos de posición:** cinco barras de 4px, superficie pulsada; la de la tarjeta centrada en tinta (200ms).
+- **Resultados sin cabecera:** ni título, ni rango, ni marcas de posición, ni botones visibles; volver y pedir otros cinco son tirones de la baraja (ver Album pager).
 - **Entre vistas:** View Transitions de 280ms con `--ease-drawer`; la vista nueva entra 18% desde la derecha al avanzar y desde la izquierda al volver.
 
 ### Album card (signature)
-Un campo completo del color de su portada: portada cuadrada de ancho completo, título en Headline (dos líneas máximo), artista y año, la duración en Figure con la diferencia frente a la salida, el medidor, las canciones de The Magic Bus que lo trajeron y el botón a Spotify anclado abajo.
+Un campo completo del color de su portada que ocupa exactamente una pantalla de teléfono: portada cuadrada, título en Headline (dos líneas máximo), artista y año, las canciones de The Magic Bus que lo trajeron, y al pie la duración en Figure con la diferencia frente a la salida y el medidor. No lleva botones: se abre en Spotify levantándola.
+- **Medidas:** relleno de 16px (18px abajo). La portada es tan ancha como la tarjeta y sigue cuadrada; en una pantalla corta cede altura (y con ella ancho) hasta un mínimo de 72px antes que empujar la tarjeta fuera de la pantalla. La duración y el medidor van anclados al pie (`margin-top: auto`); la diferencia ("Sobran 0:56") va a la derecha de la duración y, si no cabe, baja entera a la línea siguiente.
+- **Pantallas cortas:** con la tarjeta por debajo de 560px de alto se ocultan las canciones; por debajo de 440px, también artista y año y la leyenda del medidor, y el título queda en una línea.
+- **Al frente / detrás:** la del frente a tamaño y opacidad completos; las demás a `scale(0.95)` y 0.8.
 - **Medidor:** pista de 12px en `currentColor` al 18%, relleno en `currentColor` que crece a escala (`scaleX(--album)`) en 600ms con `--ease-out` la primera vez que la tarjeta queda centrada, mientras la duración cuenta hacia arriba con la misma curva. Una marca de 3px en `left: --run` señala la salida, recortada del relleno con un contorno del color de la tarjeta.
-- **Entrada:** las tarjetas suben 28px desde `scale(0.97)` en 460ms, escalonadas 60ms.
+- **Entrada:** las tarjetas suben 28px desde `scale(0.97)` en 460ms, escalonadas 60ms. Otros cinco entran 40px desde la derecha, de donde vino el tirón, en 420ms con `--ease-out`, escalonados 50ms. Con movimiento reducido, ambas son un fundido.
 
 ## Do's and Don'ts
 
@@ -322,7 +341,9 @@ Un campo completo del color de su portada: portada cuadrada de ancho completo, t
 - **Do** poner START, títulos y la duración del disco en Archivo a 62%, 900 y mayúsculas, y las cifras de las ruedas y del ritmo en Hill-B Figures; siempre con cifras tabulares.
 - **Do** elegir valores con ruedas de scroll y snap nativos, accesibles con teclado como `spinbutton`.
 - **Do** teñir cada tarjeta con el color de su propia portada dentro de los límites de luminosidad 0.36–0.70 y elegir su tinta (tinta o voltio) por contraste.
-- **Do** anclar la acción principal en el dock inferior, a ancho completo, por encima del área segura.
+- **Do** anclar la acción principal de la sesión en el dock inferior, a ancho completo, por encima del área segura.
+- **Do** hacer de cada tarjeta de disco una pantalla de teléfono sin scroll, con la duración y el medidor anclados al pie.
+- **Do** revelar cada acción de tirón con su círculo de 48px, que se arma en tinta con icono voltio cuando soltar actúa, y dar a cada gesto su equivalente de teclado.
 - **Do** dar a cada animación su alternativa con `prefers-reduced-motion` (fundido o nada).
 
 ### Don't:
@@ -335,3 +356,4 @@ Un campo completo del color de su portada: portada cuadrada de ancho completo, t
 - **Don't** añadir una cuarta voz ni pesos intermedios en la voz de pantalla; Hill-B Figures solo lleva cifras, ":" y ",".
 - **Don't** volver a poner una banda de superficie detrás del valor de las ruedas ni sintetizar itálica.
 - **Don't** animar esqueletos con brillo; son la maqueta plana de la tarjeta final.
+- **Don't** volver a poner en resultados título visible, rango, marcas de posición, botón atrás, "Otros 5" ni "Abrir en Spotify": la pantalla es la marca y los discos.

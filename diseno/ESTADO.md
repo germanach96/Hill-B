@@ -11,7 +11,7 @@ Hill-B: app web móvil (PWA estática) que responde "¿qué disco entero me conv
 - PR #1 (la app) mergeado. PR #2 (hook + este archivo) mergeado. PR #3 (datos de The Magic Bus + catálogo con originales) abierto.
 
 ## Decisiones del usuario (no reabrir)
-- Sin inicio de sesión en la app y sin página de carga. La app solo lee `public/data/albums.json`; Spotify solo sirve para cargar datos y para el botón "Abrir en Spotify".
+- Sin inicio de sesión en la app y sin página de carga. La app solo lee `public/data/albums.json`; Spotify solo sirve para cargar datos y para abrir un disco (deslizando su tarjeta hacia arriba).
 - Los datos los carga Claude: el usuario dice la playlist y Claude lee, guarda y abre PR. Son ~800 discos; se leen una vez y a veces se releen (solo se miden los nuevos).
 - Estilo Nike Run Club, paleta clara, viva y sencilla, mucha animación, 5 discos que se deslizan. Diseño documentado en `diseno/DESIGN.md` y producto en `diseno/PRODUCT.md`.
 - Color principal: el voltio `#d7ff1f`; con el negro (`#111111`) es la pareja de marca.
@@ -32,7 +32,7 @@ Hill-B: app web móvil (PWA estática) que responde "¿qué disco entero me conv
 - Si en esa ventana hay menos de 10 discos (el doble de los que se muestran), la abre 5 min más por cada lado, y así hasta tener 10.
 - De ahí elige 5 al azar: con el mismo tiempo, cada búsqueda da otros discos. Los 5 que se acaban de mostrar solo repiten si la ventana no tiene otros.
 - Se muestran del más cercano al más lejano.
-- **Botón "Otros 5"** (cabecera de resultados): saca 5 que no hayas visto en esta búsqueda. Si en el rango ya no quedan 5 sin ver, lo agranda 5 min por lado. El subtítulo dice el rango ("5 discos de 40 a 50 min"). Cuando ya viste todos, vuelven a salir.
+- **Otros 5** (deslizar hacia la izquierda después de la última tarjeta): saca 5 que no hayas visto en esta búsqueda. Si en el rango ya no quedan 5 sin ver, lo agranda 5 min por lado. Cuando ya viste todos, vuelven a salir.
 
 ## Flujo de una canción nueva (decidido por el usuario, 2026-10-26)
 Lo hace `node tools/sync.mjs read`; las reglas están en `tools/catalog.mjs` y sus pruebas en `tests/catalog.test.mjs`.
