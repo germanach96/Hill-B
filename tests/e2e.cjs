@@ -155,19 +155,21 @@ async function run() {
       // The next album shows its edge (the only sign there are more).
       const peek = await page.evaluate(() => innerWidth - document.querySelectorAll('.card')[1].getBoundingClientRect().left);
       assert.ok(peek >= 8, `the next card shows only ${peek}px`);
-      // The time and the kilometres side by side; each tag a bar of ten dots, the first one full.
+      // The time and the kilometres side by side; each tag a bar, the strongest full, the rest shorter.
       const first = await page.evaluate(() => {
         const c = document.querySelector('.card');
         return {
           km: c.querySelector('.card-km').textContent,
           rows: [...c.querySelectorAll('.card-tags li')].map((li) => [li.querySelector('.tag-name').textContent,
-            li.querySelectorAll('.tag-dots i').length, li.querySelectorAll('.tag-dots i.on').length]),
+            Number(li.querySelector('.tag-fill').style.getPropertyValue('--level'))]),
+          numbers: c.querySelector('.card-tags').textContent.match(/\d/g),
         };
       });
       assert.match(first.km, /^\d+,\d$|^\d+$/);
       assert.ok(first.rows.length >= 4, `only ${first.rows.length} tags`);
-      assert.deepEqual(first.rows[0], ['indie rock', 10, 10]);
-      assert.ok(first.rows.every(([, all, on]) => all === 10 && on >= 1 && on <= 10));
+      assert.deepEqual(first.rows[0], ['indie rock', 1]);
+      assert.ok(first.rows.every(([, l], i) => l > 0 && l <= 1 && (i === 0 || l <= first.rows[i - 1][1])));
+      assert.equal(first.numbers, null, 'no values next to the bars');
       await page.screenshot({ path: `${OUT}/mobile-results.png` });
       await snapshot(page, 'results');
 

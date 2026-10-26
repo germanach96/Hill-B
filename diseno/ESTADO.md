@@ -71,9 +71,9 @@ Para el futuro paso de *mood*. Spotify ya no da energía, tempo ni *valence* a a
 - La app todavía no las usa. En el Excel salen en la pestaña Discos.
 
 ## Tarjeta de disco (borrador, 2026-10-26)
-El usuario eligió la propuesta 1 («Dos cifras») de tres, con cambios: sin ritmo ni "Justo lo que corres / Sobran / Faltan", más etiquetas y las etiquetas como barras según sus puntos. Borrador en el PR #13, pendiente de su visto bueno.
+El usuario eligió la propuesta 1 («Dos cifras») de tres, con cambios: sin ritmo ni "Justo lo que corres / Sobran / Faltan", más etiquetas y las etiquetas como barras según sus puntos. Después: **barra continua, sin puntos y sin ningún valor** ("no hace falta saber tanto detalle"). Borrador en el PR #13, pendiente de su visto bueno.
 - El **ritmo se pide también en modo Tiempo** (la tira de ritmo sale en los dos modos; en Tiempo muestra "≈ 8,7 km", en Distancia "55:00 de carrera").
-- La tarjeta: portada, título, artista y año, **duración y km** (duración ÷ ritmo) lado a lado, y **hasta 7 etiquetas** con una barra de 10 puntos cada una (`rankedTags` en `public/js/recommend.js`: disco al 100 %, artista al 70 %; fuera ruido, años, nombres del artista y del disco y peso < 3; la genérica se va si hay una precisa que la contiene). Detalle en `diseno/DESIGN.md` § Album card.
+- La tarjeta: portada, título, artista y año, **duración y km** (duración ÷ ritmo) lado a lado, y **hasta 7 etiquetas** con una barra continua cada una (largo = fuerza frente a la más fuerte, sin números) (`rankedTags` en `public/js/recommend.js`: disco al 100 %, artista al 70 %; fuera ruido, años, nombres del artista y del disco y peso < 3; la genérica se va si hay una precisa que la contiene). Detalle en `diseno/DESIGN.md` § Album card.
 - Sin barra de duración y sin canciones de la playlist.
 
 ## Pendiente de definir por el usuario

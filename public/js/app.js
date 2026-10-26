@@ -328,9 +328,10 @@ function albumCard({ album, duration }, i, target, count) {
 
   const artists = album.artists.join(', ');
   const km = albumKm(duration, prefs.pace);
-  // Each tag with a bar of ten dots: how strong it is against the album's strongest tag.
+  // Each tag with a bar as long as it is strong against the album's strongest tag. No number:
+  // the bar is enough, and screen readers get the tags in order of strength.
   const tags = rankedTags(album).map((t) => `<li><span class="tag-name">${escapeHtml(t.name)}</span>`
-    + `<span class="tag-dots" role="img" aria-label="${t.dots} de 10">${'<i class="on"></i>'.repeat(t.dots)}${'<i></i>'.repeat(10 - t.dots)}</span></li>`).join('');
+    + `<span class="tag-bar" aria-hidden="true"><span class="tag-fill" style="--level:${t.level}"></span></span></li>`).join('');
 
   li.innerHTML = `
     <div class="card-inner">
@@ -378,17 +379,15 @@ function setActive(index) {
   cards.forEach((c, i) => c.classList.toggle('is-active', i === index));
 }
 
-/** The running time and the kilometres count up, and each tag's dots fill in from the left, row
- *  after row, once the card has landed, not while it glides: the eye follows one motion at a time. */
+/** The running time and the kilometres count up, and each tag's bar grows from the left, row after
+ *  row, once the card has landed, not while it glides: the eye follows one motion at a time. */
 function arrive(index) {
   const card = $('deck').children[index];
   if (!card || card.classList.contains('is-skeleton') || card.classList.contains('is-seen')) return;
   countUp(card);
-  card.querySelectorAll('.card-tags li').forEach((li, row) => {
-    li.querySelectorAll('.on').forEach((dot, k) => dot.animate(
-      [{ opacity: 0, transform: 'scale(0.4)' }, { opacity: 1, transform: 'none' }],
-      { duration: 220, delay: 120 + row * 50 + k * 22, easing: 'cubic-bezier(0.23, 1, 0.32, 1)', fill: 'backwards' }));
-  });
+  card.querySelectorAll('.tag-fill').forEach((fill, row) => fill.animate(
+    [{ clipPath: 'inset(0 100% 0 0 round 6px)' }, { clipPath: getComputedStyle(fill).clipPath }],
+    { duration: 520, delay: 120 + row * 50, easing: 'cubic-bezier(0.23, 1, 0.32, 1)', fill: 'backwards' }));
   card.classList.add('is-seen');
 }
 

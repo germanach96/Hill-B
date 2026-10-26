@@ -603,8 +603,8 @@ html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden
   text-transform: uppercase;
 }
 
-/* Tags: one row each, the name and a bar of ten dots, as many inked as the tag is strong against
-   the album's strongest one. They keep their room: on a short phone the cover gives up height. */
+/* Tags: one row each, the name and a bar as long as the tag is strong against the album's strongest
+   one. No numbers. They keep their room: on a short phone the cover gives up height. */
 .card-tags {
   flex: none;
   display: grid;
@@ -615,7 +615,7 @@ html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden
 }
 .card-tags li {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
   align-items: center;
   column-gap: 12px;
 }
@@ -627,14 +627,20 @@ html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.tag-dots { display: flex; gap: 4px; }
-.tag-dots i {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
+.tag-bar {
+  position: relative;
+  height: 10px;
+  border-radius: 6px;
   background: color-mix(in srgb, currentColor 20%, transparent);
 }
-.tag-dots i.on { background: currentColor; }
+/* The fill is cut, not squeezed: clip-path keeps its round end at any length (scaleX would flatten it). */
+.tag-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  background: currentColor;
+  clip-path: inset(0 calc((1 - var(--level, 1)) * 100%) 0 0 round 6px);
+}
 
 /* Short screens (a small phone, landscape) give up tags before the cover gets too small. */
 @container card (max-height: 600px) { .card-tags li:nth-child(n+6) { display: none; } }

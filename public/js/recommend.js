@@ -94,8 +94,8 @@ export function relevantTags(album, count = 5) {
 }
 
 /**
- * relevantTags with how strong each one is: `dots`, from 1 to 10, its score against the strongest
- * tag of the album (which always has 10). The card draws them as bars of ten dots.
+ * relevantTags with how strong each one is: `level`, its score against the strongest tag of the
+ * album (which always has 1), never under 0.06 so every bar shows. The card draws it as a bar.
  */
 export function rankedTags(album, count = 7) {
   // The artist's name and the album's own name are not tags ("zucchero", "la sesion cubana").
@@ -131,7 +131,7 @@ export function rankedTags(album, count = 7) {
   }
   const top = kept.sort((x, y) => y[1].score - x[1].score).slice(0, count);
   const max = top[0]?.[1].score ?? 1;
-  return top.map(([, t]) => ({ name: t.name, dots: Math.max(1, Math.round((t.score / max) * 10)) }));
+  return top.map(([, t]) => ({ name: t.name, level: Math.max(0.06, Math.round((t.score / max) * 100) / 100) }));
 }
 
 /** "🚌 The Magic Bus @germanch96" reads as "The Magic Bus": emoji and @handle stay in Spotify. */

@@ -132,12 +132,12 @@ test('relevantTags merges spellings, drops the artist name and fills in from the
   assert.deepEqual(relevantTags(chile), ['rock chileno', 'chile']);
 });
 
-test('rankedTags gives each tag 1 to 10 dots against the strongest one', () => {
+test('rankedTags gives each tag its strength against the strongest one, from 0 to 1', () => {
   const album = { artists: ['X'], tags: [['stoner rock', 100], ['alternative rock', 68], ['hard rock', 15]], artistTags: [] };
   assert.deepEqual(rankedTags(album), [
-    { name: 'stoner rock', dots: 10 }, { name: 'alternative rock', dots: 7 }, { name: 'hard rock', dots: 2 },
+    { name: 'stoner rock', level: 1 }, { name: 'alternative rock', level: 0.68 }, { name: 'hard rock', level: 0.15 },
   ]);
-  const faint = { artists: ['X'], tags: [['folk', 100], ['blues', 11]], artistTags: [] };
-  assert.equal(rankedTags(faint)[1].dots, 1, 'never an empty bar');
+  const faint = { artists: ['X'], tags: [['folk', 100], ['blues', 3]], artistTags: [] };
+  assert.equal(rankedTags(faint)[1].level, 0.06, 'never an empty bar');
   assert.deepEqual(rankedTags({ artists: ['Y'] }), []);
 });
