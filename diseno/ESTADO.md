@@ -15,7 +15,7 @@ Hill-B: app web móvil (PWA estática) que responde "¿qué disco entero me conv
 - Los datos los carga Claude: el usuario dice la playlist y Claude lee, guarda y abre PR. Son ~800 discos; se leen una vez y a veces se releen (solo se miden los nuevos).
 - Estilo Nike Run Club, paleta clara, viva y sencilla, mucha animación, 5 discos que se deslizan. Diseño documentado en `diseno/DESIGN.md` y producto en `diseno/PRODUCT.md`.
 - Color principal: el voltio `#d7ff1f`; con el negro (`#111111`) es la pareja de marca.
-- Logo: dos colinas de una B acostada (Archivo 700, girada a la izquierda, la colina derecha 1.4× más grande con su hueco al 85%, inclinada 18° ya en horizontal). Archivos en `diseno/logo/`, reglas en `diseno/DESIGN.md` § Logo.
+- Logo: dos colinas de una B acostada (Archivo 700, girada a la izquierda, la colina derecha 1.4× más grande con su hueco al 85%, inclinada 35° ya en horizontal). Archivos en `diseno/logo/`, reglas en `diseno/DESIGN.md` § Logo.
 - Cuenta de Spotify Premium. Client ID `6b13ef05e42d4331a1fbbbc839bc1092`.
 - Claude le manda al usuario el catálogo en Excel (`python3 tools/excel.py <archivo.xlsx>`): pestaña Canciones (con caso y álbum original) y pestaña Discos.
 
