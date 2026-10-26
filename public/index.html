@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="es" data-view="boot">
+<html lang="en" data-view="boot">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
   <title>Hill-B</title>
-  <meta name="description" content="El disco entero que te dura toda la salida a correr, sacado de tu playlist.">
+  <meta name="description" content="The whole album that lasts your whole run, picked from your own playlist.">
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#d7ff1f">
   <link rel="manifest" href="/manifest.webmanifest">
@@ -38,12 +38,12 @@
 
     <!-- Session: how long, then the albums -->
     <section class="view view-session" id="view-session" aria-labelledby="session-title" hidden>
-      <h1 class="sr-only" id="session-title">Elige tu salida</h1>
+      <h1 class="sr-only" id="session-title">Set your run</h1>
 
-      <div class="segmented" role="radiogroup" aria-label="Medir la salida por">
+      <div class="segmented" role="radiogroup" aria-label="Measure the run by">
         <span class="segmented-thumb" aria-hidden="true"></span>
-        <button type="button" role="radio" class="segment" data-mode="time" aria-checked="true">Tiempo</button>
-        <button type="button" role="radio" class="segment" data-mode="distance" aria-checked="false">Distancia</button>
+        <button type="button" role="radio" class="segment" data-mode="time" aria-checked="true">Time</button>
+        <button type="button" role="radio" class="segment" data-mode="distance" aria-checked="false">Distance</button>
       </div>
 
       <!-- Two vertical wheels: hours : minutes, or km , hundreds of metres. Swipe up and down. -->
@@ -52,13 +52,13 @@
         <span class="picker-sep" id="picker-sep" aria-hidden="true">:</span>
         <div class="wheel" id="wheel-minor" tabindex="0" role="spinbutton"></div>
       </div>
-      <p class="picker-unit" id="picker-unit" aria-hidden="true">horas y minutos</p>
+      <p class="picker-unit" id="picker-unit" aria-hidden="true">hours and minutes</p>
 
-      <!-- Ritmo: the pace, swiped left and right. Only distance needs it. -->
-      <div class="intensity" id="intensity" hidden>
+      <!-- Pace, swiped left and right. Time gives the kilometres with it, distance the time. -->
+      <div class="intensity" id="intensity">
         <div class="intensity-head">
-          <span class="intensity-label" id="intensity-label">Ritmo<span class="intensity-unit">min/km</span></span>
-          <span class="intensity-total" id="intensity-total">54:45 de carrera</span>
+          <span class="intensity-label" id="intensity-label">Pace<span class="intensity-unit">min/km</span></span>
+          <span class="intensity-total" id="intensity-total">≈ 8.2 km</span>
         </div>
         <div class="strip-frame">
           <div class="strip" id="pace-wheel" tabindex="0" role="spinbutton" aria-labelledby="intensity-label"></div>
@@ -75,11 +75,11 @@
     <!-- Results: only the albums. Everything else is a swipe: past the first card back to the run,
          past the last one five other albums, up on a card to open it in Spotify. -->
     <section class="view view-results" id="view-results" aria-labelledby="results-title" hidden>
-      <h1 class="sr-only" id="results-title">Discos para 45 min</h1>
-      <p class="sr-only" id="results-help">Desliza a los lados para pasar de disco. En el primero, desliza hacia la derecha para volver a elegir la salida; después del último, hacia la izquierda para ver otros cinco. Desliza un disco hacia arriba para abrirlo en Spotify.</p>
+      <h1 class="sr-only" id="results-title">Albums for 45 min</h1>
+      <p class="sr-only" id="results-help">Swipe sideways to move between albums. On the first one, swipe right to change your run; after the last one, swipe left for five more. Swipe an album up to open it in Spotify.</p>
       <!-- Where you are among the five: the mark slides along as the cards do. -->
       <div class="ticks" id="ticks" aria-hidden="true"></div>
-      <div class="pager" id="pager" tabindex="0" role="region" aria-roledescription="carrusel" aria-label="Discos propuestos" aria-describedby="results-help">
+      <div class="pager" id="pager" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Suggested albums" aria-describedby="results-help">
         <span class="pull pull-back" aria-hidden="true"><svg><use href="#i-back"/></svg></span>
         <span class="pull pull-more" aria-hidden="true"><svg><use href="#i-shuffle"/></svg></span>
         <span class="pull pull-open" aria-hidden="true"><svg><use href="#i-spotify"/></svg></span>
@@ -87,8 +87,8 @@
       </div>
       <div class="state" id="results-state" hidden></div>
       <!-- The swipes, for keyboards and screen readers: hidden until focused. -->
-      <button type="button" class="sr-only focus-show" id="back">Volver a elegir la salida</button>
-      <button type="button" class="sr-only focus-show" id="reroll">Otros 5 discos</button>
+      <button type="button" class="sr-only focus-show" id="back">Change your run</button>
+      <button type="button" class="sr-only focus-show" id="reroll">5 more albums</button>
     </section>
   </div>
 </body>

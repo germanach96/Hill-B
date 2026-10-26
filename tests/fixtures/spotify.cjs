@@ -57,6 +57,9 @@ function albumsJson() {
       id: a.id, name: a.name, artists: [a.artist], year: String(a.year),
       image: `https://i.scdn.co/image/test-c${a.cover}`,
       url: `https://open.spotify.com/album/${a.id}`, songs: a.songs, seconds: a.seconds,
+      // Invented Last.fm tags: a few albums with a full set, one with none.
+      tags: a.id === 'alb04' ? [] : [['indie rock', 100], ['surf', 64], ['coastal', 41], ['garage', 22], ['night drive', 9]],
+      artistTags: a.id === 'alb04' ? [] : [['indie rock', 100], ['lo-fi', 70], ['spanish', 30]],
     })),
   };
 }

@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { sessionSeconds, pickAlbums, displayName, formatDuration, describeDelta, formatPace } from '../public/js/recommend.js';
+import { sessionSeconds, pickAlbums, albumKm, formatKmValue, relevantTags, rankedTags, displayName, formatDuration, formatPace } from '../public/js/recommend.js';
 
 test('sessionSeconds reads minutes, or distance at a pace', () => {
   assert.equal(sessionSeconds({ mode: 'time', minutes: 45 }), 2700);
@@ -91,9 +91,50 @@ test('formatting', () => {
   assert.equal(formatDuration(2894), '48:14');
   assert.equal(formatDuration(3725), '1:02:05');
   assert.equal(formatDuration(59), '0:59');
-  assert.equal(describeDelta(192), 'Sobran 3:12');
-  assert.equal(describeDelta(-90), 'Faltan 1:30');
-  assert.equal(describeDelta(20), 'Justo lo que corres');
   assert.equal(formatPace(330), '5:30');
   assert.equal(formatPace(305), '5:05');
+});
+
+test('albumKm and formatKmValue: the album measured in kilometres at a pace', () => {
+  assert.equal(albumKm(2907, 330), 2907 / 330);
+  assert.equal(formatKmValue(albumKm(2907, 330)), '8.8');
+  assert.equal(formatKmValue(10.04), '10');
+  assert.equal(albumKm(2907, 0), 0);
+});
+
+test('relevantTags keeps what says something about the sound', () => {
+  const qotsa = {
+    artists: ['Queens of the Stone Age'],
+    tags: [['stoner rock', 100], ['alternative rock', 68], ['2002', 38], ['rock', 34], ['hard rock', 15],
+      ['favourite albums', 9], ['00s', 7], ['dave grohl', 1]],
+    artistTags: [['stoner rock', 100], ['alternative rock', 68], ['rock', 44], ['desert rock', 3], ['queens of the stone age', 20]],
+  };
+  assert.deepEqual(relevantTags(qotsa), ['stoner rock', 'alternative rock', 'hard rock', 'desert rock'], 'weight 3 still counts, 1 does not');
+});
+
+test('relevantTags merges spellings, drops the artist name and fills in from the artist', () => {
+  const album = {
+    artists: ['Silvio Rodríguez'],
+    tags: [],
+    artistTags: [['trova', 100], ['cuba', 82], ['cantautor', 53], ['nueva trova', 50], ['silvio rodriguez', 30], ['latin', 7]],
+  };
+  assert.deepEqual(relevantTags(album), ['nueva trova', 'cuba', 'cantautor', 'latin'], 'trova sits inside nueva trova');
+  const hiphop = { artists: ['X'], tags: [['Hip-Hop', 100]], artistTags: [['hip hop', 90], ['latin grammy nominated', 60]] };
+  assert.deepEqual(relevantTags(hiphop), ['Hip-Hop']);
+  assert.deepEqual(relevantTags({ artists: ['Y'] }), [], 'no tags at all');
+  const zucchero = { name: 'La Sesión Cubana (Spanish Version)', artists: ['Zucchero'],
+    tags: [['italian', 100], ['male vocalist', 66], ['zucchero', 66], ['la sesion cubana', 33]], artistTags: [] };
+  assert.deepEqual(relevantTags(zucchero), ['italian']);
+  const chile = { artists: ['Z'], tags: [['chile', 66], ['chilean', 66]], artistTags: [['rock chileno', 100]] };
+  assert.deepEqual(relevantTags(chile), ['rock chileno', 'chile']);
+});
+
+test('rankedTags gives each tag its strength against the strongest one, from 0 to 1', () => {
+  const album = { artists: ['X'], tags: [['stoner rock', 100], ['alternative rock', 68], ['hard rock', 15]], artistTags: [] };
+  assert.deepEqual(rankedTags(album), [
+    { name: 'stoner rock', level: 1 }, { name: 'alternative rock', level: 0.68 }, { name: 'hard rock', level: 0.15 },
+  ]);
+  const faint = { artists: ['X'], tags: [['folk', 100], ['blues', 3]], artistTags: [] };
+  assert.equal(rankedTags(faint)[1].level, 0.06, 'never an empty bar');
+  assert.deepEqual(rankedTags({ artists: ['Y'] }), []);
 });

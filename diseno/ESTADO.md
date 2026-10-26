@@ -8,12 +8,13 @@ Hill-B: app web móvil (PWA estática) que responde "¿qué disco entero me conv
 ## Dónde está
 - Publicada en **https://hill-b.onrender.com** (Render, sitio estático desde `main`, `render.yaml` → `public/`). Cada merge a `main` redespliega.
 - `main` es la rama por defecto. **Claude Code solo cambia `main` por PR** (regla en `CLAUDE.md` + hook `.claude/hooks/no-direct-main.sh`). No hay protección en GitHub y el usuario no la quiere.
-- PR #1 (la app) mergeado. PR #2 (hook + este archivo) mergeado. PR #3 (datos de The Magic Bus + catálogo con originales) abierto.
+- PR #1 (la app) mergeado. PR #2 (hook + este archivo) mergeado. PR #3 (datos de The Magic Bus + catálogo con originales) abierto. PR #13 (etiquetas de Last.fm, tarjeta nueva, app en inglés) listo para mergear.
 
 ## Decisiones del usuario (no reabrir)
 - Sin inicio de sesión en la app y sin página de carga. La app solo lee `public/data/albums.json`; Spotify solo sirve para cargar datos y para abrir un disco (deslizando su tarjeta hacia arriba).
 - Los datos los carga Claude: el usuario dice la playlist y Claude lee, guarda y abre PR. Son ~800 discos; se leen una vez y a veces se releen (solo se miden los nuevos).
 - Estilo Nike Run Club, paleta clara, viva y sencilla, mucha animación, 5 discos que se deslizan. Diseño documentado en `diseno/DESIGN.md` y producto en `diseno/PRODUCT.md`.
+- **La app está en inglés (2026-10-26):** todos los textos de la interfaz, también los de lectores de pantalla (`lang="en"`), y los km con punto decimal ("8.7 km", rueda "10.5"); la letra de las cifras incluye el "." (regenerada desde Roboto Flex con los mismos ejes). Estos documentos siguen en español.
 - Color principal: el voltio `#d7ff1f`; con el negro (`#111111`) es la pareja de marca.
 - **Fondo de toda la app: el amarillo `#d7ff1f`, con el negro `#111111` como contraste.** El blanco solo como tercer color si hace falta; hoy no se usa: una tarjeta de disco oscura lleva el amarillo como tinta clara. Los tonos secundarios son negro mezclado sobre amarillo, no grises.
 - **Pantalla de inicio (2026-10-26):** sin la pregunta "¿Cuánto vas a correr?" (queda solo para lectores de pantalla) y sin botones − / + ni atajos. Interruptor Tiempo/Distancia arriba; debajo, **dos ruedas verticales** que se deslizan con el dedo: horas : minutos (de 0:05 a 5:59) o km , cientos de metros (de 1,0 a 60,9). En distancia, el **ritmo** (de 3:00 a 9:00 /km **de 15 en 15 s**; antes se llamaba "intensidad") es una tira que se desliza de izquierda a derecha. El botón principal dice **Start**. La unidad de distancia dice **KM**. **No hay línea de la biblioteca** ("The Magic Bus: N discos enteros, leídos el…") cuando hay discos; solo aparece si no hay discos o si fallan. Las ruedas quedan a media pantalla (al alcance del pulgar) y el ritmo muestra su unidad (min/km). **Solo se ve el valor actual, grande** (ruedas y ritmo): al deslizar, el valor nuevo entra por el borde de una ventana invisible y los vecinos nunca se ven antes. Sin recuadro: el número va directo sobre el amarillo. **Letra de las cifras: Roboto Flex** (la 7 de las muestras; ancho 25, inclinada, 800), recortada a números en `public/fonts/hillb-figures.woff2`; las ruedas ocupan casi todo el ancho. Código en `public/js/wheel.js` (scroll nativo con snap; accesible con teclado).
@@ -61,8 +62,23 @@ Con un solo `node tools/sync.mjs read` se busca, se mide y se regenera `albums.j
 
 Si el contenedor es nuevo, la sesión de Spotify (`.sync/`, fuera de git) se perdió: `node tools/sync.mjs login`, el usuario abre el enlace y pega la URL de vuelta, y luego `node tools/sync.mjs read "<URL>"`. La Redirect URI ya está en el dashboard.
 
+## Etiquetas de Last.fm (decidido por el usuario, 2026-10-26)
+Para el futuro paso de *mood*. Spotify ya no da energía, tempo ni *valence* a apps nuevas; Last.fm sí da etiquetas de la gente (género, época, lugar y algo de mood).
+- Solo interesan las etiquetas **del disco y del artista**, no las de cada canción (casi ninguna canción tiene).
+- `LASTFM_API_KEY=… node tools/sync.mjs tags` etiqueta los discos y artistas que aún no tienen (reanuda si se corta). `read` también lo hace al final si la clave está en el entorno.
+- **La clave no se publica**: solo se lee del entorno, nunca va a un archivo ni a git. Si el contenedor es nuevo, pedir al usuario que la guarde en el entorno como `LASTFM_API_KEY` (no en el chat).
+- Se guardan en `data/catalog.json` (`tags` en cada disco, `artistTags` por artista) y en `public/data/albums.json` (`tags` y `artistTags` de cada disco, pares `[nombre, peso]`, peso 0–100 relativo a la más votada, hasta 10). Lista vacía: Last.fm no tiene.
+- Una edición ("Night Visions (Deluxe)") se pregunta también por su nombre simple y se queda con la que tiene más etiquetas.
+- La app todavía no las usa. En el Excel salen en la pestaña Discos.
+
+## Tarjeta de disco (aprobada por el usuario, 2026-10-26)
+El usuario eligió la propuesta 1 («Dos cifras») de tres, con cambios: sin ritmo ni "Justo lo que corres / Sobran / Faltan", más etiquetas y las etiquetas como barras según sus puntos. Después: **barra continua, sin puntos y sin ningún valor** ("no hace falta saber tanto detalle"). Aprobada ("Perfecto"); pasó la revisión final de Impeccable y está en el PR #13.
+- El **ritmo se pide también en modo Tiempo** (la tira de ritmo sale en los dos modos; en Tiempo muestra "≈ 8.7 km", en Distancia "55:00 of running").
+- La tarjeta: portada, título, artista y año, **duración y km** (duración ÷ ritmo) lado a lado, y **hasta 7 etiquetas** con una barra continua cada una (largo = fuerza frente a la más fuerte, sin números) (`rankedTags` en `public/js/recommend.js`: disco al 100 %, artista al 70 %; fuera ruido, años, nombres del artista y del disco y peso < 3; la genérica se va si hay una precisa que la contiene). Detalle en `diseno/DESIGN.md` § Album card.
+- Sin barra de duración y sin canciones de la playlist.
+
 ## Pendiente de definir por el usuario
-- Paso de *mood* (va después de elegir tiempo/km). No está construido.
+- Paso de *mood* (va después de elegir tiempo/km). No está construido. Base posible: las etiquetas de Last.fm.
 - Detalles extra de cada disco además de portada, artista y duración.
 
 ## Notas técnicas

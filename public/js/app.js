@@ -4,7 +4,9 @@ import { store } from './store.js';
 import { createWheel } from './wheel.js';
 import { createPager } from './pager.js';
 import { playSplash } from './splash.js';
-import { sessionSeconds, pickAlbums, formatDuration, describeDelta, formatPace } from './recommend.js';
+import {
+  sessionSeconds, pickAlbums, formatDuration, formatPace, albumKm, formatKmValue, rankedTags,
+} from './recommend.js';
 
 const $ = (id) => document.getElementById(id);
 const root = document.documentElement;
@@ -58,7 +60,7 @@ function setThemeColor() {
 /* ---------- Session ---------- */
 
 function formatKm(km) {
-  return Number.isInteger(km) ? String(km) : km.toFixed(1).replace('.', ',');
+  return Number.isInteger(km) ? String(km) : km.toFixed(1);
 }
 
 function formatMinutes(total) {
@@ -70,21 +72,21 @@ function formatMinutes(total) {
 const range = (from, to, step = 1) => Array.from({ length: Math.floor((to - from) / step) + 1 }, (_, i) => from + i * step);
 const two = (n) => String(n).padStart(2, '0');
 
-const major = createWheel($('wheel-major'), { label: 'Horas', onChange: onWheel });
-const minor = createWheel($('wheel-minor'), { label: 'Minutos', onChange: onWheel });
-const paceWheel = createWheel($('pace-wheel'), { axis: 'x', label: 'Ritmo, minutos por kilómetro', onChange: onPace });
+const major = createWheel($('wheel-major'), { label: 'Hours', onChange: onWheel });
+const minor = createWheel($('wheel-minor'), { label: 'Minutes', onChange: onWheel });
+const paceWheel = createWheel($('pace-wheel'), { axis: 'x', label: 'Pace, minutes per kilometer', onChange: onPace });
 
 /** Fills both wheels for the current mode and centres them on the saved value. */
 function renderWheels() {
   const isTime = prefs.mode === 'time';
   if (isTime) {
-    $('wheel-major').setAttribute('aria-label', 'Horas');
-    $('wheel-minor').setAttribute('aria-label', 'Minutos');
+    $('wheel-major').setAttribute('aria-label', 'Hours');
+    $('wheel-minor').setAttribute('aria-label', 'Minutes');
     major.setValues(range(0, LIMITS.time.maxHours), { selected: Math.floor(prefs.minutes / 60) });
     minor.setValues(range(0, 59), { format: two, selected: prefs.minutes % 60 });
   } else {
-    $('wheel-major').setAttribute('aria-label', 'Kilómetros');
-    $('wheel-minor').setAttribute('aria-label', 'Cientos de metros');
+    $('wheel-major').setAttribute('aria-label', 'Kilometers');
+    $('wheel-minor').setAttribute('aria-label', 'Hundreds of meters');
     const tenths = Math.round(prefs.km * 10);
     major.setValues(range(0, LIMITS.distance.maxKm), { selected: Math.floor(tenths / 10) });
     minor.setValues(range(0, 9), { selected: tenths % 10 });
@@ -121,10 +123,13 @@ function renderSession() {
   const seg = document.querySelector('.segmented');
   seg.dataset.mode = prefs.mode;
   for (const b of seg.querySelectorAll('.segment')) b.setAttribute('aria-checked', String(b.dataset.mode === prefs.mode));
-  $('picker-sep').textContent = isTime ? ':' : ',';
-  $('picker-unit').textContent = isTime ? 'horas y minutos' : 'KM';
-  $('intensity').hidden = isTime;
-  $('intensity-total').textContent = `${formatDuration(sessionSeconds(prefs))} de carrera`;
+  $('picker-sep').textContent = isTime ? ':' : '.';
+  $('picker-unit').textContent = isTime ? 'hours and minutes' : 'KM';
+  // The pace is asked in both modes: by time it turns the run into kilometres, by distance into time,
+  // and the cards give each album in both.
+  $('intensity-total').textContent = isTime
+    ? `≈ ${formatKmValue(albumKm(prefs.minutes * 60, prefs.pace))} km`
+    : `${formatDuration(sessionSeconds(prefs))} of running`;
 }
 
 for (const b of document.querySelectorAll('.segment')) {
@@ -132,8 +137,8 @@ for (const b of document.querySelectorAll('.segment')) {
     if (prefs.mode === b.dataset.mode) return;
     prefs.mode = b.dataset.mode;
     store.set(PREFS_KEY, prefs);
-    // The intensity strip comes and goes below the wheels, so they slide to their new place
-    // from where they were (FLIP) instead of jumping, and the new numbers fade in as they go.
+    // The wheels slide to their new place from where they were (FLIP) instead of jumping, and the
+    // new numbers fade in as they go.
     const picker = $('picker');
     const before = picker.getBoundingClientRect().top;
     renderSession();
@@ -142,10 +147,6 @@ for (const b of document.querySelectorAll('.segment')) {
     {
       picker.animate([{ transform: `translateY(${dy}px)`, opacity: 0.4 }, { transform: 'none', opacity: 1 }],
         { duration: 260, easing: 'cubic-bezier(0.77, 0, 0.175, 1)' });
-      if (prefs.mode === 'distance') {
-        $('intensity').animate([{ transform: 'translateY(12px)', opacity: 0 }, { transform: 'none', opacity: 1 }],
-          { duration: 220, delay: 60, easing: 'cubic-bezier(0.23, 1, 0.32, 1)', fill: 'backwards' });
-      }
     }
   });
 }
@@ -171,10 +172,10 @@ function renderLibrary() {
       el.textContent = ''; // nothing to say when the albums are there: the line only speaks up when they are not
       break;
     case 'empty':
-      el.textContent = 'Todavía no hay discos cargados.';
+      el.textContent = 'No albums loaded yet.';
       break;
     case 'error':
-      el.innerHTML = 'No se pudieron abrir los discos de la app. <button type="button" class="link" id="reload">Reintentar</button>';
+      el.innerHTML = 'Couldn’t open the app’s albums. <button type="button" class="link" id="reload">Try again</button>';
       $('reload').addEventListener('click', loadLibrary);
       break;
     default:
@@ -248,7 +249,7 @@ function renderResults({ entering = false, how = entering ? 'search' : 'keep' } 
   const { picks: ranked } = ready ? drawAlbums(target, how) : { picks: [] };
 
   // No visible title: the run is on every card ("Tu salida"). Screen readers still get one.
-  $('results-title').textContent = isTime ? `Discos para ${formatMinutes(prefs.minutes)}` : `Discos para ${formatKm(prefs.km)} km`;
+  $('results-title').textContent = isTime ? `Albums for ${formatMinutes(prefs.minutes)}` : `Albums for ${formatKm(prefs.km)} km`;
   $('reroll').hidden = !canMore();
 
   const state = $('results-state');
@@ -272,8 +273,8 @@ function renderResults({ entering = false, how = entering ? 'search' : 'keep' } 
     $('pager').hidden = true;
     state.hidden = false;
     state.innerHTML = library.status === 'error'
-      ? '<p>No se pudieron abrir los discos de la app.</p><button class="btn btn-ink" type="button" id="retry">Reintentar</button>'
-      : '<p>Todavía no hay discos cargados.</p><p>Se leen una vez desde Spotify y quedan guardados en la app.</p>';
+      ? '<p>Couldn’t open the app’s albums.</p><button class="btn btn-ink" type="button" id="retry">Try again</button>'
+      : '<p>No albums loaded yet.</p><p>They’re read once from Spotify and stay in the app.</p>';
     $('retry')?.addEventListener('click', loadLibrary);
     return;
   }
@@ -312,29 +313,30 @@ function skeletonCard(i) {
   li.setAttribute('aria-hidden', 'true');
   li.innerHTML = `<div class="card-inner"><div class="cover-box"><span class="sk sk-cover"></span></div>
     <div class="card-head"><span class="sk sk-title"></span><span class="sk sk-meta"></span></div>
-    <div class="card-run"><span class="sk sk-time"></span><span class="sk sk-meter"></span></div></div>`;
+    <div class="card-run"><span class="sk sk-time"></span></div>
+    <div class="card-tags">${'<span class="sk sk-tags"></span>'.repeat(4)}</div></div>`;
   return li;
 }
 
-function albumCard({ album, duration, delta }, i, target, count) {
-  const scale = Math.max(duration, target);
+function albumCard({ album, duration }, i, target, count) {
   const li = document.createElement('li');
   li.className = duration >= 3600 ? 'card is-long' : 'card';
   li.style.setProperty('--i', i);
-  li.style.setProperty('--album', (duration / scale).toFixed(4));
-  li.style.setProperty('--run', (target / scale).toFixed(4));
   li.dataset.album = album.id;
-  li.setAttribute('aria-label', `${i + 1} de ${count}: ${album.name}`);
+  li.setAttribute('aria-label', `${i + 1} of ${count}: ${album.name}`);
   applyColor(li, colors[album.id]);
 
-  const songs = album.songs.slice(0, 3).map(escapeHtml);
-  const more = album.songs.length > 3 ? ` y ${album.songs.length - 3} más` : '';
   const artists = album.artists.join(', ');
+  const km = albumKm(duration, prefs.pace);
+  // Each tag with a bar as long as it is strong against the album's strongest tag. No number:
+  // the bar is enough, and screen readers get the tags in order of strength.
+  const tags = rankedTags(album).map((t) => `<li><span class="tag-name">${escapeHtml(t.name)}</span>`
+    + `<span class="tag-bar" aria-hidden="true"><span class="tag-fill" style="--level:${t.level}"></span></span></li>`).join('');
 
   li.innerHTML = `
     <div class="card-inner">
       <div class="cover-box">
-        <img class="cover" alt="Portada de ${escapeAttr(album.name)}" width="640" height="640" draggable="false"
+        <img class="cover" alt="Cover of ${escapeAttr(album.name)}" width="640" height="640" draggable="false"
           ${album.image ? `src="${escapeAttr(album.image)}"` : ''} crossorigin="anonymous" decoding="async">
       </div>
       <div class="card-head">
@@ -342,15 +344,11 @@ function albumCard({ album, duration, delta }, i, target, count) {
         <p class="card-meta">${escapeHtml(artists)}${album.year ? ` <span>${album.year}</span>` : ''}</p>
       </div>
       <div class="card-run">
-        <span class="card-time" data-seconds="${duration}">${formatDuration(duration)}</span>
-        <span class="card-delta">${describeDelta(delta)}</span>
-        <div class="meter" role="img" aria-label="El disco dura ${formatDuration(duration)}; tu salida, ${formatDuration(target)}">
-          <span class="meter-fill"></span><span class="meter-run"></span>
-        </div>
-        <div class="meter-legend"><span>Disco</span><span>Tu salida ${formatDuration(target)}</span></div>
+        <p class="card-fig"><span class="card-time" data-seconds="${duration}" aria-hidden="true">0:00</span><span class="sr-only">${formatDuration(duration)} long</span></p>
+        <p class="card-fig"><span class="card-km" data-km="${km}" aria-hidden="true">0</span><span class="card-unit" aria-hidden="true">km</span><span class="sr-only">${formatKmValue(km)} km at ${formatPace(prefs.pace)} per km</span></p>
       </div>
-      <p class="card-songs">En ${escapeHtml(library.name)}: <strong>${songs.join(', ')}</strong>${more}</p>
-      <a class="sr-only" href="${escapeAttr(album.url)}" target="_blank" rel="noopener">Abrir ${escapeHtml(album.name)} en Spotify</a>
+      ${tags ? `<ul class="card-tags" aria-label="Album and artist tags">${tags}</ul>` : ''}
+      <a class="sr-only" href="${escapeAttr(album.url)}" target="_blank" rel="noopener">Open ${escapeHtml(album.name)} in Spotify</a>
     </div>`;
 
   // All five covers load at once and are decoded before they fade in: a cover that only started
@@ -381,14 +379,21 @@ function setActive(index) {
   cards.forEach((c, i) => c.classList.toggle('is-active', i === index));
 }
 
-/** The running time counts up and the meter fills once the card has landed, not while it glides:
- *  the eye follows one motion at a time, and the main thread stays free for the glide. */
+/** The running time and the kilometres count up from zero, and each tag's bar grows from empty,
+ *  row after row, once the card has landed, not while it glides: the eye follows one motion at a
+ *  time. Until then the card shows 0:00, 0 km and empty bars, so landing never looks like a reset. */
 function arrive(index) {
   const card = $('deck').children[index];
   if (!card || card.classList.contains('is-skeleton') || card.classList.contains('is-seen')) return;
-  countUp(card);
   card.classList.add('is-seen');
+  countUp(card);
+  card.querySelectorAll('.tag-fill').forEach((fill, row) => fill.animate(
+    [{ clipPath: 'inset(0 100% 0 0 round 6px)' }, { clipPath: tagClip(fill.style.getPropertyValue('--level')) }],
+    { duration: 520, delay: 120 + row * 50, easing: 'cubic-bezier(0.23, 1, 0.32, 1)', fill: 'backwards' }));
 }
+
+/** The same cut as `.card.is-seen .tag-fill` in styles.css: the shortest bar is a full 10px round end. */
+const tagClip = (level) => `inset(0 calc((1 - ${Number(level) || 1}) * (100% - 10px)) 0 0 round 6px)`;
 
 /**
  * Lifting a card opens the album in the Spotify app (spotify: link). If the app did not take over
@@ -422,16 +427,19 @@ function openInSpotify(album) {
   location.href = uri;
 }
 
-/** The running time counts up while the meter fills: same 600 ms, same strong ease-out. */
+/** The running time and the kilometres count up together: 600 ms, strong ease-out. */
 function countUp(card) {
-  const el = card.querySelector('.card-time');
-  const total = Number(el?.dataset.seconds);
-  if (!el || !total) return;
+  const time = card.querySelector('.card-time');
+  const dist = card.querySelector('.card-km');
+  const total = Number(time?.dataset.seconds);
+  const km = Number(dist?.dataset.km);
+  if (!time || !total) return;
   const start = performance.now();
   const ease = (t) => 1 - (1 - t) ** 4; // close to cubic-bezier(0.23, 1, 0.32, 1)
   const frame = (now) => {
     const t = Math.min(1, (now - start) / 600);
-    el.textContent = formatDuration(total * ease(t));
+    time.textContent = formatDuration(total * ease(t));
+    if (dist && km) dist.textContent = formatKmValue(km * ease(t));
     if (t < 1) requestAnimationFrame(frame);
   };
   requestAnimationFrame(frame);

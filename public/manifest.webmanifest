@@ -1,8 +1,8 @@
 {
   "name": "Hill-B",
   "short_name": "Hill-B",
-  "description": "El disco entero que te dura toda la salida a correr.",
-  "lang": "es",
+  "description": "The whole album that lasts your whole run.",
+  "lang": "en",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
