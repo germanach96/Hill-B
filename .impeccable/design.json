@@ -137,7 +137,7 @@
       {
         "name": "pager-spring",
         "value": "k = (2π/respuesta)², c = 4πζ/respuesta, masa 1, 4 subpasos por fotograma, asiento |Δx| < 0.25px y |v| < 6 px/s, velocidad limitada a 4000 px/s (medida en los últimos 100ms)",
-        "purpose": "Toda la baraja: cambio de tarjeta 0.42 / ζ 1 (ζ 0.86 si se suelta a más de 600 px/s); vuelta de la tarjeta levantada 0.42 / ζ 0.82; volver 0.4; otros cinco salen 0.35 y entran desde el 55% del ancho 0.55; abrir sube a −min(140px, 18%) 0.3 y vuelve a los 260ms 0.45 / ζ 0.82. Escala, opacidad y origen de cada tarjeta y la marca de las barras de posición se dibujan en cada fotograma desde la posición viva; con movimiento reducido, saltan al destino."
+        "purpose": "Toda la baraja: cambio de tarjeta 0.55 / ζ 1, sin rebote; la velocidad del dedo se entrega con un tope de ω·distancia + 60 px/s hacia el destino (un cuarto en contra), para que un golpe fuerte se deslice ~300ms en vez de saltar; vuelta de la tarjeta levantada 0.42 / ζ 0.82; volver 0.45; otros cinco salen 0.42 y entran 0.6; abrir sube 0.36 y vuelve 0.45 / ζ 0.82. La cuenta de la duración y el medidor empiezan cuando la tarjeta se asienta. Escala, opacidad y origen de cada tarjeta y la marca de las barras de posición se dibujan en cada fotograma desde la posición viva; con movimiento reducido, saltan al destino."
       },
       {
         "name": "reduced-motion",
