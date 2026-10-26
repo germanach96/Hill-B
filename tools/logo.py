@@ -1,7 +1,8 @@
 # Draws the Hill-B logo from Archivo's B: weight 700, width 75, lying on its back (turned 90°
 # counterclockwise) so its two bowls become two hills on flat ground. The right hill (the B's
 # lower bowl) is drawn from a lighter B and enlarged 1.4×, so it is clearly the bigger hill
-# with the same stroke; then the lying mark is slanted 12° so the hills lean forward.
+# with the same stroke, and its hollow is shrunk to 85%; then the lying mark is slanted 18° so
+# the hills lean forward.
 # Writes the icons and logo files as SVG; `node tools/logo-png.mjs` then renders the PNGs.
 #
 #   pip install fonttools brotli
@@ -23,7 +24,7 @@ INK, VOLT = "#111111", "#d7ff1f"
 WEIGHT, WIDTH = 700, 75  # the mark's B
 RIGHT_HILL = 1.4         # the right hill against the left one
 RIGHT_HOLLOW = 0.85      # the right hill's hollow, shrunk inside the same outline
-SLANT = 12               # degrees, applied to the lying mark
+SLANT = 18               # degrees, applied to the lying mark
 
 
 def glyphs(wght, wdth):
@@ -117,14 +118,14 @@ def write(rel, text):
 # and to the left of centre.
 write("public/icon.svg", svg("0 0 512 512",
       f'<rect width="512" height="512" rx="112" fill="{VOLT}"/>'
-      f'<path fill="{INK}" d="{mark_centred(512, 328, up=9, left=6)}"/>'))
+      f'<path fill="{INK}" d="{mark_centred(512, 328, up=9, left=9)}"/>'))
 write("public/icon-maskable.svg", svg("0 0 512 512",
       f'<rect width="512" height="512" fill="{VOLT}"/>'
-      f'<path fill="{INK}" d="{mark_centred(512, 272, up=8, left=5)}"/>'))
+      f'<path fill="{INK}" d="{mark_centred(512, 272, up=8, left=8)}"/>'))
 # Favicon (16-32px in a tab): the same mark, larger in a tighter tile so its notch and counters stay open.
 write("public/favicon.svg", svg("0 0 512 512",
       f'<rect width="512" height="512" rx="88" fill="{VOLT}"/>'
-      f'<path fill="{INK}" d="{mark_centred(512, 448, up=10, left=6)}"/>'))
+      f'<path fill="{INK}" d="{mark_centred(512, 448, up=10, left=8)}"/>'))
 
 # The mark alone, tight to its ink.
 mw = 688
