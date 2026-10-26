@@ -8,7 +8,7 @@ Hill-B: app web móvil (PWA estática) que responde "¿qué disco entero me conv
 ## Dónde está
 - Publicada en **https://hill-b.onrender.com** (Render, sitio estático desde `main`, `render.yaml` → `public/`). Cada merge a `main` redespliega.
 - `main` es la rama por defecto. **Claude Code solo cambia `main` por PR** (regla en `CLAUDE.md` + hook `.claude/hooks/no-direct-main.sh`). No hay protección en GitHub y el usuario no la quiere.
-- PR #1 (la app) mergeado. PR #2 (hook + este archivo) pendiente de merge.
+- PR #1 (la app) mergeado. PR #2 (hook + este archivo) mergeado.
 
 ## Decisiones del usuario (no reabrir)
 - Sin inicio de sesión en la app y sin página de carga. La app solo lee `public/data/albums.json`; Spotify solo sirve para cargar datos y para el botón "Abrir en Spotify".
@@ -16,12 +16,11 @@ Hill-B: app web móvil (PWA estática) que responde "¿qué disco entero me conv
 - Estilo Nike Run Club, paleta clara, viva y sencilla, mucha animación, 5 discos que se deslizan. Diseño documentado en `diseno/DESIGN.md` y producto en `diseno/PRODUCT.md`.
 - Cuenta de Spotify Premium. Client ID `6b13ef05e42d4331a1fbbbc839bc1092`.
 
-## Siguiente paso: cargar los discos reales (pendiente)
-`public/data/albums.json` aún no existe (la app muestra "Todavía no hay discos cargados").
-1. El usuario añade la Redirect URI `http://127.0.0.1:5173/callback` en el dashboard de Spotify (no confirmado aún).
-2. Claude genera el enlace: `node tools/sync.mjs login` (guarda el verificador PKCE en `.sync/`, que no está en git: el enlace solo vale en el mismo contenedor que lo generó).
-3. El usuario abre el enlace, acepta y pega la URL de la página de error a la que vuelve.
-4. Claude ejecuta `node tools/sync.mjs read "<URL>"` → escribe `public/data/albums.json` (si Spotify corta la cuota, volver a ejecutar `read` reanuda), commit en una rama y PR a `main`.
+## Siguiente paso: terminar de medir los discos (en curso)
+Lectura del 2026-10-26 (rama `claude/clever-cannon-xdcy2b`): 1598 canciones → 829 discos enteros (álbum o compilación; sencillos y EP fuera). Hay **600 medidos** en `public/data/albums.json`; faltan 229 porque Spotify agotó la cuota diaria (`Retry-After` ≈ 24 h).
+1. Pasadas ~24 h, `node tools/sync.mjs read` reanuda: solo mide los que faltan (los ya medidos salen de `albums.json`).
+2. La sesión de Spotify vive en `.sync/` (fuera de git). En un contenedor nuevo hay que repetir el login: `node tools/sync.mjs login`, el usuario abre el enlace y pega la URL de vuelta, y `node tools/sync.mjs read "<URL>"`. La Redirect URI `http://127.0.0.1:5173/callback` ya está en el dashboard.
+3. Con los 829 medidos: commit y PR a `main`.
 
 ## Pendiente de definir por el usuario
 - Paso de *mood* (va después de elegir tiempo/km). No está construido.
