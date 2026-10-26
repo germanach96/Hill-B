@@ -6,7 +6,7 @@
   <title>Hill-B</title>
   <meta name="description" content="El disco entero que te dura toda la salida a correr, sacado de tu playlist.">
   <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#d7ff1f">
   <link rel="manifest" href="/manifest.webmanifest">
   <link rel="icon" href="/icons/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -21,8 +21,6 @@
 <body>
   <!-- Icons: Phosphor Icons (bold, MIT) and Simple Icons (Spotify mark, CC0). -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <symbol id="i-plus" viewBox="0 0 256 256"><path fill="currentColor" d="M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z"/></symbol>
-    <symbol id="i-minus" viewBox="0 0 256 256"><path fill="currentColor" d="M228,128a12,12,0,0,1-12,12H40a12,12,0,0,1,0-24H216A12,12,0,0,1,228,128Z"/></symbol>
     <symbol id="i-back" viewBox="0 0 256 256"><path fill="currentColor" d="M228,128a12,12,0,0,1-12,12H69l51.52,51.51a12,12,0,0,1-17,17l-72-72a12,12,0,0,1,0-17l72-72a12,12,0,0,1,17,17L69,116H216A12,12,0,0,1,228,128Z"/></symbol>
     <symbol id="i-out" viewBox="0 0 256 256"><path fill="currentColor" d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></symbol>
     <symbol id="i-spotify" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></symbol>
@@ -37,40 +35,37 @@
 
     <!-- Session: how long, then the albums -->
     <section class="view view-session" id="view-session" aria-labelledby="session-title" hidden>
-      <h1 class="session-title" id="session-title">¿Cuánto vas a correr?</h1>
+      <h1 class="sr-only" id="session-title">Elige tu salida</h1>
 
-      <div class="segmented" role="radiogroup" aria-label="Medir la sesión por">
+      <div class="segmented" role="radiogroup" aria-label="Medir la salida por">
         <span class="segmented-thumb" aria-hidden="true"></span>
         <button type="button" role="radio" class="segment" data-mode="time" aria-checked="true">Tiempo</button>
         <button type="button" role="radio" class="segment" data-mode="distance" aria-checked="false">Distancia</button>
       </div>
 
-      <div class="dial">
-        <button type="button" class="step" id="less" aria-label="Menos"><svg aria-hidden="true"><use href="#i-minus"/></svg></button>
-        <div class="dial-value">
-          <label class="sr-only" for="amount" id="amount-label">Minutos</label>
-          <input class="amount" id="amount" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" value="45">
-          <span class="unit" id="unit" aria-hidden="true">minutos</span>
-        </div>
-        <button type="button" class="step" id="more" aria-label="Más"><svg aria-hidden="true"><use href="#i-plus"/></svg></button>
+      <!-- Two vertical wheels: hours : minutes, or km , hundreds of metres. Swipe up and down. -->
+      <div class="picker" id="picker">
+        <div class="wheel" id="wheel-major" tabindex="0" role="spinbutton"></div>
+        <span class="picker-sep" id="picker-sep" aria-hidden="true">:</span>
+        <div class="wheel" id="wheel-minor" tabindex="0" role="spinbutton"></div>
       </div>
+      <p class="picker-unit" id="picker-unit" aria-hidden="true">horas y minutos</p>
 
-      <div class="presets" id="presets" role="group" aria-label="Sesiones habituales"></div>
-
-      <div class="pace" id="pace" hidden>
-        <span class="pace-label" id="pace-label">Ritmo</span>
-        <div class="pace-control">
-          <button type="button" class="step step-small" id="pace-less" aria-label="Ritmo más rápido"><svg aria-hidden="true"><use href="#i-minus"/></svg></button>
-          <output class="pace-value" id="pace-value" aria-labelledby="pace-label">5:30</output>
-          <button type="button" class="step step-small" id="pace-more" aria-label="Ritmo más lento"><svg aria-hidden="true"><use href="#i-plus"/></svg></button>
+      <!-- Intensity is the pace, swiped left and right. Only distance needs it. -->
+      <div class="intensity" id="intensity" hidden>
+        <div class="intensity-head">
+          <span class="intensity-label" id="intensity-label">Intensidad<span class="intensity-unit">min/km</span></span>
+          <span class="intensity-total" id="intensity-total">54:45 de carrera</span>
         </div>
-        <span class="pace-total" id="pace-total">55:00 de carrera</span>
+        <div class="strip-frame">
+          <div class="strip" id="pace-wheel" tabindex="0" role="spinbutton" aria-labelledby="intensity-label"></div>
+        </div>
       </div>
 
       <p class="library" id="library" aria-live="polite"></p>
 
       <div class="dock">
-        <button class="btn btn-volt" id="find" type="button">Buscar discos</button>
+        <button class="btn btn-start" id="find" type="button">Start</button>
       </div>
     </section>
 

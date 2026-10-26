@@ -30,6 +30,24 @@ async function newPage(browser, device, { scheme = 'light', reduced = 'no-prefer
 
 const settle = (page) => page.waitForTimeout(900);
 
+// A real touch swipe on a wheel (CDP touch events), so the browser's own snap and momentum run.
+async function swipe(page, selector, { x = 0, y = 0 }) {
+  const box = await page.locator(selector).boundingBox();
+  const cdp = await page.context().newCDPSession(page);
+  const steps = 12;
+  let px = box.x + box.width / 2 - x / 2;
+  let py = box.y + box.height / 2 - y / 2;
+  await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: px, y: py }] });
+  for (let i = 0; i < steps; i++) {
+    px += x / steps; py += y / steps;
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: px, y: py }] });
+    await page.waitForTimeout(16);
+  }
+  await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+  await page.waitForTimeout(1200); // let the snap settle
+}
+const valueOf = (page, selector) => page.locator(selector).getAttribute('aria-valuetext');
+
 // A static copy of the current view for the Taste inspector, which opens pages without the mocks.
 async function snapshot(page, name) {
   const html = await page.evaluate(async (base) => {
@@ -63,7 +81,7 @@ async function run() {
       const { page, errors, context } = await newPage(browser, PHONE, { empty: true });
       await page.goto(BASE);
       await page.locator('#library', { hasText: 'Todavía no hay discos cargados' }).waitFor();
-      assert.ok(await page.getByRole('button', { name: 'Buscar discos' }).isDisabled());
+      assert.ok(await page.getByRole('button', { name: 'Start' }).isDisabled());
       await page.screenshot({ path: `${OUT}/mobile-empty.png` });
       assert.ok(errors.every((e) => /404|Failed to load resource/.test(e)), errors.join('\n'));
       await context.close();
@@ -73,7 +91,6 @@ async function run() {
     {
       const { page, errors, context, spotifyCalls } = await newPage(browser, PHONE);
       await page.goto(BASE);
-      await page.getByRole('heading', { name: '¿Cuánto vas a correr?' }).waitFor();
       await page.locator('#library', { hasText: 'discos enteros' }).waitFor();
       const libraryText = await page.locator('#library').textContent();
       assert.match(libraryText, /The Magic Bus: 10 discos enteros, leídos el 25 de octubre/);
@@ -82,17 +99,28 @@ async function run() {
       await page.screenshot({ path: `${OUT}/mobile.png` });
       await snapshot(page, 'session');
 
-      // Stepper and presets change the number.
-      await page.getByRole('button', { name: 'Más' }).click();
-      assert.equal(await page.locator('#amount').inputValue(), '50');
-      await page.getByRole('button', { name: '45 minutos' }).click();
-      assert.equal(await page.locator('#amount').inputValue(), '45');
+      // Time is two wheels: hours and minutes, swiped up and down.
+      assert.equal(await valueOf(page, '#wheel-major'), '0');
+      assert.equal(await valueOf(page, '#wheel-minor'), '45');
+      await swipe(page, '#wheel-minor', { y: -220 });
+      const swiped = await valueOf(page, '#wheel-minor');
+      assert.notEqual(swiped, '45', 'a swipe moves the minutes wheel');
+      assert.equal(await page.locator('#wheel-minor .is-selected').textContent(), swiped, 'the wheel rests on a whole row');
+      report.push(`Deslizar minutos: 45 → ${swiped}`);
+      // Keyboard: Home goes to 00, and the wheel refuses anything under five minutes.
+      await page.locator('#wheel-minor').focus();
+      await page.keyboard.press('Home');
+      await page.waitForTimeout(600);
+      assert.equal(await valueOf(page, '#wheel-minor'), '05');
+      for (let i = 0; i < 40; i++) await page.keyboard.press('ArrowUp');
+      await page.waitForTimeout(800);
+      assert.equal(await valueOf(page, '#wheel-minor'), '45');
 
       const t0 = Date.now();
-      await page.getByRole('button', { name: 'Buscar discos' }).click();
+      await page.getByRole('button', { name: 'Start' }).click();
       await page.locator('.card').first().waitFor({ state: 'visible' });
       const clickToCards = Date.now() - t0;
-      report.push(`Buscar discos → primera tarjeta visible: ${clickToCards} ms`);
+      report.push(`Start → primera tarjeta visible: ${clickToCards} ms`);
       await page.waitForTimeout(1200);
       const titles = await page.locator('.card-title').allTextContents();
       assert.equal(titles.length, 5);
@@ -131,14 +159,32 @@ async function run() {
       // Back keeps the session; distance with pace.
       await page.getByRole('button', { name: 'Cambiar la sesión' }).click();
       await page.getByRole('radio', { name: 'Distancia' }).click();
-      assert.equal(await page.locator('#amount').inputValue(), '10');
-      assert.equal(await page.locator('#pace-total').textContent(), '55:00 de carrera');
-      await page.getByRole('button', { name: 'Ritmo más rápido' }).click();
-      assert.equal(await page.locator('#pace-value').textContent(), '5:25');
+      await page.waitForTimeout(400);
+      assert.equal(await valueOf(page, '#wheel-major'), '10');
+      assert.equal(await valueOf(page, '#wheel-minor'), '0');
+      assert.equal(await page.locator('#intensity-total').textContent(), '55:00 de carrera');
+      // Intensity is swiped sideways; then set exactly with the keyboard.
+      await swipe(page, '#pace-wheel', { x: -200 });
+      assert.notEqual(await valueOf(page, '#pace-wheel'), '5:30', 'a sideways swipe changes the intensity');
+      await page.locator('#pace-wheel').focus();
+      await page.keyboard.press('Home');
+      for (let i = 0; i < 29; i++) await page.keyboard.press('ArrowRight');
+      await page.waitForTimeout(800);
+      assert.equal(await valueOf(page, '#pace-wheel'), '5:25');
+      assert.equal(await page.locator('#intensity-total').textContent(), '54:10 de carrera');
+      // Hundreds of metres on the second wheel: 10,5 km.
+      await page.locator('#wheel-minor').focus();
+      for (let i = 0; i < 5; i++) await page.keyboard.press('ArrowUp');
+      await page.waitForTimeout(800);
+      assert.equal(await valueOf(page, '#wheel-minor'), '5');
+      await page.locator('#pace-wheel').focus();
+      await page.keyboard.press('ArrowLeft');
+      await page.keyboard.press('ArrowRight');
+      await page.evaluate(() => document.activeElement.blur()); // the resting look, as after a swipe
       await settle(page);
       await page.screenshot({ path: `${OUT}/mobile-distance.png` });
-      await page.getByRole('button', { name: 'Buscar discos' }).click();
-      await page.locator('#results-title', { hasText: 'Para 10 km' }).waitFor();
+      await page.getByRole('button', { name: 'Start' }).click();
+      await page.locator('#results-title', { hasText: 'Para 10,5 km' }).waitFor();
       await page.waitForTimeout(1200);
       await page.screenshot({ path: `${OUT}/mobile-results-distance.png` });
 
@@ -155,7 +201,7 @@ async function run() {
       await page.locator('#library', { hasText: 'discos enteros' }).waitFor();
       await settle(page);
       await page.screenshot({ path: `${OUT}/desktop.png` });
-      await page.getByRole('button', { name: 'Buscar discos' }).click();
+      await page.getByRole('button', { name: 'Start' }).click();
       await page.locator('.card').first().waitFor();
       await page.waitForTimeout(1200);
       await page.screenshot({ path: `${OUT}/desktop-results.png` });
@@ -168,7 +214,7 @@ async function run() {
       await page.locator('#library', { hasText: 'discos enteros' }).waitFor();
       await settle(page);
       await page.screenshot({ path: `${OUT}/mobile-dark-pref.png` });
-      await page.getByRole('button', { name: 'Buscar discos' }).click();
+      await page.getByRole('button', { name: 'Start' }).click();
       await page.locator('.card').first().waitFor();
       await page.waitForTimeout(900);
       await page.screenshot({ path: `${OUT}/mobile-dark-pref-results.png` });

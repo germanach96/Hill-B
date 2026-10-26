@@ -1,4 +1,4 @@
-/* Hill-B. Light, Nike Run Club register: white ground, near-black ink, volt on the one action. */
+/* Hill-B. Nike Run Club register on the brand's own colour: a volt ground, near-black ink, no white. */
 
 @font-face {
   font-family: "Archivo";
@@ -7,6 +7,14 @@
   font-stretch: 62% 125%;
   font-display: swap;
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* The figures of the wheels and the intensity: Roboto Flex (OFL) pinned to its narrowest, slanted
+   cut (wdth 25, slnt -10, wght 800, opsz 144, YTUC 760) and cut down to "0-9 : ," — 2 KB. */
+@font-face {
+  font-family: "Hill-B Figures";
+  src: url("/fonts/hillb-figures.woff2") format("woff2");
+  font-weight: 800;
+  font-display: swap;
 }
 @font-face {
   font-family: "Archivo";
@@ -18,12 +26,12 @@
 }
 
 :root {
-  --ground: #ffffff;
-  --surface: #f1f1ee;      /* steppers, segmented track, skeletons: one tone step off the ground */
-  --surface-press: #e4e4df;
-  --ink: #111111;
-  --muted: #55554f;        /* 7.4:1 on white */
-  --volt: #d7ff1f;         /* the brand colour, paired with ink: primary action and the connect field */
+  --volt: #d7ff1f;         /* the brand colour, the logo's yellow */
+  --ink: #111111;          /* the one contrast colour: text, controls, the Start button */
+  --ground: var(--volt);
+  --surface: #c5ea1e;      /* ink at 9% over volt: tracks, skeletons */
+  --surface-press: #b7d71d;/* ink at 16% over volt */
+  --muted: #485415;        /* ink at 72% over volt, 7.1:1: secondary text stays in the ink family */
   --page: var(--ground);
 
   --font: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -64,7 +72,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-::selection { background: var(--volt); color: var(--ink); }
+::selection { background: var(--ink); color: var(--volt); }
 input { caret-color: var(--ink); }
 :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; border-radius: 12px; }
 
@@ -83,11 +91,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 
 /* Display voice: Archivo at its narrowest and heaviest, the Nike goal-screen register. */
-.display,
-.connect-title,
-.session-title,
 .results-title,
-.amount,
+.btn-start,
 .card-title,
 .card-time {
   font-stretch: var(--display-stretch);
@@ -95,6 +100,18 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   text-transform: uppercase;
   letter-spacing: -0.01em;
   font-variant-numeric: tabular-nums;
+}
+
+/* Figure voice: the run's numbers, long and slanted like a stopwatch. The slant is in the font. */
+.wheel-y .wheel-item,
+.picker-sep,
+.wheel-x .wheel-item {
+  font-family: "Hill-B Figures", "Archivo", system-ui, sans-serif;
+  font-weight: 800;
+  font-synthesis: none;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em; /* the slanted figures sit on narrow advances: keep a hair between 4 and 5 */
+  line-height: 1;
 }
 
 /* ---------- Shell ---------- */
@@ -167,30 +184,31 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .btn:disabled:active { transform: none; }
 .btn-icon { width: 22px; height: 22px; flex: none; }
 
-.btn-volt { background: var(--volt); color: var(--ink); }
-.btn-volt:active { background: #c6ef0a; }
-.btn-ink { background: var(--ink); color: #fff; }
+.btn-start {
+  min-height: 64px;
+  background: var(--ink);
+  color: var(--volt);
+  font-size: 2rem;
+  letter-spacing: 0.02em;
+}
+.btn-start:active { background: #2a2a2a; }
+.btn-ink { background: var(--ink); color: var(--volt); }
 .btn-ink:active { background: #2a2a2a; }
 
 @media (hover: hover) and (pointer: fine) {
-  .btn-volt:hover { background: #cdf713; }
+  .btn-start:hover { background: #262626; }
   .btn-ink:hover { background: #262626; }
-  .step:hover, .back:hover, .reroll:hover, .preset:hover { background: var(--surface-press); }
+  .back:hover, .reroll:hover { background: var(--surface-press); }
 }
 
 /* ---------- Session ---------- */
-
-.session-title {
-  margin: 8px 0 20px;
-  font-size: 2rem;
-  line-height: 1;
-}
 
 .segmented {
   position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: 4px;
+  margin-bottom: clamp(12px, 3svh, 32px);
   border-radius: 999px;
   background: var(--surface);
 }
@@ -212,101 +230,122 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   color: var(--ink);
   transition: color 200ms ease;
 }
-.segment[aria-checked="true"] { color: #fff; }
+.segment[aria-checked="true"] { color: var(--volt); }
 
-.dial {
+/* The wheels: one value at a time, huge, straight on the ground. A swipe rolls the next value in
+   through an invisible window; the values around it are never shown. The wheel reaches past the
+   window (--reach) so the whole block takes the thumb, but only the window is painted. */
+.picker {
+  /* The figure fills the width: "60,9" is about 1.8 em wide with its margins, and the height keeps it in check. */
+  --fig: clamp(120px, min(24svh, calc((100vw - 2 * var(--pad)) / 1.8)), 240px);
+  --item: calc(var(--fig) * 0.84); /* the digits stand 0.72 em tall */
+  --reach: clamp(24px, 5svh, 48px);
+  position: relative;
   display: grid;
-  grid-template-columns: 56px 1fr 56px;
+  /* The value is centred as one group; each wheel is as wide as its widest value ("60", "59"). */
+  grid-template-columns: auto auto auto;
+  justify-content: center;
   align-items: center;
-  gap: 8px;
-  margin-top: clamp(16px, 5vh, 48px);
+  height: calc(var(--item) + var(--reach) * 2);
+  /* The spare height splits above and below the wheels (the dock takes the other half): the
+     value sits at mid-screen, within the thumb's reach, instead of high under the toggle. */
+  margin-top: auto;
 }
-
-.dial-value {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 0;
-}
-
-.amount {
-  width: 100%;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: var(--ink);
-  text-align: center;
-  font-family: inherit;
-  font-size: clamp(6.5rem, 36vw, 9.5rem);
-  line-height: 0.86;
+.wheel-y {
+  position: relative;
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+  padding-block: var(--reach);
+  touch-action: pan-y;
   outline: none;
+  /* Paint the window only: a mask (unlike clip-path) leaves the reach above and below touchable. */
+  mask-image: linear-gradient(to bottom, transparent var(--reach), #000 var(--reach), #000 calc(100% - var(--reach)), transparent calc(100% - var(--reach))); /* taste-skill-ignore: a hard-edged mask that cuts the window, not a visible gradient */
 }
-.amount:focus-visible { outline: none; text-decoration: underline 4px var(--ink); text-underline-offset: 10px; }
-
-.unit {
-  margin-top: 6px;
+.wheel-y::-webkit-scrollbar,
+.wheel-x::-webkit-scrollbar { display: none; }
+/* The mask would cut a ring drawn on the wheel itself: the ring goes round the whole value, and the
+   wheel that does not have the keys steps back so it is clear which number the arrows move. */
+.wheel-y:focus-visible { outline: none; }
+.picker:has(.wheel-y:focus-visible) { outline: 3px solid var(--ink); outline-offset: calc(var(--reach) * -1 + 6px); border-radius: var(--radius-card); }
+.picker:has(.wheel-y:focus-visible) .wheel-y:not(:focus-visible) { opacity: 0.45; }
+.wheel-y .wheel-item {
+  display: flex;
+  align-items: center;
+  height: var(--item);
+  scroll-snap-align: center;
+  font-size: var(--fig);
+}
+/* The two numbers hug the separator, so the pair reads as one value: 1:05, 10,5. */
+/* Room on the outer side for the flag of a 1 and the top of the slant; tight against the separator. */
+#wheel-major .wheel-item { justify-content: flex-end; padding-inline: 0.1em 0.05em; }
+#wheel-minor .wheel-item { justify-content: flex-start; padding-inline: 0.05em 0.1em; }
+.picker-sep {
+  position: relative;
+  font-size: var(--fig);
+}
+.picker-unit {
+  margin: 10px 0 0;
+  text-align: center;
   font-size: 18px;
   font-weight: 700;
   color: var(--muted);
 }
 
-.step {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
+/* Intensity: the pace rolls sideways through one ink pill; the paces either side stay hidden. */
+.intensity { margin-top: clamp(16px, 3.5svh, 36px); }
+.intensity-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 16px;
+}
+.intensity-label { font-weight: 700; }
+.intensity-unit { margin-left: 4px; font-weight: 500; color: var(--muted); }
+.intensity-total { color: var(--muted); font-variant-numeric: tabular-nums; }
+.strip-frame {
+  --pitem: 144px;
+  position: relative;
+  margin: 10px calc(var(--pad) * -1) 0;
+}
+.strip-frame::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: calc(50% - var(--pitem) / 2);
+  width: var(--pitem);
+  border-radius: 999px;
+  background: var(--ink);
+}
+.wheel-x {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 76px;
+  padding-inline: calc(50% - var(--pitem) / 2);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  touch-action: pan-x;
+  outline: none;
+  mask-image: linear-gradient(to right, transparent calc(50% - var(--pitem) / 2), #000 calc(50% - var(--pitem) / 2), #000 calc(50% + var(--pitem) / 2), transparent calc(50% + var(--pitem) / 2)); /* taste-skill-ignore: a hard-edged mask that cuts the pill, not a visible gradient */
+}
+.wheel-x:focus-visible { outline: none; }
+.strip-frame:has(.wheel-x:focus-visible)::before { outline: 3px solid var(--ink); outline-offset: 3px; }
+.wheel-x .wheel-item {
+  flex: 0 0 var(--pitem);
   display: grid;
   place-items: center;
-  background: var(--surface);
-  transition: transform 140ms var(--ease-out), background-color 140ms ease;
+  height: 100%;
+  scroll-snap-align: center;
+  font-size: 3rem;
+  color: var(--volt);
 }
-.step svg { width: 22px; height: 22px; }
-.step:active { transform: scale(0.92); background: var(--surface-press); }
-.step:disabled { opacity: 0.35; }
-.step-small { width: 44px; height: 44px; }
-.step-small svg { width: 18px; height: 18px; }
-
-.presets {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 24px;
-}
-.preset {
-  min-width: 64px;
-  min-height: 44px;
-  padding: 0 14px;
-  border-radius: 999px;
-  background: var(--surface);
-  font-size: 16px;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  transition: transform 140ms var(--ease-out), background-color 140ms ease, color 140ms ease;
-}
-.preset:active { transform: scale(0.95); }
-.preset[aria-pressed="true"] { background: var(--ink); color: #fff; }
-
-.pace {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  row-gap: 4px;
-  margin-top: 24px;
-  padding: 14px 14px 14px 20px;
-  border-radius: 20px;
-  background: var(--surface);
-}
-.pace-label { font-size: 16px; font-weight: 700; }
-.pace-control { display: flex; align-items: center; gap: 6px; }
-.pace-control .step { background: var(--ground); }
-.pace-value {
-  min-width: 4.2ch;
-  text-align: center;
-  font-size: 22px;
-  font-weight: 800;
-  font-variant-numeric: tabular-nums;
-}
-.pace-value::after { content: " /km"; font-size: 14px; font-weight: 600; color: var(--muted); }
-.pace-total { grid-column: 1 / -1; font-size: 15px; color: var(--muted); font-variant-numeric: tabular-nums; }
 
 .library {
   margin: 24px 0 0;
@@ -314,6 +353,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   font-size: 15px;
   color: var(--muted);
   text-align: center;
+  text-wrap: balance;
   font-variant-numeric: tabular-nums;
 }
 .library a,
@@ -358,7 +398,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: rgb(17 17 17 / 0.07);
+  background: var(--surface);
   transition: transform 140ms var(--ease-out), background-color 140ms ease;
 }
 .back svg { width: 20px; height: 20px; }
@@ -370,14 +410,14 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgb(17 17 17 / 0.07);
+  background: var(--surface);
   font-size: 16px;
   font-weight: 700;
   white-space: nowrap;
   transition: transform 140ms var(--ease-out), background-color 140ms ease;
 }
 .reroll svg { width: 18px; height: 18px; flex: none; }
-.reroll:active { transform: scale(0.95); background: rgb(17 17 17 / 0.12); }
+.reroll:active { transform: scale(0.95); background: var(--surface-press); }
 /* Narrow phones: the title keeps one line and the button becomes a circle like "back"; the label stays for screen readers. */
 @media (max-width: 359px) {
   .reroll { width: 44px; padding: 0; justify-content: center; }
@@ -395,7 +435,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   flex: 1;
   height: 4px;
   border-radius: 2px;
-  background: rgb(17 17 17 / 0.14);
+  background: var(--surface-press);
   transition: background-color 200ms ease;
 }
 .tick.is-on { background: var(--ink); }
@@ -531,7 +571,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   min-height: 52px;
   font-size: 17px;
   background: var(--card-ink, var(--ink));
-  color: var(--card-bg, #fff);
+  color: var(--card-bg, var(--volt));
 }
 .card-open .btn-icon { width: 20px; height: 20px; }
 
@@ -578,11 +618,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   }
 }
 
-.amount.tick-up   { animation: nudge-up 180ms var(--ease-out); }
-.amount.tick-down { animation: nudge-down 180ms var(--ease-out); }
-@keyframes nudge-up   { from { transform: translateY(10px); opacity: 0.4; } }
-@keyframes nudge-down { from { transform: translateY(-10px); opacity: 0.4; } }
-
 /* View changes slide along the flow: forward from the right, back from the left. */
 ::view-transition-old(root) { animation: vt-out 280ms var(--ease-drawer) both; }
 ::view-transition-new(root) { animation: vt-in 280ms var(--ease-drawer) both; }
@@ -594,7 +629,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .deck.is-entering .card-inner { animation-name: fade; }
   .card { animation: none; }
   .card.is-seen .meter-fill { transition: none; }
-  .amount.tick-up, .amount.tick-down { animation: none; }
   ::view-transition-old(root), ::view-transition-new(root) { animation-name: fade; animation-duration: 160ms; }
   ::view-transition-old(root) { animation-direction: reverse; }
 }
