@@ -65,7 +65,8 @@ Para el futuro paso de *mood*. Spotify ya no da energía, tempo ni *valence* a a
 - **La clave no se publica**: solo se lee del entorno, nunca va a un archivo ni a git. Si el contenedor es nuevo, pedir al usuario que la guarde en el entorno como `LASTFM_API_KEY` (no en el chat).
 - Se guardan en `data/catalog.json` (`tags` en cada disco, `artistTags` por artista) y en `public/data/albums.json` (`tags` y `artistTags` de cada disco, pares `[nombre, peso]`, peso 0–100 relativo a la más votada, hasta 10). Lista vacía: Last.fm no tiene.
 - Una edición ("Night Visions (Deluxe)") se pregunta también por su nombre simple y se queda con la que tiene más etiquetas.
-- La app todavía no las usa. En el Excel salen en la pestaña Discos.
+- Las usa la tarjeta (barras). En el Excel salen en la pestaña Discos.
+- **2026-10-27:** etiquetados también los 174 discos y 60 artistas que entraron al terminar de medir The Magic Bus. De 964 discos en la app: 638 con etiquetas propias, 299 solo del artista, 27 sin ninguna (casi todos recopilatorios de "Various Artists" y bandas sonoras).
 
 ## Tarjeta de disco (aprobada por el usuario, 2026-10-26)
 El usuario eligió la propuesta 1 («Dos cifras») de tres, con cambios: sin ritmo ni "Justo lo que corres / Sobran / Faltan", más etiquetas y las etiquetas como barras según sus puntos. Después: **barra continua, sin puntos y sin ningún valor** ("no hace falta saber tanto detalle"). Aprobada ("Perfecto"); pasó la revisión final de Impeccable y está en el PR #13.
