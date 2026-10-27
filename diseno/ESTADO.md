@@ -8,7 +8,7 @@ Hill-B: app web móvil (PWA estática) que responde "¿qué disco entero me conv
 ## Dónde está
 - Publicada en **https://hill-b.onrender.com** (Render, sitio estático desde `main`, `render.yaml` → `public/`). Cada merge a `main` redespliega.
 - `main` es la rama por defecto. **Claude Code solo cambia `main` por PR** (regla en `CLAUDE.md` + hook `.claude/hooks/no-direct-main.sh`). No hay protección en GitHub y el usuario no la quiere.
-- PR #1 (la app) mergeado. PR #2 (hook + este archivo) mergeado. PR #3 (datos de The Magic Bus + catálogo con originales) abierto. PR #13 (etiquetas de Last.fm, tarjeta nueva, app en inglés) mergeado.
+- PR #1 (la app) mergeado. PR #2 (hook + este archivo) mergeado. PR #3 (600 discos) y PR #5 (catálogo con originales) mergeados. PR #13 (etiquetas de Last.fm, tarjeta nueva, app en inglés) mergeado.
 
 ## Decisiones del usuario (no reabrir)
 - Sin inicio de sesión en la app y sin página de carga. La app solo lee `public/data/albums.json`; Spotify solo sirve para cargar datos y para abrir un disco (deslizando su tarjeta hacia arriba).
@@ -52,16 +52,11 @@ Lo hace `node tools/sync.mjs read`; las reglas están en `tools/catalog.mjs` y s
 - **Sin original encontrado**: el usuario lo revisa a mano en el Excel. Si encuentra el disco, Claude lo pone en `data/manual.json` (`{"originals": {"<ID canción>": "<ID o enlace del disco>"}}`) y corre `read`; si no dice nada, se ignora.
 - **La app recomienda una sola versión**: una edición y su original (mismo disco, por ejemplo *Night Visions* y *Night Visions (Deluxe)*) comparten `group` y solo sale una de las dos. Un en vivo o un recopilatorio es otro disco y puede salir junto al original.
 
-## Pendiente: bloqueado por la cuota de Spotify (retomar el 2026-10-27)
-El usuario dirá "sigue" en la misma conversación. Spotify devolvió 429 con `Retry-After` ≈ 24 h el 2026-10-26: primero en `/albums`, `/tracks` y `/artists` por ID, y después también en `/search`. `/me` y leer la playlist siguen funcionando.
-
-Estado en `data/catalog.json`: 1596 canciones, 1204 discos (112 son originales encontrados). En la app: 568 discos medidos.
-- **196 canciones por buscar su original** (27 de ellas son ediciones especiales).
-- **334 discos por medir** (112 son originales encontrados).
-
-Con un solo `node tools/sync.mjs read` se busca, se mide y se regenera `albums.json` (reanuda si se vuelve a cortar). Después: `python3 tools/excel.py` → mandar el Excel al usuario, commit y PR a `main` (o al PR #3 si sigue abierto).
-
-Si el contenedor es nuevo, la sesión de Spotify (`.sync/`, fuera de git) se perdió: `node tools/sync.mjs login`, el usuario abre el enlace y pega la URL de vuelta, y luego `node tools/sync.mjs read "<URL>"`. La Redirect URI ya está en el dashboard.
+## Catálogo completo (2026-10-27)
+Lectura terminada sin cortes de cuota: en `data/catalog.json` hay 1597 canciones y 1266 discos (173 son originales encontrados); en la app, **964 discos medidos**. No queda nada por buscar ni por medir.
+- Álbum original: 987 canciones directas, 338 con el original encontrado en otro disco y 43 de ediciones que Spotify solo tiene en esa edición. Sin original: 169 sencillos que no están en ningún álbum, 30 recopilatorios donde la canción salió por primera vez y 30 sin encontrar. Estos los revisa el usuario en el Excel (ver § Flujo).
+- 86 discos nuevos no tienen etiquetas de Last.fm porque `LASTFM_API_KEY` no estaba en el entorno: con la clave, `node tools/sync.mjs tags`.
+- Para releer más adelante: `node tools/sync.mjs read` (solo trabaja con lo nuevo). Si el contenedor es nuevo, la sesión de Spotify (`.sync/`, fuera de git) se perdió: `node tools/sync.mjs login`, el usuario abre el enlace y pega la URL de vuelta, y luego `node tools/sync.mjs read "<URL>"`. La Redirect URI ya está en el dashboard.
 
 ## Etiquetas de Last.fm (decidido por el usuario, 2026-10-26)
 Para el futuro paso de *mood*. Spotify ya no da energía, tempo ni *valence* a apps nuevas; Last.fm sí da etiquetas de la gente (género, época, lugar y algo de mood).
