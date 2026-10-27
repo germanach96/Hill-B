@@ -1,4 +1,5 @@
-/* Hill-B. Nike Run Club register on the brand's own colour: a volt ground, near-black ink, no white. */
+/* Hill-B. Nike Run Club register on the brand's own colour: a volt ground, near-black ink, no white;
+   at night the two trade places. */
 
 @font-face {
   font-family: "Archivo";
@@ -27,12 +28,18 @@
 
 :root {
   --volt: #d7ff1f;         /* the brand colour, the logo's yellow */
-  --ink: #111111;          /* the one contrast colour: text, controls, the Start button */
+  --black: #111111;        /* the brand's near-black */
+  /* The page and its one contrast colour. By day the ground is volt and the ink black; at night
+     (the phone's clock, set in index.html) the pair swaps places. Everything else is ink mixed over ground. */
   --ground: var(--volt);
-  --surface: #c5ea1e;      /* ink at 9% over volt: tracks, skeletons */
-  --surface-press: #b7d71d;/* ink at 16% over volt */
-  --muted: #485415;        /* ink at 72% over volt, 7.1:1: secondary text stays in the ink family */
+  --ink: var(--black);     /* text, controls, the Start button */
+  --surface: #c5ea1e;      /* ink at 9% over ground: tracks, skeletons */
+  --surface-press: #b7d71d;/* ink at 16% over ground */
+  --muted: #485415;        /* ink at 72% over ground, 7.1:1: secondary text stays in the ink family */
+  --ink-hover: #262626;
+  --ink-press: #2a2a2a;
   --page: var(--ground);
+  color-scheme: light;
 
   --font: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
   --display-stretch: 62%;
@@ -44,6 +51,18 @@
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* Night: black ground, volt ink. The same mixes, the other way round (8.7:1 for muted). */
+:root[data-theme="night"] {
+  --ground: var(--black);
+  --ink: var(--volt);
+  --surface: #232612;
+  --surface-press: #313713;
+  --muted: #a0bc1b;
+  --ink-hover: #c3e71e;    /* volt at 90% over black */
+  --ink-press: #bbde1d;    /* volt at 86% over black */
+  color-scheme: dark;
 }
 
 *,
@@ -72,7 +91,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-::selection { background: var(--ink); color: var(--volt); }
+::selection { background: var(--ink); color: var(--ground); }
 input { caret-color: var(--ink); }
 :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; border-radius: 12px; }
 
@@ -125,7 +144,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   animation: splash-failsafe 0s 6s forwards;
 }
 @keyframes splash-failsafe { to { visibility: hidden; pointer-events: none; } }
-.splash-ground { position: absolute; inset: 0; background: var(--volt); }
+.splash-ground { position: absolute; inset: 0; background: var(--ground); }
 .brand.splash-brand {
   position: absolute;
   left: 0;
@@ -137,7 +156,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 .splash-brand .brand-mark { overflow: visible; }
 .splash-word { display: inline-block; }
-.splash-cover { fill: var(--volt); }
+.splash-cover { fill: var(--ground); }
 .splash-route {
   fill: none;
   stroke: var(--ink);
@@ -230,17 +249,17 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .btn-start {
   min-height: 64px;
   background: var(--ink);
-  color: var(--volt);
+  color: var(--ground);
   font-size: 2rem;
   letter-spacing: 0.02em;
 }
-.btn-start:active { background: #2a2a2a; }
-.btn-ink { background: var(--ink); color: var(--volt); }
-.btn-ink:active { background: #2a2a2a; }
+.btn-start:active { background: var(--ink-press); }
+.btn-ink { background: var(--ink); color: var(--ground); }
+.btn-ink:active { background: var(--ink-press); }
 
 @media (hover: hover) and (pointer: fine) {
-  .btn-start:hover { background: #262626; }
-  .btn-ink:hover { background: #262626; }
+  .btn-start:hover { background: var(--ink-hover); }
+  .btn-ink:hover { background: var(--ink-hover); }
 }
 
 /* ---------- Session ---------- */
@@ -272,7 +291,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   color: var(--ink);
   transition: color 200ms ease;
 }
-.segment[aria-checked="true"] { color: var(--volt); }
+.segment[aria-checked="true"] { color: var(--ground); }
 
 /* The wheels: one value at a time, huge, straight on the ground. A swipe rolls the next value in
    through an invisible window; the values around it are never shown. The wheel reaches past the
@@ -389,7 +408,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   height: 100%;
   scroll-snap-align: center;
   font-size: 3rem;
-  color: var(--volt);
+  color: var(--ground);
 }
 
 .library {
@@ -498,7 +517,7 @@ html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden
   pointer-events: none;
 }
 .pull svg { width: 22px; height: 22px; }
-.pull.is-armed { background: var(--ink); color: var(--volt); }
+.pull.is-armed { background: var(--ink); color: var(--ground); }
 .pull-back { left: 8px; top: calc(50% - 24px); }
 .pull-more { right: 8px; top: calc(50% - 24px); }
 .pull-open { left: calc(50% - 24px); bottom: calc(env(safe-area-inset-bottom, 0px) + 6px); }
@@ -664,7 +683,7 @@ html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden
   overflow: visible;
   border-radius: 999px;
   background: var(--ink);
-  color: var(--volt);
+  color: var(--ground);
   font-size: 16px;
   font-weight: 700;
   white-space: nowrap;
@@ -711,6 +730,17 @@ html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden
 ::view-transition-new(root) { animation: vt-in 440ms var(--ease-drawer) 60ms both; }
 @keyframes vt-out { to   { opacity: 0; filter: blur(3px); transform: translateX(calc(var(--dir, 1) * -8%)) scale(0.985); } }
 @keyframes vt-in  { from { opacity: 0; transform: translateX(calc(var(--dir, 1) * 10%)); } }
+
+/* Dusk and dawn with the app open: the other colours fade in over the whole screen at once, in
+   place, slower than a view change because it happens twice a day at most. Transitions are held
+   while the colours swap, so nothing underneath arrives on its own clock. */
+html.is-theming *,
+html.is-theming *::before,
+html.is-theming *::after { transition: none !important; }
+html.is-theming::view-transition-old(root) { animation: none; }
+html.is-theming::view-transition-new(root) { animation: theme-in 700ms ease both; }
+html.is-theming::view-transition-group(*) { animation-duration: 700ms; }
+@keyframes theme-in { from { opacity: 0; } }
 
 /* Every motion plays, whatever the phone's "reduce motion" setting: the owner asked for it (on
    their iPhone the setting turned the glides into jumps and skipped the opening). */

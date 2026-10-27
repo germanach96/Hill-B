@@ -10,6 +10,13 @@ colors:
   surface: "#c5ea1e"
   surface-press: "#b7d71d"
   muted: "#485415"
+  night-ground: "#111111"
+  night-ink: "#d7ff1f"
+  night-ink-hover: "#c3e71e"
+  night-ink-press: "#bbde1d"
+  night-surface: "#232612"
+  night-surface-press: "#313713"
+  night-muted: "#a0bc1b"
 typography:
   figures:
     fontFamily: "Hill-B Figures, Archivo, system-ui, sans-serif"
@@ -193,7 +200,7 @@ La profundidad no existe: superficies planas que se separan del voltio por un pa
 Rechazos confirmados por el propietario y por la dirección: no parecerse a Spotify (suelo oscuro, rejilla de portadas pequeñas, acento verde) ni a un panel de fitness (tarjetas de estadísticas, anillos).
 
 **Key Characteristics:**
-- Solo modo claro (`color-scheme: light`); el suelo voltio es la identidad, en toda la app.
+- De día, suelo voltio y tinta negra; de noche (19:00–6:59 en el reloj del teléfono) el par se invierte: suelo negro y tinta voltio, en toda la app, desde la apertura. El usuario no elige: lo decide la hora (decisión del propietario, 2026-10-27).
 - Dos colores: voltio y tinta. Sin blanco; los tonos secundarios son tinta mezclada sobre voltio, no grises.
 - Tres voces: Archivo a ancho normal para el texto; Archivo estrecha, negra y en mayúsculas para START, títulos y la duración del disco; y Hill-B Figures (Roboto Flex fijada estrecha e inclinada) para las cifras de las ruedas, del ritmo y de los km de cada disco.
 - Ruedas de selección con scroll y snap nativos en lugar de botones − / + o atajos.
@@ -215,6 +222,12 @@ Paleta de dos colores: **el voltio es el color principal de Hill-B y, con el neg
 - **Superficie pulsada** (surface-press): tinta al 16% sobre voltio. Respuesta al pulsar o pasar por encima de un control de superficie; bloques del esqueleto; pista de las barras de posición.
 - **Tinta de apoyo** (muted): tinta al 72% sobre voltio. Texto secundario: unidad bajo las ruedas, "min/km", total de carrera, segunda línea de los paneles de estado, avisos de biblioteca (sin discos, error). 7.1:1 sobre voltio, 5.9:1 sobre superficie.
 
+### Noche
+Decisión del propietario (2026-10-27): de 19:00 a 6:59, según el reloj del teléfono, el voltio y el negro cambian de sitio en toda la app, desde la apertura hasta las tarjetas. No hay interruptor ni se atiende a la preferencia oscura del sistema.
+- Los tokens son de papel, no de color: `--ground` (suelo) y `--ink` (contraste) valen voltio y negro de día y al revés de noche (`:root[data-theme="night"]`); `--volt` y `--black` son los dos colores fijos de la marca. Los tonos secundarios siguen siendo tinta mezclada sobre suelo, ahora voltio sobre negro: superficie `#232612` (9%), superficie pulsada `#313713` (16%), tinta de apoyo `#a0bc1b` (72%, 8.7:1 sobre negro), ink-hover `#c3e71e` y ink-press `#bbde1d` (voltio al 90% y 86%).
+- Un `<script>` en el `<head>` decide el tema antes del primer fotograma (también `theme-color` y `color-scheme`), así la apertura ya sale negra. Con la app abierta, `app.js` mira la hora cada minuto: si cambia mientras se ve, los colores nuevos entran con un fundido de 700ms en su sitio (View Transition), nunca bajo un dedo; al volver del segundo plano ya están puestos.
+- Las tarjetas de disco no cambian: su color sale de la portada y su tinta sigue siendo negro o voltio, la de más contraste.
+
 ### Color de portada (dinámico)
 Cada tarjeta de disco recibe `--card-bg` y `--card-ink` calculados de su portada: se agrupan los píxeles en doce familias de tono más grises, gana la familia con más área viva, y su color se aleja de la luminosidad de la portada (−0.10 si es clara, +0.12 si es oscura), limitado a luminosidad HSL 0.36–0.70 y saturación ≤ 0.90. La tinta de la tarjeta es `#111111` o el voltio `#d7ff1f`, la de mayor contraste; nunca blanco. Sin muestra (portada sin CORS), la tarjeta queda en superficie con tinta.
 
@@ -227,7 +240,7 @@ Valores fuera de la paleta, intencionados: el `#000` dentro de la `mask-image` d
 
 **The Cover Field Rule.** El color de una tarjeta sale de su propia portada, nunca de una paleta inventada; la página que la rodea sigue en voltio.
 
-**The Page Tone Rule.** `--page` es el color de la vista y lo comparten `html`, `body`, el dock inferior y `theme-color`, para que el contenido pase bajo el dock sin corte. Hoy vale voltio en todas las vistas.
+**The Page Tone Rule.** `--page` es el color de la vista y lo comparten `html`, `body`, el dock inferior y `theme-color`, para que el contenido pase bajo el dock sin corte. Vale el suelo en todas las vistas: voltio de día, negro de noche.
 
 ## Typography
 
@@ -380,7 +393,7 @@ La réplica del logo se construye grande y solo se encoge (siempre nítida). Un 
 ### Don't:
 - **Don't** usar blanco: ni suelo, ni texto, ni tinta de tarjeta.
 - **Don't** hacer tonos secundarios con grises; se mezcla tinta sobre voltio.
-- **Don't** usar suelo oscuro, rejilla de portadas pequeñas ni acento verde: no debe parecer Spotify.
+- **Don't** usar rejilla de portadas pequeñas ni acento verde, ni un suelo oscuro de día: no debe parecer Spotify. El suelo negro solo existe de noche y siempre con tinta voltio.
 - **Don't** usar tarjetas de estadísticas ni anillos de progreso de panel de fitness.
 - **Don't** añadir sombras ni bordes a superficies o controles.
 - **Don't** volver a botones − / + ni a atajos de sesión: el valor se elige girando la rueda.
