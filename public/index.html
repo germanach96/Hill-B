@@ -7,6 +7,19 @@
   <meta name="description" content="The whole album that lasts your whole run, picked from your own playlist.">
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#d7ff1f">
+  <script>
+    // Day or night by the phone's own clock: volt ground from 7:00 to 18:59, black ground the rest.
+    // Set before the first frame, so the opening already wears it; app.js keeps it in step after.
+    window.hillbTheme = function (date) {
+      var h = (date || new Date()).getHours();
+      return h >= 7 && h < 19 ? 'day' : 'night';
+    };
+    document.documentElement.dataset.theme = hillbTheme();
+    if (document.documentElement.dataset.theme === 'night') {
+      document.querySelector('meta[name="theme-color"]').content = '#111111';
+      document.querySelector('meta[name="color-scheme"]').content = 'dark';
+    }
+  </script>
   <link rel="manifest" href="/manifest.webmanifest">
   <link rel="icon" href="/icons/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">

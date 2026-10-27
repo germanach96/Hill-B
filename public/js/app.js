@@ -57,6 +57,42 @@ function setThemeColor() {
   document.querySelector('meta[name="theme-color"]').setAttribute('content', value);
 }
 
+/* ---------- Day and night ---------- */
+
+// index.html picks the theme from the clock before the first frame; this keeps it in step while
+// the app stays open (checked every minute) and when it comes back from the background.
+const touches = new Set();
+addEventListener('pointerdown', (e) => touches.add(e.pointerId), true);
+for (const type of ['pointerup', 'pointercancel']) addEventListener(type, (e) => touches.delete(e.pointerId), true);
+
+function keepTheme({ fade = true } = {}) {
+  const next = window.hillbTheme?.();
+  if (!next || root.dataset.theme === next) return;
+  const visible = document.visibilityState === 'visible';
+  // The fade holds the screen still for a moment, so it never starts under a finger: the next check does it.
+  if (fade && visible && touches.size) return;
+  const apply = () => {
+    root.dataset.theme = next;
+    document.querySelector('meta[name="color-scheme"]').setAttribute('content', next === 'night' ? 'dark' : 'light');
+    setThemeColor();
+  };
+  root.classList.add('is-theming');
+  const settle = () => requestAnimationFrame(() => requestAnimationFrame(() => root.classList.remove('is-theming')));
+  // While it is watched (on screen, past the opening), the new colours fade in. Coming back from the
+  // background they are simply there: the old ones are not shown first.
+  if (fade && visible && document.startViewTransition && !$('splash')) {
+    document.startViewTransition(apply).finished.finally(settle);
+  } else {
+    apply();
+    settle();
+  }
+}
+setInterval(keepTheme, 60_000);
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) touches.clear(); // a finger lifted in the background never reports it
+  keepTheme({ fade: false });
+});
+
 /* ---------- Session ---------- */
 
 function formatKm(km) {

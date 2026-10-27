@@ -16,8 +16,12 @@ const BASE = `http://127.0.0.1:${PORT}`;
 const PHONE = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true };
 const DESKTOP = { viewport: { width: 1440, height: 900 } };
 
-async function newPage(browser, device, { scheme = 'light', reduced = 'no-preference', empty = false } = {}) {
+// The theme follows the phone's clock (day 7:00–18:59), so every page runs at a set hour: noon unless asked.
+const at = (hour, minute = 0) => new Date(2026, 9, 27, hour, minute);
+
+async function newPage(browser, device, { scheme = 'light', reduced = 'no-preference', empty = false, hour = 12 } = {}) {
   const context = await browser.newContext({ ...device, colorScheme: scheme, reducedMotion: reduced });
+  await context.clock.setFixedTime(at(hour));
   const stats = await mockData(context, { covers: COVERS, empty });
   const spotifyCalls = [];
   context.on('request', (r) => { if (/spotify\.com\/(v1|api|authorize)/.test(r.url())) spotifyCalls.push(r.url()); });
@@ -289,7 +293,54 @@ async function run() {
       await context.close();
     }
 
-    // 5. Tabular figures really change Archivo's digit widths.
+    // 5. Night: the same app on a black ground with volt ink, from the opening to the cards.
+    {
+      const { page, errors, context } = await newPage(browser, PHONE, { hour: 22 });
+      await page.goto(BASE);
+      await page.waitForFunction(() => document.querySelector('.splash-dot'));
+      await page.waitForTimeout(1200); // mid-run: the dot climbing the hills on black
+      await page.screenshot({ path: `${OUT}/mobile-night-opening.png` });
+      const ground = await page.evaluate(() => getComputedStyle(document.querySelector('.splash-ground')).backgroundColor);
+      assert.equal(ground, 'rgb(17, 17, 17)', 'the opening is black at night');
+      await skipSplash(page);
+      await page.locator('#find:not([disabled])').waitFor();
+      await settle(page);
+      const look = await page.evaluate(() => ({
+        theme: document.documentElement.dataset.theme,
+        page: getComputedStyle(document.body).backgroundColor,
+        text: getComputedStyle(document.body).color,
+        start: getComputedStyle(document.getElementById('find')).backgroundColor,
+        bar: document.querySelector('meta[name="theme-color"]').content,
+      }));
+      assert.deepEqual(look, { theme: 'night', page: 'rgb(17, 17, 17)', text: 'rgb(215, 255, 31)', start: 'rgb(215, 255, 31)', bar: '#111111' });
+      await page.screenshot({ path: `${OUT}/mobile-night.png` });
+      await page.getByRole('button', { name: 'Start' }).click();
+      await page.locator('.card').first().waitFor();
+      await page.waitForTimeout(1200);
+      await page.screenshot({ path: `${OUT}/mobile-night-results.png` });
+
+      // Morning comes while the app sits in the background: back on screen, it is day.
+      await page.clock.setFixedTime(at(7));
+      await page.evaluate(() => document.dispatchEvent(new Event('visibilitychange')));
+      await page.waitForTimeout(100);
+      assert.equal(await page.evaluate(() => document.documentElement.dataset.theme), 'day');
+      assert.equal(await page.evaluate(() => getComputedStyle(document.body).backgroundColor), 'rgb(215, 255, 31)');
+      assert.equal(await page.evaluate(() => document.querySelector('meta[name="theme-color"]').content), '#d7ff1f');
+      assert.deepEqual(errors, []);
+      await context.close();
+    }
+    {
+      const { page, errors, context } = await newPage(browser, DESKTOP, { hour: 3 });
+      await page.goto(BASE);
+      await skipSplash(page);
+      await page.locator('#find:not([disabled])').waitFor();
+      await settle(page);
+      await page.screenshot({ path: `${OUT}/desktop-night.png` });
+      assert.deepEqual(errors, []);
+      await context.close();
+    }
+
+    // 6. Tabular figures really change Archivo's digit widths.
     {
       const { page, context } = await newPage(browser, DESKTOP, { login: false });
       await page.goto(BASE);
