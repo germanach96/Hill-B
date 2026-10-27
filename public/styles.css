@@ -516,23 +516,29 @@ html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden
   transition: background-color 300ms ease, color 300ms ease;
 }
 
-/* Four groups (cover, name, run, songs) share the card's spare height evenly, so a tall phone
-   never shows one hollow band in the middle. */
+/* Cover, name, figures and tags stack from the top in the same place on every card; the tags take
+   whatever height is left. */
 .card-inner {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   height: 100%;
   padding: 16px 16px 18px;
 }
 
-/* The cover is as wide as the card and stays square; on a short phone it gives up height (and
-   so width) instead of pushing the card past the screen. */
+/* Every cover on a phone is the same size: as wide as the card, or smaller only when the card is
+   too short for it, and that size comes from the card's size alone, never from its content. It
+   keeps room for a two-line title, the artist, the figures and one row of tags (128px of padding,
+   margins, artist line and tag row, plus the two type sizes), so a long title or a long album never
+   shrinks it: the tags give way instead. */
+.card {
+  --title-fs: clamp(2rem, 5.5cqh, 3rem);
+  --fig-base: max(2.5rem, min(13cqh, calc((100cqi - 46px) / 4.3)));
+  --cover: max(72px, min(100cqi - 32px, 100cqh - 128px - 1.9 * var(--title-fs) - 0.92 * var(--fig-base)));
+}
 .cover-box {
-  flex: 0 1 auto;
-  width: 100%;
-  aspect-ratio: 1;
-  min-height: 72px;
+  flex: none;
+  width: var(--cover);
+  height: var(--cover);
   container-type: size;
 }
 .cover {
@@ -552,7 +558,7 @@ html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden
 .card-head { margin-top: 14px; }
 .card-title {
   margin: 0;
-  font-size: clamp(2rem, 5.5cqh, 3rem); /* grows with a tall card, like the running time */
+  font-size: var(--title-fs); /* grows with a tall card, like the running time */
   line-height: 0.95;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -574,7 +580,7 @@ html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden
    pace (figure voice, the slanted stopwatch numbers of the wheels: they are the runner's numbers),
    side by side and the same size, as big as half the card allows: "45:56" is about 2.15 em wide in
    the display face and "10,4 KM" about 2.2 em in the figures, "1:02:03" about 2.85 em. */
-.card { --fig: max(2.5rem, min(13cqh, calc((100cqi - 46px) / 4.3))); }
+.card { --fig: var(--fig-base); }
 .card.is-long { --fig: max(2.25rem, min(13cqh, calc((100cqi - 46px) / 5.4))); }
 .card-run {
   display: grid;
@@ -605,16 +611,22 @@ html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden
 }
 
 /* Tags: one row each, the name and a bar as long as the tag is strong against the album's strongest
-   one. No numbers. They keep their room: on a short phone the cover gives up height. */
+   one. No numbers. They take the height left under the figures and show as many whole rows as fit:
+   the list wraps into a second column pushed out of sight, so a row is never cut in half. */
 .card-tags {
-  flex: none;
-  display: grid;
-  gap: 8px;
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  flex-flow: column wrap;
+  align-content: flex-start;
+  gap: 8px 64px;
+  overflow: hidden;
   list-style: none;
   margin: 16px 0 0;
   padding: 0;
 }
 .card-tags li {
+  width: 100%;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
   align-items: center;
@@ -645,10 +657,8 @@ html[data-view="results"] .app { height: 100dvh; min-height: 0; overflow: hidden
 /* At 6% the bar is a full 10px round end, never a sliver; near 1 it reaches the end of the track. */
 .card.is-seen .tag-fill { clip-path: inset(0 calc((1 - var(--level, 1)) * (100% - 10px)) 0 0 round 6px); }
 
-/* Short screens (a small phone, landscape) give up tags before the cover gets too small. */
-@container card (max-height: 600px) { .card-tags li:nth-child(n+6) { display: none; } }
-@container card (max-height: 500px) { .card-tags li:nth-child(n+4) { display: none; } }
-@container card (max-height: 420px) { .card-tags, .card-meta { display: none; } .card-title { -webkit-line-clamp: 1; } }
+/* A very short card (landscape) keeps a one-line title and no artist line. */
+@container card (max-height: 420px) { .card-meta { display: none; } .card-title { -webkit-line-clamp: 1; } }
 
 /* The swipes as buttons, for keyboards: invisible until focused, then an ink pill over the deck. */
 .focus-show:focus-visible {
